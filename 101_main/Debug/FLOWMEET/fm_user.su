@@ -1,0 +1,10 @@
+../FLOWMEET/fm_user.c:80:9:FM_USER_MenuNav	24	static
+../FLOWMEET/fm_user.c:296:6:MenuUserPowerOnEntry	32	static
+../FLOWMEET/fm_user.c:318:6:MenuUserVersionEntry	16	static
+../FLOWMEET/fm_user.c:341:6:MenuUserTtlRateEntry	40	static
+../FLOWMEET/fm_user.c:376:6:MenuUserTtlRateRefresh	24	static
+../FLOWMEET/fm_user.c:419:6:MenuUserAcmRateEntry	40	static
+../FLOWMEET/fm_user.c:453:6:MenuUserAcmRateRefresh	32	static
+../FLOWMEET/fm_user.c:506:6:MenuUserRateRefresh	32	static
+../FLOWMEET/fm_user.c:558:6:MenuUserClockEntry	32	static
+../FLOWMEET/fm_user.c:574:6:MenuUserClockRefresh	8	static

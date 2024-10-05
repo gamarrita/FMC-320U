@@ -1,0 +1,9 @@
+../Drivers/CMSIS/Include/core_cm33.h:3212:26:ITM_SendChar	4
+../libs/fm_debug.c:129:6:FM_DEBUG_ItmMsg	3
+../libs/fm_debug.c:150:6:FM_DEBUG_UartMsg	3
+../libs/fm_debug.c:183:6:FM_DEBUG_UartUint8	1
+../libs/fm_debug.c:194:6:FM_DEBUG_UartUint16	1
+../libs/fm_debug.c:206:6:FM_DEBUG_UartUint32	1
+../libs/fm_debug.c:213:6:FM_DEBUG_UartInt32	1
+../libs/fm_debug.c:224:6:FM_DEBUG_UartFloat	1
+../libs/fm_debug.c:232:6:FM_DEUBUG_LedError	1

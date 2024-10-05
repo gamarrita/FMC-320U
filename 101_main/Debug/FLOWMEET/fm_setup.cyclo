@@ -1,0 +1,12 @@
+../FLOWMEET/fm_setup.c:118:9:FM_SETUP_MenuNav	72
+../FLOWMEET/fm_setup.c:405:6:MenuSetupInitEntry	2
+../FLOWMEET/fm_setup.c:423:6:MenuSetupPasswordEntry	3
+../FLOWMEET/fm_setup.c:454:6:MenuSetupPasswordEnter	4
+../FLOWMEET/fm_setup.c:487:6:MenuSetupFactorCalEntry	2
+../FLOWMEET/fm_setup.c:521:8:MenuSetupFactorCalEdit	11
+../FLOWMEET/fm_setup.c:587:6:MenuSetupVolUnitEntry	2
+../FLOWMEET/fm_setup.c:609:6:MenuSetupVolUnitEdit	9
+../FLOWMEET/fm_setup.c:658:6:MenuSetupTimeUnitEntry	2
+../FLOWMEET/fm_setup.c:688:6:MenuSetupTimeUnitEdit	10
+../FLOWMEET/fm_setup.c:736:6:MenuSetupDateEntry	2
+../FLOWMEET/fm_setup.c:756:6:MenuSetupDateEdit	13
