@@ -8,7 +8,7 @@
  * Modificaciones: version inicial.
  *
  *
- * Version 01.01.01
+ * Version 01.01.02
  * Autor: Daniel H Sagarra
  * Fecha 23/10/2024
  * Modificaciones: arreglo de bug al editar fecha y hora
