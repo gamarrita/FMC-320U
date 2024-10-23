@@ -1,0 +1,2 @@
+../libs/fm_factory.c:105:13:FM_FACTORY_FirmwareVersionGet	1
+../libs/fm_factory.c:115:20:FM_FACTORY_TotalizerGet	6

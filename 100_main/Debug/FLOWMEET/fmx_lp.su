@@ -1,0 +1,5 @@
+../FLOWMEET/fmx_lp.c:90:6:FMX_LP_Setup	24	static
+../FLOWMEET/fmx_lp.c:113:6:FMX_LP_Enter	8	static
+../FLOWMEET/fmx_lp.c:132:6:FMX_LP_Exit	8	static
+../FLOWMEET/fmx_lp.c:144:7:FMX_LP_Adjust	24	static
+../FLOWMEET/fmx_lp.c:164:6:FMX_LP_Delay	24	static

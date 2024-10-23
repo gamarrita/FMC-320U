@@ -1,0 +1,103 @@
+/*
+ * @brief Programa para comprobar l consumo del computador de caudal.
+ *
+ *
+ * Autor: DHS
+ * Fecha: 4/10/2024
+ * Version: 1
+ * Modificaiones: Version inicial.
+ * Consumo promedio en ventana de 1 minuto 14.00uA
+ * Consumo maximo 14.07 uA
+ * Consumo minimo 13.95 uA
+ *
+ *
+ */
+
+// Includes.
+#include "fm_main.h"
+#include "main.h"
+
+// Typedef.
+typedef enum
+{
+  MODE_RUN, MODE_SLEEP, MODE_STOP_1, MODE_STOP_2, MODE_STOP_3, MODE_SHUTDOWN,
+} power_mode_t;
+
+// Const data.
+
+// Defines.
+
+// Debug.
+
+// Project variables, non-static, at least used in other file.
+
+// External variables.
+
+// Global variables, statics.
+power_mode_t power_mode = MODE_RUN;
+
+// Private function prototypes.
+
+// Private function bodies.
+
+// Public function bodies.
+
+/*
+ * @brief   Loop infinito flowmeet.
+ * @Note    El programa princial se derarrolla en este modulo. No escribir codigo en archivos
+ *          generados automaticamente por los IDEs.
+ * @param   Ninguno.
+ * @retval  Ninguno.
+ *
+ */
+void FM_MAIN_Main()
+{
+  // Se resetea el PCF8553
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+  HAL_Delay(100);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+
+  for (;;)
+  {
+    switch (power_mode)
+    {
+    case MODE_RUN:
+      HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_SET);
+      HAL_Delay(100);
+      HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_RESET);
+      break;
+    case MODE_SLEEP:
+      HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_SET);
+      HAL_Delay(100);
+      HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_RESET);
+      break;
+    case MODE_STOP_1:
+      HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_SET);
+      HAL_PWREx_EnterSTOP1Mode(PWR_STOPENTRY_WFI);
+      HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_RESET);
+      break;
+    case MODE_STOP_2:
+      HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_SET);
+      HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
+      HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_RESET);
+      break;
+    case MODE_STOP_3:
+      HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_SET);
+      HAL_PWREx_EnterSTOP3Mode(PWR_STOPENTRY_WFI);
+      HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_RESET);
+      break;
+    case MODE_SHUTDOWN:
+      break;
+    default:
+      break;
+    }
+
+    HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
+
+  }
+}
+
+// Interrupts
+
+/*** end of file ***/
+

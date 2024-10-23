@@ -1,5 +1,0 @@
-../FLOWMEET/fmx_lp.c:90:6:FMX_LP_Setup	2
-../FLOWMEET/fmx_lp.c:110:6:FMX_LP_Enter	1
-../FLOWMEET/fmx_lp.c:129:6:FMX_LP_Exit	1
-../FLOWMEET/fmx_lp.c:141:7:FMX_LP_Adjust	1
-../FLOWMEET/fmx_lp.c:161:6:FMX_LP_Delay	2

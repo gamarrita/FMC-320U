@@ -1,0 +1,17 @@
+16:51:57 **** Incremental Build of configuration Debug for project 103_lptim3_capture_lp ****
+make -j12 all 
+arm-none-eabi-gcc "../FLOWMEET/fm_main.c" -mcpu=cortex-m33 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32U575xx -c -I../Core/Inc -I"D:/githubs/FMC-320U/103_lptim3_capture_lp/FLOWMEET" -I../Drivers/STM32U5xx_HAL_Driver/Inc -I../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"FLOWMEET/fm_main.d" -MT"FLOWMEET/fm_main.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "FLOWMEET/fm_main.o"
+arm-none-eabi-gcc -o "103_lptim3_capture_lp.elf" @"objects.list"   -mcpu=cortex-m33 -T"D:\githubs\FMC-320U\103_lptim3_capture_lp\STM32U575VITXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="103_lptim3_capture_lp.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 103_lptim3_capture_lp.elf
+ 
+arm-none-eabi-size  103_lptim3_capture_lp.elf 
+arm-none-eabi-objdump -h -S 103_lptim3_capture_lp.elf  > "103_lptim3_capture_lp.list"
+   text	   data	    bss	    dec	    hex	filename
+  52274	    468	   2292	  55034	   d6fa	103_lptim3_capture_lp.elf
+Finished building: default.size.stdout
+ 
+Finished building: 103_lptim3_capture_lp.list
+ 
+
+16:51:59 Build Finished. 0 errors, 0 warnings. (took 1s.459ms)
+

@@ -1,7 +1,0 @@
-../FLOWMEET/fmx.c:97:6:FMX_Init	8
-../FLOWMEET/fmx.c:173:6:ThreadEntryMain	5
-../FLOWMEET/fmx.c:221:6:ThreadEntryPulseUpdate	1
-../FLOWMEET/fmx.c:283:6:HAL_GPIO_EXTI_Falling_Callback	11
-../FLOWMEET/fmx.c:362:6:HAL_GPIO_EXTI_Rising_Callback	1
-../FLOWMEET/fmx.c:382:6:TimerEntryKeyThreeSeconds	5
-../FLOWMEET/fmx.c:410:6:TimerEntryBackLightOff	1

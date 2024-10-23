@@ -1,0 +1,4 @@
+../Core/Src/lptim.c:31:6:MX_LPTIM3_Init	24	static
+../Core/Src/lptim.c:71:6:MX_LPTIM4_Init	8	static
+../Core/Src/lptim.c:103:6:HAL_LPTIM_MspInit	248	static
+../Core/Src/lptim.c:179:6:HAL_LPTIM_MspDeInit	16	static

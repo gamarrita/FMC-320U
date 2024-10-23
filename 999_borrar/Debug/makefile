@@ -60,8 +60,8 @@ all: main-build
 main-build: 999_borrar.elf secondary-outputs
 
 # Tool invocations
-999_borrar.elf 999_borrar.map: $(OBJS) $(USER_OBJS) D:\githubs\fmc_320u\999_borrar\STM32U575VITXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "999_borrar.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"D:\githubs\fmc_320u\999_borrar\STM32U575VITXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="999_borrar.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+999_borrar.elf 999_borrar.map: $(OBJS) $(USER_OBJS) D:\githubs\FMC-320U\999_borrar\STM32U575VITXQ_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "999_borrar.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"D:\githubs\FMC-320U\999_borrar\STM32U575VITXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="999_borrar.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

@@ -1,5 +1,0 @@
-../libs/fm_flash.c:94:19:FM_FLASH_ChipInfoRead	1
-../libs/fm_flash.c:104:6:FM_FLASH_ChipInfoWrite	1
-../libs/fm_flash.c:114:10:FM_FLASH_NewReset	1
-../libs/fm_flash.c:142:10:FM_FLASH_Write	6
-../libs/fm_flash.c:226:10:FM_FLASH_Read	2
