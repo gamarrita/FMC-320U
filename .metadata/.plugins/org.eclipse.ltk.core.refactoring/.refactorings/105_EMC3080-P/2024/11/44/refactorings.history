@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;105_EMC3080-P/FLOWMEET/fm_emc3080p.c&apos; to &apos;fm_emc3080.c&apos;" description="Rename resource &apos;fm_emc3080p.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="FLOWMEET/fm_emc3080p.c" name="fm_emc3080.c" stamp="1730500656513" updateReferences="true"/>&#x0A;&#x0A;</session>

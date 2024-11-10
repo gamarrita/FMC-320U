@@ -1,0 +1,106 @@
+/*
+ * @brief Proyecto para configurar el comportamiento del computador según si se han colocado o no jumper
+ *        de PD1 a PD4
+ *
+ *
+ * Autor: DHS
+ * Fecha: 9/11/2024
+ * Version: 1
+ * Modificaciones: Version inicial.
+ *
+ *
+ */
+
+// Includes.
+//#include "fm_debug.h"
+#include "fm_main.h"
+#include "main.h"
+
+// Typedef.
+
+// Const data.
+
+// Defines.
+
+// Debug.
+
+// Project variables, non-static, at least used in other file.
+
+// External variables.
+
+// Global variables, statics.
+
+// Private function prototypes.
+
+// Private function bodies.
+
+// Public function bodies.
+
+/*
+ * @brief   Loop infinito flowmeet.
+ * @Note    El programa princial se derarrolla en este modulo. No escribir codigo en archivos
+ *          generados automaticamente por los IDEs.
+ * @param   Ninguno.
+ * @retval  Ninguno.
+ *
+ */
+void FM_MAIN_Main()
+{
+  GPIO_InitTypeDef gpio_init = {0};
+  GPIO_PinState setup_led_enable;
+  GPIO_PinState setup_debug_enable;
+  GPIO_PinState setup_reset_enable;
+  GPIO_PinState setup_version;
+
+  HAL_Delay(100);
+
+  // Se resetea el PCF8553
+   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+   HAL_Delay(10);
+   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+
+  /*Configure GPIO pin : PtPin */
+  gpio_init.Pin = SETUP_LED_Pin;
+  gpio_init.Mode = GPIO_MODE_INPUT;
+  gpio_init.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(SETUP_LED_GPIO_Port, &gpio_init);
+
+  gpio_init.Pin = SETUP_DEBUG_Pin;
+  HAL_GPIO_Init(SETUP_DEBUG_GPIO_Port, &gpio_init);
+
+  gpio_init.Pin = SETUP_RESET_Pin;
+  HAL_GPIO_Init(SETUP_RESET_GPIO_Port, &gpio_init);
+
+  gpio_init.Pin = SETUP_VERSION_Pin;
+  HAL_GPIO_Init(SETUP_VERSION_GPIO_Port, &gpio_init);
+
+  for(;;)
+  {
+    gpio_init.Pull = GPIO_PULLUP;
+    HAL_GPIO_Init(SETUP_LED_GPIO_Port, &gpio_init);
+    HAL_GPIO_Init(SETUP_DEBUG_GPIO_Port, &gpio_init);
+    HAL_GPIO_Init(SETUP_RESET_GPIO_Port, &gpio_init);
+    HAL_GPIO_Init(SETUP_VERSION_GPIO_Port, &gpio_init);
+
+    setup_led_enable = HAL_GPIO_ReadPin(SETUP_LED_GPIO_Port, SETUP_LED_Pin);
+    setup_debug_enable = HAL_GPIO_ReadPin(SETUP_DEBUG_GPIO_Port, SETUP_DEBUG_Pin);
+    setup_reset_enable = HAL_GPIO_ReadPin(SETUP_RESET_GPIO_Port, SETUP_RESET_Pin);
+    setup_version = HAL_GPIO_ReadPin(SETUP_VERSION_GPIO_Port, SETUP_VERSION_Pin);
+
+    gpio_init.Pull = GPIO_PULLDOWN;
+    HAL_GPIO_Init(SETUP_LED_GPIO_Port, &gpio_init);
+    HAL_GPIO_Init(SETUP_DEBUG_GPIO_Port, &gpio_init);
+    HAL_GPIO_Init(SETUP_RESET_GPIO_Port, &gpio_init);
+    HAL_GPIO_Init(SETUP_VERSION_GPIO_Port, &gpio_init);
+
+    HAL_Delay(10);
+    HAL_GPIO_WritePin(LED_2_ACTIVE_GPIO_Port, LED_2_ACTIVE_Pin, GPIO_PIN_RESET);
+    HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
+    HAL_GPIO_WritePin(LED_2_ACTIVE_GPIO_Port, LED_2_ACTIVE_Pin, GPIO_PIN_SET);
+  }
+}
+
+// Interrupts
+
+/*** end of file ***/
+
