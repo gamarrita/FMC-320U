@@ -1,14 +1,7 @@
 /*
- *
- * Author: DHS
- * Version: 1
+ * Autor: Daniel H Sagarra
  * 
- * @brief 
- * 
- * Date: 29/06/2024
- * Name: DHS
- * - Version inicial
- * 
+ * Notas:
  * 
  */
 

@@ -22,7 +22,10 @@
  * RESET -> Power-On enabled.
  * Conected to pint PA6, just in case it is need in future.
  *
- * COPYRIGHT NOTE: (c) 2023 FLOWMEET. All right reserved.
+ * Version 1
+ * Autor: Daniel H Sagarra
+ * Fecha 10/11/2024
+ * Modificaciones: version inicial.
  *
  */
 

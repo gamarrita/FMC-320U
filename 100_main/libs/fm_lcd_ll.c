@@ -1,5 +1,4 @@
-/* @file lcd.c
- *
+/*
  * @brief Este es un driver intermedio entre fm_lcd.c y pcf8553.c. Entre las
  * responsabilidades de este modulo están:
  * Dar accesos a la escritura y borrado de cada caracter, punto y simbolo en el
@@ -10,6 +9,12 @@
  * Fila inferior de caracteres numericos, cantidad 7, son de 7 segmentos.
  * Fila inferior de puntos decimales cantidad 6.
  * Simbolos: Batteria, POWER, RATE, E, BATCH, ACM_1, TTL, /, ACM_2, H, S, D, M
+ *
+ * Version 2
+ * Autor: Daniel H Sagarra
+ * Fecha: 10/11/2024
+ * Modificaciones: version inicial.
+ *
  *
  */
 
@@ -66,7 +71,6 @@ fm_lcd_ll_blink_t blink_number[FM_LCD_LL_ROWS][FM_LCD_LL_COLS]; // Mapa de dígi
 fm_lcd_ll_blink_t blink_char_1 = 0;
 fm_lcd_ll_blink_t blink_char_2 = 0;
 fm_lcd_ll_blink_t blink_symbol[FM_LCD_LL_SYM_END];
-
 
 uint8_t g_col; // se usara para calcular que registro y posición del bit a modificar.
 uint8_t g_row; // se usara para calcular que registro y posición del bit a modificar.
@@ -228,8 +232,6 @@ void FM_LCD_LL_BlinkSymbol(fm_lcd_ll_sym_t symbol, fm_lcd_ll_blink_t blink)
   blink_symbol[symbol] = blink;
 }
 
-
-
 /*
  * @brief		apaga todos los segmentos de la pantalla.
  * @note		ninguno
@@ -323,7 +325,7 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
       c = ' ';  // Parpadeo encendido, se visualiza el cursor.
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
   }
@@ -566,7 +568,7 @@ void FM_LCD_LL_SymbolWrite(fm_lcd_ll_sym_t symbol, uint8_t state)
     state = 0;
     break;
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
 

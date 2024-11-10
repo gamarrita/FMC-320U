@@ -36,7 +36,10 @@ void MX_FLASH_Init(void)
   FLASH_BBAttributesTypeDef FLASH_BBSecInitStruct = {0};
 
   /* USER CODE BEGIN FLASH_Init 1 */
+  if(pOBInit.BootAddr)
+  {
 
+  }
   /* USER CODE END FLASH_Init 1 */
   if (HAL_FLASH_Unlock() != HAL_OK)
   {

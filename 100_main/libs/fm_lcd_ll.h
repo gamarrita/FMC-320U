@@ -1,16 +1,14 @@
-/* @file lcd_ll.h
+/*
+ * Autor: Daniel H Sagarra
  *
- * @brief Este es un driver de bajo nivel para le LCD, intermedio entre
- *  fm_lcd.h y pcf8553.h. Su responsabilidad es permitir la escritura y
- *  borrado de cada caracter y simbolo del LCD.
- *
+ * Notas:
  * LCD low level driver:
  * Fila HIGH de 8 caracteres
  * Fila LOW de 7 caracteres
  * Símbolos RATE, BACH, TTL, ACM, H, M, S, D....
  * Puntos para números decimales de cada fila (7 puntos en la fila HIGH, y
  * 6 en la fila LOW).
- * Tambien formatea los datos pasados como parámetros en funciones de fm_lcd.c
+ * También formatea los datos pasados como parámetros en funciones de fm_lcd.c
  * con la función lcd_format_number_in_line().
  *
  * Para que los parámetros pasados a las funciones sean genéricos y

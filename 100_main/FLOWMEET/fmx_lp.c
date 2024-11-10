@@ -9,20 +9,19 @@
  * App_ThreadX_LowPower_Enter(void);
  * App_ThreadX_LowPower_Exit(void);
  * App_ThreadX_LowPower_Timer_Adjust(void);
- * De las funciones anteriores es programador debe completar para implementar:
- * Programar un timer que despierte al MCU, ya que se pondra en bajo consumo.
+ * De las funciones anteriores el programador debe completar para implementar:
+ * Programar un timer que despierte al MCU, ya que se ira a en bajo consumo.
  * Enviar el MCU a bajo consumo.
- * Ejecutar el codigo necesario al salir del bajo consumo.
+ * Ejecutar el código necesario al salir del bajo consumo.
  * Corregir el sysclok del ThreadX ya que se detuvo en el bajo consumo.
  * necesario de:
  *
- * Como es practica recomendada, no se escribe codigo en los arhivos que el CubeMX hace
- * programacion automatica.
- * Las funciones anterires hace llamadas a sus funciones homonimas en este archivo
+ * Como es practica recomendada, no se escribe código en los archivos que toca CubeMX automatica.
+ * Las funciones anteriores hace llamadas a sus funciones homonimas en este archivo
  *
- * Se usa el LPTIM 1 como fuente de interrupcion, se usa el canal 1 en modo compare, el
- * datp cargadp en el registro de compere sera el tiempo que el MCU debe dormir para
- * equiparar el tiempo de idel.
+ * Se usa el LPTIM 1 como fuente de interrupción, se usa el canal 1 en modo compare, el
+ * dato cargado en el registro de compere sera el tiempo que el MCU debe dormir para
+ * equiparar el tiempo de inactividad (idle time RTOS).
  * Se usa  el contador del LPTIM para actualizar el sysclock del TheadX. Notar que si la
  * salida del bajo consumo se produce en el valor del registro compare, el conteo del
  * LPTIM!->CNT, tiempo que estuvo dormido coinciden, pero este no tiene que ser siempre el
@@ -32,7 +31,7 @@
  *
  * Versión 1
  * Autor: Daniel H Sagarra
- * Fecha: 08/09/2024
+ * Fecha: 10/11/2024
  * Modificaciones: version inicial.
  *
  */
@@ -100,7 +99,7 @@ void FMX_LP_Setup(ULONG count)
 
   if (HAL_LPTIM_OC_ConfigChannel(&hlptim1, &config, LPTIM_CHANNEL_1) != HAL_OK)
   {
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
   }
 }
 
@@ -116,11 +115,11 @@ void FMX_LP_Enter(void)
 
   HAL_LPTIM_PWM_Start_IT(&hlptim1, LPTIM_CHANNEL_1);
 
-  HAL_GPIO_WritePin(LED_2_ACTIVE_GPIO_Port, LED_2_ACTIVE_Pin, GPIO_PIN_RESET);
+  FM_DEBUG_LedActive(0);
   SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
   HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
   SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;
-  HAL_GPIO_WritePin(LED_2_ACTIVE_GPIO_Port, LED_2_ACTIVE_Pin, GPIO_PIN_SET); // agrega 6uA de consumo promedio.
+  FM_DEBUG_LedActive(1);
 }
 
 /*

@@ -1,0 +1,13 @@
+../Drivers/CMSIS/Include/core_cm33.h:3212:26:ITM_SendChar	16	static,ignoring_inline_asm
+../FLOWMEET/fm_debug.c:111:6:FM_DEBUG_Init	32	static
+../FLOWMEET/fm_debug.c:175:6:FM_DEBUG_ItmMsg	16	static
+../FLOWMEET/fm_debug.c:185:6:FM_DEBUG_LedError	16	static
+../FLOWMEET/fm_debug.c:198:6:FM_DEBUG_LedActive	16	static
+../FLOWMEET/fm_debug.c:210:6:FM_DEBUG_LedSginal	16	static
+../FLOWMEET/fm_debug.c:229:6:FM_DEBUG_UartMsg	24	static
+../FLOWMEET/fm_debug.c:260:6:FM_DEBUG_UartUint8	16	static
+../FLOWMEET/fm_debug.c:277:6:FM_DEBUG_UartUint16	16	static
+../FLOWMEET/fm_debug.c:294:6:FM_DEBUG_UartUint32	16	static
+../FLOWMEET/fm_debug.c:310:6:FM_DEBUG_UartInt32	16	static
+../FLOWMEET/fm_debug.c:327:6:FM_DEBUG_UartFloat	24	static
+../FLOWMEET/fm_debug.c:344:6:FM_DEUBUG_LedError	8	static

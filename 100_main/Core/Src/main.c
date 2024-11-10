@@ -112,7 +112,12 @@ int main(void)
   MX_FLASH_Init();
   MX_LPTIM3_Init();
   /* USER CODE BEGIN 2 */
+  // Se resetea el PCF8553
   FM_INIT_Init();
+
+  HAL_GPIO_WritePin(MCX_ENABLE_GPIO_Port, MCX_ENABLE_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(MCX_ENABLE_GPIO_Port, MCX_ENABLE_Pin, GPIO_PIN_RESET);
+
   /* USER CODE END 2 */
 
   MX_ThreadX_Init();
@@ -149,7 +154,7 @@ void SystemClock_Config(void)
   /** Configure LSE Drive Capability
   */
   HAL_PWR_EnableBkUpAccess();
-  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
+  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_HIGH);
 
   /** Initializes the CPU, AHB and APB buses clocks
   */
@@ -192,6 +197,14 @@ static void SystemPower_Config(void)
    * Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
    */
   HAL_PWREx_DisableUCPDDeadBattery();
+
+  /*
+   * Switch to SMPS regulator instead of LDO
+   */
+  if (HAL_PWREx_ConfigSupply(PWR_SMPS_SUPPLY) != HAL_OK)
+  {
+    Error_Handler();
+  }
 /* USER CODE BEGIN PWR */
 /* USER CODE END PWR */
 }

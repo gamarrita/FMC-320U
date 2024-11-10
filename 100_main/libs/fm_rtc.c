@@ -1,11 +1,11 @@
 /*
  * Author: DHS
  *
- * @brief plantilla codigo.
+ * @brief plantilla código.
  *
  * Versión 1
  * Autor: Daniel H Sagarra
- * Fecha: 08/09/2024
+ * Fecha: 10/11/2024
  * Modificaciones: version inicial
  * 
  */
@@ -169,17 +169,17 @@ void FM_RTC_Set(fm_rtc_set_t sel, uint8_t mode)
     }
     break;
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
 
   if (HAL_RTC_SetTime(&hrtc, &time, RTC_FORMAT_BIN) != HAL_OK)
   {
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
   }
   if (HAL_RTC_SetDate(&hrtc, &date, RTC_FORMAT_BIN) != HAL_OK)
   {
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
   }
 }
 
@@ -200,7 +200,7 @@ void FM_RTC_Init()
 
   if (HAL_RTC_SetTime(&hrtc, &time, RTC_FORMAT_BCD) != HAL_OK)
   {
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
   }
   date.WeekDay = RTC_WEEKDAY_WEDNESDAY;
   date.Month = ((uint8_t) 0x08U);
@@ -209,7 +209,7 @@ void FM_RTC_Init()
 
   if (HAL_RTC_SetDate(&hrtc, &date, RTC_FORMAT_BCD) != HAL_OK)
   {
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
   }
 
 }

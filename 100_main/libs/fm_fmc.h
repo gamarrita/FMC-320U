@@ -1,10 +1,8 @@
-/* @file fm_module.h
+/*
+ * Autor: Daniel H Sagarra
  *
- * @brief A description of the module’s purpose.
+ * Notas:
  *
- * @par
- *
- * COPYRIGHT NOTE: (c) 2023 FLOWMEET. All right reserved.
  */
 
 #ifndef FM_FMC_H_
@@ -129,7 +127,6 @@ uint32_t FM_FMC_FactorKSet(ufp3_t factor_k);
 double FM_FMC_FactorRateCalc(double factor_k, fm_fmc_time_unit_t unit);
 fmx_status_t FM_FMC_FactorRateSet(double factor_rate);
 
-
 fm_fmc_totalizer_t FM_FMC_GetEnviroment(void);
 void FM_FMC_Init(sensors_list_t);
 
@@ -141,22 +138,22 @@ void FM_FMC_RateFpInc();
 
 // Las siguientes funciones operan sobre (totalizer.)
 
-uint8_t             FM_FMC_TotalizerFpSelGet();
-void                FM_FMC_TotalizerFpInc();
-void                FM_FMC_TotalizerStrUnitGet(char **string, fm_fmc_vol_unit_t);
-void                FM_FMC_TotalizerTimeUnitSel(fm_fmc_time_unit_t sel);
-fm_fmc_time_unit_t  FM_FMC_TotalizerTimeUnitGet();
-fmx_status_t        FM_FMC_TotalizerTimeUnitSet(fm_fmc_time_unit_t time_unit);
-fm_fmc_vol_unit_t   FM_FMC_TotalizerVolUnitGet();
-uint32_t            FM_FMC_TotalizerVolUnitSet(fm_fmc_vol_unit_t);
+uint8_t FM_FMC_TotalizerFpSelGet();
+void FM_FMC_TotalizerFpInc();
+void FM_FMC_TotalizerStrUnitGet(char **string, fm_fmc_vol_unit_t);
+void FM_FMC_TotalizerTimeUnitSel(fm_fmc_time_unit_t sel);
+fm_fmc_time_unit_t FM_FMC_TotalizerTimeUnitGet();
+fmx_status_t FM_FMC_TotalizerTimeUnitSet(fm_fmc_time_unit_t time_unit);
+fm_fmc_vol_unit_t FM_FMC_TotalizerVolUnitGet();
+uint32_t FM_FMC_TotalizerVolUnitSet(fm_fmc_vol_unit_t);
 
 // Las siguientes funciones operan en totalizar.factor_cal
 
 // Las siguientes funciones operan en totalize.ttl
-ufp3_t      FM_FMC_TtlCalc();
-ufp3_t      FM_FMC_TtlGet();
-uint64_t    FM_FMC_TtlPulseGet();
-void        FM_FMC_TtlReset();
+ufp3_t FM_FMC_TtlCalc();
+ufp3_t FM_FMC_TtlGet();
+uint64_t FM_FMC_TtlPulseGet();
+void FM_FMC_TtlReset();
 
 // Las siguientes funciones operan sobre...
 

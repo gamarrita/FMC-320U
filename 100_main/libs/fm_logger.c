@@ -5,8 +5,10 @@
  * 
  * @brief Permire usar la flash como RAM. Configura la memoria RAM BACKUP
  *
- *
- *
+ * Version 1
+ * Autor: Daniel H Sagarra
+ * Fecha 10/11/2024
+ * Modificaciones: version inicial.
  * 
  */
 

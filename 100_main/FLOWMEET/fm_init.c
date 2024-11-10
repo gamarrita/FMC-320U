@@ -1,9 +1,9 @@
 /*
- * @brief	Conjunto de funciones del tipo ModuloXInit(), que deber ser llamdas antes de iniciar el RTOS.
+ * @brief Conjunto de funciones del tipo ModuloXInit(), que deber ser llamdas antes de iniciar el RTOS.
  *
  * Versión 1
  * Autor: Daniel H Sagarra
- * Fecha: 08/09/2024
+ * Fecha: 10/11/2024
  * Modificaciones: version inicial.
  *
  */
@@ -75,22 +75,24 @@ void FM_INIT_Init()
   HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
   HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
 
+  FM_DEBUG_Init();
+
   // El CubeMX configura el LPTIM pero es mi responsabilidad que arranque
   if (HAL_LPTIM_Counter_Start(&hlptim1) != HAL_OK)
   {
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
   }
 
   // El CubeMX configura el LPTIM pero es mi responsabilidad que arranque
   if (HAL_LPTIM_IC_Start_IT(&hlptim3, LPTIM_CHANNEL_1) != HAL_OK)
   {
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
   }
 
   // El CubeMX configura el LPTIM pero es mi responsabilidad que arranque
   if (HAL_LPTIM_Counter_Start(&hlptim4) != HAL_OK)
   {
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
   }
 
   // Por  Por defecto el LPTIM se apaga en stop mode, lo habilito al bajo consumo.
@@ -127,6 +129,19 @@ void FM_INIT_Init()
   FM_DEBUG_UartUint32(chip_info.reset_counter);
   FM_FLASH_NewReset(); // Registra un nuevo reset, por cualquier motivo.
 }
+
+
+/*
+ * @brief
+ * @param
+ * @retval
+ *
+ */
+void FM_INIT_Setup()
+{
+
+}
+
 
 // Interrupts
 

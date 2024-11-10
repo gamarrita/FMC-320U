@@ -7,9 +7,11 @@
  * impriman menús o controlen máquinas de estado de pantallas, tales como
  * fm_menu_user.h.
  *
- * Fecha
+ * Version 1
+ * Autor: Daniel H Sagarra
+ * Fecha 10/11/2024
+ * Modificaciones: version inicial.
  *
- * 01/09/0224 DHS - Version inicial
  *
  */
 

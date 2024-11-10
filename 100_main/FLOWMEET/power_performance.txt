@@ -1,0 +1,2 @@
+firmware 01.01.03
+Pantalla TTL, con junper DEBUG_LED y DEBUG_UART: 94.38uA-average

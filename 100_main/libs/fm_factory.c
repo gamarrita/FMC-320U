@@ -3,10 +3,10 @@
  * 		- Valores de configuración para sensores primarios muy usados. Una funcion para recuperarlos.
  * 		- Version del firmware
  *
- * Version 00.00.01 <----- En este caso especial uso la version de firmware para la version del modulo.
+ * Version 1
  * Autor: Daniel H Sagarra
- * Fecha 08/09/2024
- * Modificaciones: version beta, primer release para probar en fabrica.
+ * Fecha: 10/11/2024
+ * Modificaciones: version inicial.
  *
  */
 
@@ -17,7 +17,7 @@
 // Typedef.
 
 // Const data.
-const char msg_version_firmware[] = "01.01.02"; // Version.Revision.Release
+const char msg_version_firmware[] = "01.01.03"; // Version.Revision.Release
 
 /*
  *  Esta constante se usa en dos situaciones:

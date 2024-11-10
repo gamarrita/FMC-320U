@@ -1,17 +1,10 @@
-12:36:40 **** Incremental Build of configuration Debug for project 100_main ****
+13:38:55 **** Incremental Build of configuration Debug for project 100_main ****
 make -j12 all 
-arm-none-eabi-gcc "../FLOWMEET/fmx.c" -mcpu=cortex-m33 -std=gnu11 -g3 -DDEBUG -DTX_INCLUDE_USER_DEFINE_FILE -DTX_SINGLE_MODE_NON_SECURE=1 -DUSE_HAL_DRIVER -DSTM32U575xx -c -I../Core/Inc -I"D:/githubs/FMC-320U/100_main/FLOWMEET" -I"D:/githubs/FMC-320U/100_main/libs" -I../AZURE_RTOS/App -I../Drivers/STM32U5xx_HAL_Driver/Inc -I../Drivers/STM32U5xx_HAL_Driver/Inc/Legacy -I../Middlewares/ST/threadx/common/inc -I../Drivers/CMSIS/Device/ST/STM32U5xx/Include -I../Middlewares/ST/threadx/ports/cortex_m33/gnu/inc -I../Middlewares/ST/threadx/utility/low_power -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"FLOWMEET/fmx.d" -MT"FLOWMEET/fmx.o" --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -o "FLOWMEET/fmx.o"
-arm-none-eabi-gcc -o "100_main.elf" @"objects.list"   -mcpu=cortex-m33 -T"D:\githubs\FMC-320U\100_main\STM32U575VITXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="100_main.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 100_main.elf
- 
 arm-none-eabi-size  100_main.elf 
-arm-none-eabi-objdump -h -S 100_main.elf  > "100_main.list"
    text	   data	    bss	    dec	    hex	filename
-  97442	    688	  70696	 168826	  2937a	100_main.elf
+  97810	    688	  70704	 169202	  294f2	100_main.elf
 Finished building: default.size.stdout
  
-Finished building: 100_main.list
- 
 
-12:36:42 Build Finished. 0 errors, 0 warnings. (took 2s.426ms)
+13:38:56 Build Finished. 0 errors, 0 warnings. (took 942ms)
 

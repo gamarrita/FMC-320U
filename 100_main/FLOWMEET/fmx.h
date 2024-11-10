@@ -1,8 +1,7 @@
 /*
+ * Autor: Daniel H Sagarra
  *
- * @brief Header de fmx.c
- *
- * @note
+ * Notas:
  *
  */
 
@@ -37,15 +36,10 @@ typedef enum
   FMX_EVENT_KEY_ENTER_LONG = 0x0100,
 } fmx_events_t;
 
-
 typedef enum
 {
-  FMX_STATUS_OK       = 0x00,
-  FMX_STATUS_ERROR    = 0x01,
-  FMX_STATUS_BUSY     = 0x02,
-  FMX_STATUS_TIMEOUT  = 0x03
+  FMX_STATUS_OK = 0x00, FMX_STATUS_ERROR = 0x01, FMX_STATUS_BUSY = 0x02, FMX_STATUS_TIMEOUT = 0x03
 } fmx_status_t;
-
 
 // Macros, defines, microcontroller pins.
 

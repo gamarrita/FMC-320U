@@ -1,21 +1,8 @@
-/* @file pcf8553.h
- *
- * Author: DHS
- * Version: beta 1
+/*
+ * Autor: Daniel H Sagarra
  * 
- * @brief  Libreria para manejo de lcd driver de la marca nxp pcf8553.
+ * Notas:
  * 
- * @Excepcion Para la regla "el nombre de un modulo que fabricamos en FLOMEET
- * comienza con fm_nombre_modulo", no se aplica en este caso por ser nombre
- * singular.
- * 
- * Date: 11/02/2024
- * Name: DHS
- * - Se crea este archivo a partir de uno anterior
- * Resultado Version beta 1
- * 
- * 
- * COPYRIGHT NOTE: (c) 2023 FLOWMEET. All right reserved.
  */
 
 #ifndef FM_PCF8553_H_

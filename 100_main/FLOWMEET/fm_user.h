@@ -1,16 +1,7 @@
 /*
- * Author: DHS
- * Version: 1.2
+ * Autor: Daniel H Sagarra
  *
- * @brief Comenzar cada nuevo archivo .h usando este template. Si se necesita
- * modificar la estructura del template se provara en el proyecto en curso,
- * si la modificacion tiene caracteristicas generales se introduciran en el
- * template. Cada copia inicia con version 1.0 a la fecha en que se hace la copia
- * del template al proyecto.
- *
- * Date: 1/4/2023 (DDMMAA)
- * Name: DHS
- * Resultado Version 1.0
+ * Notas:
  *
  */
 

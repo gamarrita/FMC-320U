@@ -1,10 +1,8 @@
-/* @file fm_module.h
+/*
+ * Autor: Daniel H Sagarra
  *
- * @brief A description of the module’s purpose.
+ * Notas:
  *
- * @par
- *
- * COPYRIGHT NOTE: (c) 2023 FLOWMEET. All right reserved.
  */
 
 #ifndef FM_FACTORY_H_

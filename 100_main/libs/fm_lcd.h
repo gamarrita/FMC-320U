@@ -1,32 +1,7 @@
-/* @file fm_lcd.h
+/*
+ * Autor: Daniel H Sagarra
  *
- * @brief
- *
- * Este es el modulo que posee la inteligencia para manejar las opciones que
- * brinda la pantalla LCD, utilizando las funciones implementadas de impresión
- * de caracteres individuales en lcd.h.
- * Las funciones de este modulo serán usadas por librerías de mas alto nivel que
- * impriman menús o controlen máquinas de estado de pantallas, tales como
- * fm_menu_user.h.
- *
- * Modo de uso:
- *
- * 1) Al iniciar un nuevo proyecto puede usar el archivo lcd.ioc para configurar
- * automaticamente.
- *
- * 2) Se debe agregar la carpeta al proyecto, sobre el nombre del proyecto click
- * derecho new -> folder -> link to alternate location -> ....
- *
- * 3) Se debe indicar al IDE que hay una nueva carpeta con codigo fuente click
- * derecho en el nombre del proyecto new -> source folder-> browse -> ....
- *
- * 4) #include "../../../../libs/fm_lcd/fm_lcd.h"
- *
- * 5) fm_lcd_init();
- *
- *
- * COPYRIGHT NOTE: (c) 2023 FLOWMEET. All right reserved.
- *
+ * Notas:
  */
 
 #ifndef     FM_LCD_H_

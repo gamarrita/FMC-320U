@@ -22,7 +22,7 @@
  * 
  * Version 1
  * Autor : Daniel H Sagarra
- * Fecha 08/09/2024
+ * Fecha 10/11/2024
  * Modificaciones: version inicial.
  * 
  */
@@ -30,8 +30,6 @@
 // Includes.
 #include "main.h"
 #include "fm_flash.h"
-#include "fm_debug.h"
-
 // Typedef.
 
 /*

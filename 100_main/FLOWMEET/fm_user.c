@@ -1,11 +1,9 @@
 /*
- * @brief	pantallas del menu de usuario
+ * @brief	Pantallas del menu de usuario
  *
- *
- *
- * Versión 1
+ * Versión: 1
  * Autor: Daniel H Sagarra
- * Fecha: 08/09/2024
+ * Fecha: 10/11/2024
  * Modificaciones: version inicial
  *
  */
@@ -125,7 +123,7 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
     break;
@@ -167,7 +165,7 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
     break;
@@ -211,7 +209,7 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
     break;
@@ -250,7 +248,7 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
       FM_FMC_AcmReset();
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
     break;
@@ -285,16 +283,16 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
     break;
   case MENU_USER_END:
     menu_index = MENU_USER_POWER_RESET;
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
   return menu_setup;
@@ -312,10 +310,8 @@ void MenuUserPowerOnEntry()
 {
   const char msg_debug_power_on[] = "power on entry";
 
-  if (fm_debug_uart_msg)
-  {
-    FM_DEBUG_UartMsg(msg_debug_power_on, sizeof(msg_debug_power_on));
-  }
+  FM_DEBUG_UartMsg(msg_debug_power_on, sizeof(msg_debug_power_on));
+
 
   // Enciendo todos los segmentos de LCD para verifica que funcionen
   FM_LCD_Init(0xff);
@@ -335,10 +331,7 @@ void MenuUserVersionEntry()
   const char *msg_version;
   msg_version = FM_FACTORY_FirmwareVersionGet();
 
-  if (fm_debug_uart_msg)
-  {
-    FM_DEBUG_UartMsg(msg_version, strlen(msg_version));
-  }
+  FM_DEBUG_UartMsg(msg_version, strlen(msg_version));
 
   FM_LCD_LL_Clear();
   FM_LCD_PutString(msg_version, strlen(msg_version), FM_LCD_LL_ROW_2);
@@ -415,7 +408,7 @@ void MenuUserTtlRateRefresh()
     snprintf(user_line_1, sizeof(user_line_1), "%5lu.%03lu", p_integer, p_frac);
     break;
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
 
@@ -490,7 +483,7 @@ void MenuUserAcmRateRefresh()
     snprintf(user_line_1, sizeof(user_line_1), "%5lu.%03lu", p_integer, p_frac);
     break;
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
 
@@ -538,17 +531,13 @@ void MenuUserRateRefresh()
     snprintf(user_line_2, sizeof(user_line_2), "%04lu.%03lu", p_integer, p_frac);
     break;
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
 
   FM_LCD_PutString(user_line_2, FM_LCD_LL_ROW_2_COLS, FM_LCD_LL_ROW_2);
 
-  if (fm_debug_uart_msg)
-  {
-    FM_DEBUG_UartMsg(user_line_2, strlen(user_line_2));
-  }
-
+  FM_DEBUG_UartMsg(user_line_2, strlen(user_line_2));
 }
 
 /*
@@ -575,11 +564,9 @@ void MenuUserClockRefresh()
   FM_LCD_PutString(user_line_1, FM_LCD_LL_ROW_1_COLS, FM_LCD_LL_ROW_1);
   FM_LCD_PutString(user_line_2, FM_LCD_LL_ROW_2_COLS, FM_LCD_LL_ROW_2);
 
-  if (fm_debug_uart_msg)
-  {
-    FM_DEBUG_UartMsg(user_line_1, strlen(user_line_1));
-    FM_DEBUG_UartMsg(user_line_2, strlen(user_line_2));
-  }
+  FM_DEBUG_UartMsg(user_line_1, strlen(user_line_1));
+  FM_DEBUG_UartMsg(user_line_2, strlen(user_line_2));
+
 }
 
 // Interrupts

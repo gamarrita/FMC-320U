@@ -1,5 +1,5 @@
-../libs/fm_flash.c:94:19:FM_FLASH_ChipInfoRead	40	static
-../libs/fm_flash.c:104:6:FM_FLASH_ChipInfoWrite	32	static
-../libs/fm_flash.c:114:10:FM_FLASH_NewReset	24	static
-../libs/fm_flash.c:142:10:FM_FLASH_Write	72	static
-../libs/fm_flash.c:227:10:FM_FLASH_Read	32	static
+../libs/fm_flash.c:92:19:FM_FLASH_ChipInfoRead	40	static
+../libs/fm_flash.c:102:6:FM_FLASH_ChipInfoWrite	32	static
+../libs/fm_flash.c:112:10:FM_FLASH_NewReset	24	static
+../libs/fm_flash.c:140:10:FM_FLASH_Write	72	static
+../libs/fm_flash.c:225:10:FM_FLASH_Read	32	static

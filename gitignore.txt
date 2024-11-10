@@ -1,5 +1,0 @@
-# Eclipse
-Debug
-Release
-.launch
-.metadata

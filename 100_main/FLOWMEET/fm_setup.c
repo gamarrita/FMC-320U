@@ -1,11 +1,10 @@
 /*
- * @brief	Menu de usuario
- * @notes	El ordenamiento de las funciones de este modulo no es alfabetico, respetan el orden aparecion en
- * 			menu.
+ * @brief	Pantallas del menu de configuración.
+ * @notes	El orden de las funciones de este modulo no es alfabético, respetan el orden aparecen en el menu.
  *
- * Versión 1
+ * Versión: 1
  * Autor: Daniel H Sagarra
- * Fecha: 08/09/2024
+ * Fecha: 10/11/2024
  * Modificaciones: version inicial.
  *
  *
@@ -185,7 +184,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
     break;
@@ -242,7 +241,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
 
@@ -292,7 +291,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
     break;
@@ -329,7 +328,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
     default:
       break;
     }
@@ -369,7 +368,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       FM_FMC_TtlReset();
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
     break;
@@ -394,10 +393,13 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       MenuSetupDateEdit(MENU_MODE_EXIT);
       tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
       entry_counter = 0;
-      // Las siguientes instrucciones solo al salir del menu de configuración.
-      FM_FMC_Init(FM_FACTORY_RAM_BACKUP); // necesario para calcular factores con nueva configuración.
-      menu_index = MENU_SETUP_INIT;
-      menu_user = TRUE;
+
+      /*
+       * Al salir de la ultima pantalla de configuración va la siguiente linea de código.
+       * Si se agrega una pantalla de configuración, reemplazar MENU_SETUP_END por la nueva
+       * pantalla y mover este a la nueva ultima pantalla
+       */
+      menu_index = MENU_SETUP_END;
       break;
     case FMX_EVENT_KEY_ENTER:
       MenuSetupDateEdit(MENU_MODE_NEXT);
@@ -412,14 +414,20 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
     default:
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
       break;
     }
     break;
   case MENU_SETUP_END:
+    tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+    FM_FMC_Init(FM_FACTORY_RAM_BACKUP); // Necesario para calcular factores con nueva configuración.
+    menu_index = MENU_SETUP_INIT; // El indice ajustado para la próxima entrada al menu de configuración.
+    menu_user = TRUE; // Retorna al menu de usuario.
+    FM_DEBUG_Init(); // Le los jumper de configuración y ajusta comportamiento UART y LEDs de debug.
+
     break;
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
   return menu_user;
@@ -475,10 +483,8 @@ void MenuSetupPasswordEnter(uint8_t cmd)
 
   static uint8_t my_index = 0;
 
-  if (fm_debug_uart_msg)
-  {
-    FM_DEBUG_UartMsg(debug_msg, sizeof(debug_msg));
-  }
+  FM_DEBUG_UartMsg(debug_msg, sizeof(debug_msg));
+
 
   switch (cmd)
   {
@@ -491,7 +497,7 @@ void MenuSetupPasswordEnter(uint8_t cmd)
     break;
   case MENU_MODE_EXIT: // no esta implementado, omito el break para detectar error de entrada.
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
   FM_LCD_PutString(setup_line_2, strlen(setup_line_2), FM_LCD_LL_ROW_2);
@@ -559,8 +565,7 @@ ufp3_t MenuSetupFactorCalEdit(menu_mode_t mode)
     {
       FM_LCD_LL_BlinkNumber(FM_LCD_LL_ROW_1, (FM_LCD_LL_ROW_1_COLS - 1) - my_index, FM_LCD_LL_BLINK_OFF);
       my_index++;
-      FM_LCD_LL_BlinkNumber(FM_LCD_LL_ROW_1, (FM_LCD_LL_ROW_1_COLS - 1) - my_index,
-          FM_LCD_LL_BLINK_ON_ON);
+      FM_LCD_LL_BlinkNumber(FM_LCD_LL_ROW_1, (FM_LCD_LL_ROW_1_COLS - 1) - my_index, FM_LCD_LL_BLINK_ON_ON);
     }
     else
     {
@@ -575,7 +580,7 @@ ufp3_t MenuSetupFactorCalEdit(menu_mode_t mode)
   case MENU_MODE_REFRESH:
     break;
   default:
-    FM_DEUBUG_LedError(); // Estado no permitido, enciendo led de error.
+    FM_DEBUG_LedError(1); // Estado no permitido, enciendo led de error.
     break;
   }
   snprintf(setup_line_1, sizeof(setup_line_1), "%05lu.%03lu", factor_cal / 1000, factor_cal % 1000);
@@ -646,7 +651,7 @@ void MenuSetupVolUnitEdit(uint8_t mode)
   case MENU_MODE_REFRESH:
     break;
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
 
@@ -687,11 +692,8 @@ void MenuSetupTimeUnitEntry()
   FM_LCD_LL_BlinkSymbol(FM_LCD_LL_SYM_H, FM_LCD_LL_BLINK_ON_ON);
   FM_LCD_LL_BlinkSymbol(FM_LCD_LL_SYM_D, FM_LCD_LL_BLINK_ON_ON);
 
-
   // Muestro leyenda de TTL por no tener una leyenda de pulsos TTL
   FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_TTL, 1);
-
-
 
   // Inicia la edición de este menu.
   MenuSetupTimeUnitEdit(MENU_MODE_INIT);
@@ -736,24 +738,24 @@ void MenuSetupTimeUnitEdit(uint8_t mode)
       factor_rate = FM_FMC_FactorRateCalc(factor_k, time_unit);
       if (FM_FMC_FactorRateSet(factor_rate) != FMX_STATUS_OK)
       {
-        FM_DEUBUG_LedError();
+        FM_DEBUG_LedError(1);
       }
     }
     else
     {
       // No se pudo cambiar la unidad de tiempo.
-      FM_DEUBUG_LedError();
+      FM_DEBUG_LedError(1);
     }
     break;
   case MENU_MODE_REFRESH:
     break;
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
 
   // Muestro pulsos acumulados
-  pulse_ttl = (uint32_t)FM_FMC_TtlPulseGet();
+  pulse_ttl = (uint32_t) FM_FMC_TtlPulseGet();
   snprintf(setup_line_1, sizeof(setup_line_1), "%08lu", pulse_ttl);
   FM_LCD_PutString(setup_line_1, FM_LCD_LL_ROW_1_COLS + 1, FM_LCD_LL_ROW_1);
 
@@ -848,7 +850,7 @@ void MenuSetupDateEdit(menu_mode_t sel)
   case MENU_MODE_REFRESH:
     break;
   default:
-    FM_DEUBUG_LedError();
+    FM_DEBUG_LedError(1);
     break;
   }
 

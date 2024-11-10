@@ -1,10 +1,7 @@
 /*
+ * Autor: Daniel H Sagarra
  *
- * Author: DHS
- * Version:
- *
- * @brief
- *
+ * Notas:
  *
  */
 

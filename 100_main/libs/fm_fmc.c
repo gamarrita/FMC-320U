@@ -4,7 +4,10 @@
  *          en un computador de caudales.
  *
  *
- * 01/09/2024 DHS - Version inicial
+ * Version 1
+ * Autor : Daniel H Sagarra
+ * Fecha 10/11/2024
+ * Modificaciones: version inicial
  *
  *
  */
@@ -45,10 +48,10 @@ fm_fmc_vol_data_t vol_unit_list[] =
         .name = "00" // Unidad adimensional.
     },
     {
-        .unit_convert = 158.987304, 	// Cantidad de litros en un barril
+        .unit_convert = 158.987304, 	// Cantidad de litros en un barril.
         .name = "BR" },
     {
-        .unit_convert = 3.78541,		// Cantidad de litro en un galon
+        .unit_convert = 3.78541,		// Cantidad de litro en un galón.
         .name = "GL", },
     {
         .unit_convert = 1,
@@ -200,7 +203,6 @@ double FM_FMC_FactorKCalc(ufp3_t factor_cal, fm_fmc_vol_unit_t unit)
   return factor_k;
 }
 
-
 /*
  * @brief   Retorna factor K.
  * @note
@@ -212,7 +214,6 @@ double FM_FMC_FactorKGet()
 {
   return totalizer.factor_k;
 }
-
 
 /*
  * @brief   Modifica el factor K en la variable de entorno totalizer.
@@ -235,8 +236,6 @@ uint32_t FM_FMC_FactorKSet(ufp3_t factor_k)
   }
   return 1;
 }
-
-
 
 /*
  * @brief	Calcula el factor de caudal.
@@ -263,9 +262,9 @@ double FM_FMC_FactorRateCalc(double factor_k, fm_fmc_time_unit_t time_unit)
  */
 fmx_status_t FM_FMC_FactorRateSet(double factor_rate)
 {
-  fmx_status_t status= FMX_STATUS_OK;
+  fmx_status_t status = FMX_STATUS_OK;
 
-  if(factor_rate > 0)
+  if (factor_rate > 0)
   {
     totalizer.rate.factor_r = factor_rate;
   }
@@ -277,7 +276,6 @@ fmx_status_t FM_FMC_FactorRateSet(double factor_rate)
 
   return status;
 }
-
 
 /*
  * @brief	retorna los valores actualmente usados.
@@ -387,7 +385,6 @@ uint64_t FM_FMC_TtlPulseGet()
   return totalizer.pulse_ttl;
 }
 
-
 /*
  *
  */
@@ -409,11 +406,8 @@ uint32_t FM_FMC_TotalizerVolUnitSet(fm_fmc_vol_unit_t vol_unit)
   }
   else
   {
-    HAL_GPIO_WritePin(LED_1_ERROR_GPIO_Port, LED_1_ERROR_Pin, GPIO_PIN_SET);
-    if (fm_debug_uart_error)
-    {
-      FM_DEBUG_UartMsg(debug_error, sizeof(debug_error));
-    }
+    FM_DEBUG_LedError(1);
+    FM_DEBUG_UartMsg(debug_error, sizeof(debug_error));
     return 0;
   }
   return 1;
@@ -440,11 +434,8 @@ fmx_status_t FM_FMC_TotalizerTimeUnitSet(fm_fmc_time_unit_t time_unit)
   }
   else
   {
-    FM_DEUBUG_LedError();
-    if (fm_debug_uart_error)
-    {
-      FM_DEBUG_UartMsg(debug_error, sizeof(debug_error));
-    }
+    FM_DEBUG_LedError(1);
+    FM_DEBUG_UartMsg(debug_error, sizeof(debug_error));
     return FMX_STATUS_ERROR;
   }
   return FMX_STATUS_OK;
@@ -506,7 +497,7 @@ void FM_FMC_TotalizerTimeUnitSel(fm_fmc_time_unit_t sel)
   static fm_fmc_time_unit_t sel_old = -1;
 
   // Se borran
-  if(sel != sel_old)
+  if (sel != sel_old)
   {
     FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_S, 0);
     FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_M, 0);

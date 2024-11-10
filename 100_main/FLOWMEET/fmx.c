@@ -1,17 +1,11 @@
 /*
- * Computador de caudales-
+ * Brief Este modulo es equivalente al main.c, como se usa RTOS, no hay loop infinito, hay apps de ThreadX.
  *
- *
- * Version 01.01.01
+ * Version 1
  * Autor: Daniel H Sagarra
- * Fecha 08/09/2024
- * Modificaciones: version inicial.
- *
- *
- * Version 01.01.02
- * Autor: Daniel H Sagarra
- * Fecha 23/10/2024
- * Modificaciones: arreglo de bug al editar fecha y hora
+ * Fecha: 10/11/2024
+ * Modificaciones:
+ * - Se crea la version de firmware 01.01.03, version inicial.
  *
  */
 
@@ -113,7 +107,8 @@ UINT FMX_Init(VOID *memory_ptr)
   if (tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT) != TX_SUCCESS)
   {
     __disable_irq();
-    HAL_GPIO_WritePin(LED_1_ERROR_GPIO_Port, LED_1_ERROR_Pin, GPIO_PIN_SET);
+    FM_DEBUG_LedError(1);
+
     for (;;)
     {
     }
@@ -124,7 +119,7 @@ UINT FMX_Init(VOID *memory_ptr)
       TX_AUTO_START) != TX_SUCCESS)
   {
     __disable_irq();
-    HAL_GPIO_WritePin(LED_1_ERROR_GPIO_Port, LED_1_ERROR_Pin, GPIO_PIN_SET);
+    FM_DEBUG_LedError(1);
     for (;;)
     {
     }
@@ -134,7 +129,7 @@ UINT FMX_Init(VOID *memory_ptr)
   if (tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT) != TX_SUCCESS)
   {
     __disable_irq();
-    HAL_GPIO_WritePin(LED_1_ERROR_GPIO_Port, LED_1_ERROR_Pin, GPIO_PIN_SET);
+    FM_DEBUG_LedError(1);
     for (;;)
     {
     }
@@ -145,7 +140,7 @@ UINT FMX_Init(VOID *memory_ptr)
       TX_AUTO_START) != TX_SUCCESS)
   {
     __disable_irq();
-    HAL_GPIO_WritePin(LED_1_ERROR_GPIO_Port, LED_1_ERROR_Pin, GPIO_PIN_SET);
+    FM_DEBUG_LedError(1);
     for (;;)
     {
     }
@@ -404,7 +399,7 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     }
     break;
   default:
-    HAL_GPIO_WritePin(LED_1_ERROR_GPIO_Port, LED_1_ERROR_Pin, GPIO_PIN_SET);
+    FM_DEBUG_LedError(1);
     break;
   }
 }
@@ -437,6 +432,13 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 
 }
 
+/*
+ * @brief
+ * @note
+ * @param
+ * @retval
+ *
+ */
 void HAL_LPTIM_IC_CaptureCallback(LPTIM_HandleTypeDef *hlptim)
 {
 
@@ -445,5 +447,6 @@ void HAL_LPTIM_IC_CaptureCallback(LPTIM_HandleTypeDef *hlptim)
 
   __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_CC1);
 }
+
 /*** end of file ***/
 

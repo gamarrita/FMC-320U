@@ -1,30 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="TtlRe"/>
+		<item key="selection" value="FM_DEBUG"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="fm_debug"/>
+			<item value="fm_debug_uart_enable"/>
+			<item value="fm_debug_uart_enable = TRUE;"/>
+			<item value="fm_debug_enable"/>
+			<item value="debug_uart_enable"/>
+			<item value="debug_led_enable"/>
+			<item value="FM_DEUBUG_LedError(1)"/>
+			<item value="FM_DEUBUG_LedError();"/>
+			<item value="hal_de"/>
 			<item value="TtlRe"/>
 			<item value="TtlPu"/>
 			<item value="FM_FMC_TtlPulseGet"/>
 			<item value="sel"/>
 			<item value="blink_line"/>
 			<item value="_symbol"/>
-			<item value="blink_symbol"/>
-			<item value="symbol"/>
-			<item value="blink"/>
-			<item value="FM_LCD_LL_BlinkWrite"/>
-			<item value="hex_1"/>
-			<item value="stand"/>
-			<item value="shutdown"/>
-			<item value="filter"/>
-			<item value="CAPTURE"/>
 		</list>
 		<list key="replacehistory">
+			<item value="fm_debug_uart_enable"/>
+			<item value="fm_debug_led_enable"/>
+			<item value="FM_DEBUG_LedError(1)"/>
+			<item value="FM_DEUBUG_LedError(1);"/>
 			<item value="blink_number"/>
 			<item value="FM_LCD_LL_BlinkNumber"/>
 			<item value="2"/>
