@@ -1,2 +1,3 @@
-# Eclipse
-/*/.metadata/
+# STM32CubeIDE
+.metadata/
+.settings/
