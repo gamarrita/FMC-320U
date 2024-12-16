@@ -59,12 +59,16 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define MXC_ENABLE_Pin GPIO_PIN_8
 #define MXC_ENABLE_GPIO_Port GPIOA
-#define LED_1_ERROR_Pin GPIO_PIN_5
-#define LED_1_ERROR_GPIO_Port GPIOB
-#define LED_2_ACTIVE_Pin GPIO_PIN_6
-#define LED_2_ACTIVE_GPIO_Port GPIOB
-#define LED_3_SIGNAL_Pin GPIO_PIN_7
-#define LED_3_SIGNAL_GPIO_Port GPIOB
+#define DEBUG_LED_Pin GPIO_PIN_1
+#define DEBUG_LED_GPIO_Port GPIOD
+#define DEBUG_UART_Pin GPIO_PIN_2
+#define DEBUG_UART_GPIO_Port GPIOD
+#define LED_ERROR_Pin GPIO_PIN_5
+#define LED_ERROR_GPIO_Port GPIOB
+#define LED_ACTIVE_Pin GPIO_PIN_6
+#define LED_ACTIVE_GPIO_Port GPIOB
+#define LED_SIGNAL_Pin GPIO_PIN_7
+#define LED_SIGNAL_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

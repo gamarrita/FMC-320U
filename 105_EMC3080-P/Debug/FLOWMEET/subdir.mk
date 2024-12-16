@@ -5,19 +5,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../FLOWMEET/fm_debug.c \
-../FLOWMEET/fm_emc3080.c \
-../FLOWMEET/fm_main.c 
+../FLOWMEET/fm_main.c \
+../FLOWMEET/fm_mxc.c 
 
 OBJS += \
-./FLOWMEET/fm_debug.o \
-./FLOWMEET/fm_emc3080.o \
-./FLOWMEET/fm_main.o 
+./FLOWMEET/fm_main.o \
+./FLOWMEET/fm_mxc.o 
 
 C_DEPS += \
-./FLOWMEET/fm_debug.d \
-./FLOWMEET/fm_emc3080.d \
-./FLOWMEET/fm_main.d 
+./FLOWMEET/fm_main.d \
+./FLOWMEET/fm_mxc.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
@@ -27,7 +24,7 @@ FLOWMEET/%.o FLOWMEET/%.su FLOWMEET/%.cyclo: ../FLOWMEET/%.c FLOWMEET/subdir.mk
 clean: clean-FLOWMEET
 
 clean-FLOWMEET:
-	-$(RM) ./FLOWMEET/fm_debug.cyclo ./FLOWMEET/fm_debug.d ./FLOWMEET/fm_debug.o ./FLOWMEET/fm_debug.su ./FLOWMEET/fm_emc3080.cyclo ./FLOWMEET/fm_emc3080.d ./FLOWMEET/fm_emc3080.o ./FLOWMEET/fm_emc3080.su ./FLOWMEET/fm_main.cyclo ./FLOWMEET/fm_main.d ./FLOWMEET/fm_main.o ./FLOWMEET/fm_main.su
+	-$(RM) ./FLOWMEET/fm_main.cyclo ./FLOWMEET/fm_main.d ./FLOWMEET/fm_main.o ./FLOWMEET/fm_main.su ./FLOWMEET/fm_mxc.cyclo ./FLOWMEET/fm_mxc.d ./FLOWMEET/fm_mxc.o ./FLOWMEET/fm_mxc.su
 
 .PHONY: clean-FLOWMEET
 

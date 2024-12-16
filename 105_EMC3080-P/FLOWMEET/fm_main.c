@@ -8,9 +8,11 @@
  */
 
 // Includes.
+#include <fm_mxc.h>
 #include "fm_main.h"
 #include "main.h"
-#include "fm_emc3080.h"
+#include "string.h"
+
 
 
 // Typedef.
@@ -24,6 +26,8 @@
 // Project variables, non-static, at least used in other file.
 
 // External variables.
+extern UART_HandleTypeDef huart1;
+extern UART_HandleTypeDef huart3;
 
 // Global variables, statics.
 
@@ -43,23 +47,21 @@
  */
 void FM_MAIN_Main()
 {
+  char msg_power_on[] = "FM-320A POWER ON\n";
 
-  FM_EMC3080_Power(0);
+  HAL_UART_Transmit(&huart1, (uint8_t *)msg_power_on, strlen(msg_power_on), 10);
 
-  FM_EMC3080_Plus();
+  FM_MXC_InitPtr();
 
-
-
-	for (;;)
-	{
-
-	  HAL_Delay(1000);
-	  FM_EMC3080_Standby();
-	  HAL_GPIO_TogglePin(LED_2_ACTIVE_GPIO_Port, LED_2_ACTIVE_Pin);
-   	}
+  for(int i = 0;;i++)
+  {
+    HAL_GPIO_TogglePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin);
+    HAL_Delay(1000);
+  }
 }
 
 // Interrupts
+
 
 /*** end of file ***/
 

@@ -1,0 +1,7 @@
+../FLOWMEET/fm_mxc.c:84:6:FM_MXC_Enable	16	static
+../FLOWMEET/fm_mxc.c:110:6:FM_MXC_InitPtr	16	static
+../FLOWMEET/fm_mxc.c:140:6:FM_MXC_PowerOn	16	static
+../FLOWMEET/fm_mxc.c:150:6:FM_MXC_Plus	16	static
+../FLOWMEET/fm_mxc.c:169:17:FM_MXC_SendAT	32	static
+../FLOWMEET/fm_mxc.c:213:6:HAL_UART_RxCpltCallback	16	static
+../FLOWMEET/fm_mxc.c:226:17:FMC_MXC_ReciveStatus	24	static

@@ -1,5 +1,7 @@
-FLOWMEET/fm_main.o: ../FLOWMEET/fm_main.c ../FLOWMEET/fm_main.h \
- ../Core/Inc/main.h ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h \
+FLOWMEET/fm_main.o: ../FLOWMEET/fm_main.c \
+ D:/githubs/FMC-320U/105_EMC3080-P/FLOWMEET/fm_mxc.h \
+ ../FLOWMEET/fm_main.h ../Core/Inc/main.h \
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h \
  ../Core/Inc/stm32u5xx_hal_conf.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rcc.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_def.h \
@@ -23,12 +25,10 @@ FLOWMEET/fm_main.o: ../FLOWMEET/fm_main.c ../FLOWMEET/fm_main.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_flash_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h \
- ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h \
- ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart.h \
  ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart_ex.h \
- ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h \
- ../FLOWMEET/fm_emc3080.h
+ ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h
+D:/githubs/FMC-320U/105_EMC3080-P/FLOWMEET/fm_mxc.h:
 ../FLOWMEET/fm_main.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal.h:
@@ -55,9 +55,6 @@ FLOWMEET/fm_main.o: ../FLOWMEET/fm_main.c ../FLOWMEET/fm_main.h \
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_flash_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_pwr_ex.h:
-../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc.h:
-../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_rtc_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_uart_ex.h:
 ../Drivers/STM32U5xx_HAL_Driver/Inc/stm32u5xx_hal_exti.h:
-../FLOWMEET/fm_emc3080.h:
