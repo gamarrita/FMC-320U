@@ -47,17 +47,23 @@ extern UART_HandleTypeDef huart3;
  */
 void FM_MAIN_Main()
 {
-  char msg_power_on[] = "FM-320A POWER ON\n";
+  char msg_power_on[] = "FM_MAIN_Main\n";
 
   HAL_UART_Transmit(&huart1, (uint8_t *)msg_power_on, strlen(msg_power_on), 10);
 
   FM_MXC_InitPtr();
 
-  for(int i = 0;;i++)
+  for(int i = 0; i < 3 ;i++)
   {
-    HAL_GPIO_TogglePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin);
+    HAL_UART_Transmit_IT(&huart3, (uint8_t *)msg_power_on, strlen(msg_power_on));
     HAL_Delay(1000);
   }
+
+  for(;;)
+    {
+      HAL_GPIO_TogglePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin);
+      HAL_Delay(1000);
+    }
 }
 
 // Interrupts

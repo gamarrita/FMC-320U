@@ -17,11 +17,6 @@
 
 typedef enum
 {
-  FM_MXC_AT_UARTE_ID, FM_MXC_AT_UARTE_ON_ID, FM_MXC_AT_UARTE_OFF_ID, FM_MXC_AT_STANDBY_ID,
-} fm_cmx_at_id_t;
-
-typedef enum
-{
   FM_MXC_FAIL = 0, FM_MXC_OK = 1
 } fm_mxc_status_t;
 
@@ -40,10 +35,6 @@ typedef enum
 // Function prototypes
 void FM_MXC_Enable(int mode);
 void FM_MXC_InitPtr();
-void FM_MXC_Plus();
-
-fm_mxc_status_t FMC_MXC_ReciveStatus();
-fm_mxc_status_t FM_MXC_SendAT(fm_cmx_at_id_t id, int retry);
 
 #endif  // FM_MAIN_H
 
