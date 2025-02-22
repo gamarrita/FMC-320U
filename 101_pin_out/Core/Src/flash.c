@@ -49,11 +49,13 @@ void MX_FLASH_Init(void)
   {
     Error_Handler();
   }
-
-   //!!! HAL_FLASHEx_OBProgram is commented because some parameters are missing
-  //pOBInit.OptionType = OPTIONBYTE_USER|OPTIONBYTE_BOOTADDR;
-  //pOBInit.BootAddr = 0x08000000;
-    //HAL_FLASHEx_OBProgram(&pOBInit);
+  pOBInit.OptionType = OPTIONBYTE_BOOTADDR;
+  pOBInit.BootAddrConfig = OB_BOOTADDR_NS0;
+  pOBInit.BootAddr = 0x08000000;
+  if (HAL_FLASHEx_OBProgram(&pOBInit) != HAL_OK)
+  {
+    Error_Handler();
+  }
   if (HAL_FLASH_OB_Lock() != HAL_OK)
   {
     Error_Handler();

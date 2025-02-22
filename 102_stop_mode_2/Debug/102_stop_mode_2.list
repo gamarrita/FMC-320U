@@ -5,43 +5,43 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .isr_vector   00000238  08000000  08000000  00001000  2**0
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  1 .text         0000654c  08000238  08000238  00001238  2**2
+  1 .text         0000655c  08000238  08000238  00001238  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .rodata       00000100  08006784  08006784  00007784  2**2
+  2 .rodata       00000100  08006794  08006794  00007794  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  3 .ARM          00000008  08006884  08006884  00007884  2**2
+  3 .ARM          00000008  08006894  08006894  00007894  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  4 .init_array   00000004  0800688c  0800688c  0000788c  2**2
+  4 .init_array   00000004  0800689c  0800689c  0000789c  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  5 .fini_array   00000004  08006890  08006890  00007890  2**2
+  5 .fini_array   00000004  080068a0  080068a0  000078a0  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, DATA
-  6 .data         00000009  20000000  08006894  00008000  2**2
+  6 .data         00000009  20000000  080068a4  00008000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  7 .bss          000000e8  2000000c  0800689d  0000800c  2**2
+  7 .bss          000000e8  2000000c  080068ad  0000800c  2**2
                   ALLOC
-  8 ._user_heap_stack 00000604  200000f4  0800689d  000080f4  2**0
+  8 ._user_heap_stack 00000604  200000f4  080068ad  000080f4  2**0
                   ALLOC
   9 .ARM.attributes 00000036  00000000  00000000  00008009  2**0
                   CONTENTS, READONLY
- 10 .debug_info   00013184  00000000  00000000  0000803f  2**0
+ 10 .debug_info   00013191  00000000  00000000  0000803f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 11 .debug_abbrev 00002710  00000000  00000000  0001b1c3  2**0
+ 11 .debug_abbrev 000026e2  00000000  00000000  0001b1d0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 12 .debug_aranges 00001040  00000000  00000000  0001d8d8  2**3
+ 12 .debug_aranges 00001040  00000000  00000000  0001d8b8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_rnglists 00000c72  00000000  00000000  0001e918  2**0
+ 13 .debug_rnglists 00000c72  00000000  00000000  0001e8f8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_macro  00031d98  00000000  00000000  0001f58a  2**0
+ 14 .debug_macro  00032228  00000000  00000000  0001f56a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_line   0001329a  00000000  00000000  00051322  2**0
+ 15 .debug_line   00013239  00000000  00000000  00051792  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_str    00139406  00000000  00000000  000645bc  2**0
+ 16 .debug_str    0013b084  00000000  00000000  000649cb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .comment      00000043  00000000  00000000  0019d9c2  2**0
+ 17 .comment      00000043  00000000  00000000  0019fa4f  2**0
                   CONTENTS, READONLY
- 18 .debug_frame  00004400  00000000  00000000  0019da08  2**2
+ 18 .debug_frame  00004404  00000000  00000000  0019fa94  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_line_str 00000053  00000000  00000000  001a1e08  2**0
+ 19 .debug_line_str 00000053  00000000  00000000  001a3e98  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -60,7 +60,7 @@ Disassembly of section .text:
  800024e:	bd10      	pop	{r4, pc}
  8000250:	2000000c 	.word	0x2000000c
  8000254:	00000000 	.word	0x00000000
- 8000258:	0800676c 	.word	0x0800676c
+ 8000258:	0800677c 	.word	0x0800677c
 
 0800025c <frame_dummy>:
  800025c:	b508      	push	{r3, lr}
@@ -72,7 +72,7 @@ Disassembly of section .text:
  800026a:	bd08      	pop	{r3, pc}
  800026c:	00000000 	.word	0x00000000
  8000270:	20000010 	.word	0x20000010
- 8000274:	0800676c 	.word	0x0800676c
+ 8000274:	0800677c 	.word	0x0800677c
 
 08000278 <__aeabi_uldivmod>:
  8000278:	b953      	cbnz	r3, 8000290 <__aeabi_uldivmod+0x18>
@@ -371,13 +371,13 @@ int main(void)
 
   /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
- 8000598:	f000 f80e 	bl	80005b8 <SystemClock_Config>
-
   /* Configure the System Power */
   SystemPower_Config();
- 800059c:	f000 f864 	bl	8000668 <SystemPower_Config>
+ 8000598:	f000 f866 	bl	8000668 <SystemPower_Config>
+
+  /* Configure the system clock */
+  SystemClock_Config();
+ 800059c:	f000 f80c 	bl	80005b8 <SystemClock_Config>
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
@@ -397,7 +397,7 @@ int main(void)
   while (1)
   {
 	  FM_MAIN_Main();
- 80005b0:	f006 f840 	bl	8006634 <FM_MAIN_Main>
+ 80005b0:	f006 f848 	bl	8006644 <FM_MAIN_Main>
  80005b4:	e7fc      	b.n	80005b0 <main+0x20>
 	...
 
@@ -416,7 +416,7 @@ void SystemClock_Config(void)
  80005c2:	2260      	movs	r2, #96	@ 0x60
  80005c4:	2100      	movs	r1, #0
  80005c6:	4618      	mov	r0, r3
- 80005c8:	f006 f8a4 	bl	8006714 <memset>
+ 80005c8:	f006 f8ac 	bl	8006724 <memset>
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
  80005cc:	463b      	mov	r3, r7
  80005ce:	2200      	movs	r2, #0
@@ -699,7 +699,7 @@ static void MX_RTC_Init(void)
  8000722:	1d3b      	adds	r3, r7, #4
  8000724:	4619      	mov	r1, r3
  8000726:	480b      	ldr	r0, [pc, #44]	@ (8000754 <MX_RTC_Init+0xa8>)
- 8000728:	f005 fa42 	bl	8005bb0 <HAL_RTCEx_PrivilegeModeSet>
+ 8000728:	f005 fa4a 	bl	8005bc0 <HAL_RTCEx_PrivilegeModeSet>
  800072c:	4603      	mov	r3, r0
  800072e:	2b00      	cmp	r3, #0
  8000730:	d001      	beq.n	8000736 <MX_RTC_Init+0x8a>
@@ -715,7 +715,7 @@ static void MX_RTC_Init(void)
  8000738:	2204      	movs	r2, #4
  800073a:	2100      	movs	r1, #0
  800073c:	4805      	ldr	r0, [pc, #20]	@ (8000754 <MX_RTC_Init+0xa8>)
- 800073e:	f005 f9b1 	bl	8005aa4 <HAL_RTCEx_SetWakeUpTimer_IT>
+ 800073e:	f005 f9b9 	bl	8005ab4 <HAL_RTCEx_SetWakeUpTimer_IT>
  8000742:	4603      	mov	r3, r0
  8000744:	2b00      	cmp	r3, #0
  8000746:	d001      	beq.n	800074c <MX_RTC_Init+0xa0>
@@ -795,7 +795,7 @@ static void MX_USART1_UART_Init(void)
  80007a2:	629a      	str	r2, [r3, #40]	@ 0x28
   if (HAL_UART_Init(&huart1) != HAL_OK)
  80007a4:	4811      	ldr	r0, [pc, #68]	@ (80007ec <MX_USART1_UART_Init+0x90>)
- 80007a6:	f005 fa31 	bl	8005c0c <HAL_UART_Init>
+ 80007a6:	f005 fa39 	bl	8005c1c <HAL_UART_Init>
  80007aa:	4603      	mov	r3, r0
  80007ac:	2b00      	cmp	r3, #0
  80007ae:	d001      	beq.n	80007b4 <MX_USART1_UART_Init+0x58>
@@ -806,7 +806,7 @@ static void MX_USART1_UART_Init(void)
   if (HAL_UARTEx_SetTxFifoThreshold(&huart1, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
  80007b4:	2100      	movs	r1, #0
  80007b6:	480d      	ldr	r0, [pc, #52]	@ (80007ec <MX_USART1_UART_Init+0x90>)
- 80007b8:	f005 fe72 	bl	80064a0 <HAL_UARTEx_SetTxFifoThreshold>
+ 80007b8:	f005 fe7a 	bl	80064b0 <HAL_UARTEx_SetTxFifoThreshold>
  80007bc:	4603      	mov	r3, r0
  80007be:	2b00      	cmp	r3, #0
  80007c0:	d001      	beq.n	80007c6 <MX_USART1_UART_Init+0x6a>
@@ -817,7 +817,7 @@ static void MX_USART1_UART_Init(void)
   if (HAL_UARTEx_SetRxFifoThreshold(&huart1, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
  80007c6:	2100      	movs	r1, #0
  80007c8:	4808      	ldr	r0, [pc, #32]	@ (80007ec <MX_USART1_UART_Init+0x90>)
- 80007ca:	f005 fea7 	bl	800651c <HAL_UARTEx_SetRxFifoThreshold>
+ 80007ca:	f005 feaf 	bl	800652c <HAL_UARTEx_SetRxFifoThreshold>
  80007ce:	4603      	mov	r3, r0
  80007d0:	2b00      	cmp	r3, #0
  80007d2:	d001      	beq.n	80007d8 <MX_USART1_UART_Init+0x7c>
@@ -827,7 +827,7 @@ static void MX_USART1_UART_Init(void)
   }
   if (HAL_UARTEx_DisableFifoMode(&huart1) != HAL_OK)
  80007d8:	4804      	ldr	r0, [pc, #16]	@ (80007ec <MX_USART1_UART_Init+0x90>)
- 80007da:	f005 fe28 	bl	800642e <HAL_UARTEx_DisableFifoMode>
+ 80007da:	f005 fe30 	bl	800643e <HAL_UARTEx_DisableFifoMode>
  80007de:	4603      	mov	r3, r0
  80007e0:	2b00      	cmp	r3, #0
  80007e2:	d001      	beq.n	80007e8 <MX_USART1_UART_Init+0x8c>
@@ -1224,7 +1224,7 @@ void HAL_RTC_MspInit(RTC_HandleTypeDef* hrtc)
  8000a38:	22c0      	movs	r2, #192	@ 0xc0
  8000a3a:	2100      	movs	r1, #0
  8000a3c:	4618      	mov	r0, r3
- 8000a3e:	f005 fe69 	bl	8006714 <memset>
+ 8000a3e:	f005 fe71 	bl	8006724 <memset>
   if(hrtc->Instance==RTC)
  8000a42:	687b      	ldr	r3, [r7, #4]
  8000a44:	681b      	ldr	r3, [r3, #0]
@@ -1326,7 +1326,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* huart)
  8000af0:	22c0      	movs	r2, #192	@ 0xc0
  8000af2:	2100      	movs	r1, #0
  8000af4:	4618      	mov	r0, r3
- 8000af6:	f005 fe0d 	bl	8006714 <memset>
+ 8000af6:	f005 fe15 	bl	8006724 <memset>
   if(huart->Instance==USART1)
  8000afa:	687b      	ldr	r3, [r7, #4]
  8000afc:	681b      	ldr	r3, [r3, #0]
@@ -1596,7 +1596,7 @@ void RTC_IRQHandler(void)
   /* USER CODE END RTC_IRQn 0 */
   HAL_RTCEx_WakeUpTimerIRQHandler(&hrtc);
  8000c08:	4802      	ldr	r0, [pc, #8]	@ (8000c14 <RTC_IRQHandler+0x10>)
- 8000c0a:	f004 ffb7 	bl	8005b7c <HAL_RTCEx_WakeUpTimerIRQHandler>
+ 8000c0a:	f004 ffbf 	bl	8005b8c <HAL_RTCEx_WakeUpTimerIRQHandler>
   /* USER CODE BEGIN RTC_IRQn 1 */
 
   /* USER CODE END RTC_IRQn 1 */
@@ -1761,7 +1761,7 @@ LoopFillZerobss:
 
 /* Call static constructors */
     bl __libc_init_array
- 8000cb6:	f005 fd35 	bl	8006724 <__libc_init_array>
+ 8000cb6:	f005 fd3d 	bl	8006734 <__libc_init_array>
 /* Call the application's entry point.*/
 	bl	main
  8000cba:	f7ff fc69 	bl	8000590 <main>
@@ -1774,7 +1774,7 @@ LoopForever:
   ldr   sp, =_estack    /* set stack pointer */
  8000cc0:	200c0000 	.word	0x200c0000
 	ldr	r3, =_sidata
- 8000cc4:	08006894 	.word	0x08006894
+ 8000cc4:	080068a4 	.word	0x080068a4
 	ldr	r0, =_sdata
  8000cc8:	20000000 	.word	0x20000000
 	ldr	r3, =_edata
@@ -1861,7 +1861,7 @@ HAL_StatusTypeDef HAL_Init(void)
  8000d2a:	bd80      	pop	{r7, pc}
  8000d2c:	40022000 	.word	0x40022000
  8000d30:	46020c00 	.word	0x46020c00
- 8000d34:	08006784 	.word	0x08006784
+ 8000d34:	08006794 	.word	0x08006794
  8000d38:	20000000 	.word	0x20000000
 
 08000d3c <HAL_InitTick>:
@@ -2972,7 +2972,7 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, const GPIO_InitTypeDef *pGPIO_Init)
  800139c:	e01e      	b.n	80013dc <HAL_GPIO_Init+0x1c4>
  800139e:	bf00      	nop
  80013a0:	46020000 	.word	0x46020000
- 80013a4:	080067dc 	.word	0x080067dc
+ 80013a4:	080067ec 	.word	0x080067ec
       {
         /* Check the parameters */
         assert_param(IS_GPIO_ALL_INSTANCE(GPIOx));
@@ -6987,7 +6987,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef   *const pRCC_Clk
  8002b46:	bd80      	pop	{r7, pc}
  8002b48:	46020c00 	.word	0x46020c00
  8002b4c:	40022000 	.word	0x40022000
- 8002b50:	08006784 	.word	0x08006784
+ 8002b50:	08006794 	.word	0x08006794
  8002b54:	20000000 	.word	0x20000000
  8002b58:	20000004 	.word	0x20000004
 
@@ -7276,7 +7276,7 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
  8002d48:	4770      	bx	lr
  8002d4a:	bf00      	nop
  8002d4c:	46020c00 	.word	0x46020c00
- 8002d50:	0800679c 	.word	0x0800679c
+ 8002d50:	080067ac 	.word	0x080067ac
  8002d54:	00f42400 	.word	0x00f42400
  8002d58:	4b742400 	.word	0x4b742400
  8002d5c:	46000000 	.word	0x46000000
@@ -7309,7 +7309,7 @@ uint32_t HAL_RCC_GetHCLKFreq(void)
  8002d84:	bd80      	pop	{r7, pc}
  8002d86:	bf00      	nop
  8002d88:	46020c00 	.word	0x46020c00
- 8002d8c:	08006784 	.word	0x08006784
+ 8002d8c:	08006794 	.word	0x08006794
  8002d90:	20000000 	.word	0x20000000
 
 08002d94 <HAL_RCC_GetPCLK1Freq>:
@@ -7336,7 +7336,7 @@ uint32_t HAL_RCC_GetPCLK1Freq(void)
  8002db0:	4618      	mov	r0, r3
  8002db2:	bd80      	pop	{r7, pc}
  8002db4:	46020c00 	.word	0x46020c00
- 8002db8:	08006794 	.word	0x08006794
+ 8002db8:	080067a4 	.word	0x080067a4
 
 08002dbc <HAL_RCC_GetPCLK2Freq>:
   * @note   Each time PCLK2 changes, this function must be called to update the
@@ -7362,7 +7362,7 @@ uint32_t HAL_RCC_GetPCLK2Freq(void)
  8002dd8:	4618      	mov	r0, r3
  8002dda:	bd80      	pop	{r7, pc}
  8002ddc:	46020c00 	.word	0x46020c00
- 8002de0:	08006794 	.word	0x08006794
+ 8002de0:	080067a4 	.word	0x080067a4
 
 08002de4 <HAL_RCC_GetPCLK3Freq>:
   * @note   Each time PCLK3 changes, this function must be called to update the
@@ -7388,7 +7388,7 @@ uint32_t HAL_RCC_GetPCLK3Freq(void)
  8002e00:	4618      	mov	r0, r3
  8002e02:	bd80      	pop	{r7, pc}
  8002e04:	46020c00 	.word	0x46020c00
- 8002e08:	08006794 	.word	0x08006794
+ 8002e08:	080067a4 	.word	0x080067a4
 
 08002e0c <RCC_SetFlashLatencyFromMSIRange>:
             voltage range.
@@ -9528,7 +9528,7 @@ void HAL_RCCEx_GetPLL1ClockFreq(PLL1_ClocksTypeDef *PLL1_Clocks)
  8003d04:	46020c00 	.word	0x46020c00
  8003d08:	4b742400 	.word	0x4b742400
  8003d0c:	46000000 	.word	0x46000000
- 8003d10:	0800679c 	.word	0x0800679c
+ 8003d10:	080067ac 	.word	0x080067ac
 
 08003d14 <HAL_RCCEx_GetPLL2ClockFreq>:
   *         right PLL2CLK value. Otherwise, any configuration based on this function will be incorrect.
@@ -9844,7 +9844,7 @@ void HAL_RCCEx_GetPLL2ClockFreq(PLL2_ClocksTypeDef *PLL2_Clocks)
  8003fb8:	46020c00 	.word	0x46020c00
  8003fbc:	4b742400 	.word	0x4b742400
  8003fc0:	46000000 	.word	0x46000000
- 8003fc4:	0800679c 	.word	0x0800679c
+ 8003fc4:	080067ac 	.word	0x080067ac
 
 08003fc8 <HAL_RCCEx_GetPLL3ClockFreq>:
   *         right PLL3CLK value. Otherwise, any configuration based on this function will be incorrect.
@@ -10163,7 +10163,7 @@ void HAL_RCCEx_GetPLL3ClockFreq(PLL3_ClocksTypeDef *PLL3_Clocks)
  800426c:	46020c00 	.word	0x46020c00
  8004270:	4b742400 	.word	0x4b742400
  8004274:	46000000 	.word	0x46000000
- 8004278:	0800679c 	.word	0x0800679c
+ 8004278:	080067ac 	.word	0x080067ac
 
 0800427c <HAL_RCCEx_GetPeriphCLKFreq>:
   * @retval Frequency in Hz
@@ -11027,7 +11027,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
  80047e6:	f000 bef1 	b.w	80055cc <HAL_RCCEx_GetPeriphCLKFreq+0x1350>
  80047ea:	bf00      	nop
  80047ec:	46020c00 	.word	0x46020c00
- 80047f0:	0800679c 	.word	0x0800679c
+ 80047f0:	080067ac 	.word	0x080067ac
  80047f4:	02dc6c00 	.word	0x02dc6c00
  80047f8:	00f42400 	.word	0x00f42400
     }
@@ -11409,7 +11409,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
  8004a9a:	bf00      	nop
  8004a9c:	46020c00 	.word	0x46020c00
  8004aa0:	00f42400 	.word	0x00f42400
- 8004aa4:	0800679c 	.word	0x0800679c
+ 8004aa4:	080067ac 	.word	0x080067ac
     }
   }
   else if (PeriphClk == RCC_PERIPHCLK_MDF1)
@@ -11814,7 +11814,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
  8004d66:	f003 030f 	and.w	r3, r3, #15
  8004d6a:	e00c      	b.n	8004d86 <HAL_RCCEx_GetPeriphCLKFreq+0xb0a>
  8004d6c:	46020c00 	.word	0x46020c00
- 8004d70:	0800679c 	.word	0x0800679c
+ 8004d70:	080067ac 	.word	0x080067ac
  8004d74:	00f42400 	.word	0x00f42400
  8004d78:	4ba1      	ldr	r3, [pc, #644]	@ (8005000 <HAL_RCCEx_GetPeriphCLKFreq+0xd84>)
  8004d7a:	f8d3 30f4 	ldr.w	r3, [r3, #244]	@ 0xf4
@@ -12215,7 +12215,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
  8004ffc:	e00d      	b.n	800501a <HAL_RCCEx_GetPeriphCLKFreq+0xd9e>
  8004ffe:	bf00      	nop
  8005000:	46020c00 	.word	0x46020c00
- 8005004:	0800679c 	.word	0x0800679c
+ 8005004:	080067ac 	.word	0x080067ac
  8005008:	00f42400 	.word	0x00f42400
  800500c:	4b94      	ldr	r3, [pc, #592]	@ (8005260 <HAL_RCCEx_GetPeriphCLKFreq+0xfe4>)
  800500e:	f8d3 30f4 	ldr.w	r3, [r3, #244]	@ 0xf4
@@ -12589,7 +12589,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
  800525c:	e1b6      	b.n	80055cc <HAL_RCCEx_GetPeriphCLKFreq+0x1350>
  800525e:	bf00      	nop
  8005260:	46020c00 	.word	0x46020c00
- 8005264:	0800679c 	.word	0x0800679c
+ 8005264:	080067ac 	.word	0x080067ac
  8005268:	00f42400 	.word	0x00f42400
     }
   }
@@ -13003,7 +13003,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
  800550e:	bf00      	nop
  8005510:	46020c00 	.word	0x46020c00
  8005514:	00f42400 	.word	0x00f42400
- 8005518:	0800679c 	.word	0x0800679c
+ 8005518:	080067ac 	.word	0x080067ac
     }
     /* Check if LSI is ready and if DAC1 clock selection is LSI */
     else if ((HAL_IS_BIT_SET(RCC->BDCR, RCC_BDCR_LSIRDY)) && (srcclk == RCC_DAC1CLKSOURCE_LSI))
@@ -13556,7 +13556,7 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
   if (hrtc != NULL)
  8005854:	687b      	ldr	r3, [r7, #4]
  8005856:	2b00      	cmp	r3, #0
- 8005858:	d071      	beq.n	800593e <HAL_RTC_Init+0xf6>
+ 8005858:	d078      	beq.n	800594c <HAL_RTC_Init+0x104>
       {
         hrtc->MspDeInitCallback = HAL_RTC_MspDeInit;
       }
@@ -13588,2631 +13588,2642 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
  8005876:	2202      	movs	r2, #2
  8005878:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
 
-    /* Check if the calendar has been not initialized */
+    /* Check whether the calendar needs to be initialized */
     if (__HAL_RTC_IS_CALENDAR_INITIALIZED(hrtc) == 0U)
- 800587c:	4b32      	ldr	r3, [pc, #200]	@ (8005948 <HAL_RTC_Init+0x100>)
+ 800587c:	4b36      	ldr	r3, [pc, #216]	@ (8005958 <HAL_RTC_Init+0x110>)
  800587e:	68db      	ldr	r3, [r3, #12]
  8005880:	f003 0310 	and.w	r3, r3, #16
  8005884:	2b10      	cmp	r3, #16
- 8005886:	d051      	beq.n	800592c <HAL_RTC_Init+0xe4>
+ 8005886:	d058      	beq.n	800593a <HAL_RTC_Init+0xf2>
     {
-      /* Disable the write protection for RTC registers */
-      __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
- 8005888:	4b2f      	ldr	r3, [pc, #188]	@ (8005948 <HAL_RTC_Init+0x100>)
- 800588a:	22ca      	movs	r2, #202	@ 0xca
- 800588c:	625a      	str	r2, [r3, #36]	@ 0x24
- 800588e:	4b2e      	ldr	r3, [pc, #184]	@ (8005948 <HAL_RTC_Init+0x100>)
- 8005890:	2253      	movs	r2, #83	@ 0x53
- 8005892:	625a      	str	r2, [r3, #36]	@ 0x24
-
-      /* Enter Initialization mode */
-      status = RTC_EnterInitMode(hrtc);
- 8005894:	6878      	ldr	r0, [r7, #4]
- 8005896:	f000 f88b 	bl	80059b0 <RTC_EnterInitMode>
- 800589a:	4603      	mov	r3, r0
- 800589c:	73fb      	strb	r3, [r7, #15]
-      if (status == HAL_OK)
- 800589e:	7bfb      	ldrb	r3, [r7, #15]
- 80058a0:	2b00      	cmp	r3, #0
- 80058a2:	d13f      	bne.n	8005924 <HAL_RTC_Init+0xdc>
+      /* Check that the RTC mode is not 'binary only' */
+      if (__HAL_RTC_GET_BINARY_MODE(hrtc) != RTC_BINARY_ONLY)
+ 8005888:	4b33      	ldr	r3, [pc, #204]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 800588a:	68db      	ldr	r3, [r3, #12]
+ 800588c:	f403 7340 	and.w	r3, r3, #768	@ 0x300
+ 8005890:	f5b3 7f80 	cmp.w	r3, #256	@ 0x100
+ 8005894:	d053      	beq.n	800593e <HAL_RTC_Init+0xf6>
       {
-        /* Clear RTC_CR FMT, OSEL and POL Bits */
-        CLEAR_BIT(RTC->CR, (RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL | RTC_CR_TAMPOE));
- 80058a4:	4b28      	ldr	r3, [pc, #160]	@ (8005948 <HAL_RTC_Init+0x100>)
- 80058a6:	699b      	ldr	r3, [r3, #24]
- 80058a8:	4a27      	ldr	r2, [pc, #156]	@ (8005948 <HAL_RTC_Init+0x100>)
- 80058aa:	f023 638e 	bic.w	r3, r3, #74448896	@ 0x4700000
- 80058ae:	f023 0340 	bic.w	r3, r3, #64	@ 0x40
- 80058b2:	6193      	str	r3, [r2, #24]
-        /* Set RTC_CR register */
-        SET_BIT(RTC->CR, (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity));
- 80058b4:	4b24      	ldr	r3, [pc, #144]	@ (8005948 <HAL_RTC_Init+0x100>)
- 80058b6:	699a      	ldr	r2, [r3, #24]
- 80058b8:	687b      	ldr	r3, [r7, #4]
- 80058ba:	6859      	ldr	r1, [r3, #4]
- 80058bc:	687b      	ldr	r3, [r7, #4]
- 80058be:	691b      	ldr	r3, [r3, #16]
- 80058c0:	4319      	orrs	r1, r3
- 80058c2:	687b      	ldr	r3, [r7, #4]
- 80058c4:	699b      	ldr	r3, [r3, #24]
- 80058c6:	430b      	orrs	r3, r1
- 80058c8:	491f      	ldr	r1, [pc, #124]	@ (8005948 <HAL_RTC_Init+0x100>)
- 80058ca:	4313      	orrs	r3, r2
- 80058cc:	618b      	str	r3, [r1, #24]
+        /* Disable the write protection for RTC registers */
+        __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
+ 8005896:	4b30      	ldr	r3, [pc, #192]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 8005898:	22ca      	movs	r2, #202	@ 0xca
+ 800589a:	625a      	str	r2, [r3, #36]	@ 0x24
+ 800589c:	4b2e      	ldr	r3, [pc, #184]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 800589e:	2253      	movs	r2, #83	@ 0x53
+ 80058a0:	625a      	str	r2, [r3, #36]	@ 0x24
 
-        /* Configure the RTC PRER */
-        WRITE_REG(RTC->PRER, ((hrtc->Init.SynchPrediv) | (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos)));
- 80058ce:	687b      	ldr	r3, [r7, #4]
- 80058d0:	68da      	ldr	r2, [r3, #12]
- 80058d2:	687b      	ldr	r3, [r7, #4]
- 80058d4:	689b      	ldr	r3, [r3, #8]
- 80058d6:	041b      	lsls	r3, r3, #16
- 80058d8:	491b      	ldr	r1, [pc, #108]	@ (8005948 <HAL_RTC_Init+0x100>)
- 80058da:	4313      	orrs	r3, r2
- 80058dc:	610b      	str	r3, [r1, #16]
+        /* Enter Initialization mode */
+        status = RTC_EnterInitMode(hrtc);
+ 80058a2:	6878      	ldr	r0, [r7, #4]
+ 80058a4:	f000 f88c 	bl	80059c0 <RTC_EnterInitMode>
+ 80058a8:	4603      	mov	r3, r0
+ 80058aa:	73fb      	strb	r3, [r7, #15]
 
-        /* Configure the Binary mode */
-        MODIFY_REG(RTC->ICSR, RTC_ICSR_BIN | RTC_ICSR_BCDU, hrtc->Init.BinMode | hrtc->Init.BinMixBcdU);
- 80058de:	4b1a      	ldr	r3, [pc, #104]	@ (8005948 <HAL_RTC_Init+0x100>)
- 80058e0:	68db      	ldr	r3, [r3, #12]
- 80058e2:	f423 52f8 	bic.w	r2, r3, #7936	@ 0x1f00
- 80058e6:	687b      	ldr	r3, [r7, #4]
- 80058e8:	6a59      	ldr	r1, [r3, #36]	@ 0x24
- 80058ea:	687b      	ldr	r3, [r7, #4]
- 80058ec:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 80058ee:	430b      	orrs	r3, r1
- 80058f0:	4915      	ldr	r1, [pc, #84]	@ (8005948 <HAL_RTC_Init+0x100>)
- 80058f2:	4313      	orrs	r3, r2
- 80058f4:	60cb      	str	r3, [r1, #12]
-
-        /* Exit Initialization mode */
-        status = RTC_ExitInitMode(hrtc);
- 80058f6:	6878      	ldr	r0, [r7, #4]
- 80058f8:	f000 f896 	bl	8005a28 <RTC_ExitInitMode>
- 80058fc:	4603      	mov	r3, r0
- 80058fe:	73fb      	strb	r3, [r7, #15]
         if (status == HAL_OK)
- 8005900:	7bfb      	ldrb	r3, [r7, #15]
- 8005902:	2b00      	cmp	r3, #0
- 8005904:	d10e      	bne.n	8005924 <HAL_RTC_Init+0xdc>
+ 80058ac:	7bfb      	ldrb	r3, [r7, #15]
+ 80058ae:	2b00      	cmp	r3, #0
+ 80058b0:	d13f      	bne.n	8005932 <HAL_RTC_Init+0xea>
         {
-          MODIFY_REG(RTC->CR, \
- 8005906:	4b10      	ldr	r3, [pc, #64]	@ (8005948 <HAL_RTC_Init+0x100>)
- 8005908:	699b      	ldr	r3, [r3, #24]
- 800590a:	f023 4260 	bic.w	r2, r3, #3758096384	@ 0xe0000000
- 800590e:	687b      	ldr	r3, [r7, #4]
- 8005910:	6a19      	ldr	r1, [r3, #32]
- 8005912:	687b      	ldr	r3, [r7, #4]
- 8005914:	69db      	ldr	r3, [r3, #28]
- 8005916:	4319      	orrs	r1, r3
- 8005918:	687b      	ldr	r3, [r7, #4]
- 800591a:	695b      	ldr	r3, [r3, #20]
- 800591c:	430b      	orrs	r3, r1
- 800591e:	490a      	ldr	r1, [pc, #40]	@ (8005948 <HAL_RTC_Init+0x100>)
- 8005920:	4313      	orrs	r3, r2
- 8005922:	618b      	str	r3, [r1, #24]
-                     hrtc->Init.OutPutPullUp | hrtc->Init.OutPutType | hrtc->Init.OutPutRemap);
-        }
-      }
+          /* Clear RTC_CR FMT, OSEL and POL Bits */
+          CLEAR_BIT(RTC->CR, (RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL | RTC_CR_TAMPOE));
+ 80058b2:	4b29      	ldr	r3, [pc, #164]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 80058b4:	699b      	ldr	r3, [r3, #24]
+ 80058b6:	4a28      	ldr	r2, [pc, #160]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 80058b8:	f023 638e 	bic.w	r3, r3, #74448896	@ 0x4700000
+ 80058bc:	f023 0340 	bic.w	r3, r3, #64	@ 0x40
+ 80058c0:	6193      	str	r3, [r2, #24]
+          /* Set RTC_CR register */
+          SET_BIT(RTC->CR, (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity));
+ 80058c2:	4b25      	ldr	r3, [pc, #148]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 80058c4:	699a      	ldr	r2, [r3, #24]
+ 80058c6:	687b      	ldr	r3, [r7, #4]
+ 80058c8:	6859      	ldr	r1, [r3, #4]
+ 80058ca:	687b      	ldr	r3, [r7, #4]
+ 80058cc:	691b      	ldr	r3, [r3, #16]
+ 80058ce:	4319      	orrs	r1, r3
+ 80058d0:	687b      	ldr	r3, [r7, #4]
+ 80058d2:	699b      	ldr	r3, [r3, #24]
+ 80058d4:	430b      	orrs	r3, r1
+ 80058d6:	4920      	ldr	r1, [pc, #128]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 80058d8:	4313      	orrs	r3, r2
+ 80058da:	618b      	str	r3, [r1, #24]
 
-      /* Enable the write protection for RTC registers */
-      __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
- 8005924:	4b08      	ldr	r3, [pc, #32]	@ (8005948 <HAL_RTC_Init+0x100>)
- 8005926:	22ff      	movs	r2, #255	@ 0xff
- 8005928:	625a      	str	r2, [r3, #36]	@ 0x24
- 800592a:	e001      	b.n	8005930 <HAL_RTC_Init+0xe8>
+          /* Configure the RTC PRER */
+          WRITE_REG(RTC->PRER, ((hrtc->Init.SynchPrediv) | (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos)));
+ 80058dc:	687b      	ldr	r3, [r7, #4]
+ 80058de:	68da      	ldr	r2, [r3, #12]
+ 80058e0:	687b      	ldr	r3, [r7, #4]
+ 80058e2:	689b      	ldr	r3, [r3, #8]
+ 80058e4:	041b      	lsls	r3, r3, #16
+ 80058e6:	491c      	ldr	r1, [pc, #112]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 80058e8:	4313      	orrs	r3, r2
+ 80058ea:	610b      	str	r3, [r1, #16]
+
+          /* Configure the Binary mode */
+          MODIFY_REG(RTC->ICSR, RTC_ICSR_BIN | RTC_ICSR_BCDU, hrtc->Init.BinMode | hrtc->Init.BinMixBcdU);
+ 80058ec:	4b1a      	ldr	r3, [pc, #104]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 80058ee:	68db      	ldr	r3, [r3, #12]
+ 80058f0:	f423 52f8 	bic.w	r2, r3, #7936	@ 0x1f00
+ 80058f4:	687b      	ldr	r3, [r7, #4]
+ 80058f6:	6a59      	ldr	r1, [r3, #36]	@ 0x24
+ 80058f8:	687b      	ldr	r3, [r7, #4]
+ 80058fa:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 80058fc:	430b      	orrs	r3, r1
+ 80058fe:	4916      	ldr	r1, [pc, #88]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 8005900:	4313      	orrs	r3, r2
+ 8005902:	60cb      	str	r3, [r1, #12]
+
+          /* Exit Initialization mode */
+          status = RTC_ExitInitMode(hrtc);
+ 8005904:	6878      	ldr	r0, [r7, #4]
+ 8005906:	f000 f897 	bl	8005a38 <RTC_ExitInitMode>
+ 800590a:	4603      	mov	r3, r0
+ 800590c:	73fb      	strb	r3, [r7, #15]
+
+          if (status == HAL_OK)
+ 800590e:	7bfb      	ldrb	r3, [r7, #15]
+ 8005910:	2b00      	cmp	r3, #0
+ 8005912:	d10e      	bne.n	8005932 <HAL_RTC_Init+0xea>
+          {
+            MODIFY_REG(RTC->CR, \
+ 8005914:	4b10      	ldr	r3, [pc, #64]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 8005916:	699b      	ldr	r3, [r3, #24]
+ 8005918:	f023 4260 	bic.w	r2, r3, #3758096384	@ 0xe0000000
+ 800591c:	687b      	ldr	r3, [r7, #4]
+ 800591e:	6a19      	ldr	r1, [r3, #32]
+ 8005920:	687b      	ldr	r3, [r7, #4]
+ 8005922:	69db      	ldr	r3, [r3, #28]
+ 8005924:	4319      	orrs	r1, r3
+ 8005926:	687b      	ldr	r3, [r7, #4]
+ 8005928:	695b      	ldr	r3, [r3, #20]
+ 800592a:	430b      	orrs	r3, r1
+ 800592c:	490a      	ldr	r1, [pc, #40]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 800592e:	4313      	orrs	r3, r2
+ 8005930:	618b      	str	r3, [r1, #24]
+                       hrtc->Init.OutPutPullUp | hrtc->Init.OutPutType | hrtc->Init.OutPutRemap);
+          }
+        }
+
+        /* Enable the write protection for RTC registers */
+        __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
+ 8005932:	4b09      	ldr	r3, [pc, #36]	@ (8005958 <HAL_RTC_Init+0x110>)
+ 8005934:	22ff      	movs	r2, #255	@ 0xff
+ 8005936:	625a      	str	r2, [r3, #36]	@ 0x24
+ 8005938:	e001      	b.n	800593e <HAL_RTC_Init+0xf6>
     }
     else
     {
       /* Calendar is already initialized */
       /* Set flag to OK */
       status = HAL_OK;
- 800592c:	2300      	movs	r3, #0
- 800592e:	73fb      	strb	r3, [r7, #15]
+ 800593a:	2300      	movs	r3, #0
+ 800593c:	73fb      	strb	r3, [r7, #15]
     }
 
     if (status == HAL_OK)
- 8005930:	7bfb      	ldrb	r3, [r7, #15]
- 8005932:	2b00      	cmp	r3, #0
- 8005934:	d103      	bne.n	800593e <HAL_RTC_Init+0xf6>
+ 800593e:	7bfb      	ldrb	r3, [r7, #15]
+ 8005940:	2b00      	cmp	r3, #0
+ 8005942:	d103      	bne.n	800594c <HAL_RTC_Init+0x104>
     {
       /* Change RTC state */
       hrtc->State = HAL_RTC_STATE_READY;
- 8005936:	687b      	ldr	r3, [r7, #4]
- 8005938:	2201      	movs	r2, #1
- 800593a:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
+ 8005944:	687b      	ldr	r3, [r7, #4]
+ 8005946:	2201      	movs	r2, #1
+ 8005948:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
     }
   }
 
   return status;
- 800593e:	7bfb      	ldrb	r3, [r7, #15]
+ 800594c:	7bfb      	ldrb	r3, [r7, #15]
 }
- 8005940:	4618      	mov	r0, r3
- 8005942:	3710      	adds	r7, #16
- 8005944:	46bd      	mov	sp, r7
- 8005946:	bd80      	pop	{r7, pc}
- 8005948:	46007800 	.word	0x46007800
+ 800594e:	4618      	mov	r0, r3
+ 8005950:	3710      	adds	r7, #16
+ 8005952:	46bd      	mov	sp, r7
+ 8005954:	bd80      	pop	{r7, pc}
+ 8005956:	bf00      	nop
+ 8005958:	46007800 	.word	0x46007800
 
-0800594c <HAL_RTC_WaitForSynchro>:
+0800595c <HAL_RTC_WaitForSynchro>:
   *         correctly copied into the RTC_TR and RTC_DR shadow registers.
   * @param  hrtc RTC handle
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_RTC_WaitForSynchro(RTC_HandleTypeDef *hrtc)
 {
- 800594c:	b580      	push	{r7, lr}
- 800594e:	b084      	sub	sp, #16
- 8005950:	af00      	add	r7, sp, #0
- 8005952:	6078      	str	r0, [r7, #4]
+ 800595c:	b580      	push	{r7, lr}
+ 800595e:	b084      	sub	sp, #16
+ 8005960:	af00      	add	r7, sp, #0
+ 8005962:	6078      	str	r0, [r7, #4]
   uint32_t tickstart;
 
   /* Clear RSF flag */
   CLEAR_BIT(RTC->ICSR, RTC_ICSR_RSF);
- 8005954:	4b15      	ldr	r3, [pc, #84]	@ (80059ac <HAL_RTC_WaitForSynchro+0x60>)
- 8005956:	68db      	ldr	r3, [r3, #12]
- 8005958:	4a14      	ldr	r2, [pc, #80]	@ (80059ac <HAL_RTC_WaitForSynchro+0x60>)
- 800595a:	f023 0320 	bic.w	r3, r3, #32
- 800595e:	60d3      	str	r3, [r2, #12]
+ 8005964:	4b15      	ldr	r3, [pc, #84]	@ (80059bc <HAL_RTC_WaitForSynchro+0x60>)
+ 8005966:	68db      	ldr	r3, [r3, #12]
+ 8005968:	4a14      	ldr	r2, [pc, #80]	@ (80059bc <HAL_RTC_WaitForSynchro+0x60>)
+ 800596a:	f023 0320 	bic.w	r3, r3, #32
+ 800596e:	60d3      	str	r3, [r2, #12]
 
   tickstart = HAL_GetTick();
- 8005960:	f7fb fa76 	bl	8000e50 <HAL_GetTick>
- 8005964:	60f8      	str	r0, [r7, #12]
+ 8005970:	f7fb fa6e 	bl	8000e50 <HAL_GetTick>
+ 8005974:	60f8      	str	r0, [r7, #12]
 
   /* Wait the registers to be synchronised */
   while (READ_BIT(RTC->ICSR, RTC_ICSR_RSF) == 0U)
- 8005966:	e013      	b.n	8005990 <HAL_RTC_WaitForSynchro+0x44>
+ 8005976:	e013      	b.n	80059a0 <HAL_RTC_WaitForSynchro+0x44>
   {
     if ((HAL_GetTick() - tickstart) > RTC_TIMEOUT_VALUE)
- 8005968:	f7fb fa72 	bl	8000e50 <HAL_GetTick>
- 800596c:	4602      	mov	r2, r0
- 800596e:	68fb      	ldr	r3, [r7, #12]
- 8005970:	1ad3      	subs	r3, r2, r3
- 8005972:	f5b3 7f7a 	cmp.w	r3, #1000	@ 0x3e8
- 8005976:	d90b      	bls.n	8005990 <HAL_RTC_WaitForSynchro+0x44>
+ 8005978:	f7fb fa6a 	bl	8000e50 <HAL_GetTick>
+ 800597c:	4602      	mov	r2, r0
+ 800597e:	68fb      	ldr	r3, [r7, #12]
+ 8005980:	1ad3      	subs	r3, r2, r3
+ 8005982:	f5b3 7f7a 	cmp.w	r3, #1000	@ 0x3e8
+ 8005986:	d90b      	bls.n	80059a0 <HAL_RTC_WaitForSynchro+0x44>
     {
       /* New check to avoid false timeout detection in case of preemption */
       if (READ_BIT(RTC->ICSR, RTC_ICSR_RSF) == 0U)
- 8005978:	4b0c      	ldr	r3, [pc, #48]	@ (80059ac <HAL_RTC_WaitForSynchro+0x60>)
- 800597a:	68db      	ldr	r3, [r3, #12]
- 800597c:	f003 0320 	and.w	r3, r3, #32
- 8005980:	2b00      	cmp	r3, #0
- 8005982:	d10c      	bne.n	800599e <HAL_RTC_WaitForSynchro+0x52>
+ 8005988:	4b0c      	ldr	r3, [pc, #48]	@ (80059bc <HAL_RTC_WaitForSynchro+0x60>)
+ 800598a:	68db      	ldr	r3, [r3, #12]
+ 800598c:	f003 0320 	and.w	r3, r3, #32
+ 8005990:	2b00      	cmp	r3, #0
+ 8005992:	d10c      	bne.n	80059ae <HAL_RTC_WaitForSynchro+0x52>
       {
         /* Change RTC state */
         hrtc->State = HAL_RTC_STATE_TIMEOUT;
- 8005984:	687b      	ldr	r3, [r7, #4]
- 8005986:	2203      	movs	r2, #3
- 8005988:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
+ 8005994:	687b      	ldr	r3, [r7, #4]
+ 8005996:	2203      	movs	r2, #3
+ 8005998:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
         return HAL_TIMEOUT;
- 800598c:	2303      	movs	r3, #3
- 800598e:	e008      	b.n	80059a2 <HAL_RTC_WaitForSynchro+0x56>
+ 800599c:	2303      	movs	r3, #3
+ 800599e:	e008      	b.n	80059b2 <HAL_RTC_WaitForSynchro+0x56>
   while (READ_BIT(RTC->ICSR, RTC_ICSR_RSF) == 0U)
- 8005990:	4b06      	ldr	r3, [pc, #24]	@ (80059ac <HAL_RTC_WaitForSynchro+0x60>)
- 8005992:	68db      	ldr	r3, [r3, #12]
- 8005994:	f003 0320 	and.w	r3, r3, #32
- 8005998:	2b00      	cmp	r3, #0
- 800599a:	d0e5      	beq.n	8005968 <HAL_RTC_WaitForSynchro+0x1c>
- 800599c:	e000      	b.n	80059a0 <HAL_RTC_WaitForSynchro+0x54>
+ 80059a0:	4b06      	ldr	r3, [pc, #24]	@ (80059bc <HAL_RTC_WaitForSynchro+0x60>)
+ 80059a2:	68db      	ldr	r3, [r3, #12]
+ 80059a4:	f003 0320 	and.w	r3, r3, #32
+ 80059a8:	2b00      	cmp	r3, #0
+ 80059aa:	d0e5      	beq.n	8005978 <HAL_RTC_WaitForSynchro+0x1c>
+ 80059ac:	e000      	b.n	80059b0 <HAL_RTC_WaitForSynchro+0x54>
       }
       else
       {
         break;
- 800599e:	bf00      	nop
+ 80059ae:	bf00      	nop
       }
     }
   }
 
   return HAL_OK;
- 80059a0:	2300      	movs	r3, #0
+ 80059b0:	2300      	movs	r3, #0
 }
- 80059a2:	4618      	mov	r0, r3
- 80059a4:	3710      	adds	r7, #16
- 80059a6:	46bd      	mov	sp, r7
- 80059a8:	bd80      	pop	{r7, pc}
- 80059aa:	bf00      	nop
- 80059ac:	46007800 	.word	0x46007800
+ 80059b2:	4618      	mov	r0, r3
+ 80059b4:	3710      	adds	r7, #16
+ 80059b6:	46bd      	mov	sp, r7
+ 80059b8:	bd80      	pop	{r7, pc}
+ 80059ba:	bf00      	nop
+ 80059bc:	46007800 	.word	0x46007800
 
-080059b0 <RTC_EnterInitMode>:
+080059c0 <RTC_EnterInitMode>:
   *         __HAL_RTC_WRITEPROTECTION_DISABLE() before calling this function.
   * @param  hrtc RTC handle
   * @retval HAL status
   */
 HAL_StatusTypeDef RTC_EnterInitMode(RTC_HandleTypeDef *hrtc)
 {
- 80059b0:	b580      	push	{r7, lr}
- 80059b2:	b084      	sub	sp, #16
- 80059b4:	af00      	add	r7, sp, #0
- 80059b6:	6078      	str	r0, [r7, #4]
+ 80059c0:	b580      	push	{r7, lr}
+ 80059c2:	b084      	sub	sp, #16
+ 80059c4:	af00      	add	r7, sp, #0
+ 80059c6:	6078      	str	r0, [r7, #4]
   uint32_t tickstart;
   HAL_StatusTypeDef status = HAL_OK;
- 80059b8:	2300      	movs	r3, #0
- 80059ba:	73fb      	strb	r3, [r7, #15]
+ 80059c8:	2300      	movs	r3, #0
+ 80059ca:	73fb      	strb	r3, [r7, #15]
 
   /* Check if the Initialization mode is set */
   if (READ_BIT(RTC->ICSR, RTC_ICSR_INITF) == 0U)
- 80059bc:	4b19      	ldr	r3, [pc, #100]	@ (8005a24 <RTC_EnterInitMode+0x74>)
- 80059be:	68db      	ldr	r3, [r3, #12]
- 80059c0:	f003 0340 	and.w	r3, r3, #64	@ 0x40
- 80059c4:	2b00      	cmp	r3, #0
- 80059c6:	d128      	bne.n	8005a1a <RTC_EnterInitMode+0x6a>
+ 80059cc:	4b19      	ldr	r3, [pc, #100]	@ (8005a34 <RTC_EnterInitMode+0x74>)
+ 80059ce:	68db      	ldr	r3, [r3, #12]
+ 80059d0:	f003 0340 	and.w	r3, r3, #64	@ 0x40
+ 80059d4:	2b00      	cmp	r3, #0
+ 80059d6:	d128      	bne.n	8005a2a <RTC_EnterInitMode+0x6a>
   {
     /* Set the Initialization mode */
     SET_BIT(RTC->ICSR, RTC_ICSR_INIT);
- 80059c8:	4b16      	ldr	r3, [pc, #88]	@ (8005a24 <RTC_EnterInitMode+0x74>)
- 80059ca:	68db      	ldr	r3, [r3, #12]
- 80059cc:	4a15      	ldr	r2, [pc, #84]	@ (8005a24 <RTC_EnterInitMode+0x74>)
- 80059ce:	f043 0380 	orr.w	r3, r3, #128	@ 0x80
- 80059d2:	60d3      	str	r3, [r2, #12]
+ 80059d8:	4b16      	ldr	r3, [pc, #88]	@ (8005a34 <RTC_EnterInitMode+0x74>)
+ 80059da:	68db      	ldr	r3, [r3, #12]
+ 80059dc:	4a15      	ldr	r2, [pc, #84]	@ (8005a34 <RTC_EnterInitMode+0x74>)
+ 80059de:	f043 0380 	orr.w	r3, r3, #128	@ 0x80
+ 80059e2:	60d3      	str	r3, [r2, #12]
 
     tickstart = HAL_GetTick();
- 80059d4:	f7fb fa3c 	bl	8000e50 <HAL_GetTick>
- 80059d8:	60b8      	str	r0, [r7, #8]
+ 80059e4:	f7fb fa34 	bl	8000e50 <HAL_GetTick>
+ 80059e8:	60b8      	str	r0, [r7, #8]
     /* Wait till RTC is in INIT state and if Time out is reached exit */
     while ((READ_BIT(RTC->ICSR, RTC_ICSR_INITF) == 0U) && (status != HAL_TIMEOUT))
- 80059da:	e013      	b.n	8005a04 <RTC_EnterInitMode+0x54>
+ 80059ea:	e013      	b.n	8005a14 <RTC_EnterInitMode+0x54>
     {
       if ((HAL_GetTick()  - tickstart) > RTC_TIMEOUT_VALUE)
- 80059dc:	f7fb fa38 	bl	8000e50 <HAL_GetTick>
- 80059e0:	4602      	mov	r2, r0
- 80059e2:	68bb      	ldr	r3, [r7, #8]
- 80059e4:	1ad3      	subs	r3, r2, r3
- 80059e6:	f5b3 7f7a 	cmp.w	r3, #1000	@ 0x3e8
- 80059ea:	d90b      	bls.n	8005a04 <RTC_EnterInitMode+0x54>
+ 80059ec:	f7fb fa30 	bl	8000e50 <HAL_GetTick>
+ 80059f0:	4602      	mov	r2, r0
+ 80059f2:	68bb      	ldr	r3, [r7, #8]
+ 80059f4:	1ad3      	subs	r3, r2, r3
+ 80059f6:	f5b3 7f7a 	cmp.w	r3, #1000	@ 0x3e8
+ 80059fa:	d90b      	bls.n	8005a14 <RTC_EnterInitMode+0x54>
       {
         /* New check to avoid false timeout detection in case of preemption */
         if (READ_BIT(RTC->ICSR, RTC_ICSR_INITF) == 0U)
- 80059ec:	4b0d      	ldr	r3, [pc, #52]	@ (8005a24 <RTC_EnterInitMode+0x74>)
- 80059ee:	68db      	ldr	r3, [r3, #12]
- 80059f0:	f003 0340 	and.w	r3, r3, #64	@ 0x40
- 80059f4:	2b00      	cmp	r3, #0
- 80059f6:	d10f      	bne.n	8005a18 <RTC_EnterInitMode+0x68>
+ 80059fc:	4b0d      	ldr	r3, [pc, #52]	@ (8005a34 <RTC_EnterInitMode+0x74>)
+ 80059fe:	68db      	ldr	r3, [r3, #12]
+ 8005a00:	f003 0340 	and.w	r3, r3, #64	@ 0x40
+ 8005a04:	2b00      	cmp	r3, #0
+ 8005a06:	d10f      	bne.n	8005a28 <RTC_EnterInitMode+0x68>
         {
           status = HAL_TIMEOUT;
- 80059f8:	2303      	movs	r3, #3
- 80059fa:	73fb      	strb	r3, [r7, #15]
+ 8005a08:	2303      	movs	r3, #3
+ 8005a0a:	73fb      	strb	r3, [r7, #15]
 
           /* Change RTC state */
           hrtc->State = HAL_RTC_STATE_TIMEOUT;
- 80059fc:	687b      	ldr	r3, [r7, #4]
- 80059fe:	2203      	movs	r2, #3
- 8005a00:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
+ 8005a0c:	687b      	ldr	r3, [r7, #4]
+ 8005a0e:	2203      	movs	r2, #3
+ 8005a10:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
     while ((READ_BIT(RTC->ICSR, RTC_ICSR_INITF) == 0U) && (status != HAL_TIMEOUT))
- 8005a04:	4b07      	ldr	r3, [pc, #28]	@ (8005a24 <RTC_EnterInitMode+0x74>)
- 8005a06:	68db      	ldr	r3, [r3, #12]
- 8005a08:	f003 0340 	and.w	r3, r3, #64	@ 0x40
- 8005a0c:	2b00      	cmp	r3, #0
- 8005a0e:	d104      	bne.n	8005a1a <RTC_EnterInitMode+0x6a>
- 8005a10:	7bfb      	ldrb	r3, [r7, #15]
- 8005a12:	2b03      	cmp	r3, #3
- 8005a14:	d1e2      	bne.n	80059dc <RTC_EnterInitMode+0x2c>
- 8005a16:	e000      	b.n	8005a1a <RTC_EnterInitMode+0x6a>
+ 8005a14:	4b07      	ldr	r3, [pc, #28]	@ (8005a34 <RTC_EnterInitMode+0x74>)
+ 8005a16:	68db      	ldr	r3, [r3, #12]
+ 8005a18:	f003 0340 	and.w	r3, r3, #64	@ 0x40
+ 8005a1c:	2b00      	cmp	r3, #0
+ 8005a1e:	d104      	bne.n	8005a2a <RTC_EnterInitMode+0x6a>
+ 8005a20:	7bfb      	ldrb	r3, [r7, #15]
+ 8005a22:	2b03      	cmp	r3, #3
+ 8005a24:	d1e2      	bne.n	80059ec <RTC_EnterInitMode+0x2c>
+ 8005a26:	e000      	b.n	8005a2a <RTC_EnterInitMode+0x6a>
         }
         else
         {
           break;
- 8005a18:	bf00      	nop
+ 8005a28:	bf00      	nop
         }
       }
     }
   }
 
   return status;
- 8005a1a:	7bfb      	ldrb	r3, [r7, #15]
+ 8005a2a:	7bfb      	ldrb	r3, [r7, #15]
 }
- 8005a1c:	4618      	mov	r0, r3
- 8005a1e:	3710      	adds	r7, #16
- 8005a20:	46bd      	mov	sp, r7
- 8005a22:	bd80      	pop	{r7, pc}
- 8005a24:	46007800 	.word	0x46007800
+ 8005a2c:	4618      	mov	r0, r3
+ 8005a2e:	3710      	adds	r7, #16
+ 8005a30:	46bd      	mov	sp, r7
+ 8005a32:	bd80      	pop	{r7, pc}
+ 8005a34:	46007800 	.word	0x46007800
 
-08005a28 <RTC_ExitInitMode>:
+08005a38 <RTC_ExitInitMode>:
   * @brief  Exit the RTC Initialization mode.
   * @param  hrtc RTC handle
   * @retval HAL status
   */
 HAL_StatusTypeDef RTC_ExitInitMode(RTC_HandleTypeDef *hrtc)
 {
- 8005a28:	b580      	push	{r7, lr}
- 8005a2a:	b084      	sub	sp, #16
- 8005a2c:	af00      	add	r7, sp, #0
- 8005a2e:	6078      	str	r0, [r7, #4]
+ 8005a38:	b580      	push	{r7, lr}
+ 8005a3a:	b084      	sub	sp, #16
+ 8005a3c:	af00      	add	r7, sp, #0
+ 8005a3e:	6078      	str	r0, [r7, #4]
   HAL_StatusTypeDef status = HAL_OK;
- 8005a30:	2300      	movs	r3, #0
- 8005a32:	73fb      	strb	r3, [r7, #15]
+ 8005a40:	2300      	movs	r3, #0
+ 8005a42:	73fb      	strb	r3, [r7, #15]
 
   /* Exit Initialization mode */
   CLEAR_BIT(RTC->ICSR, RTC_ICSR_INIT);
- 8005a34:	4b1a      	ldr	r3, [pc, #104]	@ (8005aa0 <RTC_ExitInitMode+0x78>)
- 8005a36:	68db      	ldr	r3, [r3, #12]
- 8005a38:	4a19      	ldr	r2, [pc, #100]	@ (8005aa0 <RTC_ExitInitMode+0x78>)
- 8005a3a:	f023 0380 	bic.w	r3, r3, #128	@ 0x80
- 8005a3e:	60d3      	str	r3, [r2, #12]
+ 8005a44:	4b1a      	ldr	r3, [pc, #104]	@ (8005ab0 <RTC_ExitInitMode+0x78>)
+ 8005a46:	68db      	ldr	r3, [r3, #12]
+ 8005a48:	4a19      	ldr	r2, [pc, #100]	@ (8005ab0 <RTC_ExitInitMode+0x78>)
+ 8005a4a:	f023 0380 	bic.w	r3, r3, #128	@ 0x80
+ 8005a4e:	60d3      	str	r3, [r2, #12]
 
   /* If CR_BYPSHAD bit = 0, wait for synchro */
   if (READ_BIT(RTC->CR, RTC_CR_BYPSHAD) == 0U)
- 8005a40:	4b17      	ldr	r3, [pc, #92]	@ (8005aa0 <RTC_ExitInitMode+0x78>)
- 8005a42:	699b      	ldr	r3, [r3, #24]
- 8005a44:	f003 0320 	and.w	r3, r3, #32
- 8005a48:	2b00      	cmp	r3, #0
- 8005a4a:	d10c      	bne.n	8005a66 <RTC_ExitInitMode+0x3e>
+ 8005a50:	4b17      	ldr	r3, [pc, #92]	@ (8005ab0 <RTC_ExitInitMode+0x78>)
+ 8005a52:	699b      	ldr	r3, [r3, #24]
+ 8005a54:	f003 0320 	and.w	r3, r3, #32
+ 8005a58:	2b00      	cmp	r3, #0
+ 8005a5a:	d10c      	bne.n	8005a76 <RTC_ExitInitMode+0x3e>
   {
     if (HAL_RTC_WaitForSynchro(hrtc) != HAL_OK)
- 8005a4c:	6878      	ldr	r0, [r7, #4]
- 8005a4e:	f7ff ff7d 	bl	800594c <HAL_RTC_WaitForSynchro>
- 8005a52:	4603      	mov	r3, r0
- 8005a54:	2b00      	cmp	r3, #0
- 8005a56:	d01e      	beq.n	8005a96 <RTC_ExitInitMode+0x6e>
+ 8005a5c:	6878      	ldr	r0, [r7, #4]
+ 8005a5e:	f7ff ff7d 	bl	800595c <HAL_RTC_WaitForSynchro>
+ 8005a62:	4603      	mov	r3, r0
+ 8005a64:	2b00      	cmp	r3, #0
+ 8005a66:	d01e      	beq.n	8005aa6 <RTC_ExitInitMode+0x6e>
     {
       hrtc->State = HAL_RTC_STATE_TIMEOUT;
- 8005a58:	687b      	ldr	r3, [r7, #4]
- 8005a5a:	2203      	movs	r2, #3
- 8005a5c:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
+ 8005a68:	687b      	ldr	r3, [r7, #4]
+ 8005a6a:	2203      	movs	r2, #3
+ 8005a6c:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
       status = HAL_TIMEOUT;
- 8005a60:	2303      	movs	r3, #3
- 8005a62:	73fb      	strb	r3, [r7, #15]
- 8005a64:	e017      	b.n	8005a96 <RTC_ExitInitMode+0x6e>
+ 8005a70:	2303      	movs	r3, #3
+ 8005a72:	73fb      	strb	r3, [r7, #15]
+ 8005a74:	e017      	b.n	8005aa6 <RTC_ExitInitMode+0x6e>
     }
   }
   else /* WA 2.9.6 Calendar initialization may fail in case of consecutive INIT mode entry. */
   {
     /* Clear BYPSHAD bit */
     CLEAR_BIT(RTC->CR, RTC_CR_BYPSHAD);
- 8005a66:	4b0e      	ldr	r3, [pc, #56]	@ (8005aa0 <RTC_ExitInitMode+0x78>)
- 8005a68:	699b      	ldr	r3, [r3, #24]
- 8005a6a:	4a0d      	ldr	r2, [pc, #52]	@ (8005aa0 <RTC_ExitInitMode+0x78>)
- 8005a6c:	f023 0320 	bic.w	r3, r3, #32
- 8005a70:	6193      	str	r3, [r2, #24]
+ 8005a76:	4b0e      	ldr	r3, [pc, #56]	@ (8005ab0 <RTC_ExitInitMode+0x78>)
+ 8005a78:	699b      	ldr	r3, [r3, #24]
+ 8005a7a:	4a0d      	ldr	r2, [pc, #52]	@ (8005ab0 <RTC_ExitInitMode+0x78>)
+ 8005a7c:	f023 0320 	bic.w	r3, r3, #32
+ 8005a80:	6193      	str	r3, [r2, #24]
     if (HAL_RTC_WaitForSynchro(hrtc) != HAL_OK)
- 8005a72:	6878      	ldr	r0, [r7, #4]
- 8005a74:	f7ff ff6a 	bl	800594c <HAL_RTC_WaitForSynchro>
- 8005a78:	4603      	mov	r3, r0
- 8005a7a:	2b00      	cmp	r3, #0
- 8005a7c:	d005      	beq.n	8005a8a <RTC_ExitInitMode+0x62>
+ 8005a82:	6878      	ldr	r0, [r7, #4]
+ 8005a84:	f7ff ff6a 	bl	800595c <HAL_RTC_WaitForSynchro>
+ 8005a88:	4603      	mov	r3, r0
+ 8005a8a:	2b00      	cmp	r3, #0
+ 8005a8c:	d005      	beq.n	8005a9a <RTC_ExitInitMode+0x62>
     {
       hrtc->State = HAL_RTC_STATE_TIMEOUT;
- 8005a7e:	687b      	ldr	r3, [r7, #4]
- 8005a80:	2203      	movs	r2, #3
- 8005a82:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
+ 8005a8e:	687b      	ldr	r3, [r7, #4]
+ 8005a90:	2203      	movs	r2, #3
+ 8005a92:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
       status = HAL_TIMEOUT;
- 8005a86:	2303      	movs	r3, #3
- 8005a88:	73fb      	strb	r3, [r7, #15]
+ 8005a96:	2303      	movs	r3, #3
+ 8005a98:	73fb      	strb	r3, [r7, #15]
     }
     /* Restore BYPSHAD bit */
     SET_BIT(RTC->CR, RTC_CR_BYPSHAD);
- 8005a8a:	4b05      	ldr	r3, [pc, #20]	@ (8005aa0 <RTC_ExitInitMode+0x78>)
- 8005a8c:	699b      	ldr	r3, [r3, #24]
- 8005a8e:	4a04      	ldr	r2, [pc, #16]	@ (8005aa0 <RTC_ExitInitMode+0x78>)
- 8005a90:	f043 0320 	orr.w	r3, r3, #32
- 8005a94:	6193      	str	r3, [r2, #24]
+ 8005a9a:	4b05      	ldr	r3, [pc, #20]	@ (8005ab0 <RTC_ExitInitMode+0x78>)
+ 8005a9c:	699b      	ldr	r3, [r3, #24]
+ 8005a9e:	4a04      	ldr	r2, [pc, #16]	@ (8005ab0 <RTC_ExitInitMode+0x78>)
+ 8005aa0:	f043 0320 	orr.w	r3, r3, #32
+ 8005aa4:	6193      	str	r3, [r2, #24]
   }
   return status;
- 8005a96:	7bfb      	ldrb	r3, [r7, #15]
+ 8005aa6:	7bfb      	ldrb	r3, [r7, #15]
 }
- 8005a98:	4618      	mov	r0, r3
- 8005a9a:	3710      	adds	r7, #16
- 8005a9c:	46bd      	mov	sp, r7
- 8005a9e:	bd80      	pop	{r7, pc}
- 8005aa0:	46007800 	.word	0x46007800
+ 8005aa8:	4618      	mov	r0, r3
+ 8005aaa:	3710      	adds	r7, #16
+ 8005aac:	46bd      	mov	sp, r7
+ 8005aae:	bd80      	pop	{r7, pc}
+ 8005ab0:	46007800 	.word	0x46007800
 
-08005aa4 <HAL_RTCEx_SetWakeUpTimer_IT>:
+08005ab4 <HAL_RTCEx_SetWakeUpTimer_IT>:
   *                         after Wake Up.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t WakeUpCounter, uint32_t WakeUpClock,
                                               uint32_t WakeUpAutoClr)
 {
- 8005aa4:	b580      	push	{r7, lr}
- 8005aa6:	b086      	sub	sp, #24
- 8005aa8:	af00      	add	r7, sp, #0
- 8005aaa:	60f8      	str	r0, [r7, #12]
- 8005aac:	60b9      	str	r1, [r7, #8]
- 8005aae:	607a      	str	r2, [r7, #4]
- 8005ab0:	603b      	str	r3, [r7, #0]
+ 8005ab4:	b580      	push	{r7, lr}
+ 8005ab6:	b086      	sub	sp, #24
+ 8005ab8:	af00      	add	r7, sp, #0
+ 8005aba:	60f8      	str	r0, [r7, #12]
+ 8005abc:	60b9      	str	r1, [r7, #8]
+ 8005abe:	607a      	str	r2, [r7, #4]
+ 8005ac0:	603b      	str	r3, [r7, #0]
   assert_param(IS_RTC_WAKEUP_COUNTER(WakeUpCounter));
   /* (0x0000<=WUTOCLR<=WUT) */
   assert_param(WakeUpAutoClr <= WakeUpCounter);
 
   /* Process Locked */
   __HAL_LOCK(hrtc);
- 8005ab2:	68fb      	ldr	r3, [r7, #12]
- 8005ab4:	f893 302c 	ldrb.w	r3, [r3, #44]	@ 0x2c
- 8005ab8:	2b01      	cmp	r3, #1
- 8005aba:	d101      	bne.n	8005ac0 <HAL_RTCEx_SetWakeUpTimer_IT+0x1c>
- 8005abc:	2302      	movs	r3, #2
- 8005abe:	e057      	b.n	8005b70 <HAL_RTCEx_SetWakeUpTimer_IT+0xcc>
- 8005ac0:	68fb      	ldr	r3, [r7, #12]
- 8005ac2:	2201      	movs	r2, #1
- 8005ac4:	f883 202c 	strb.w	r2, [r3, #44]	@ 0x2c
+ 8005ac2:	68fb      	ldr	r3, [r7, #12]
+ 8005ac4:	f893 302c 	ldrb.w	r3, [r3, #44]	@ 0x2c
+ 8005ac8:	2b01      	cmp	r3, #1
+ 8005aca:	d101      	bne.n	8005ad0 <HAL_RTCEx_SetWakeUpTimer_IT+0x1c>
+ 8005acc:	2302      	movs	r3, #2
+ 8005ace:	e057      	b.n	8005b80 <HAL_RTCEx_SetWakeUpTimer_IT+0xcc>
+ 8005ad0:	68fb      	ldr	r3, [r7, #12]
+ 8005ad2:	2201      	movs	r2, #1
+ 8005ad4:	f883 202c 	strb.w	r2, [r3, #44]	@ 0x2c
 
   /* Change RTC state */
   hrtc->State = HAL_RTC_STATE_BUSY;
- 8005ac8:	68fb      	ldr	r3, [r7, #12]
- 8005aca:	2202      	movs	r2, #2
- 8005acc:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
+ 8005ad8:	68fb      	ldr	r3, [r7, #12]
+ 8005ada:	2202      	movs	r2, #2
+ 8005adc:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
 
 
   /* Clear WUTE in RTC_CR to disable the wakeup timer */
   CLEAR_BIT(RTC->CR, RTC_CR_WUTE);
- 8005ad0:	4b29      	ldr	r3, [pc, #164]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005ad2:	699b      	ldr	r3, [r3, #24]
- 8005ad4:	4a28      	ldr	r2, [pc, #160]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005ad6:	f423 6380 	bic.w	r3, r3, #1024	@ 0x400
- 8005ada:	6193      	str	r3, [r2, #24]
+ 8005ae0:	4b29      	ldr	r3, [pc, #164]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005ae2:	699b      	ldr	r3, [r3, #24]
+ 8005ae4:	4a28      	ldr	r2, [pc, #160]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005ae6:	f423 6380 	bic.w	r3, r3, #1024	@ 0x400
+ 8005aea:	6193      	str	r3, [r2, #24]
 
   /* Clear flag Wake-Up */
   WRITE_REG(RTC->SCR, RTC_SCR_CWUTF);
- 8005adc:	4b26      	ldr	r3, [pc, #152]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005ade:	2204      	movs	r2, #4
- 8005ae0:	65da      	str	r2, [r3, #92]	@ 0x5c
+ 8005aec:	4b26      	ldr	r3, [pc, #152]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005aee:	2204      	movs	r2, #4
+ 8005af0:	65da      	str	r2, [r3, #92]	@ 0x5c
 
   /* Poll WUTWF until it is set in RTC_ICSR to make sure the access to wakeup autoreload
      counter and to WUCKSEL[2:0] bits is allowed. This step must be skipped in
      calendar initialization mode. */
   if (READ_BIT(RTC->ICSR, RTC_ICSR_INITF) == 0U)
- 8005ae2:	4b25      	ldr	r3, [pc, #148]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005ae4:	68db      	ldr	r3, [r3, #12]
- 8005ae6:	f003 0340 	and.w	r3, r3, #64	@ 0x40
- 8005aea:	2b00      	cmp	r3, #0
- 8005aec:	d123      	bne.n	8005b36 <HAL_RTCEx_SetWakeUpTimer_IT+0x92>
+ 8005af2:	4b25      	ldr	r3, [pc, #148]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005af4:	68db      	ldr	r3, [r3, #12]
+ 8005af6:	f003 0340 	and.w	r3, r3, #64	@ 0x40
+ 8005afa:	2b00      	cmp	r3, #0
+ 8005afc:	d123      	bne.n	8005b46 <HAL_RTCEx_SetWakeUpTimer_IT+0x92>
   {
     tickstart = HAL_GetTick();
- 8005aee:	f7fb f9af 	bl	8000e50 <HAL_GetTick>
- 8005af2:	6178      	str	r0, [r7, #20]
+ 8005afe:	f7fb f9a7 	bl	8000e50 <HAL_GetTick>
+ 8005b02:	6178      	str	r0, [r7, #20]
     while (READ_BIT(RTC->ICSR, RTC_ICSR_WUTWF) == 0U)
- 8005af4:	e017      	b.n	8005b26 <HAL_RTCEx_SetWakeUpTimer_IT+0x82>
+ 8005b04:	e017      	b.n	8005b36 <HAL_RTCEx_SetWakeUpTimer_IT+0x82>
     {
       if ((HAL_GetTick() - tickstart) > RTC_TIMEOUT_VALUE)
- 8005af6:	f7fb f9ab 	bl	8000e50 <HAL_GetTick>
- 8005afa:	4602      	mov	r2, r0
- 8005afc:	697b      	ldr	r3, [r7, #20]
- 8005afe:	1ad3      	subs	r3, r2, r3
- 8005b00:	f5b3 7f7a 	cmp.w	r3, #1000	@ 0x3e8
- 8005b04:	d90f      	bls.n	8005b26 <HAL_RTCEx_SetWakeUpTimer_IT+0x82>
+ 8005b06:	f7fb f9a3 	bl	8000e50 <HAL_GetTick>
+ 8005b0a:	4602      	mov	r2, r0
+ 8005b0c:	697b      	ldr	r3, [r7, #20]
+ 8005b0e:	1ad3      	subs	r3, r2, r3
+ 8005b10:	f5b3 7f7a 	cmp.w	r3, #1000	@ 0x3e8
+ 8005b14:	d90f      	bls.n	8005b36 <HAL_RTCEx_SetWakeUpTimer_IT+0x82>
       {
         /* New check to avoid false timeout detection in case of preemption */
         if (READ_BIT(RTC->ICSR, RTC_ICSR_WUTWF) == 0U)
- 8005b06:	4b1c      	ldr	r3, [pc, #112]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005b08:	68db      	ldr	r3, [r3, #12]
- 8005b0a:	f003 0304 	and.w	r3, r3, #4
- 8005b0e:	2b00      	cmp	r3, #0
- 8005b10:	d110      	bne.n	8005b34 <HAL_RTCEx_SetWakeUpTimer_IT+0x90>
+ 8005b16:	4b1c      	ldr	r3, [pc, #112]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005b18:	68db      	ldr	r3, [r3, #12]
+ 8005b1a:	f003 0304 	and.w	r3, r3, #4
+ 8005b1e:	2b00      	cmp	r3, #0
+ 8005b20:	d110      	bne.n	8005b44 <HAL_RTCEx_SetWakeUpTimer_IT+0x90>
         {
 
           /* Change RTC state */
           hrtc->State = HAL_RTC_STATE_TIMEOUT;
- 8005b12:	68fb      	ldr	r3, [r7, #12]
- 8005b14:	2203      	movs	r2, #3
- 8005b16:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
+ 8005b22:	68fb      	ldr	r3, [r7, #12]
+ 8005b24:	2203      	movs	r2, #3
+ 8005b26:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
 
           /* Process Unlocked */
           __HAL_UNLOCK(hrtc);
- 8005b1a:	68fb      	ldr	r3, [r7, #12]
- 8005b1c:	2200      	movs	r2, #0
- 8005b1e:	f883 202c 	strb.w	r2, [r3, #44]	@ 0x2c
+ 8005b2a:	68fb      	ldr	r3, [r7, #12]
+ 8005b2c:	2200      	movs	r2, #0
+ 8005b2e:	f883 202c 	strb.w	r2, [r3, #44]	@ 0x2c
 
           return HAL_TIMEOUT;
- 8005b22:	2303      	movs	r3, #3
- 8005b24:	e024      	b.n	8005b70 <HAL_RTCEx_SetWakeUpTimer_IT+0xcc>
+ 8005b32:	2303      	movs	r3, #3
+ 8005b34:	e024      	b.n	8005b80 <HAL_RTCEx_SetWakeUpTimer_IT+0xcc>
     while (READ_BIT(RTC->ICSR, RTC_ICSR_WUTWF) == 0U)
- 8005b26:	4b14      	ldr	r3, [pc, #80]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005b28:	68db      	ldr	r3, [r3, #12]
- 8005b2a:	f003 0304 	and.w	r3, r3, #4
- 8005b2e:	2b00      	cmp	r3, #0
- 8005b30:	d0e1      	beq.n	8005af6 <HAL_RTCEx_SetWakeUpTimer_IT+0x52>
- 8005b32:	e000      	b.n	8005b36 <HAL_RTCEx_SetWakeUpTimer_IT+0x92>
+ 8005b36:	4b14      	ldr	r3, [pc, #80]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005b38:	68db      	ldr	r3, [r3, #12]
+ 8005b3a:	f003 0304 	and.w	r3, r3, #4
+ 8005b3e:	2b00      	cmp	r3, #0
+ 8005b40:	d0e1      	beq.n	8005b06 <HAL_RTCEx_SetWakeUpTimer_IT+0x52>
+ 8005b42:	e000      	b.n	8005b46 <HAL_RTCEx_SetWakeUpTimer_IT+0x92>
         }
         else
         {
           break;
- 8005b34:	bf00      	nop
+ 8005b44:	bf00      	nop
       }
     }
   }
 
   /* Configure the Wakeup Timer counter and auto clear value */
   WRITE_REG(RTC->WUTR, (uint32_t)(WakeUpCounter | (WakeUpAutoClr << RTC_WUTR_WUTOCLR_Pos)));
- 8005b36:	683b      	ldr	r3, [r7, #0]
- 8005b38:	041a      	lsls	r2, r3, #16
- 8005b3a:	490f      	ldr	r1, [pc, #60]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005b3c:	68bb      	ldr	r3, [r7, #8]
- 8005b3e:	4313      	orrs	r3, r2
- 8005b40:	614b      	str	r3, [r1, #20]
+ 8005b46:	683b      	ldr	r3, [r7, #0]
+ 8005b48:	041a      	lsls	r2, r3, #16
+ 8005b4a:	490f      	ldr	r1, [pc, #60]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005b4c:	68bb      	ldr	r3, [r7, #8]
+ 8005b4e:	4313      	orrs	r3, r2
+ 8005b50:	614b      	str	r3, [r1, #20]
 
   /* Configure the clock source */
   MODIFY_REG(RTC->CR, RTC_CR_WUCKSEL, (uint32_t)WakeUpClock);
- 8005b42:	4b0d      	ldr	r3, [pc, #52]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005b44:	699b      	ldr	r3, [r3, #24]
- 8005b46:	f023 0207 	bic.w	r2, r3, #7
- 8005b4a:	490b      	ldr	r1, [pc, #44]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005b4c:	687b      	ldr	r3, [r7, #4]
- 8005b4e:	4313      	orrs	r3, r2
- 8005b50:	618b      	str	r3, [r1, #24]
+ 8005b52:	4b0d      	ldr	r3, [pc, #52]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005b54:	699b      	ldr	r3, [r3, #24]
+ 8005b56:	f023 0207 	bic.w	r2, r3, #7
+ 8005b5a:	490b      	ldr	r1, [pc, #44]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005b5c:	687b      	ldr	r3, [r7, #4]
+ 8005b5e:	4313      	orrs	r3, r2
+ 8005b60:	618b      	str	r3, [r1, #24]
 
   /* Configure the Interrupt in the RTC_CR register and Enable the Wakeup Timer*/
   SET_BIT(RTC->CR, (RTC_CR_WUTIE | RTC_CR_WUTE));
- 8005b52:	4b09      	ldr	r3, [pc, #36]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005b54:	699b      	ldr	r3, [r3, #24]
- 8005b56:	4a08      	ldr	r2, [pc, #32]	@ (8005b78 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
- 8005b58:	f443 4388 	orr.w	r3, r3, #17408	@ 0x4400
- 8005b5c:	6193      	str	r3, [r2, #24]
+ 8005b62:	4b09      	ldr	r3, [pc, #36]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005b64:	699b      	ldr	r3, [r3, #24]
+ 8005b66:	4a08      	ldr	r2, [pc, #32]	@ (8005b88 <HAL_RTCEx_SetWakeUpTimer_IT+0xd4>)
+ 8005b68:	f443 4388 	orr.w	r3, r3, #17408	@ 0x4400
+ 8005b6c:	6193      	str	r3, [r2, #24]
 
 
   /* Change RTC state */
   hrtc->State = HAL_RTC_STATE_READY;
- 8005b5e:	68fb      	ldr	r3, [r7, #12]
- 8005b60:	2201      	movs	r2, #1
- 8005b62:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
+ 8005b6e:	68fb      	ldr	r3, [r7, #12]
+ 8005b70:	2201      	movs	r2, #1
+ 8005b72:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
 
   /* Process Unlocked */
   __HAL_UNLOCK(hrtc);
- 8005b66:	68fb      	ldr	r3, [r7, #12]
- 8005b68:	2200      	movs	r2, #0
- 8005b6a:	f883 202c 	strb.w	r2, [r3, #44]	@ 0x2c
+ 8005b76:	68fb      	ldr	r3, [r7, #12]
+ 8005b78:	2200      	movs	r2, #0
+ 8005b7a:	f883 202c 	strb.w	r2, [r3, #44]	@ 0x2c
 
   return HAL_OK;
- 8005b6e:	2300      	movs	r3, #0
+ 8005b7e:	2300      	movs	r3, #0
 }
- 8005b70:	4618      	mov	r0, r3
- 8005b72:	3718      	adds	r7, #24
- 8005b74:	46bd      	mov	sp, r7
- 8005b76:	bd80      	pop	{r7, pc}
- 8005b78:	46007800 	.word	0x46007800
+ 8005b80:	4618      	mov	r0, r3
+ 8005b82:	3718      	adds	r7, #24
+ 8005b84:	46bd      	mov	sp, r7
+ 8005b86:	bd80      	pop	{r7, pc}
+ 8005b88:	46007800 	.word	0x46007800
 
-08005b7c <HAL_RTCEx_WakeUpTimerIRQHandler>:
+08005b8c <HAL_RTCEx_WakeUpTimerIRQHandler>:
   * @brief  Handle Wake Up Timer interrupt request.
   * @param  hrtc RTC handle
   * @retval None
   */
 void HAL_RTCEx_WakeUpTimerIRQHandler(RTC_HandleTypeDef *hrtc)
 {
- 8005b7c:	b580      	push	{r7, lr}
- 8005b7e:	b082      	sub	sp, #8
- 8005b80:	af00      	add	r7, sp, #0
- 8005b82:	6078      	str	r0, [r7, #4]
+ 8005b8c:	b580      	push	{r7, lr}
+ 8005b8e:	b082      	sub	sp, #8
+ 8005b90:	af00      	add	r7, sp, #0
+ 8005b92:	6078      	str	r0, [r7, #4]
   /* Get the pending status of the Wake-Up Timer Interrupt */
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   if (READ_BIT(RTC->SMISR, RTC_SMISR_WUTMF) != 0U)
 #else
   if (READ_BIT(RTC->MISR, RTC_MISR_WUTMF) != 0U)
- 8005b84:	4b09      	ldr	r3, [pc, #36]	@ (8005bac <HAL_RTCEx_WakeUpTimerIRQHandler+0x30>)
- 8005b86:	6d5b      	ldr	r3, [r3, #84]	@ 0x54
- 8005b88:	f003 0304 	and.w	r3, r3, #4
- 8005b8c:	2b00      	cmp	r3, #0
- 8005b8e:	d005      	beq.n	8005b9c <HAL_RTCEx_WakeUpTimerIRQHandler+0x20>
+ 8005b94:	4b09      	ldr	r3, [pc, #36]	@ (8005bbc <HAL_RTCEx_WakeUpTimerIRQHandler+0x30>)
+ 8005b96:	6d5b      	ldr	r3, [r3, #84]	@ 0x54
+ 8005b98:	f003 0304 	and.w	r3, r3, #4
+ 8005b9c:	2b00      	cmp	r3, #0
+ 8005b9e:	d005      	beq.n	8005bac <HAL_RTCEx_WakeUpTimerIRQHandler+0x20>
 #endif /* #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
   {
     /* Clear the WAKEUPTIMER interrupt pending bit */
     WRITE_REG(RTC->SCR, RTC_SCR_CWUTF);
- 8005b90:	4b06      	ldr	r3, [pc, #24]	@ (8005bac <HAL_RTCEx_WakeUpTimerIRQHandler+0x30>)
- 8005b92:	2204      	movs	r2, #4
- 8005b94:	65da      	str	r2, [r3, #92]	@ 0x5c
+ 8005ba0:	4b06      	ldr	r3, [pc, #24]	@ (8005bbc <HAL_RTCEx_WakeUpTimerIRQHandler+0x30>)
+ 8005ba2:	2204      	movs	r2, #4
+ 8005ba4:	65da      	str	r2, [r3, #92]	@ 0x5c
 #if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
     /* Call WakeUpTimerEvent registered Callback */
     hrtc->WakeUpTimerEventCallback(hrtc);
 #else
     /* WAKEUPTIMER callback */
     HAL_RTCEx_WakeUpTimerEventCallback(hrtc);
- 8005b96:	6878      	ldr	r0, [r7, #4]
- 8005b98:	f000 fdac 	bl	80066f4 <HAL_RTCEx_WakeUpTimerEventCallback>
+ 8005ba6:	6878      	ldr	r0, [r7, #4]
+ 8005ba8:	f000 fdac 	bl	8006704 <HAL_RTCEx_WakeUpTimerEventCallback>
 #endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
   }
 
   /* Change RTC state */
   hrtc->State = HAL_RTC_STATE_READY;
- 8005b9c:	687b      	ldr	r3, [r7, #4]
- 8005b9e:	2201      	movs	r2, #1
- 8005ba0:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
+ 8005bac:	687b      	ldr	r3, [r7, #4]
+ 8005bae:	2201      	movs	r2, #1
+ 8005bb0:	f883 202d 	strb.w	r2, [r3, #45]	@ 0x2d
 }
- 8005ba4:	bf00      	nop
- 8005ba6:	3708      	adds	r7, #8
- 8005ba8:	46bd      	mov	sp, r7
- 8005baa:	bd80      	pop	{r7, pc}
- 8005bac:	46007800 	.word	0x46007800
+ 8005bb4:	bf00      	nop
+ 8005bb6:	3708      	adds	r7, #8
+ 8005bb8:	46bd      	mov	sp, r7
+ 8005bba:	bd80      	pop	{r7, pc}
+ 8005bbc:	46007800 	.word	0x46007800
 
-08005bb0 <HAL_RTCEx_PrivilegeModeSet>:
+08005bc0 <HAL_RTCEx_PrivilegeModeSet>:
   * @param  hrtc RTC handle
   * @param  privilegeState  Privilege state
   * @retval HAL_StatusTypeDef
   */
 HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeSet(RTC_HandleTypeDef *hrtc, RTC_PrivilegeStateTypeDef *privilegeState)
 {
- 8005bb0:	b480      	push	{r7}
- 8005bb2:	b083      	sub	sp, #12
- 8005bb4:	af00      	add	r7, sp, #0
- 8005bb6:	6078      	str	r0, [r7, #4]
- 8005bb8:	6039      	str	r1, [r7, #0]
+ 8005bc0:	b480      	push	{r7}
+ 8005bc2:	b083      	sub	sp, #12
+ 8005bc4:	af00      	add	r7, sp, #0
+ 8005bc6:	6078      	str	r0, [r7, #4]
+ 8005bc8:	6039      	str	r1, [r7, #0]
   assert_param(IS_RTC_PRIVILEGE_BKUP_ZONE(privilegeState->backupRegisterPrivZone));
   assert_param(IS_RTC_BKP(privilegeState->backupRegisterStartZone2));
   assert_param(IS_RTC_BKP(privilegeState->backupRegisterStartZone3));
 
   /* RTC privilege configuration */
   WRITE_REG(RTC->PRIVCFGR, privilegeState->rtcPrivilegeFull | privilegeState->rtcPrivilegeFeatures);
- 8005bba:	683b      	ldr	r3, [r7, #0]
- 8005bbc:	681a      	ldr	r2, [r3, #0]
- 8005bbe:	683b      	ldr	r3, [r7, #0]
- 8005bc0:	685b      	ldr	r3, [r3, #4]
- 8005bc2:	4910      	ldr	r1, [pc, #64]	@ (8005c04 <HAL_RTCEx_PrivilegeModeSet+0x54>)
- 8005bc4:	4313      	orrs	r3, r2
- 8005bc6:	61cb      	str	r3, [r1, #28]
+ 8005bca:	683b      	ldr	r3, [r7, #0]
+ 8005bcc:	681a      	ldr	r2, [r3, #0]
+ 8005bce:	683b      	ldr	r3, [r7, #0]
+ 8005bd0:	685b      	ldr	r3, [r3, #4]
+ 8005bd2:	4910      	ldr	r1, [pc, #64]	@ (8005c14 <HAL_RTCEx_PrivilegeModeSet+0x54>)
+ 8005bd4:	4313      	orrs	r3, r2
+ 8005bd6:	61cb      	str	r3, [r1, #28]
 
   /* TAMP, Monotonic counter and Backup registers privilege configuration
      Warning : privilegeState->backupRegisterPrivZone is only writable in secure mode or if trustzone is disabled.
                In non secure mode, a notification is generated through a flag/interrupt in the TZIC
          (TrustZone interrupt controller). The bits are not written. */
   WRITE_REG(TAMP->PRIVCFGR, privilegeState->tampPrivilegeFull | privilegeState->backupRegisterPrivZone | \
- 8005bc8:	683b      	ldr	r3, [r7, #0]
- 8005bca:	689a      	ldr	r2, [r3, #8]
- 8005bcc:	683b      	ldr	r3, [r7, #0]
- 8005bce:	68db      	ldr	r3, [r3, #12]
- 8005bd0:	431a      	orrs	r2, r3
- 8005bd2:	683b      	ldr	r3, [r7, #0]
- 8005bd4:	699b      	ldr	r3, [r3, #24]
- 8005bd6:	490c      	ldr	r1, [pc, #48]	@ (8005c08 <HAL_RTCEx_PrivilegeModeSet+0x58>)
- 8005bd8:	4313      	orrs	r3, r2
- 8005bda:	624b      	str	r3, [r1, #36]	@ 0x24
+ 8005bd8:	683b      	ldr	r3, [r7, #0]
+ 8005bda:	689a      	ldr	r2, [r3, #8]
+ 8005bdc:	683b      	ldr	r3, [r7, #0]
+ 8005bde:	68db      	ldr	r3, [r3, #12]
+ 8005be0:	431a      	orrs	r2, r3
+ 8005be2:	683b      	ldr	r3, [r7, #0]
+ 8005be4:	699b      	ldr	r3, [r3, #24]
+ 8005be6:	490c      	ldr	r1, [pc, #48]	@ (8005c18 <HAL_RTCEx_PrivilegeModeSet+0x58>)
+ 8005be8:	4313      	orrs	r3, r2
+ 8005bea:	624b      	str	r3, [r1, #36]	@ 0x24
   /* Backup register start zone
      Warning : This parameter is only writable in secure mode or if trustzone is disabled.
                In non secure mode, a notification is generated through a flag/interrupt in the TZIC
          (TrustZone interrupt controller). The bits are not written.
      Warning : Backup register start zones are shared with secure configuration */
   MODIFY_REG(TAMP->SECCFGR,
- 8005bdc:	4b0a      	ldr	r3, [pc, #40]	@ (8005c08 <HAL_RTCEx_PrivilegeModeSet+0x58>)
- 8005bde:	6a1b      	ldr	r3, [r3, #32]
- 8005be0:	f003 22ff 	and.w	r2, r3, #4278255360	@ 0xff00ff00
- 8005be4:	683b      	ldr	r3, [r7, #0]
- 8005be6:	6919      	ldr	r1, [r3, #16]
- 8005be8:	683b      	ldr	r3, [r7, #0]
- 8005bea:	695b      	ldr	r3, [r3, #20]
- 8005bec:	041b      	lsls	r3, r3, #16
- 8005bee:	430b      	orrs	r3, r1
- 8005bf0:	4905      	ldr	r1, [pc, #20]	@ (8005c08 <HAL_RTCEx_PrivilegeModeSet+0x58>)
- 8005bf2:	4313      	orrs	r3, r2
- 8005bf4:	620b      	str	r3, [r1, #32]
+ 8005bec:	4b0a      	ldr	r3, [pc, #40]	@ (8005c18 <HAL_RTCEx_PrivilegeModeSet+0x58>)
+ 8005bee:	6a1b      	ldr	r3, [r3, #32]
+ 8005bf0:	f003 22ff 	and.w	r2, r3, #4278255360	@ 0xff00ff00
+ 8005bf4:	683b      	ldr	r3, [r7, #0]
+ 8005bf6:	6919      	ldr	r1, [r3, #16]
+ 8005bf8:	683b      	ldr	r3, [r7, #0]
+ 8005bfa:	695b      	ldr	r3, [r3, #20]
+ 8005bfc:	041b      	lsls	r3, r3, #16
+ 8005bfe:	430b      	orrs	r3, r1
+ 8005c00:	4905      	ldr	r1, [pc, #20]	@ (8005c18 <HAL_RTCEx_PrivilegeModeSet+0x58>)
+ 8005c02:	4313      	orrs	r3, r2
+ 8005c04:	620b      	str	r3, [r1, #32]
              (TAMP_SECCFGR_BKPRWSEC | TAMP_SECCFGR_BKPWSEC),
              ((privilegeState->backupRegisterStartZone2 << TAMP_SECCFGR_BKPRWSEC_Pos) | \
               (privilegeState->backupRegisterStartZone3 << TAMP_SECCFGR_BKPWSEC_Pos)));
 
   return HAL_OK;
- 8005bf6:	2300      	movs	r3, #0
+ 8005c06:	2300      	movs	r3, #0
 }
- 8005bf8:	4618      	mov	r0, r3
- 8005bfa:	370c      	adds	r7, #12
- 8005bfc:	46bd      	mov	sp, r7
- 8005bfe:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8005c02:	4770      	bx	lr
- 8005c04:	46007800 	.word	0x46007800
- 8005c08:	46007c00 	.word	0x46007c00
+ 8005c08:	4618      	mov	r0, r3
+ 8005c0a:	370c      	adds	r7, #12
+ 8005c0c:	46bd      	mov	sp, r7
+ 8005c0e:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8005c12:	4770      	bx	lr
+ 8005c14:	46007800 	.word	0x46007800
+ 8005c18:	46007c00 	.word	0x46007c00
 
-08005c0c <HAL_UART_Init>:
+08005c1c <HAL_UART_Init>:
   *        parameters in the UART_InitTypeDef and initialize the associated handle.
   * @param huart UART handle.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_UART_Init(UART_HandleTypeDef *huart)
 {
- 8005c0c:	b580      	push	{r7, lr}
- 8005c0e:	b082      	sub	sp, #8
- 8005c10:	af00      	add	r7, sp, #0
- 8005c12:	6078      	str	r0, [r7, #4]
+ 8005c1c:	b580      	push	{r7, lr}
+ 8005c1e:	b082      	sub	sp, #8
+ 8005c20:	af00      	add	r7, sp, #0
+ 8005c22:	6078      	str	r0, [r7, #4]
   /* Check the UART handle allocation */
   if (huart == NULL)
- 8005c14:	687b      	ldr	r3, [r7, #4]
- 8005c16:	2b00      	cmp	r3, #0
- 8005c18:	d101      	bne.n	8005c1e <HAL_UART_Init+0x12>
+ 8005c24:	687b      	ldr	r3, [r7, #4]
+ 8005c26:	2b00      	cmp	r3, #0
+ 8005c28:	d101      	bne.n	8005c2e <HAL_UART_Init+0x12>
   {
     return HAL_ERROR;
- 8005c1a:	2301      	movs	r3, #1
- 8005c1c:	e042      	b.n	8005ca4 <HAL_UART_Init+0x98>
+ 8005c2a:	2301      	movs	r3, #1
+ 8005c2c:	e042      	b.n	8005cb4 <HAL_UART_Init+0x98>
   {
     /* Check the parameters */
     assert_param((IS_UART_INSTANCE(huart->Instance)) || (IS_LPUART_INSTANCE(huart->Instance)));
   }
 
   if (huart->gState == HAL_UART_STATE_RESET)
- 8005c1e:	687b      	ldr	r3, [r7, #4]
- 8005c20:	f8d3 3088 	ldr.w	r3, [r3, #136]	@ 0x88
- 8005c24:	2b00      	cmp	r3, #0
- 8005c26:	d106      	bne.n	8005c36 <HAL_UART_Init+0x2a>
+ 8005c2e:	687b      	ldr	r3, [r7, #4]
+ 8005c30:	f8d3 3088 	ldr.w	r3, [r3, #136]	@ 0x88
+ 8005c34:	2b00      	cmp	r3, #0
+ 8005c36:	d106      	bne.n	8005c46 <HAL_UART_Init+0x2a>
   {
     /* Allocate lock resource and initialize it */
     huart->Lock = HAL_UNLOCKED;
- 8005c28:	687b      	ldr	r3, [r7, #4]
- 8005c2a:	2200      	movs	r2, #0
- 8005c2c:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 8005c38:	687b      	ldr	r3, [r7, #4]
+ 8005c3a:	2200      	movs	r2, #0
+ 8005c3c:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
     /* Init the low level hardware */
     huart->MspInitCallback(huart);
 #else
     /* Init the low level hardware : GPIO, CLOCK */
     HAL_UART_MspInit(huart);
- 8005c30:	6878      	ldr	r0, [r7, #4]
- 8005c32:	f7fa ff4f 	bl	8000ad4 <HAL_UART_MspInit>
+ 8005c40:	6878      	ldr	r0, [r7, #4]
+ 8005c42:	f7fa ff47 	bl	8000ad4 <HAL_UART_MspInit>
 #endif /* (USE_HAL_UART_REGISTER_CALLBACKS) */
   }
 
   huart->gState = HAL_UART_STATE_BUSY;
- 8005c36:	687b      	ldr	r3, [r7, #4]
- 8005c38:	2224      	movs	r2, #36	@ 0x24
- 8005c3a:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
+ 8005c46:	687b      	ldr	r3, [r7, #4]
+ 8005c48:	2224      	movs	r2, #36	@ 0x24
+ 8005c4a:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
 
   __HAL_UART_DISABLE(huart);
- 8005c3e:	687b      	ldr	r3, [r7, #4]
- 8005c40:	681b      	ldr	r3, [r3, #0]
- 8005c42:	681a      	ldr	r2, [r3, #0]
- 8005c44:	687b      	ldr	r3, [r7, #4]
- 8005c46:	681b      	ldr	r3, [r3, #0]
- 8005c48:	f022 0201 	bic.w	r2, r2, #1
- 8005c4c:	601a      	str	r2, [r3, #0]
+ 8005c4e:	687b      	ldr	r3, [r7, #4]
+ 8005c50:	681b      	ldr	r3, [r3, #0]
+ 8005c52:	681a      	ldr	r2, [r3, #0]
+ 8005c54:	687b      	ldr	r3, [r7, #4]
+ 8005c56:	681b      	ldr	r3, [r3, #0]
+ 8005c58:	f022 0201 	bic.w	r2, r2, #1
+ 8005c5c:	601a      	str	r2, [r3, #0]
 
   /* Perform advanced settings configuration */
   /* For some items, configuration requires to be done prior TE and RE bits are set */
   if (huart->AdvancedInit.AdvFeatureInit != UART_ADVFEATURE_NO_INIT)
- 8005c4e:	687b      	ldr	r3, [r7, #4]
- 8005c50:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 8005c52:	2b00      	cmp	r3, #0
- 8005c54:	d002      	beq.n	8005c5c <HAL_UART_Init+0x50>
+ 8005c5e:	687b      	ldr	r3, [r7, #4]
+ 8005c60:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 8005c62:	2b00      	cmp	r3, #0
+ 8005c64:	d002      	beq.n	8005c6c <HAL_UART_Init+0x50>
   {
     UART_AdvFeatureConfig(huart);
- 8005c56:	6878      	ldr	r0, [r7, #4]
- 8005c58:	f000 f9ca 	bl	8005ff0 <UART_AdvFeatureConfig>
+ 8005c66:	6878      	ldr	r0, [r7, #4]
+ 8005c68:	f000 f9ca 	bl	8006000 <UART_AdvFeatureConfig>
   }
 
   /* Set the UART Communication parameters */
   if (UART_SetConfig(huart) == HAL_ERROR)
- 8005c5c:	6878      	ldr	r0, [r7, #4]
- 8005c5e:	f000 f825 	bl	8005cac <UART_SetConfig>
- 8005c62:	4603      	mov	r3, r0
- 8005c64:	2b01      	cmp	r3, #1
- 8005c66:	d101      	bne.n	8005c6c <HAL_UART_Init+0x60>
+ 8005c6c:	6878      	ldr	r0, [r7, #4]
+ 8005c6e:	f000 f825 	bl	8005cbc <UART_SetConfig>
+ 8005c72:	4603      	mov	r3, r0
+ 8005c74:	2b01      	cmp	r3, #1
+ 8005c76:	d101      	bne.n	8005c7c <HAL_UART_Init+0x60>
   {
     return HAL_ERROR;
- 8005c68:	2301      	movs	r3, #1
- 8005c6a:	e01b      	b.n	8005ca4 <HAL_UART_Init+0x98>
+ 8005c78:	2301      	movs	r3, #1
+ 8005c7a:	e01b      	b.n	8005cb4 <HAL_UART_Init+0x98>
   }
 
   /* In asynchronous mode, the following bits must be kept cleared:
   - LINEN and CLKEN bits in the USART_CR2 register,
   - SCEN, HDSEL and IREN  bits in the USART_CR3 register.*/
   CLEAR_BIT(huart->Instance->CR2, (USART_CR2_LINEN | USART_CR2_CLKEN));
- 8005c6c:	687b      	ldr	r3, [r7, #4]
- 8005c6e:	681b      	ldr	r3, [r3, #0]
- 8005c70:	685a      	ldr	r2, [r3, #4]
- 8005c72:	687b      	ldr	r3, [r7, #4]
- 8005c74:	681b      	ldr	r3, [r3, #0]
- 8005c76:	f422 4290 	bic.w	r2, r2, #18432	@ 0x4800
- 8005c7a:	605a      	str	r2, [r3, #4]
-  CLEAR_BIT(huart->Instance->CR3, (USART_CR3_SCEN | USART_CR3_HDSEL | USART_CR3_IREN));
  8005c7c:	687b      	ldr	r3, [r7, #4]
  8005c7e:	681b      	ldr	r3, [r3, #0]
- 8005c80:	689a      	ldr	r2, [r3, #8]
+ 8005c80:	685a      	ldr	r2, [r3, #4]
  8005c82:	687b      	ldr	r3, [r7, #4]
  8005c84:	681b      	ldr	r3, [r3, #0]
- 8005c86:	f022 022a 	bic.w	r2, r2, #42	@ 0x2a
- 8005c8a:	609a      	str	r2, [r3, #8]
-
-  __HAL_UART_ENABLE(huart);
+ 8005c86:	f422 4290 	bic.w	r2, r2, #18432	@ 0x4800
+ 8005c8a:	605a      	str	r2, [r3, #4]
+  CLEAR_BIT(huart->Instance->CR3, (USART_CR3_SCEN | USART_CR3_HDSEL | USART_CR3_IREN));
  8005c8c:	687b      	ldr	r3, [r7, #4]
  8005c8e:	681b      	ldr	r3, [r3, #0]
- 8005c90:	681a      	ldr	r2, [r3, #0]
+ 8005c90:	689a      	ldr	r2, [r3, #8]
  8005c92:	687b      	ldr	r3, [r7, #4]
  8005c94:	681b      	ldr	r3, [r3, #0]
- 8005c96:	f042 0201 	orr.w	r2, r2, #1
- 8005c9a:	601a      	str	r2, [r3, #0]
+ 8005c96:	f022 022a 	bic.w	r2, r2, #42	@ 0x2a
+ 8005c9a:	609a      	str	r2, [r3, #8]
+
+  __HAL_UART_ENABLE(huart);
+ 8005c9c:	687b      	ldr	r3, [r7, #4]
+ 8005c9e:	681b      	ldr	r3, [r3, #0]
+ 8005ca0:	681a      	ldr	r2, [r3, #0]
+ 8005ca2:	687b      	ldr	r3, [r7, #4]
+ 8005ca4:	681b      	ldr	r3, [r3, #0]
+ 8005ca6:	f042 0201 	orr.w	r2, r2, #1
+ 8005caa:	601a      	str	r2, [r3, #0]
 
   /* TEACK and/or REACK to check before moving huart->gState and huart->RxState to Ready */
   return (UART_CheckIdleState(huart));
- 8005c9c:	6878      	ldr	r0, [r7, #4]
- 8005c9e:	f000 fa49 	bl	8006134 <UART_CheckIdleState>
- 8005ca2:	4603      	mov	r3, r0
+ 8005cac:	6878      	ldr	r0, [r7, #4]
+ 8005cae:	f000 fa49 	bl	8006144 <UART_CheckIdleState>
+ 8005cb2:	4603      	mov	r3, r0
 }
- 8005ca4:	4618      	mov	r0, r3
- 8005ca6:	3708      	adds	r7, #8
- 8005ca8:	46bd      	mov	sp, r7
- 8005caa:	bd80      	pop	{r7, pc}
+ 8005cb4:	4618      	mov	r0, r3
+ 8005cb6:	3708      	adds	r7, #8
+ 8005cb8:	46bd      	mov	sp, r7
+ 8005cba:	bd80      	pop	{r7, pc}
 
-08005cac <UART_SetConfig>:
+08005cbc <UART_SetConfig>:
   * @brief Configure the UART peripheral.
   * @param huart UART handle.
   * @retval HAL status
   */
 HAL_StatusTypeDef UART_SetConfig(UART_HandleTypeDef *huart)
 {
- 8005cac:	e92d 4fb0 	stmdb	sp!, {r4, r5, r7, r8, r9, sl, fp, lr}
- 8005cb0:	b094      	sub	sp, #80	@ 0x50
- 8005cb2:	af00      	add	r7, sp, #0
- 8005cb4:	62f8      	str	r0, [r7, #44]	@ 0x2c
+ 8005cbc:	e92d 4fb0 	stmdb	sp!, {r4, r5, r7, r8, r9, sl, fp, lr}
+ 8005cc0:	b094      	sub	sp, #80	@ 0x50
+ 8005cc2:	af00      	add	r7, sp, #0
+ 8005cc4:	62f8      	str	r0, [r7, #44]	@ 0x2c
   uint32_t tmpreg;
   uint16_t brrtemp;
   uint32_t clocksource;
   uint32_t usartdiv;
   HAL_StatusTypeDef ret               = HAL_OK;
- 8005cb6:	2300      	movs	r3, #0
- 8005cb8:	f887 3047 	strb.w	r3, [r7, #71]	@ 0x47
+ 8005cc6:	2300      	movs	r3, #0
+ 8005cc8:	f887 3047 	strb.w	r3, [r7, #71]	@ 0x47
   uint32_t pclk;
 
   /* Check the parameters */
   assert_param(IS_UART_BAUDRATE(huart->Init.BaudRate));
   assert_param(IS_UART_WORD_LENGTH(huart->Init.WordLength));
   if (UART_INSTANCE_LOWPOWER(huart))
- 8005cbc:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005cbe:	681a      	ldr	r2, [r3, #0]
- 8005cc0:	4b7e      	ldr	r3, [pc, #504]	@ (8005ebc <UART_SetConfig+0x210>)
- 8005cc2:	429a      	cmp	r2, r3
+ 8005ccc:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005cce:	681a      	ldr	r2, [r3, #0]
+ 8005cd0:	4b7e      	ldr	r3, [pc, #504]	@ (8005ecc <UART_SetConfig+0x210>)
+ 8005cd2:	429a      	cmp	r2, r3
   *  the UART Word Length, Parity, Mode and oversampling:
   *  set the M bits according to huart->Init.WordLength value
   *  set PCE and PS bits according to huart->Init.Parity value
   *  set TE and RE bits according to huart->Init.Mode value
   *  set OVER8 bit according to huart->Init.OverSampling value */
   tmpreg = (uint32_t)huart->Init.WordLength | huart->Init.Parity | huart->Init.Mode | huart->Init.OverSampling ;
- 8005cc4:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005cc6:	689a      	ldr	r2, [r3, #8]
- 8005cc8:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005cca:	691b      	ldr	r3, [r3, #16]
- 8005ccc:	431a      	orrs	r2, r3
- 8005cce:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005cd0:	695b      	ldr	r3, [r3, #20]
- 8005cd2:	431a      	orrs	r2, r3
  8005cd4:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005cd6:	69db      	ldr	r3, [r3, #28]
- 8005cd8:	4313      	orrs	r3, r2
- 8005cda:	64fb      	str	r3, [r7, #76]	@ 0x4c
+ 8005cd6:	689a      	ldr	r2, [r3, #8]
+ 8005cd8:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005cda:	691b      	ldr	r3, [r3, #16]
+ 8005cdc:	431a      	orrs	r2, r3
+ 8005cde:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005ce0:	695b      	ldr	r3, [r3, #20]
+ 8005ce2:	431a      	orrs	r2, r3
+ 8005ce4:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005ce6:	69db      	ldr	r3, [r3, #28]
+ 8005ce8:	4313      	orrs	r3, r2
+ 8005cea:	64fb      	str	r3, [r7, #76]	@ 0x4c
   MODIFY_REG(huart->Instance->CR1, USART_CR1_FIELDS, tmpreg);
- 8005cdc:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005cde:	681b      	ldr	r3, [r3, #0]
- 8005ce0:	681b      	ldr	r3, [r3, #0]
- 8005ce2:	4977      	ldr	r1, [pc, #476]	@ (8005ec0 <UART_SetConfig+0x214>)
- 8005ce4:	4019      	ands	r1, r3
- 8005ce6:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005ce8:	681a      	ldr	r2, [r3, #0]
- 8005cea:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
- 8005cec:	430b      	orrs	r3, r1
- 8005cee:	6013      	str	r3, [r2, #0]
+ 8005cec:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005cee:	681b      	ldr	r3, [r3, #0]
+ 8005cf0:	681b      	ldr	r3, [r3, #0]
+ 8005cf2:	4977      	ldr	r1, [pc, #476]	@ (8005ed0 <UART_SetConfig+0x214>)
+ 8005cf4:	4019      	ands	r1, r3
+ 8005cf6:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005cf8:	681a      	ldr	r2, [r3, #0]
+ 8005cfa:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
+ 8005cfc:	430b      	orrs	r3, r1
+ 8005cfe:	6013      	str	r3, [r2, #0]
 
   /*-------------------------- USART CR2 Configuration -----------------------*/
   /* Configure the UART Stop Bits: Set STOP[13:12] bits according
   * to huart->Init.StopBits value */
   MODIFY_REG(huart->Instance->CR2, USART_CR2_STOP, huart->Init.StopBits);
- 8005cf0:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005cf2:	681b      	ldr	r3, [r3, #0]
- 8005cf4:	685b      	ldr	r3, [r3, #4]
- 8005cf6:	f423 5040 	bic.w	r0, r3, #12288	@ 0x3000
- 8005cfa:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005cfc:	68d9      	ldr	r1, [r3, #12]
- 8005cfe:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d00:	681a      	ldr	r2, [r3, #0]
- 8005d02:	ea40 0301 	orr.w	r3, r0, r1
- 8005d06:	6053      	str	r3, [r2, #4]
+ 8005d00:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d02:	681b      	ldr	r3, [r3, #0]
+ 8005d04:	685b      	ldr	r3, [r3, #4]
+ 8005d06:	f423 5040 	bic.w	r0, r3, #12288	@ 0x3000
+ 8005d0a:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d0c:	68d9      	ldr	r1, [r3, #12]
+ 8005d0e:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d10:	681a      	ldr	r2, [r3, #0]
+ 8005d12:	ea40 0301 	orr.w	r3, r0, r1
+ 8005d16:	6053      	str	r3, [r2, #4]
   /* Configure
   * - UART HardWare Flow Control: set CTSE and RTSE bits according
   *   to huart->Init.HwFlowCtl value
   * - one-bit sampling method versus three samples' majority rule according
   *   to huart->Init.OneBitSampling (not applicable to LPUART) */
   tmpreg = (uint32_t)huart->Init.HwFlowCtl;
- 8005d08:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d0a:	699b      	ldr	r3, [r3, #24]
- 8005d0c:	64fb      	str	r3, [r7, #76]	@ 0x4c
+ 8005d18:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d1a:	699b      	ldr	r3, [r3, #24]
+ 8005d1c:	64fb      	str	r3, [r7, #76]	@ 0x4c
 
   if (!(UART_INSTANCE_LOWPOWER(huart)))
- 8005d0e:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d10:	681a      	ldr	r2, [r3, #0]
- 8005d12:	4b6a      	ldr	r3, [pc, #424]	@ (8005ebc <UART_SetConfig+0x210>)
- 8005d14:	429a      	cmp	r2, r3
- 8005d16:	d009      	beq.n	8005d2c <UART_SetConfig+0x80>
- 8005d18:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d1a:	681a      	ldr	r2, [r3, #0]
- 8005d1c:	4b69      	ldr	r3, [pc, #420]	@ (8005ec4 <UART_SetConfig+0x218>)
- 8005d1e:	429a      	cmp	r2, r3
- 8005d20:	d004      	beq.n	8005d2c <UART_SetConfig+0x80>
+ 8005d1e:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d20:	681a      	ldr	r2, [r3, #0]
+ 8005d22:	4b6a      	ldr	r3, [pc, #424]	@ (8005ecc <UART_SetConfig+0x210>)
+ 8005d24:	429a      	cmp	r2, r3
+ 8005d26:	d009      	beq.n	8005d3c <UART_SetConfig+0x80>
+ 8005d28:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d2a:	681a      	ldr	r2, [r3, #0]
+ 8005d2c:	4b69      	ldr	r3, [pc, #420]	@ (8005ed4 <UART_SetConfig+0x218>)
+ 8005d2e:	429a      	cmp	r2, r3
+ 8005d30:	d004      	beq.n	8005d3c <UART_SetConfig+0x80>
   {
     tmpreg |= huart->Init.OneBitSampling;
- 8005d22:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d24:	6a1a      	ldr	r2, [r3, #32]
- 8005d26:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
- 8005d28:	4313      	orrs	r3, r2
- 8005d2a:	64fb      	str	r3, [r7, #76]	@ 0x4c
+ 8005d32:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d34:	6a1a      	ldr	r2, [r3, #32]
+ 8005d36:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
+ 8005d38:	4313      	orrs	r3, r2
+ 8005d3a:	64fb      	str	r3, [r7, #76]	@ 0x4c
   }
   MODIFY_REG(huart->Instance->CR3, USART_CR3_FIELDS, tmpreg);
- 8005d2c:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d2e:	681b      	ldr	r3, [r3, #0]
- 8005d30:	689b      	ldr	r3, [r3, #8]
- 8005d32:	f023 416e 	bic.w	r1, r3, #3992977408	@ 0xee000000
- 8005d36:	f421 6130 	bic.w	r1, r1, #2816	@ 0xb00
- 8005d3a:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d3c:	681a      	ldr	r2, [r3, #0]
- 8005d3e:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
- 8005d40:	430b      	orrs	r3, r1
- 8005d42:	6093      	str	r3, [r2, #8]
+ 8005d3c:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d3e:	681b      	ldr	r3, [r3, #0]
+ 8005d40:	689b      	ldr	r3, [r3, #8]
+ 8005d42:	f023 416e 	bic.w	r1, r3, #3992977408	@ 0xee000000
+ 8005d46:	f421 6130 	bic.w	r1, r1, #2816	@ 0xb00
+ 8005d4a:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d4c:	681a      	ldr	r2, [r3, #0]
+ 8005d4e:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
+ 8005d50:	430b      	orrs	r3, r1
+ 8005d52:	6093      	str	r3, [r2, #8]
 
   /*-------------------------- USART PRESC Configuration -----------------------*/
   /* Configure
   * - UART Clock Prescaler : set PRESCALER according to huart->Init.ClockPrescaler value */
   MODIFY_REG(huart->Instance->PRESC, USART_PRESC_PRESCALER, huart->Init.ClockPrescaler);
- 8005d44:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d46:	681b      	ldr	r3, [r3, #0]
- 8005d48:	6adb      	ldr	r3, [r3, #44]	@ 0x2c
- 8005d4a:	f023 000f 	bic.w	r0, r3, #15
- 8005d4e:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d50:	6a59      	ldr	r1, [r3, #36]	@ 0x24
- 8005d52:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d54:	681a      	ldr	r2, [r3, #0]
- 8005d56:	ea40 0301 	orr.w	r3, r0, r1
- 8005d5a:	62d3      	str	r3, [r2, #44]	@ 0x2c
+ 8005d54:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d56:	681b      	ldr	r3, [r3, #0]
+ 8005d58:	6adb      	ldr	r3, [r3, #44]	@ 0x2c
+ 8005d5a:	f023 000f 	bic.w	r0, r3, #15
+ 8005d5e:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d60:	6a59      	ldr	r1, [r3, #36]	@ 0x24
+ 8005d62:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005d64:	681a      	ldr	r2, [r3, #0]
+ 8005d66:	ea40 0301 	orr.w	r3, r0, r1
+ 8005d6a:	62d3      	str	r3, [r2, #44]	@ 0x2c
 
   /*-------------------------- USART BRR Configuration -----------------------*/
   UART_GETCLOCKSOURCE(huart, clocksource);
- 8005d5c:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005d5e:	681a      	ldr	r2, [r3, #0]
- 8005d60:	4b59      	ldr	r3, [pc, #356]	@ (8005ec8 <UART_SetConfig+0x21c>)
- 8005d62:	429a      	cmp	r2, r3
- 8005d64:	d102      	bne.n	8005d6c <UART_SetConfig+0xc0>
- 8005d66:	2301      	movs	r3, #1
- 8005d68:	64bb      	str	r3, [r7, #72]	@ 0x48
- 8005d6a:	e029      	b.n	8005dc0 <UART_SetConfig+0x114>
  8005d6c:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
  8005d6e:	681a      	ldr	r2, [r3, #0]
- 8005d70:	4b56      	ldr	r3, [pc, #344]	@ (8005ecc <UART_SetConfig+0x220>)
+ 8005d70:	4b59      	ldr	r3, [pc, #356]	@ (8005ed8 <UART_SetConfig+0x21c>)
  8005d72:	429a      	cmp	r2, r3
- 8005d74:	d102      	bne.n	8005d7c <UART_SetConfig+0xd0>
- 8005d76:	2302      	movs	r3, #2
+ 8005d74:	d102      	bne.n	8005d7c <UART_SetConfig+0xc0>
+ 8005d76:	2301      	movs	r3, #1
  8005d78:	64bb      	str	r3, [r7, #72]	@ 0x48
- 8005d7a:	e021      	b.n	8005dc0 <UART_SetConfig+0x114>
+ 8005d7a:	e029      	b.n	8005dd0 <UART_SetConfig+0x114>
  8005d7c:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
  8005d7e:	681a      	ldr	r2, [r3, #0]
- 8005d80:	4b53      	ldr	r3, [pc, #332]	@ (8005ed0 <UART_SetConfig+0x224>)
+ 8005d80:	4b56      	ldr	r3, [pc, #344]	@ (8005edc <UART_SetConfig+0x220>)
  8005d82:	429a      	cmp	r2, r3
- 8005d84:	d102      	bne.n	8005d8c <UART_SetConfig+0xe0>
- 8005d86:	2304      	movs	r3, #4
+ 8005d84:	d102      	bne.n	8005d8c <UART_SetConfig+0xd0>
+ 8005d86:	2302      	movs	r3, #2
  8005d88:	64bb      	str	r3, [r7, #72]	@ 0x48
- 8005d8a:	e019      	b.n	8005dc0 <UART_SetConfig+0x114>
+ 8005d8a:	e021      	b.n	8005dd0 <UART_SetConfig+0x114>
  8005d8c:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
  8005d8e:	681a      	ldr	r2, [r3, #0]
- 8005d90:	4b50      	ldr	r3, [pc, #320]	@ (8005ed4 <UART_SetConfig+0x228>)
+ 8005d90:	4b53      	ldr	r3, [pc, #332]	@ (8005ee0 <UART_SetConfig+0x224>)
  8005d92:	429a      	cmp	r2, r3
- 8005d94:	d102      	bne.n	8005d9c <UART_SetConfig+0xf0>
- 8005d96:	2308      	movs	r3, #8
+ 8005d94:	d102      	bne.n	8005d9c <UART_SetConfig+0xe0>
+ 8005d96:	2304      	movs	r3, #4
  8005d98:	64bb      	str	r3, [r7, #72]	@ 0x48
- 8005d9a:	e011      	b.n	8005dc0 <UART_SetConfig+0x114>
+ 8005d9a:	e019      	b.n	8005dd0 <UART_SetConfig+0x114>
  8005d9c:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
  8005d9e:	681a      	ldr	r2, [r3, #0]
- 8005da0:	4b4d      	ldr	r3, [pc, #308]	@ (8005ed8 <UART_SetConfig+0x22c>)
+ 8005da0:	4b50      	ldr	r3, [pc, #320]	@ (8005ee4 <UART_SetConfig+0x228>)
  8005da2:	429a      	cmp	r2, r3
- 8005da4:	d102      	bne.n	8005dac <UART_SetConfig+0x100>
- 8005da6:	2310      	movs	r3, #16
+ 8005da4:	d102      	bne.n	8005dac <UART_SetConfig+0xf0>
+ 8005da6:	2308      	movs	r3, #8
  8005da8:	64bb      	str	r3, [r7, #72]	@ 0x48
- 8005daa:	e009      	b.n	8005dc0 <UART_SetConfig+0x114>
+ 8005daa:	e011      	b.n	8005dd0 <UART_SetConfig+0x114>
  8005dac:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
  8005dae:	681a      	ldr	r2, [r3, #0]
- 8005db0:	4b42      	ldr	r3, [pc, #264]	@ (8005ebc <UART_SetConfig+0x210>)
+ 8005db0:	4b4d      	ldr	r3, [pc, #308]	@ (8005ee8 <UART_SetConfig+0x22c>)
  8005db2:	429a      	cmp	r2, r3
- 8005db4:	d102      	bne.n	8005dbc <UART_SetConfig+0x110>
- 8005db6:	2320      	movs	r3, #32
+ 8005db4:	d102      	bne.n	8005dbc <UART_SetConfig+0x100>
+ 8005db6:	2310      	movs	r3, #16
  8005db8:	64bb      	str	r3, [r7, #72]	@ 0x48
- 8005dba:	e001      	b.n	8005dc0 <UART_SetConfig+0x114>
- 8005dbc:	2300      	movs	r3, #0
- 8005dbe:	64bb      	str	r3, [r7, #72]	@ 0x48
+ 8005dba:	e009      	b.n	8005dd0 <UART_SetConfig+0x114>
+ 8005dbc:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005dbe:	681a      	ldr	r2, [r3, #0]
+ 8005dc0:	4b42      	ldr	r3, [pc, #264]	@ (8005ecc <UART_SetConfig+0x210>)
+ 8005dc2:	429a      	cmp	r2, r3
+ 8005dc4:	d102      	bne.n	8005dcc <UART_SetConfig+0x110>
+ 8005dc6:	2320      	movs	r3, #32
+ 8005dc8:	64bb      	str	r3, [r7, #72]	@ 0x48
+ 8005dca:	e001      	b.n	8005dd0 <UART_SetConfig+0x114>
+ 8005dcc:	2300      	movs	r3, #0
+ 8005dce:	64bb      	str	r3, [r7, #72]	@ 0x48
 
   /* Check LPUART instance */
   if (UART_INSTANCE_LOWPOWER(huart))
- 8005dc0:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005dc2:	681a      	ldr	r2, [r3, #0]
- 8005dc4:	4b3d      	ldr	r3, [pc, #244]	@ (8005ebc <UART_SetConfig+0x210>)
- 8005dc6:	429a      	cmp	r2, r3
- 8005dc8:	d005      	beq.n	8005dd6 <UART_SetConfig+0x12a>
- 8005dca:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005dcc:	681a      	ldr	r2, [r3, #0]
- 8005dce:	4b3d      	ldr	r3, [pc, #244]	@ (8005ec4 <UART_SetConfig+0x218>)
- 8005dd0:	429a      	cmp	r2, r3
- 8005dd2:	f040 8085 	bne.w	8005ee0 <UART_SetConfig+0x234>
+ 8005dd0:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005dd2:	681a      	ldr	r2, [r3, #0]
+ 8005dd4:	4b3d      	ldr	r3, [pc, #244]	@ (8005ecc <UART_SetConfig+0x210>)
+ 8005dd6:	429a      	cmp	r2, r3
+ 8005dd8:	d005      	beq.n	8005de6 <UART_SetConfig+0x12a>
+ 8005dda:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005ddc:	681a      	ldr	r2, [r3, #0]
+ 8005dde:	4b3d      	ldr	r3, [pc, #244]	@ (8005ed4 <UART_SetConfig+0x218>)
+ 8005de0:	429a      	cmp	r2, r3
+ 8005de2:	f040 8085 	bne.w	8005ef0 <UART_SetConfig+0x234>
   {
     /* Retrieve frequency clock */
     pclk = HAL_RCCEx_GetPeriphCLKFreq(clocksource);
- 8005dd6:	6cbb      	ldr	r3, [r7, #72]	@ 0x48
- 8005dd8:	2200      	movs	r2, #0
- 8005dda:	623b      	str	r3, [r7, #32]
- 8005ddc:	627a      	str	r2, [r7, #36]	@ 0x24
- 8005dde:	e9d7 0108 	ldrd	r0, r1, [r7, #32]
- 8005de2:	f7fe fa4b 	bl	800427c <HAL_RCCEx_GetPeriphCLKFreq>
- 8005de6:	6438      	str	r0, [r7, #64]	@ 0x40
+ 8005de6:	6cbb      	ldr	r3, [r7, #72]	@ 0x48
+ 8005de8:	2200      	movs	r2, #0
+ 8005dea:	623b      	str	r3, [r7, #32]
+ 8005dec:	627a      	str	r2, [r7, #36]	@ 0x24
+ 8005dee:	e9d7 0108 	ldrd	r0, r1, [r7, #32]
+ 8005df2:	f7fe fa43 	bl	800427c <HAL_RCCEx_GetPeriphCLKFreq>
+ 8005df6:	6438      	str	r0, [r7, #64]	@ 0x40
 
     /* If proper clock source reported */
     if (pclk != 0U)
- 8005de8:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
- 8005dea:	2b00      	cmp	r3, #0
- 8005dec:	f000 80e8 	beq.w	8005fc0 <UART_SetConfig+0x314>
+ 8005df8:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
+ 8005dfa:	2b00      	cmp	r3, #0
+ 8005dfc:	f000 80e8 	beq.w	8005fd0 <UART_SetConfig+0x314>
     {
       /* Compute clock after Prescaler */
       lpuart_ker_ck_pres = (pclk / UARTPrescTable[huart->Init.ClockPrescaler]);
- 8005df0:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005df2:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
- 8005df4:	4a39      	ldr	r2, [pc, #228]	@ (8005edc <UART_SetConfig+0x230>)
- 8005df6:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
- 8005dfa:	461a      	mov	r2, r3
- 8005dfc:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
- 8005dfe:	fbb3 f3f2 	udiv	r3, r3, r2
- 8005e02:	637b      	str	r3, [r7, #52]	@ 0x34
+ 8005e00:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005e02:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
+ 8005e04:	4a39      	ldr	r2, [pc, #228]	@ (8005eec <UART_SetConfig+0x230>)
+ 8005e06:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
+ 8005e0a:	461a      	mov	r2, r3
+ 8005e0c:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
+ 8005e0e:	fbb3 f3f2 	udiv	r3, r3, r2
+ 8005e12:	637b      	str	r3, [r7, #52]	@ 0x34
 
       /* Ensure that Frequency clock is in the range [3 * baudrate, 4096 * baudrate] */
       if ((lpuart_ker_ck_pres < (3U * huart->Init.BaudRate)) ||
- 8005e04:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005e06:	685a      	ldr	r2, [r3, #4]
- 8005e08:	4613      	mov	r3, r2
- 8005e0a:	005b      	lsls	r3, r3, #1
- 8005e0c:	4413      	add	r3, r2
- 8005e0e:	6b7a      	ldr	r2, [r7, #52]	@ 0x34
- 8005e10:	429a      	cmp	r2, r3
- 8005e12:	d305      	bcc.n	8005e20 <UART_SetConfig+0x174>
-          (lpuart_ker_ck_pres > (4096U * huart->Init.BaudRate)))
  8005e14:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005e16:	685b      	ldr	r3, [r3, #4]
- 8005e18:	031b      	lsls	r3, r3, #12
+ 8005e16:	685a      	ldr	r2, [r3, #4]
+ 8005e18:	4613      	mov	r3, r2
+ 8005e1a:	005b      	lsls	r3, r3, #1
+ 8005e1c:	4413      	add	r3, r2
+ 8005e1e:	6b7a      	ldr	r2, [r7, #52]	@ 0x34
+ 8005e20:	429a      	cmp	r2, r3
+ 8005e22:	d305      	bcc.n	8005e30 <UART_SetConfig+0x174>
+          (lpuart_ker_ck_pres > (4096U * huart->Init.BaudRate)))
+ 8005e24:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005e26:	685b      	ldr	r3, [r3, #4]
+ 8005e28:	031b      	lsls	r3, r3, #12
       if ((lpuart_ker_ck_pres < (3U * huart->Init.BaudRate)) ||
- 8005e1a:	6b7a      	ldr	r2, [r7, #52]	@ 0x34
- 8005e1c:	429a      	cmp	r2, r3
- 8005e1e:	d903      	bls.n	8005e28 <UART_SetConfig+0x17c>
+ 8005e2a:	6b7a      	ldr	r2, [r7, #52]	@ 0x34
+ 8005e2c:	429a      	cmp	r2, r3
+ 8005e2e:	d903      	bls.n	8005e38 <UART_SetConfig+0x17c>
       {
         ret = HAL_ERROR;
- 8005e20:	2301      	movs	r3, #1
- 8005e22:	f887 3047 	strb.w	r3, [r7, #71]	@ 0x47
- 8005e26:	e048      	b.n	8005eba <UART_SetConfig+0x20e>
+ 8005e30:	2301      	movs	r3, #1
+ 8005e32:	f887 3047 	strb.w	r3, [r7, #71]	@ 0x47
+ 8005e36:	e048      	b.n	8005eca <UART_SetConfig+0x20e>
       }
       else
       {
         /* Check computed UsartDiv value is in allocated range
            (it is forbidden to write values lower than 0x300 in the LPUART_BRR register) */
         usartdiv = (uint32_t)(UART_DIV_LPUART(pclk, huart->Init.BaudRate, huart->Init.ClockPrescaler));
- 8005e28:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
- 8005e2a:	2200      	movs	r2, #0
- 8005e2c:	61bb      	str	r3, [r7, #24]
- 8005e2e:	61fa      	str	r2, [r7, #28]
- 8005e30:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005e32:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
- 8005e34:	4a29      	ldr	r2, [pc, #164]	@ (8005edc <UART_SetConfig+0x230>)
- 8005e36:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
- 8005e3a:	b29b      	uxth	r3, r3
- 8005e3c:	2200      	movs	r2, #0
- 8005e3e:	613b      	str	r3, [r7, #16]
- 8005e40:	617a      	str	r2, [r7, #20]
- 8005e42:	e9d7 2304 	ldrd	r2, r3, [r7, #16]
- 8005e46:	e9d7 0106 	ldrd	r0, r1, [r7, #24]
- 8005e4a:	f7fa fa15 	bl	8000278 <__aeabi_uldivmod>
- 8005e4e:	4602      	mov	r2, r0
- 8005e50:	460b      	mov	r3, r1
- 8005e52:	4610      	mov	r0, r2
- 8005e54:	4619      	mov	r1, r3
- 8005e56:	f04f 0200 	mov.w	r2, #0
- 8005e5a:	f04f 0300 	mov.w	r3, #0
- 8005e5e:	020b      	lsls	r3, r1, #8
- 8005e60:	ea43 6310 	orr.w	r3, r3, r0, lsr #24
- 8005e64:	0202      	lsls	r2, r0, #8
- 8005e66:	6af9      	ldr	r1, [r7, #44]	@ 0x2c
- 8005e68:	6849      	ldr	r1, [r1, #4]
- 8005e6a:	0849      	lsrs	r1, r1, #1
- 8005e6c:	2000      	movs	r0, #0
- 8005e6e:	460c      	mov	r4, r1
- 8005e70:	4605      	mov	r5, r0
- 8005e72:	eb12 0804 	adds.w	r8, r2, r4
- 8005e76:	eb43 0905 	adc.w	r9, r3, r5
- 8005e7a:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005e7c:	685b      	ldr	r3, [r3, #4]
- 8005e7e:	2200      	movs	r2, #0
- 8005e80:	60bb      	str	r3, [r7, #8]
- 8005e82:	60fa      	str	r2, [r7, #12]
- 8005e84:	e9d7 2302 	ldrd	r2, r3, [r7, #8]
- 8005e88:	4640      	mov	r0, r8
- 8005e8a:	4649      	mov	r1, r9
- 8005e8c:	f7fa f9f4 	bl	8000278 <__aeabi_uldivmod>
- 8005e90:	4602      	mov	r2, r0
- 8005e92:	460b      	mov	r3, r1
- 8005e94:	4613      	mov	r3, r2
- 8005e96:	63fb      	str	r3, [r7, #60]	@ 0x3c
+ 8005e38:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
+ 8005e3a:	2200      	movs	r2, #0
+ 8005e3c:	61bb      	str	r3, [r7, #24]
+ 8005e3e:	61fa      	str	r2, [r7, #28]
+ 8005e40:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005e42:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
+ 8005e44:	4a29      	ldr	r2, [pc, #164]	@ (8005eec <UART_SetConfig+0x230>)
+ 8005e46:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
+ 8005e4a:	b29b      	uxth	r3, r3
+ 8005e4c:	2200      	movs	r2, #0
+ 8005e4e:	613b      	str	r3, [r7, #16]
+ 8005e50:	617a      	str	r2, [r7, #20]
+ 8005e52:	e9d7 2304 	ldrd	r2, r3, [r7, #16]
+ 8005e56:	e9d7 0106 	ldrd	r0, r1, [r7, #24]
+ 8005e5a:	f7fa fa0d 	bl	8000278 <__aeabi_uldivmod>
+ 8005e5e:	4602      	mov	r2, r0
+ 8005e60:	460b      	mov	r3, r1
+ 8005e62:	4610      	mov	r0, r2
+ 8005e64:	4619      	mov	r1, r3
+ 8005e66:	f04f 0200 	mov.w	r2, #0
+ 8005e6a:	f04f 0300 	mov.w	r3, #0
+ 8005e6e:	020b      	lsls	r3, r1, #8
+ 8005e70:	ea43 6310 	orr.w	r3, r3, r0, lsr #24
+ 8005e74:	0202      	lsls	r2, r0, #8
+ 8005e76:	6af9      	ldr	r1, [r7, #44]	@ 0x2c
+ 8005e78:	6849      	ldr	r1, [r1, #4]
+ 8005e7a:	0849      	lsrs	r1, r1, #1
+ 8005e7c:	2000      	movs	r0, #0
+ 8005e7e:	460c      	mov	r4, r1
+ 8005e80:	4605      	mov	r5, r0
+ 8005e82:	eb12 0804 	adds.w	r8, r2, r4
+ 8005e86:	eb43 0905 	adc.w	r9, r3, r5
+ 8005e8a:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005e8c:	685b      	ldr	r3, [r3, #4]
+ 8005e8e:	2200      	movs	r2, #0
+ 8005e90:	60bb      	str	r3, [r7, #8]
+ 8005e92:	60fa      	str	r2, [r7, #12]
+ 8005e94:	e9d7 2302 	ldrd	r2, r3, [r7, #8]
+ 8005e98:	4640      	mov	r0, r8
+ 8005e9a:	4649      	mov	r1, r9
+ 8005e9c:	f7fa f9ec 	bl	8000278 <__aeabi_uldivmod>
+ 8005ea0:	4602      	mov	r2, r0
+ 8005ea2:	460b      	mov	r3, r1
+ 8005ea4:	4613      	mov	r3, r2
+ 8005ea6:	63fb      	str	r3, [r7, #60]	@ 0x3c
         if ((usartdiv >= LPUART_BRR_MIN) && (usartdiv <= LPUART_BRR_MAX))
- 8005e98:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
- 8005e9a:	f5b3 7f40 	cmp.w	r3, #768	@ 0x300
- 8005e9e:	d308      	bcc.n	8005eb2 <UART_SetConfig+0x206>
- 8005ea0:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
- 8005ea2:	f5b3 1f80 	cmp.w	r3, #1048576	@ 0x100000
- 8005ea6:	d204      	bcs.n	8005eb2 <UART_SetConfig+0x206>
+ 8005ea8:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
+ 8005eaa:	f5b3 7f40 	cmp.w	r3, #768	@ 0x300
+ 8005eae:	d308      	bcc.n	8005ec2 <UART_SetConfig+0x206>
+ 8005eb0:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
+ 8005eb2:	f5b3 1f80 	cmp.w	r3, #1048576	@ 0x100000
+ 8005eb6:	d204      	bcs.n	8005ec2 <UART_SetConfig+0x206>
         {
           huart->Instance->BRR = usartdiv;
- 8005ea8:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005eaa:	681b      	ldr	r3, [r3, #0]
- 8005eac:	6bfa      	ldr	r2, [r7, #60]	@ 0x3c
- 8005eae:	60da      	str	r2, [r3, #12]
- 8005eb0:	e003      	b.n	8005eba <UART_SetConfig+0x20e>
+ 8005eb8:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005eba:	681b      	ldr	r3, [r3, #0]
+ 8005ebc:	6bfa      	ldr	r2, [r7, #60]	@ 0x3c
+ 8005ebe:	60da      	str	r2, [r3, #12]
+ 8005ec0:	e003      	b.n	8005eca <UART_SetConfig+0x20e>
         }
         else
         {
           ret = HAL_ERROR;
- 8005eb2:	2301      	movs	r3, #1
- 8005eb4:	f887 3047 	strb.w	r3, [r7, #71]	@ 0x47
+ 8005ec2:	2301      	movs	r3, #1
+ 8005ec4:	f887 3047 	strb.w	r3, [r7, #71]	@ 0x47
     if (pclk != 0U)
- 8005eb8:	e082      	b.n	8005fc0 <UART_SetConfig+0x314>
- 8005eba:	e081      	b.n	8005fc0 <UART_SetConfig+0x314>
- 8005ebc:	46002400 	.word	0x46002400
- 8005ec0:	cfff69f3 	.word	0xcfff69f3
- 8005ec4:	56002400 	.word	0x56002400
- 8005ec8:	40013800 	.word	0x40013800
- 8005ecc:	40004400 	.word	0x40004400
- 8005ed0:	40004800 	.word	0x40004800
- 8005ed4:	40004c00 	.word	0x40004c00
- 8005ed8:	40005000 	.word	0x40005000
- 8005edc:	0800685c 	.word	0x0800685c
+ 8005ec8:	e082      	b.n	8005fd0 <UART_SetConfig+0x314>
+ 8005eca:	e081      	b.n	8005fd0 <UART_SetConfig+0x314>
+ 8005ecc:	46002400 	.word	0x46002400
+ 8005ed0:	cfff69f3 	.word	0xcfff69f3
+ 8005ed4:	56002400 	.word	0x56002400
+ 8005ed8:	40013800 	.word	0x40013800
+ 8005edc:	40004400 	.word	0x40004400
+ 8005ee0:	40004800 	.word	0x40004800
+ 8005ee4:	40004c00 	.word	0x40004c00
+ 8005ee8:	40005000 	.word	0x40005000
+ 8005eec:	0800686c 	.word	0x0800686c
       } /* if ( (lpuart_ker_ck_pres < (3 * huart->Init.BaudRate) ) ||
                 (lpuart_ker_ck_pres > (4096 * huart->Init.BaudRate) )) */
     } /* if (pclk != 0) */
   }
   /* Check UART Over Sampling to set Baud Rate Register */
   else if (huart->Init.OverSampling == UART_OVERSAMPLING_8)
- 8005ee0:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005ee2:	69db      	ldr	r3, [r3, #28]
- 8005ee4:	f5b3 4f00 	cmp.w	r3, #32768	@ 0x8000
- 8005ee8:	d13c      	bne.n	8005f64 <UART_SetConfig+0x2b8>
+ 8005ef0:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005ef2:	69db      	ldr	r3, [r3, #28]
+ 8005ef4:	f5b3 4f00 	cmp.w	r3, #32768	@ 0x8000
+ 8005ef8:	d13c      	bne.n	8005f74 <UART_SetConfig+0x2b8>
   {
     pclk = HAL_RCCEx_GetPeriphCLKFreq(clocksource);
- 8005eea:	6cbb      	ldr	r3, [r7, #72]	@ 0x48
- 8005eec:	2200      	movs	r2, #0
- 8005eee:	603b      	str	r3, [r7, #0]
- 8005ef0:	607a      	str	r2, [r7, #4]
- 8005ef2:	e9d7 0100 	ldrd	r0, r1, [r7]
- 8005ef6:	f7fe f9c1 	bl	800427c <HAL_RCCEx_GetPeriphCLKFreq>
- 8005efa:	6438      	str	r0, [r7, #64]	@ 0x40
+ 8005efa:	6cbb      	ldr	r3, [r7, #72]	@ 0x48
+ 8005efc:	2200      	movs	r2, #0
+ 8005efe:	603b      	str	r3, [r7, #0]
+ 8005f00:	607a      	str	r2, [r7, #4]
+ 8005f02:	e9d7 0100 	ldrd	r0, r1, [r7]
+ 8005f06:	f7fe f9b9 	bl	800427c <HAL_RCCEx_GetPeriphCLKFreq>
+ 8005f0a:	6438      	str	r0, [r7, #64]	@ 0x40
 
     /* USARTDIV must be greater than or equal to 0d16 */
     if (pclk != 0U)
- 8005efc:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
- 8005efe:	2b00      	cmp	r3, #0
- 8005f00:	d05e      	beq.n	8005fc0 <UART_SetConfig+0x314>
+ 8005f0c:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
+ 8005f0e:	2b00      	cmp	r3, #0
+ 8005f10:	d05e      	beq.n	8005fd0 <UART_SetConfig+0x314>
     {
       usartdiv = (uint32_t)(UART_DIV_SAMPLING8(pclk, huart->Init.BaudRate, huart->Init.ClockPrescaler));
- 8005f02:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005f04:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
- 8005f06:	4a39      	ldr	r2, [pc, #228]	@ (8005fec <UART_SetConfig+0x340>)
- 8005f08:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
- 8005f0c:	461a      	mov	r2, r3
- 8005f0e:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
- 8005f10:	fbb3 f3f2 	udiv	r3, r3, r2
- 8005f14:	005a      	lsls	r2, r3, #1
- 8005f16:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005f18:	685b      	ldr	r3, [r3, #4]
- 8005f1a:	085b      	lsrs	r3, r3, #1
- 8005f1c:	441a      	add	r2, r3
- 8005f1e:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005f20:	685b      	ldr	r3, [r3, #4]
- 8005f22:	fbb2 f3f3 	udiv	r3, r2, r3
- 8005f26:	63fb      	str	r3, [r7, #60]	@ 0x3c
+ 8005f12:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005f14:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
+ 8005f16:	4a39      	ldr	r2, [pc, #228]	@ (8005ffc <UART_SetConfig+0x340>)
+ 8005f18:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
+ 8005f1c:	461a      	mov	r2, r3
+ 8005f1e:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
+ 8005f20:	fbb3 f3f2 	udiv	r3, r3, r2
+ 8005f24:	005a      	lsls	r2, r3, #1
+ 8005f26:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005f28:	685b      	ldr	r3, [r3, #4]
+ 8005f2a:	085b      	lsrs	r3, r3, #1
+ 8005f2c:	441a      	add	r2, r3
+ 8005f2e:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005f30:	685b      	ldr	r3, [r3, #4]
+ 8005f32:	fbb2 f3f3 	udiv	r3, r2, r3
+ 8005f36:	63fb      	str	r3, [r7, #60]	@ 0x3c
       if ((usartdiv >= UART_BRR_MIN) && (usartdiv <= UART_BRR_MAX))
- 8005f28:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
- 8005f2a:	2b0f      	cmp	r3, #15
- 8005f2c:	d916      	bls.n	8005f5c <UART_SetConfig+0x2b0>
- 8005f2e:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
- 8005f30:	f5b3 3f80 	cmp.w	r3, #65536	@ 0x10000
- 8005f34:	d212      	bcs.n	8005f5c <UART_SetConfig+0x2b0>
+ 8005f38:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
+ 8005f3a:	2b0f      	cmp	r3, #15
+ 8005f3c:	d916      	bls.n	8005f6c <UART_SetConfig+0x2b0>
+ 8005f3e:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
+ 8005f40:	f5b3 3f80 	cmp.w	r3, #65536	@ 0x10000
+ 8005f44:	d212      	bcs.n	8005f6c <UART_SetConfig+0x2b0>
       {
         brrtemp = (uint16_t)(usartdiv & 0xFFF0U);
- 8005f36:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
- 8005f38:	b29b      	uxth	r3, r3
- 8005f3a:	f023 030f 	bic.w	r3, r3, #15
- 8005f3e:	877b      	strh	r3, [r7, #58]	@ 0x3a
+ 8005f46:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
+ 8005f48:	b29b      	uxth	r3, r3
+ 8005f4a:	f023 030f 	bic.w	r3, r3, #15
+ 8005f4e:	877b      	strh	r3, [r7, #58]	@ 0x3a
         brrtemp |= (uint16_t)((usartdiv & (uint16_t)0x000FU) >> 1U);
- 8005f40:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
- 8005f42:	085b      	lsrs	r3, r3, #1
- 8005f44:	b29b      	uxth	r3, r3
- 8005f46:	f003 0307 	and.w	r3, r3, #7
- 8005f4a:	b29a      	uxth	r2, r3
- 8005f4c:	8f7b      	ldrh	r3, [r7, #58]	@ 0x3a
- 8005f4e:	4313      	orrs	r3, r2
- 8005f50:	877b      	strh	r3, [r7, #58]	@ 0x3a
+ 8005f50:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
+ 8005f52:	085b      	lsrs	r3, r3, #1
+ 8005f54:	b29b      	uxth	r3, r3
+ 8005f56:	f003 0307 	and.w	r3, r3, #7
+ 8005f5a:	b29a      	uxth	r2, r3
+ 8005f5c:	8f7b      	ldrh	r3, [r7, #58]	@ 0x3a
+ 8005f5e:	4313      	orrs	r3, r2
+ 8005f60:	877b      	strh	r3, [r7, #58]	@ 0x3a
         huart->Instance->BRR = brrtemp;
- 8005f52:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005f54:	681b      	ldr	r3, [r3, #0]
- 8005f56:	8f7a      	ldrh	r2, [r7, #58]	@ 0x3a
- 8005f58:	60da      	str	r2, [r3, #12]
- 8005f5a:	e031      	b.n	8005fc0 <UART_SetConfig+0x314>
+ 8005f62:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005f64:	681b      	ldr	r3, [r3, #0]
+ 8005f66:	8f7a      	ldrh	r2, [r7, #58]	@ 0x3a
+ 8005f68:	60da      	str	r2, [r3, #12]
+ 8005f6a:	e031      	b.n	8005fd0 <UART_SetConfig+0x314>
       }
       else
       {
         ret = HAL_ERROR;
- 8005f5c:	2301      	movs	r3, #1
- 8005f5e:	f887 3047 	strb.w	r3, [r7, #71]	@ 0x47
- 8005f62:	e02d      	b.n	8005fc0 <UART_SetConfig+0x314>
+ 8005f6c:	2301      	movs	r3, #1
+ 8005f6e:	f887 3047 	strb.w	r3, [r7, #71]	@ 0x47
+ 8005f72:	e02d      	b.n	8005fd0 <UART_SetConfig+0x314>
       }
     }
   }
   else
   {
     pclk = HAL_RCCEx_GetPeriphCLKFreq(clocksource);
- 8005f64:	6cbb      	ldr	r3, [r7, #72]	@ 0x48
- 8005f66:	2200      	movs	r2, #0
- 8005f68:	469a      	mov	sl, r3
- 8005f6a:	4693      	mov	fp, r2
- 8005f6c:	4650      	mov	r0, sl
- 8005f6e:	4659      	mov	r1, fp
- 8005f70:	f7fe f984 	bl	800427c <HAL_RCCEx_GetPeriphCLKFreq>
- 8005f74:	6438      	str	r0, [r7, #64]	@ 0x40
+ 8005f74:	6cbb      	ldr	r3, [r7, #72]	@ 0x48
+ 8005f76:	2200      	movs	r2, #0
+ 8005f78:	469a      	mov	sl, r3
+ 8005f7a:	4693      	mov	fp, r2
+ 8005f7c:	4650      	mov	r0, sl
+ 8005f7e:	4659      	mov	r1, fp
+ 8005f80:	f7fe f97c 	bl	800427c <HAL_RCCEx_GetPeriphCLKFreq>
+ 8005f84:	6438      	str	r0, [r7, #64]	@ 0x40
 
     if (pclk != 0U)
- 8005f76:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
- 8005f78:	2b00      	cmp	r3, #0
- 8005f7a:	d021      	beq.n	8005fc0 <UART_SetConfig+0x314>
+ 8005f86:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
+ 8005f88:	2b00      	cmp	r3, #0
+ 8005f8a:	d021      	beq.n	8005fd0 <UART_SetConfig+0x314>
     {
       /* USARTDIV must be greater than or equal to 0d16 */
       usartdiv = (uint32_t)(UART_DIV_SAMPLING16(pclk, huart->Init.BaudRate, huart->Init.ClockPrescaler));
- 8005f7c:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005f7e:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
- 8005f80:	4a1a      	ldr	r2, [pc, #104]	@ (8005fec <UART_SetConfig+0x340>)
- 8005f82:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
- 8005f86:	461a      	mov	r2, r3
- 8005f88:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
- 8005f8a:	fbb3 f2f2 	udiv	r2, r3, r2
- 8005f8e:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005f90:	685b      	ldr	r3, [r3, #4]
- 8005f92:	085b      	lsrs	r3, r3, #1
- 8005f94:	441a      	add	r2, r3
- 8005f96:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005f98:	685b      	ldr	r3, [r3, #4]
- 8005f9a:	fbb2 f3f3 	udiv	r3, r2, r3
- 8005f9e:	63fb      	str	r3, [r7, #60]	@ 0x3c
+ 8005f8c:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005f8e:	6a5b      	ldr	r3, [r3, #36]	@ 0x24
+ 8005f90:	4a1a      	ldr	r2, [pc, #104]	@ (8005ffc <UART_SetConfig+0x340>)
+ 8005f92:	f832 3013 	ldrh.w	r3, [r2, r3, lsl #1]
+ 8005f96:	461a      	mov	r2, r3
+ 8005f98:	6c3b      	ldr	r3, [r7, #64]	@ 0x40
+ 8005f9a:	fbb3 f2f2 	udiv	r2, r3, r2
+ 8005f9e:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005fa0:	685b      	ldr	r3, [r3, #4]
+ 8005fa2:	085b      	lsrs	r3, r3, #1
+ 8005fa4:	441a      	add	r2, r3
+ 8005fa6:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005fa8:	685b      	ldr	r3, [r3, #4]
+ 8005faa:	fbb2 f3f3 	udiv	r3, r2, r3
+ 8005fae:	63fb      	str	r3, [r7, #60]	@ 0x3c
       if ((usartdiv >= UART_BRR_MIN) && (usartdiv <= UART_BRR_MAX))
- 8005fa0:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
- 8005fa2:	2b0f      	cmp	r3, #15
- 8005fa4:	d909      	bls.n	8005fba <UART_SetConfig+0x30e>
- 8005fa6:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
- 8005fa8:	f5b3 3f80 	cmp.w	r3, #65536	@ 0x10000
- 8005fac:	d205      	bcs.n	8005fba <UART_SetConfig+0x30e>
+ 8005fb0:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
+ 8005fb2:	2b0f      	cmp	r3, #15
+ 8005fb4:	d909      	bls.n	8005fca <UART_SetConfig+0x30e>
+ 8005fb6:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
+ 8005fb8:	f5b3 3f80 	cmp.w	r3, #65536	@ 0x10000
+ 8005fbc:	d205      	bcs.n	8005fca <UART_SetConfig+0x30e>
       {
         huart->Instance->BRR = (uint16_t)usartdiv;
- 8005fae:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
- 8005fb0:	b29a      	uxth	r2, r3
- 8005fb2:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005fb4:	681b      	ldr	r3, [r3, #0]
- 8005fb6:	60da      	str	r2, [r3, #12]
- 8005fb8:	e002      	b.n	8005fc0 <UART_SetConfig+0x314>
+ 8005fbe:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
+ 8005fc0:	b29a      	uxth	r2, r3
+ 8005fc2:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005fc4:	681b      	ldr	r3, [r3, #0]
+ 8005fc6:	60da      	str	r2, [r3, #12]
+ 8005fc8:	e002      	b.n	8005fd0 <UART_SetConfig+0x314>
       }
       else
       {
         ret = HAL_ERROR;
- 8005fba:	2301      	movs	r3, #1
- 8005fbc:	f887 3047 	strb.w	r3, [r7, #71]	@ 0x47
+ 8005fca:	2301      	movs	r3, #1
+ 8005fcc:	f887 3047 	strb.w	r3, [r7, #71]	@ 0x47
       }
     }
   }
 
   /* Initialize the number of data to process during RX/TX ISR execution */
   huart->NbTxDataToProcess = 1;
- 8005fc0:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005fc2:	2201      	movs	r2, #1
- 8005fc4:	f8a3 206a 	strh.w	r2, [r3, #106]	@ 0x6a
+ 8005fd0:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005fd2:	2201      	movs	r2, #1
+ 8005fd4:	f8a3 206a 	strh.w	r2, [r3, #106]	@ 0x6a
   huart->NbRxDataToProcess = 1;
- 8005fc8:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005fca:	2201      	movs	r2, #1
- 8005fcc:	f8a3 2068 	strh.w	r2, [r3, #104]	@ 0x68
+ 8005fd8:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005fda:	2201      	movs	r2, #1
+ 8005fdc:	f8a3 2068 	strh.w	r2, [r3, #104]	@ 0x68
 
   /* Clear ISR function pointers */
   huart->RxISR = NULL;
- 8005fd0:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005fd2:	2200      	movs	r2, #0
- 8005fd4:	675a      	str	r2, [r3, #116]	@ 0x74
+ 8005fe0:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005fe2:	2200      	movs	r2, #0
+ 8005fe4:	675a      	str	r2, [r3, #116]	@ 0x74
   huart->TxISR = NULL;
- 8005fd6:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
- 8005fd8:	2200      	movs	r2, #0
- 8005fda:	679a      	str	r2, [r3, #120]	@ 0x78
+ 8005fe6:	6afb      	ldr	r3, [r7, #44]	@ 0x2c
+ 8005fe8:	2200      	movs	r2, #0
+ 8005fea:	679a      	str	r2, [r3, #120]	@ 0x78
 
   return ret;
- 8005fdc:	f897 3047 	ldrb.w	r3, [r7, #71]	@ 0x47
+ 8005fec:	f897 3047 	ldrb.w	r3, [r7, #71]	@ 0x47
 }
- 8005fe0:	4618      	mov	r0, r3
- 8005fe2:	3750      	adds	r7, #80	@ 0x50
- 8005fe4:	46bd      	mov	sp, r7
- 8005fe6:	e8bd 8fb0 	ldmia.w	sp!, {r4, r5, r7, r8, r9, sl, fp, pc}
- 8005fea:	bf00      	nop
- 8005fec:	0800685c 	.word	0x0800685c
+ 8005ff0:	4618      	mov	r0, r3
+ 8005ff2:	3750      	adds	r7, #80	@ 0x50
+ 8005ff4:	46bd      	mov	sp, r7
+ 8005ff6:	e8bd 8fb0 	ldmia.w	sp!, {r4, r5, r7, r8, r9, sl, fp, pc}
+ 8005ffa:	bf00      	nop
+ 8005ffc:	0800686c 	.word	0x0800686c
 
-08005ff0 <UART_AdvFeatureConfig>:
+08006000 <UART_AdvFeatureConfig>:
   * @brief Configure the UART peripheral advanced features.
   * @param huart UART handle.
   * @retval None
   */
 void UART_AdvFeatureConfig(UART_HandleTypeDef *huart)
 {
- 8005ff0:	b480      	push	{r7}
- 8005ff2:	b083      	sub	sp, #12
- 8005ff4:	af00      	add	r7, sp, #0
- 8005ff6:	6078      	str	r0, [r7, #4]
+ 8006000:	b480      	push	{r7}
+ 8006002:	b083      	sub	sp, #12
+ 8006004:	af00      	add	r7, sp, #0
+ 8006006:	6078      	str	r0, [r7, #4]
   /* Check whether the set of advanced features to configure is properly set */
   assert_param(IS_UART_ADVFEATURE_INIT(huart->AdvancedInit.AdvFeatureInit));
 
   /* if required, configure RX/TX pins swap */
   if (HAL_IS_BIT_SET(huart->AdvancedInit.AdvFeatureInit, UART_ADVFEATURE_SWAP_INIT))
- 8005ff8:	687b      	ldr	r3, [r7, #4]
- 8005ffa:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 8005ffc:	f003 0308 	and.w	r3, r3, #8
- 8006000:	2b00      	cmp	r3, #0
- 8006002:	d00a      	beq.n	800601a <UART_AdvFeatureConfig+0x2a>
+ 8006008:	687b      	ldr	r3, [r7, #4]
+ 800600a:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 800600c:	f003 0308 	and.w	r3, r3, #8
+ 8006010:	2b00      	cmp	r3, #0
+ 8006012:	d00a      	beq.n	800602a <UART_AdvFeatureConfig+0x2a>
   {
     assert_param(IS_UART_ADVFEATURE_SWAP(huart->AdvancedInit.Swap));
     MODIFY_REG(huart->Instance->CR2, USART_CR2_SWAP, huart->AdvancedInit.Swap);
- 8006004:	687b      	ldr	r3, [r7, #4]
- 8006006:	681b      	ldr	r3, [r3, #0]
- 8006008:	685b      	ldr	r3, [r3, #4]
- 800600a:	f423 4100 	bic.w	r1, r3, #32768	@ 0x8000
- 800600e:	687b      	ldr	r3, [r7, #4]
- 8006010:	6b9a      	ldr	r2, [r3, #56]	@ 0x38
- 8006012:	687b      	ldr	r3, [r7, #4]
- 8006014:	681b      	ldr	r3, [r3, #0]
- 8006016:	430a      	orrs	r2, r1
- 8006018:	605a      	str	r2, [r3, #4]
+ 8006014:	687b      	ldr	r3, [r7, #4]
+ 8006016:	681b      	ldr	r3, [r3, #0]
+ 8006018:	685b      	ldr	r3, [r3, #4]
+ 800601a:	f423 4100 	bic.w	r1, r3, #32768	@ 0x8000
+ 800601e:	687b      	ldr	r3, [r7, #4]
+ 8006020:	6b9a      	ldr	r2, [r3, #56]	@ 0x38
+ 8006022:	687b      	ldr	r3, [r7, #4]
+ 8006024:	681b      	ldr	r3, [r3, #0]
+ 8006026:	430a      	orrs	r2, r1
+ 8006028:	605a      	str	r2, [r3, #4]
   }
 
   /* if required, configure TX pin active level inversion */
   if (HAL_IS_BIT_SET(huart->AdvancedInit.AdvFeatureInit, UART_ADVFEATURE_TXINVERT_INIT))
- 800601a:	687b      	ldr	r3, [r7, #4]
- 800601c:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 800601e:	f003 0301 	and.w	r3, r3, #1
- 8006022:	2b00      	cmp	r3, #0
- 8006024:	d00a      	beq.n	800603c <UART_AdvFeatureConfig+0x4c>
+ 800602a:	687b      	ldr	r3, [r7, #4]
+ 800602c:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 800602e:	f003 0301 	and.w	r3, r3, #1
+ 8006032:	2b00      	cmp	r3, #0
+ 8006034:	d00a      	beq.n	800604c <UART_AdvFeatureConfig+0x4c>
   {
     assert_param(IS_UART_ADVFEATURE_TXINV(huart->AdvancedInit.TxPinLevelInvert));
     MODIFY_REG(huart->Instance->CR2, USART_CR2_TXINV, huart->AdvancedInit.TxPinLevelInvert);
- 8006026:	687b      	ldr	r3, [r7, #4]
- 8006028:	681b      	ldr	r3, [r3, #0]
- 800602a:	685b      	ldr	r3, [r3, #4]
- 800602c:	f423 3100 	bic.w	r1, r3, #131072	@ 0x20000
- 8006030:	687b      	ldr	r3, [r7, #4]
- 8006032:	6ada      	ldr	r2, [r3, #44]	@ 0x2c
- 8006034:	687b      	ldr	r3, [r7, #4]
- 8006036:	681b      	ldr	r3, [r3, #0]
- 8006038:	430a      	orrs	r2, r1
- 800603a:	605a      	str	r2, [r3, #4]
+ 8006036:	687b      	ldr	r3, [r7, #4]
+ 8006038:	681b      	ldr	r3, [r3, #0]
+ 800603a:	685b      	ldr	r3, [r3, #4]
+ 800603c:	f423 3100 	bic.w	r1, r3, #131072	@ 0x20000
+ 8006040:	687b      	ldr	r3, [r7, #4]
+ 8006042:	6ada      	ldr	r2, [r3, #44]	@ 0x2c
+ 8006044:	687b      	ldr	r3, [r7, #4]
+ 8006046:	681b      	ldr	r3, [r3, #0]
+ 8006048:	430a      	orrs	r2, r1
+ 800604a:	605a      	str	r2, [r3, #4]
   }
 
   /* if required, configure RX pin active level inversion */
   if (HAL_IS_BIT_SET(huart->AdvancedInit.AdvFeatureInit, UART_ADVFEATURE_RXINVERT_INIT))
- 800603c:	687b      	ldr	r3, [r7, #4]
- 800603e:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 8006040:	f003 0302 	and.w	r3, r3, #2
- 8006044:	2b00      	cmp	r3, #0
- 8006046:	d00a      	beq.n	800605e <UART_AdvFeatureConfig+0x6e>
+ 800604c:	687b      	ldr	r3, [r7, #4]
+ 800604e:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 8006050:	f003 0302 	and.w	r3, r3, #2
+ 8006054:	2b00      	cmp	r3, #0
+ 8006056:	d00a      	beq.n	800606e <UART_AdvFeatureConfig+0x6e>
   {
     assert_param(IS_UART_ADVFEATURE_RXINV(huart->AdvancedInit.RxPinLevelInvert));
     MODIFY_REG(huart->Instance->CR2, USART_CR2_RXINV, huart->AdvancedInit.RxPinLevelInvert);
- 8006048:	687b      	ldr	r3, [r7, #4]
- 800604a:	681b      	ldr	r3, [r3, #0]
- 800604c:	685b      	ldr	r3, [r3, #4]
- 800604e:	f423 3180 	bic.w	r1, r3, #65536	@ 0x10000
- 8006052:	687b      	ldr	r3, [r7, #4]
- 8006054:	6b1a      	ldr	r2, [r3, #48]	@ 0x30
- 8006056:	687b      	ldr	r3, [r7, #4]
- 8006058:	681b      	ldr	r3, [r3, #0]
- 800605a:	430a      	orrs	r2, r1
- 800605c:	605a      	str	r2, [r3, #4]
+ 8006058:	687b      	ldr	r3, [r7, #4]
+ 800605a:	681b      	ldr	r3, [r3, #0]
+ 800605c:	685b      	ldr	r3, [r3, #4]
+ 800605e:	f423 3180 	bic.w	r1, r3, #65536	@ 0x10000
+ 8006062:	687b      	ldr	r3, [r7, #4]
+ 8006064:	6b1a      	ldr	r2, [r3, #48]	@ 0x30
+ 8006066:	687b      	ldr	r3, [r7, #4]
+ 8006068:	681b      	ldr	r3, [r3, #0]
+ 800606a:	430a      	orrs	r2, r1
+ 800606c:	605a      	str	r2, [r3, #4]
   }
 
   /* if required, configure data inversion */
   if (HAL_IS_BIT_SET(huart->AdvancedInit.AdvFeatureInit, UART_ADVFEATURE_DATAINVERT_INIT))
- 800605e:	687b      	ldr	r3, [r7, #4]
- 8006060:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 8006062:	f003 0304 	and.w	r3, r3, #4
- 8006066:	2b00      	cmp	r3, #0
- 8006068:	d00a      	beq.n	8006080 <UART_AdvFeatureConfig+0x90>
+ 800606e:	687b      	ldr	r3, [r7, #4]
+ 8006070:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 8006072:	f003 0304 	and.w	r3, r3, #4
+ 8006076:	2b00      	cmp	r3, #0
+ 8006078:	d00a      	beq.n	8006090 <UART_AdvFeatureConfig+0x90>
   {
     assert_param(IS_UART_ADVFEATURE_DATAINV(huart->AdvancedInit.DataInvert));
     MODIFY_REG(huart->Instance->CR2, USART_CR2_DATAINV, huart->AdvancedInit.DataInvert);
- 800606a:	687b      	ldr	r3, [r7, #4]
- 800606c:	681b      	ldr	r3, [r3, #0]
- 800606e:	685b      	ldr	r3, [r3, #4]
- 8006070:	f423 2180 	bic.w	r1, r3, #262144	@ 0x40000
- 8006074:	687b      	ldr	r3, [r7, #4]
- 8006076:	6b5a      	ldr	r2, [r3, #52]	@ 0x34
- 8006078:	687b      	ldr	r3, [r7, #4]
- 800607a:	681b      	ldr	r3, [r3, #0]
- 800607c:	430a      	orrs	r2, r1
- 800607e:	605a      	str	r2, [r3, #4]
+ 800607a:	687b      	ldr	r3, [r7, #4]
+ 800607c:	681b      	ldr	r3, [r3, #0]
+ 800607e:	685b      	ldr	r3, [r3, #4]
+ 8006080:	f423 2180 	bic.w	r1, r3, #262144	@ 0x40000
+ 8006084:	687b      	ldr	r3, [r7, #4]
+ 8006086:	6b5a      	ldr	r2, [r3, #52]	@ 0x34
+ 8006088:	687b      	ldr	r3, [r7, #4]
+ 800608a:	681b      	ldr	r3, [r3, #0]
+ 800608c:	430a      	orrs	r2, r1
+ 800608e:	605a      	str	r2, [r3, #4]
   }
 
   /* if required, configure RX overrun detection disabling */
   if (HAL_IS_BIT_SET(huart->AdvancedInit.AdvFeatureInit, UART_ADVFEATURE_RXOVERRUNDISABLE_INIT))
- 8006080:	687b      	ldr	r3, [r7, #4]
- 8006082:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 8006084:	f003 0310 	and.w	r3, r3, #16
- 8006088:	2b00      	cmp	r3, #0
- 800608a:	d00a      	beq.n	80060a2 <UART_AdvFeatureConfig+0xb2>
+ 8006090:	687b      	ldr	r3, [r7, #4]
+ 8006092:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 8006094:	f003 0310 	and.w	r3, r3, #16
+ 8006098:	2b00      	cmp	r3, #0
+ 800609a:	d00a      	beq.n	80060b2 <UART_AdvFeatureConfig+0xb2>
   {
     assert_param(IS_UART_OVERRUN(huart->AdvancedInit.OverrunDisable));
     MODIFY_REG(huart->Instance->CR3, USART_CR3_OVRDIS, huart->AdvancedInit.OverrunDisable);
- 800608c:	687b      	ldr	r3, [r7, #4]
- 800608e:	681b      	ldr	r3, [r3, #0]
- 8006090:	689b      	ldr	r3, [r3, #8]
- 8006092:	f423 5180 	bic.w	r1, r3, #4096	@ 0x1000
- 8006096:	687b      	ldr	r3, [r7, #4]
- 8006098:	6bda      	ldr	r2, [r3, #60]	@ 0x3c
- 800609a:	687b      	ldr	r3, [r7, #4]
- 800609c:	681b      	ldr	r3, [r3, #0]
- 800609e:	430a      	orrs	r2, r1
- 80060a0:	609a      	str	r2, [r3, #8]
+ 800609c:	687b      	ldr	r3, [r7, #4]
+ 800609e:	681b      	ldr	r3, [r3, #0]
+ 80060a0:	689b      	ldr	r3, [r3, #8]
+ 80060a2:	f423 5180 	bic.w	r1, r3, #4096	@ 0x1000
+ 80060a6:	687b      	ldr	r3, [r7, #4]
+ 80060a8:	6bda      	ldr	r2, [r3, #60]	@ 0x3c
+ 80060aa:	687b      	ldr	r3, [r7, #4]
+ 80060ac:	681b      	ldr	r3, [r3, #0]
+ 80060ae:	430a      	orrs	r2, r1
+ 80060b0:	609a      	str	r2, [r3, #8]
   }
 
 #if defined(HAL_DMA_MODULE_ENABLED)
   /* if required, configure DMA disabling on reception error */
   if (HAL_IS_BIT_SET(huart->AdvancedInit.AdvFeatureInit, UART_ADVFEATURE_DMADISABLEONERROR_INIT))
- 80060a2:	687b      	ldr	r3, [r7, #4]
- 80060a4:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 80060a6:	f003 0320 	and.w	r3, r3, #32
- 80060aa:	2b00      	cmp	r3, #0
- 80060ac:	d00a      	beq.n	80060c4 <UART_AdvFeatureConfig+0xd4>
+ 80060b2:	687b      	ldr	r3, [r7, #4]
+ 80060b4:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 80060b6:	f003 0320 	and.w	r3, r3, #32
+ 80060ba:	2b00      	cmp	r3, #0
+ 80060bc:	d00a      	beq.n	80060d4 <UART_AdvFeatureConfig+0xd4>
   {
     assert_param(IS_UART_ADVFEATURE_DMAONRXERROR(huart->AdvancedInit.DMADisableonRxError));
     MODIFY_REG(huart->Instance->CR3, USART_CR3_DDRE, huart->AdvancedInit.DMADisableonRxError);
- 80060ae:	687b      	ldr	r3, [r7, #4]
- 80060b0:	681b      	ldr	r3, [r3, #0]
- 80060b2:	689b      	ldr	r3, [r3, #8]
- 80060b4:	f423 5100 	bic.w	r1, r3, #8192	@ 0x2000
- 80060b8:	687b      	ldr	r3, [r7, #4]
- 80060ba:	6c1a      	ldr	r2, [r3, #64]	@ 0x40
- 80060bc:	687b      	ldr	r3, [r7, #4]
- 80060be:	681b      	ldr	r3, [r3, #0]
- 80060c0:	430a      	orrs	r2, r1
- 80060c2:	609a      	str	r2, [r3, #8]
+ 80060be:	687b      	ldr	r3, [r7, #4]
+ 80060c0:	681b      	ldr	r3, [r3, #0]
+ 80060c2:	689b      	ldr	r3, [r3, #8]
+ 80060c4:	f423 5100 	bic.w	r1, r3, #8192	@ 0x2000
+ 80060c8:	687b      	ldr	r3, [r7, #4]
+ 80060ca:	6c1a      	ldr	r2, [r3, #64]	@ 0x40
+ 80060cc:	687b      	ldr	r3, [r7, #4]
+ 80060ce:	681b      	ldr	r3, [r3, #0]
+ 80060d0:	430a      	orrs	r2, r1
+ 80060d2:	609a      	str	r2, [r3, #8]
   }
 #endif /* HAL_DMA_MODULE_ENABLED */
 
   /* if required, configure auto Baud rate detection scheme */
   if (HAL_IS_BIT_SET(huart->AdvancedInit.AdvFeatureInit, UART_ADVFEATURE_AUTOBAUDRATE_INIT))
- 80060c4:	687b      	ldr	r3, [r7, #4]
- 80060c6:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 80060c8:	f003 0340 	and.w	r3, r3, #64	@ 0x40
- 80060cc:	2b00      	cmp	r3, #0
- 80060ce:	d01a      	beq.n	8006106 <UART_AdvFeatureConfig+0x116>
+ 80060d4:	687b      	ldr	r3, [r7, #4]
+ 80060d6:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 80060d8:	f003 0340 	and.w	r3, r3, #64	@ 0x40
+ 80060dc:	2b00      	cmp	r3, #0
+ 80060de:	d01a      	beq.n	8006116 <UART_AdvFeatureConfig+0x116>
   {
     assert_param(IS_USART_AUTOBAUDRATE_DETECTION_INSTANCE(huart->Instance));
     assert_param(IS_UART_ADVFEATURE_AUTOBAUDRATE(huart->AdvancedInit.AutoBaudRateEnable));
     MODIFY_REG(huart->Instance->CR2, USART_CR2_ABREN, huart->AdvancedInit.AutoBaudRateEnable);
- 80060d0:	687b      	ldr	r3, [r7, #4]
- 80060d2:	681b      	ldr	r3, [r3, #0]
- 80060d4:	685b      	ldr	r3, [r3, #4]
- 80060d6:	f423 1180 	bic.w	r1, r3, #1048576	@ 0x100000
- 80060da:	687b      	ldr	r3, [r7, #4]
- 80060dc:	6c5a      	ldr	r2, [r3, #68]	@ 0x44
- 80060de:	687b      	ldr	r3, [r7, #4]
- 80060e0:	681b      	ldr	r3, [r3, #0]
- 80060e2:	430a      	orrs	r2, r1
- 80060e4:	605a      	str	r2, [r3, #4]
+ 80060e0:	687b      	ldr	r3, [r7, #4]
+ 80060e2:	681b      	ldr	r3, [r3, #0]
+ 80060e4:	685b      	ldr	r3, [r3, #4]
+ 80060e6:	f423 1180 	bic.w	r1, r3, #1048576	@ 0x100000
+ 80060ea:	687b      	ldr	r3, [r7, #4]
+ 80060ec:	6c5a      	ldr	r2, [r3, #68]	@ 0x44
+ 80060ee:	687b      	ldr	r3, [r7, #4]
+ 80060f0:	681b      	ldr	r3, [r3, #0]
+ 80060f2:	430a      	orrs	r2, r1
+ 80060f4:	605a      	str	r2, [r3, #4]
     /* set auto Baudrate detection parameters if detection is enabled */
     if (huart->AdvancedInit.AutoBaudRateEnable == UART_ADVFEATURE_AUTOBAUDRATE_ENABLE)
- 80060e6:	687b      	ldr	r3, [r7, #4]
- 80060e8:	6c5b      	ldr	r3, [r3, #68]	@ 0x44
- 80060ea:	f5b3 1f80 	cmp.w	r3, #1048576	@ 0x100000
- 80060ee:	d10a      	bne.n	8006106 <UART_AdvFeatureConfig+0x116>
+ 80060f6:	687b      	ldr	r3, [r7, #4]
+ 80060f8:	6c5b      	ldr	r3, [r3, #68]	@ 0x44
+ 80060fa:	f5b3 1f80 	cmp.w	r3, #1048576	@ 0x100000
+ 80060fe:	d10a      	bne.n	8006116 <UART_AdvFeatureConfig+0x116>
     {
       assert_param(IS_UART_ADVFEATURE_AUTOBAUDRATEMODE(huart->AdvancedInit.AutoBaudRateMode));
       MODIFY_REG(huart->Instance->CR2, USART_CR2_ABRMODE, huart->AdvancedInit.AutoBaudRateMode);
- 80060f0:	687b      	ldr	r3, [r7, #4]
- 80060f2:	681b      	ldr	r3, [r3, #0]
- 80060f4:	685b      	ldr	r3, [r3, #4]
- 80060f6:	f423 01c0 	bic.w	r1, r3, #6291456	@ 0x600000
- 80060fa:	687b      	ldr	r3, [r7, #4]
- 80060fc:	6c9a      	ldr	r2, [r3, #72]	@ 0x48
- 80060fe:	687b      	ldr	r3, [r7, #4]
- 8006100:	681b      	ldr	r3, [r3, #0]
- 8006102:	430a      	orrs	r2, r1
- 8006104:	605a      	str	r2, [r3, #4]
+ 8006100:	687b      	ldr	r3, [r7, #4]
+ 8006102:	681b      	ldr	r3, [r3, #0]
+ 8006104:	685b      	ldr	r3, [r3, #4]
+ 8006106:	f423 01c0 	bic.w	r1, r3, #6291456	@ 0x600000
+ 800610a:	687b      	ldr	r3, [r7, #4]
+ 800610c:	6c9a      	ldr	r2, [r3, #72]	@ 0x48
+ 800610e:	687b      	ldr	r3, [r7, #4]
+ 8006110:	681b      	ldr	r3, [r3, #0]
+ 8006112:	430a      	orrs	r2, r1
+ 8006114:	605a      	str	r2, [r3, #4]
     }
   }
 
   /* if required, configure MSB first on communication line */
   if (HAL_IS_BIT_SET(huart->AdvancedInit.AdvFeatureInit, UART_ADVFEATURE_MSBFIRST_INIT))
- 8006106:	687b      	ldr	r3, [r7, #4]
- 8006108:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
- 800610a:	f003 0380 	and.w	r3, r3, #128	@ 0x80
- 800610e:	2b00      	cmp	r3, #0
- 8006110:	d00a      	beq.n	8006128 <UART_AdvFeatureConfig+0x138>
+ 8006116:	687b      	ldr	r3, [r7, #4]
+ 8006118:	6a9b      	ldr	r3, [r3, #40]	@ 0x28
+ 800611a:	f003 0380 	and.w	r3, r3, #128	@ 0x80
+ 800611e:	2b00      	cmp	r3, #0
+ 8006120:	d00a      	beq.n	8006138 <UART_AdvFeatureConfig+0x138>
   {
     assert_param(IS_UART_ADVFEATURE_MSBFIRST(huart->AdvancedInit.MSBFirst));
     MODIFY_REG(huart->Instance->CR2, USART_CR2_MSBFIRST, huart->AdvancedInit.MSBFirst);
- 8006112:	687b      	ldr	r3, [r7, #4]
- 8006114:	681b      	ldr	r3, [r3, #0]
- 8006116:	685b      	ldr	r3, [r3, #4]
- 8006118:	f423 2100 	bic.w	r1, r3, #524288	@ 0x80000
- 800611c:	687b      	ldr	r3, [r7, #4]
- 800611e:	6cda      	ldr	r2, [r3, #76]	@ 0x4c
- 8006120:	687b      	ldr	r3, [r7, #4]
- 8006122:	681b      	ldr	r3, [r3, #0]
- 8006124:	430a      	orrs	r2, r1
- 8006126:	605a      	str	r2, [r3, #4]
+ 8006122:	687b      	ldr	r3, [r7, #4]
+ 8006124:	681b      	ldr	r3, [r3, #0]
+ 8006126:	685b      	ldr	r3, [r3, #4]
+ 8006128:	f423 2100 	bic.w	r1, r3, #524288	@ 0x80000
+ 800612c:	687b      	ldr	r3, [r7, #4]
+ 800612e:	6cda      	ldr	r2, [r3, #76]	@ 0x4c
+ 8006130:	687b      	ldr	r3, [r7, #4]
+ 8006132:	681b      	ldr	r3, [r3, #0]
+ 8006134:	430a      	orrs	r2, r1
+ 8006136:	605a      	str	r2, [r3, #4]
   }
 }
- 8006128:	bf00      	nop
- 800612a:	370c      	adds	r7, #12
- 800612c:	46bd      	mov	sp, r7
- 800612e:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8006132:	4770      	bx	lr
+ 8006138:	bf00      	nop
+ 800613a:	370c      	adds	r7, #12
+ 800613c:	46bd      	mov	sp, r7
+ 800613e:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8006142:	4770      	bx	lr
 
-08006134 <UART_CheckIdleState>:
+08006144 <UART_CheckIdleState>:
   * @brief Check the UART Idle State.
   * @param huart UART handle.
   * @retval HAL status
   */
 HAL_StatusTypeDef UART_CheckIdleState(UART_HandleTypeDef *huart)
 {
- 8006134:	b580      	push	{r7, lr}
- 8006136:	b098      	sub	sp, #96	@ 0x60
- 8006138:	af02      	add	r7, sp, #8
- 800613a:	6078      	str	r0, [r7, #4]
+ 8006144:	b580      	push	{r7, lr}
+ 8006146:	b098      	sub	sp, #96	@ 0x60
+ 8006148:	af02      	add	r7, sp, #8
+ 800614a:	6078      	str	r0, [r7, #4]
   uint32_t tickstart;
 
   /* Initialize the UART ErrorCode */
   huart->ErrorCode = HAL_UART_ERROR_NONE;
- 800613c:	687b      	ldr	r3, [r7, #4]
- 800613e:	2200      	movs	r2, #0
- 8006140:	f8c3 2090 	str.w	r2, [r3, #144]	@ 0x90
+ 800614c:	687b      	ldr	r3, [r7, #4]
+ 800614e:	2200      	movs	r2, #0
+ 8006150:	f8c3 2090 	str.w	r2, [r3, #144]	@ 0x90
 
   /* Init tickstart for timeout management */
   tickstart = HAL_GetTick();
- 8006144:	f7fa fe84 	bl	8000e50 <HAL_GetTick>
- 8006148:	6578      	str	r0, [r7, #84]	@ 0x54
+ 8006154:	f7fa fe7c 	bl	8000e50 <HAL_GetTick>
+ 8006158:	6578      	str	r0, [r7, #84]	@ 0x54
 
   /* Check if the Transmitter is enabled */
   if ((huart->Instance->CR1 & USART_CR1_TE) == USART_CR1_TE)
- 800614a:	687b      	ldr	r3, [r7, #4]
- 800614c:	681b      	ldr	r3, [r3, #0]
- 800614e:	681b      	ldr	r3, [r3, #0]
- 8006150:	f003 0308 	and.w	r3, r3, #8
- 8006154:	2b08      	cmp	r3, #8
- 8006156:	d12f      	bne.n	80061b8 <UART_CheckIdleState+0x84>
+ 800615a:	687b      	ldr	r3, [r7, #4]
+ 800615c:	681b      	ldr	r3, [r3, #0]
+ 800615e:	681b      	ldr	r3, [r3, #0]
+ 8006160:	f003 0308 	and.w	r3, r3, #8
+ 8006164:	2b08      	cmp	r3, #8
+ 8006166:	d12f      	bne.n	80061c8 <UART_CheckIdleState+0x84>
   {
     /* Wait until TEACK flag is set */
     if (UART_WaitOnFlagUntilTimeout(huart, USART_ISR_TEACK, RESET, tickstart, HAL_UART_TIMEOUT_VALUE) != HAL_OK)
- 8006158:	f06f 437e 	mvn.w	r3, #4261412864	@ 0xfe000000
- 800615c:	9300      	str	r3, [sp, #0]
- 800615e:	6d7b      	ldr	r3, [r7, #84]	@ 0x54
- 8006160:	2200      	movs	r2, #0
- 8006162:	f44f 1100 	mov.w	r1, #2097152	@ 0x200000
- 8006166:	6878      	ldr	r0, [r7, #4]
- 8006168:	f000 f88e 	bl	8006288 <UART_WaitOnFlagUntilTimeout>
- 800616c:	4603      	mov	r3, r0
- 800616e:	2b00      	cmp	r3, #0
- 8006170:	d022      	beq.n	80061b8 <UART_CheckIdleState+0x84>
+ 8006168:	f06f 437e 	mvn.w	r3, #4261412864	@ 0xfe000000
+ 800616c:	9300      	str	r3, [sp, #0]
+ 800616e:	6d7b      	ldr	r3, [r7, #84]	@ 0x54
+ 8006170:	2200      	movs	r2, #0
+ 8006172:	f44f 1100 	mov.w	r1, #2097152	@ 0x200000
+ 8006176:	6878      	ldr	r0, [r7, #4]
+ 8006178:	f000 f88e 	bl	8006298 <UART_WaitOnFlagUntilTimeout>
+ 800617c:	4603      	mov	r3, r0
+ 800617e:	2b00      	cmp	r3, #0
+ 8006180:	d022      	beq.n	80061c8 <UART_CheckIdleState+0x84>
     {
       /* Disable TXE interrupt for the interrupt process */
       ATOMIC_CLEAR_BIT(huart->Instance->CR1, (USART_CR1_TXEIE_TXFNFIE));
- 8006172:	687b      	ldr	r3, [r7, #4]
- 8006174:	681b      	ldr	r3, [r3, #0]
- 8006176:	63bb      	str	r3, [r7, #56]	@ 0x38
+ 8006182:	687b      	ldr	r3, [r7, #4]
+ 8006184:	681b      	ldr	r3, [r3, #0]
+ 8006186:	63bb      	str	r3, [r7, #56]	@ 0x38
    __ASM volatile ("ldrex %0, %1" : "=r" (result) : "Q" (*addr) );
- 8006178:	6bbb      	ldr	r3, [r7, #56]	@ 0x38
- 800617a:	e853 3f00 	ldrex	r3, [r3]
- 800617e:	637b      	str	r3, [r7, #52]	@ 0x34
+ 8006188:	6bbb      	ldr	r3, [r7, #56]	@ 0x38
+ 800618a:	e853 3f00 	ldrex	r3, [r3]
+ 800618e:	637b      	str	r3, [r7, #52]	@ 0x34
    return(result);
- 8006180:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
- 8006182:	f023 0380 	bic.w	r3, r3, #128	@ 0x80
- 8006186:	653b      	str	r3, [r7, #80]	@ 0x50
- 8006188:	687b      	ldr	r3, [r7, #4]
- 800618a:	681b      	ldr	r3, [r3, #0]
- 800618c:	461a      	mov	r2, r3
- 800618e:	6d3b      	ldr	r3, [r7, #80]	@ 0x50
- 8006190:	647b      	str	r3, [r7, #68]	@ 0x44
- 8006192:	643a      	str	r2, [r7, #64]	@ 0x40
+ 8006190:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8006192:	f023 0380 	bic.w	r3, r3, #128	@ 0x80
+ 8006196:	653b      	str	r3, [r7, #80]	@ 0x50
+ 8006198:	687b      	ldr	r3, [r7, #4]
+ 800619a:	681b      	ldr	r3, [r3, #0]
+ 800619c:	461a      	mov	r2, r3
+ 800619e:	6d3b      	ldr	r3, [r7, #80]	@ 0x50
+ 80061a0:	647b      	str	r3, [r7, #68]	@ 0x44
+ 80061a2:	643a      	str	r2, [r7, #64]	@ 0x40
    __ASM volatile ("strex %0, %2, %1" : "=&r" (result), "=Q" (*addr) : "r" (value) );
- 8006194:	6c39      	ldr	r1, [r7, #64]	@ 0x40
- 8006196:	6c7a      	ldr	r2, [r7, #68]	@ 0x44
- 8006198:	e841 2300 	strex	r3, r2, [r1]
- 800619c:	63fb      	str	r3, [r7, #60]	@ 0x3c
+ 80061a4:	6c39      	ldr	r1, [r7, #64]	@ 0x40
+ 80061a6:	6c7a      	ldr	r2, [r7, #68]	@ 0x44
+ 80061a8:	e841 2300 	strex	r3, r2, [r1]
+ 80061ac:	63fb      	str	r3, [r7, #60]	@ 0x3c
    return(result);
- 800619e:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
- 80061a0:	2b00      	cmp	r3, #0
- 80061a2:	d1e6      	bne.n	8006172 <UART_CheckIdleState+0x3e>
+ 80061ae:	6bfb      	ldr	r3, [r7, #60]	@ 0x3c
+ 80061b0:	2b00      	cmp	r3, #0
+ 80061b2:	d1e6      	bne.n	8006182 <UART_CheckIdleState+0x3e>
 
       huart->gState = HAL_UART_STATE_READY;
- 80061a4:	687b      	ldr	r3, [r7, #4]
- 80061a6:	2220      	movs	r2, #32
- 80061a8:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
+ 80061b4:	687b      	ldr	r3, [r7, #4]
+ 80061b6:	2220      	movs	r2, #32
+ 80061b8:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
 
       __HAL_UNLOCK(huart);
- 80061ac:	687b      	ldr	r3, [r7, #4]
- 80061ae:	2200      	movs	r2, #0
- 80061b0:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 80061bc:	687b      	ldr	r3, [r7, #4]
+ 80061be:	2200      	movs	r2, #0
+ 80061c0:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
       /* Timeout occurred */
       return HAL_TIMEOUT;
- 80061b4:	2303      	movs	r3, #3
- 80061b6:	e063      	b.n	8006280 <UART_CheckIdleState+0x14c>
+ 80061c4:	2303      	movs	r3, #3
+ 80061c6:	e063      	b.n	8006290 <UART_CheckIdleState+0x14c>
     }
   }
 
   /* Check if the Receiver is enabled */
   if ((huart->Instance->CR1 & USART_CR1_RE) == USART_CR1_RE)
- 80061b8:	687b      	ldr	r3, [r7, #4]
- 80061ba:	681b      	ldr	r3, [r3, #0]
- 80061bc:	681b      	ldr	r3, [r3, #0]
- 80061be:	f003 0304 	and.w	r3, r3, #4
- 80061c2:	2b04      	cmp	r3, #4
- 80061c4:	d149      	bne.n	800625a <UART_CheckIdleState+0x126>
+ 80061c8:	687b      	ldr	r3, [r7, #4]
+ 80061ca:	681b      	ldr	r3, [r3, #0]
+ 80061cc:	681b      	ldr	r3, [r3, #0]
+ 80061ce:	f003 0304 	and.w	r3, r3, #4
+ 80061d2:	2b04      	cmp	r3, #4
+ 80061d4:	d149      	bne.n	800626a <UART_CheckIdleState+0x126>
   {
     /* Wait until REACK flag is set */
     if (UART_WaitOnFlagUntilTimeout(huart, USART_ISR_REACK, RESET, tickstart, HAL_UART_TIMEOUT_VALUE) != HAL_OK)
- 80061c6:	f06f 437e 	mvn.w	r3, #4261412864	@ 0xfe000000
- 80061ca:	9300      	str	r3, [sp, #0]
- 80061cc:	6d7b      	ldr	r3, [r7, #84]	@ 0x54
- 80061ce:	2200      	movs	r2, #0
- 80061d0:	f44f 0180 	mov.w	r1, #4194304	@ 0x400000
- 80061d4:	6878      	ldr	r0, [r7, #4]
- 80061d6:	f000 f857 	bl	8006288 <UART_WaitOnFlagUntilTimeout>
- 80061da:	4603      	mov	r3, r0
- 80061dc:	2b00      	cmp	r3, #0
- 80061de:	d03c      	beq.n	800625a <UART_CheckIdleState+0x126>
+ 80061d6:	f06f 437e 	mvn.w	r3, #4261412864	@ 0xfe000000
+ 80061da:	9300      	str	r3, [sp, #0]
+ 80061dc:	6d7b      	ldr	r3, [r7, #84]	@ 0x54
+ 80061de:	2200      	movs	r2, #0
+ 80061e0:	f44f 0180 	mov.w	r1, #4194304	@ 0x400000
+ 80061e4:	6878      	ldr	r0, [r7, #4]
+ 80061e6:	f000 f857 	bl	8006298 <UART_WaitOnFlagUntilTimeout>
+ 80061ea:	4603      	mov	r3, r0
+ 80061ec:	2b00      	cmp	r3, #0
+ 80061ee:	d03c      	beq.n	800626a <UART_CheckIdleState+0x126>
     {
       /* Disable RXNE, PE and ERR (Frame error, noise error, overrun error)
       interrupts for the interrupt process */
       ATOMIC_CLEAR_BIT(huart->Instance->CR1, (USART_CR1_RXNEIE_RXFNEIE | USART_CR1_PEIE));
- 80061e0:	687b      	ldr	r3, [r7, #4]
- 80061e2:	681b      	ldr	r3, [r3, #0]
- 80061e4:	627b      	str	r3, [r7, #36]	@ 0x24
+ 80061f0:	687b      	ldr	r3, [r7, #4]
+ 80061f2:	681b      	ldr	r3, [r3, #0]
+ 80061f4:	627b      	str	r3, [r7, #36]	@ 0x24
    __ASM volatile ("ldrex %0, %1" : "=r" (result) : "Q" (*addr) );
- 80061e6:	6a7b      	ldr	r3, [r7, #36]	@ 0x24
- 80061e8:	e853 3f00 	ldrex	r3, [r3]
- 80061ec:	623b      	str	r3, [r7, #32]
+ 80061f6:	6a7b      	ldr	r3, [r7, #36]	@ 0x24
+ 80061f8:	e853 3f00 	ldrex	r3, [r3]
+ 80061fc:	623b      	str	r3, [r7, #32]
    return(result);
- 80061ee:	6a3b      	ldr	r3, [r7, #32]
- 80061f0:	f423 7390 	bic.w	r3, r3, #288	@ 0x120
- 80061f4:	64fb      	str	r3, [r7, #76]	@ 0x4c
- 80061f6:	687b      	ldr	r3, [r7, #4]
- 80061f8:	681b      	ldr	r3, [r3, #0]
- 80061fa:	461a      	mov	r2, r3
- 80061fc:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
- 80061fe:	633b      	str	r3, [r7, #48]	@ 0x30
- 8006200:	62fa      	str	r2, [r7, #44]	@ 0x2c
+ 80061fe:	6a3b      	ldr	r3, [r7, #32]
+ 8006200:	f423 7390 	bic.w	r3, r3, #288	@ 0x120
+ 8006204:	64fb      	str	r3, [r7, #76]	@ 0x4c
+ 8006206:	687b      	ldr	r3, [r7, #4]
+ 8006208:	681b      	ldr	r3, [r3, #0]
+ 800620a:	461a      	mov	r2, r3
+ 800620c:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
+ 800620e:	633b      	str	r3, [r7, #48]	@ 0x30
+ 8006210:	62fa      	str	r2, [r7, #44]	@ 0x2c
    __ASM volatile ("strex %0, %2, %1" : "=&r" (result), "=Q" (*addr) : "r" (value) );
- 8006202:	6af9      	ldr	r1, [r7, #44]	@ 0x2c
- 8006204:	6b3a      	ldr	r2, [r7, #48]	@ 0x30
- 8006206:	e841 2300 	strex	r3, r2, [r1]
- 800620a:	62bb      	str	r3, [r7, #40]	@ 0x28
+ 8006212:	6af9      	ldr	r1, [r7, #44]	@ 0x2c
+ 8006214:	6b3a      	ldr	r2, [r7, #48]	@ 0x30
+ 8006216:	e841 2300 	strex	r3, r2, [r1]
+ 800621a:	62bb      	str	r3, [r7, #40]	@ 0x28
    return(result);
- 800620c:	6abb      	ldr	r3, [r7, #40]	@ 0x28
- 800620e:	2b00      	cmp	r3, #0
- 8006210:	d1e6      	bne.n	80061e0 <UART_CheckIdleState+0xac>
+ 800621c:	6abb      	ldr	r3, [r7, #40]	@ 0x28
+ 800621e:	2b00      	cmp	r3, #0
+ 8006220:	d1e6      	bne.n	80061f0 <UART_CheckIdleState+0xac>
       ATOMIC_CLEAR_BIT(huart->Instance->CR3, USART_CR3_EIE);
- 8006212:	687b      	ldr	r3, [r7, #4]
- 8006214:	681b      	ldr	r3, [r3, #0]
- 8006216:	3308      	adds	r3, #8
- 8006218:	613b      	str	r3, [r7, #16]
+ 8006222:	687b      	ldr	r3, [r7, #4]
+ 8006224:	681b      	ldr	r3, [r3, #0]
+ 8006226:	3308      	adds	r3, #8
+ 8006228:	613b      	str	r3, [r7, #16]
    __ASM volatile ("ldrex %0, %1" : "=r" (result) : "Q" (*addr) );
- 800621a:	693b      	ldr	r3, [r7, #16]
- 800621c:	e853 3f00 	ldrex	r3, [r3]
- 8006220:	60fb      	str	r3, [r7, #12]
+ 800622a:	693b      	ldr	r3, [r7, #16]
+ 800622c:	e853 3f00 	ldrex	r3, [r3]
+ 8006230:	60fb      	str	r3, [r7, #12]
    return(result);
- 8006222:	68fb      	ldr	r3, [r7, #12]
- 8006224:	f023 0301 	bic.w	r3, r3, #1
- 8006228:	64bb      	str	r3, [r7, #72]	@ 0x48
- 800622a:	687b      	ldr	r3, [r7, #4]
- 800622c:	681b      	ldr	r3, [r3, #0]
- 800622e:	3308      	adds	r3, #8
- 8006230:	6cba      	ldr	r2, [r7, #72]	@ 0x48
- 8006232:	61fa      	str	r2, [r7, #28]
- 8006234:	61bb      	str	r3, [r7, #24]
+ 8006232:	68fb      	ldr	r3, [r7, #12]
+ 8006234:	f023 0301 	bic.w	r3, r3, #1
+ 8006238:	64bb      	str	r3, [r7, #72]	@ 0x48
+ 800623a:	687b      	ldr	r3, [r7, #4]
+ 800623c:	681b      	ldr	r3, [r3, #0]
+ 800623e:	3308      	adds	r3, #8
+ 8006240:	6cba      	ldr	r2, [r7, #72]	@ 0x48
+ 8006242:	61fa      	str	r2, [r7, #28]
+ 8006244:	61bb      	str	r3, [r7, #24]
    __ASM volatile ("strex %0, %2, %1" : "=&r" (result), "=Q" (*addr) : "r" (value) );
- 8006236:	69b9      	ldr	r1, [r7, #24]
- 8006238:	69fa      	ldr	r2, [r7, #28]
- 800623a:	e841 2300 	strex	r3, r2, [r1]
- 800623e:	617b      	str	r3, [r7, #20]
+ 8006246:	69b9      	ldr	r1, [r7, #24]
+ 8006248:	69fa      	ldr	r2, [r7, #28]
+ 800624a:	e841 2300 	strex	r3, r2, [r1]
+ 800624e:	617b      	str	r3, [r7, #20]
    return(result);
- 8006240:	697b      	ldr	r3, [r7, #20]
- 8006242:	2b00      	cmp	r3, #0
- 8006244:	d1e5      	bne.n	8006212 <UART_CheckIdleState+0xde>
+ 8006250:	697b      	ldr	r3, [r7, #20]
+ 8006252:	2b00      	cmp	r3, #0
+ 8006254:	d1e5      	bne.n	8006222 <UART_CheckIdleState+0xde>
 
       huart->RxState = HAL_UART_STATE_READY;
- 8006246:	687b      	ldr	r3, [r7, #4]
- 8006248:	2220      	movs	r2, #32
- 800624a:	f8c3 208c 	str.w	r2, [r3, #140]	@ 0x8c
+ 8006256:	687b      	ldr	r3, [r7, #4]
+ 8006258:	2220      	movs	r2, #32
+ 800625a:	f8c3 208c 	str.w	r2, [r3, #140]	@ 0x8c
 
       __HAL_UNLOCK(huart);
- 800624e:	687b      	ldr	r3, [r7, #4]
- 8006250:	2200      	movs	r2, #0
- 8006252:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 800625e:	687b      	ldr	r3, [r7, #4]
+ 8006260:	2200      	movs	r2, #0
+ 8006262:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
       /* Timeout occurred */
       return HAL_TIMEOUT;
- 8006256:	2303      	movs	r3, #3
- 8006258:	e012      	b.n	8006280 <UART_CheckIdleState+0x14c>
+ 8006266:	2303      	movs	r3, #3
+ 8006268:	e012      	b.n	8006290 <UART_CheckIdleState+0x14c>
     }
   }
 
   /* Initialize the UART State */
   huart->gState = HAL_UART_STATE_READY;
- 800625a:	687b      	ldr	r3, [r7, #4]
- 800625c:	2220      	movs	r2, #32
- 800625e:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
-  huart->RxState = HAL_UART_STATE_READY;
- 8006262:	687b      	ldr	r3, [r7, #4]
- 8006264:	2220      	movs	r2, #32
- 8006266:	f8c3 208c 	str.w	r2, [r3, #140]	@ 0x8c
-  huart->ReceptionType = HAL_UART_RECEPTION_STANDARD;
  800626a:	687b      	ldr	r3, [r7, #4]
- 800626c:	2200      	movs	r2, #0
- 800626e:	66da      	str	r2, [r3, #108]	@ 0x6c
+ 800626c:	2220      	movs	r2, #32
+ 800626e:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
+  huart->RxState = HAL_UART_STATE_READY;
+ 8006272:	687b      	ldr	r3, [r7, #4]
+ 8006274:	2220      	movs	r2, #32
+ 8006276:	f8c3 208c 	str.w	r2, [r3, #140]	@ 0x8c
+  huart->ReceptionType = HAL_UART_RECEPTION_STANDARD;
+ 800627a:	687b      	ldr	r3, [r7, #4]
+ 800627c:	2200      	movs	r2, #0
+ 800627e:	66da      	str	r2, [r3, #108]	@ 0x6c
   huart->RxEventType = HAL_UART_RXEVENT_TC;
- 8006270:	687b      	ldr	r3, [r7, #4]
- 8006272:	2200      	movs	r2, #0
- 8006274:	671a      	str	r2, [r3, #112]	@ 0x70
+ 8006280:	687b      	ldr	r3, [r7, #4]
+ 8006282:	2200      	movs	r2, #0
+ 8006284:	671a      	str	r2, [r3, #112]	@ 0x70
 
   __HAL_UNLOCK(huart);
- 8006276:	687b      	ldr	r3, [r7, #4]
- 8006278:	2200      	movs	r2, #0
- 800627a:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 8006286:	687b      	ldr	r3, [r7, #4]
+ 8006288:	2200      	movs	r2, #0
+ 800628a:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
   return HAL_OK;
- 800627e:	2300      	movs	r3, #0
+ 800628e:	2300      	movs	r3, #0
 }
- 8006280:	4618      	mov	r0, r3
- 8006282:	3758      	adds	r7, #88	@ 0x58
- 8006284:	46bd      	mov	sp, r7
- 8006286:	bd80      	pop	{r7, pc}
+ 8006290:	4618      	mov	r0, r3
+ 8006292:	3758      	adds	r7, #88	@ 0x58
+ 8006294:	46bd      	mov	sp, r7
+ 8006296:	bd80      	pop	{r7, pc}
 
-08006288 <UART_WaitOnFlagUntilTimeout>:
+08006298 <UART_WaitOnFlagUntilTimeout>:
   * @param Timeout   Timeout duration
   * @retval HAL status
   */
 HAL_StatusTypeDef UART_WaitOnFlagUntilTimeout(UART_HandleTypeDef *huart, uint32_t Flag, FlagStatus Status,
                                               uint32_t Tickstart, uint32_t Timeout)
 {
- 8006288:	b580      	push	{r7, lr}
- 800628a:	b084      	sub	sp, #16
- 800628c:	af00      	add	r7, sp, #0
- 800628e:	60f8      	str	r0, [r7, #12]
- 8006290:	60b9      	str	r1, [r7, #8]
- 8006292:	603b      	str	r3, [r7, #0]
- 8006294:	4613      	mov	r3, r2
- 8006296:	71fb      	strb	r3, [r7, #7]
+ 8006298:	b580      	push	{r7, lr}
+ 800629a:	b084      	sub	sp, #16
+ 800629c:	af00      	add	r7, sp, #0
+ 800629e:	60f8      	str	r0, [r7, #12]
+ 80062a0:	60b9      	str	r1, [r7, #8]
+ 80062a2:	603b      	str	r3, [r7, #0]
+ 80062a4:	4613      	mov	r3, r2
+ 80062a6:	71fb      	strb	r3, [r7, #7]
   /* Wait until flag is set */
   while ((__HAL_UART_GET_FLAG(huart, Flag) ? SET : RESET) == Status)
- 8006298:	e04f      	b.n	800633a <UART_WaitOnFlagUntilTimeout+0xb2>
+ 80062a8:	e04f      	b.n	800634a <UART_WaitOnFlagUntilTimeout+0xb2>
   {
     /* Check for the Timeout */
     if (Timeout != HAL_MAX_DELAY)
- 800629a:	69bb      	ldr	r3, [r7, #24]
- 800629c:	f1b3 3fff 	cmp.w	r3, #4294967295
- 80062a0:	d04b      	beq.n	800633a <UART_WaitOnFlagUntilTimeout+0xb2>
+ 80062aa:	69bb      	ldr	r3, [r7, #24]
+ 80062ac:	f1b3 3fff 	cmp.w	r3, #4294967295
+ 80062b0:	d04b      	beq.n	800634a <UART_WaitOnFlagUntilTimeout+0xb2>
     {
       if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
- 80062a2:	f7fa fdd5 	bl	8000e50 <HAL_GetTick>
- 80062a6:	4602      	mov	r2, r0
- 80062a8:	683b      	ldr	r3, [r7, #0]
- 80062aa:	1ad3      	subs	r3, r2, r3
- 80062ac:	69ba      	ldr	r2, [r7, #24]
- 80062ae:	429a      	cmp	r2, r3
- 80062b0:	d302      	bcc.n	80062b8 <UART_WaitOnFlagUntilTimeout+0x30>
- 80062b2:	69bb      	ldr	r3, [r7, #24]
- 80062b4:	2b00      	cmp	r3, #0
- 80062b6:	d101      	bne.n	80062bc <UART_WaitOnFlagUntilTimeout+0x34>
+ 80062b2:	f7fa fdcd 	bl	8000e50 <HAL_GetTick>
+ 80062b6:	4602      	mov	r2, r0
+ 80062b8:	683b      	ldr	r3, [r7, #0]
+ 80062ba:	1ad3      	subs	r3, r2, r3
+ 80062bc:	69ba      	ldr	r2, [r7, #24]
+ 80062be:	429a      	cmp	r2, r3
+ 80062c0:	d302      	bcc.n	80062c8 <UART_WaitOnFlagUntilTimeout+0x30>
+ 80062c2:	69bb      	ldr	r3, [r7, #24]
+ 80062c4:	2b00      	cmp	r3, #0
+ 80062c6:	d101      	bne.n	80062cc <UART_WaitOnFlagUntilTimeout+0x34>
       {
 
         return HAL_TIMEOUT;
- 80062b8:	2303      	movs	r3, #3
- 80062ba:	e04e      	b.n	800635a <UART_WaitOnFlagUntilTimeout+0xd2>
+ 80062c8:	2303      	movs	r3, #3
+ 80062ca:	e04e      	b.n	800636a <UART_WaitOnFlagUntilTimeout+0xd2>
       }
 
       if ((READ_BIT(huart->Instance->CR1, USART_CR1_RE) != 0U) && (Flag != UART_FLAG_TXE) && (Flag != UART_FLAG_TC))
- 80062bc:	68fb      	ldr	r3, [r7, #12]
- 80062be:	681b      	ldr	r3, [r3, #0]
- 80062c0:	681b      	ldr	r3, [r3, #0]
- 80062c2:	f003 0304 	and.w	r3, r3, #4
- 80062c6:	2b00      	cmp	r3, #0
- 80062c8:	d037      	beq.n	800633a <UART_WaitOnFlagUntilTimeout+0xb2>
- 80062ca:	68bb      	ldr	r3, [r7, #8]
- 80062cc:	2b80      	cmp	r3, #128	@ 0x80
- 80062ce:	d034      	beq.n	800633a <UART_WaitOnFlagUntilTimeout+0xb2>
- 80062d0:	68bb      	ldr	r3, [r7, #8]
- 80062d2:	2b40      	cmp	r3, #64	@ 0x40
- 80062d4:	d031      	beq.n	800633a <UART_WaitOnFlagUntilTimeout+0xb2>
+ 80062cc:	68fb      	ldr	r3, [r7, #12]
+ 80062ce:	681b      	ldr	r3, [r3, #0]
+ 80062d0:	681b      	ldr	r3, [r3, #0]
+ 80062d2:	f003 0304 	and.w	r3, r3, #4
+ 80062d6:	2b00      	cmp	r3, #0
+ 80062d8:	d037      	beq.n	800634a <UART_WaitOnFlagUntilTimeout+0xb2>
+ 80062da:	68bb      	ldr	r3, [r7, #8]
+ 80062dc:	2b80      	cmp	r3, #128	@ 0x80
+ 80062de:	d034      	beq.n	800634a <UART_WaitOnFlagUntilTimeout+0xb2>
+ 80062e0:	68bb      	ldr	r3, [r7, #8]
+ 80062e2:	2b40      	cmp	r3, #64	@ 0x40
+ 80062e4:	d031      	beq.n	800634a <UART_WaitOnFlagUntilTimeout+0xb2>
       {
         if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) == SET)
- 80062d6:	68fb      	ldr	r3, [r7, #12]
- 80062d8:	681b      	ldr	r3, [r3, #0]
- 80062da:	69db      	ldr	r3, [r3, #28]
- 80062dc:	f003 0308 	and.w	r3, r3, #8
- 80062e0:	2b08      	cmp	r3, #8
- 80062e2:	d110      	bne.n	8006306 <UART_WaitOnFlagUntilTimeout+0x7e>
+ 80062e6:	68fb      	ldr	r3, [r7, #12]
+ 80062e8:	681b      	ldr	r3, [r3, #0]
+ 80062ea:	69db      	ldr	r3, [r3, #28]
+ 80062ec:	f003 0308 	and.w	r3, r3, #8
+ 80062f0:	2b08      	cmp	r3, #8
+ 80062f2:	d110      	bne.n	8006316 <UART_WaitOnFlagUntilTimeout+0x7e>
         {
           /* Clear Overrun Error flag*/
           __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_OREF);
- 80062e4:	68fb      	ldr	r3, [r7, #12]
- 80062e6:	681b      	ldr	r3, [r3, #0]
- 80062e8:	2208      	movs	r2, #8
- 80062ea:	621a      	str	r2, [r3, #32]
+ 80062f4:	68fb      	ldr	r3, [r7, #12]
+ 80062f6:	681b      	ldr	r3, [r3, #0]
+ 80062f8:	2208      	movs	r2, #8
+ 80062fa:	621a      	str	r2, [r3, #32]
 
           /* Blocking error : transfer is aborted
           Set the UART state ready to be able to start again the process,
           Disable Rx Interrupts if ongoing */
           UART_EndRxTransfer(huart);
- 80062ec:	68f8      	ldr	r0, [r7, #12]
- 80062ee:	f000 f838 	bl	8006362 <UART_EndRxTransfer>
+ 80062fc:	68f8      	ldr	r0, [r7, #12]
+ 80062fe:	f000 f838 	bl	8006372 <UART_EndRxTransfer>
 
           huart->ErrorCode = HAL_UART_ERROR_ORE;
- 80062f2:	68fb      	ldr	r3, [r7, #12]
- 80062f4:	2208      	movs	r2, #8
- 80062f6:	f8c3 2090 	str.w	r2, [r3, #144]	@ 0x90
+ 8006302:	68fb      	ldr	r3, [r7, #12]
+ 8006304:	2208      	movs	r2, #8
+ 8006306:	f8c3 2090 	str.w	r2, [r3, #144]	@ 0x90
 
           /* Process Unlocked */
           __HAL_UNLOCK(huart);
- 80062fa:	68fb      	ldr	r3, [r7, #12]
- 80062fc:	2200      	movs	r2, #0
- 80062fe:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 800630a:	68fb      	ldr	r3, [r7, #12]
+ 800630c:	2200      	movs	r2, #0
+ 800630e:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
           return HAL_ERROR;
- 8006302:	2301      	movs	r3, #1
- 8006304:	e029      	b.n	800635a <UART_WaitOnFlagUntilTimeout+0xd2>
+ 8006312:	2301      	movs	r3, #1
+ 8006314:	e029      	b.n	800636a <UART_WaitOnFlagUntilTimeout+0xd2>
         }
         if (__HAL_UART_GET_FLAG(huart, UART_FLAG_RTOF) == SET)
- 8006306:	68fb      	ldr	r3, [r7, #12]
- 8006308:	681b      	ldr	r3, [r3, #0]
- 800630a:	69db      	ldr	r3, [r3, #28]
- 800630c:	f403 6300 	and.w	r3, r3, #2048	@ 0x800
- 8006310:	f5b3 6f00 	cmp.w	r3, #2048	@ 0x800
- 8006314:	d111      	bne.n	800633a <UART_WaitOnFlagUntilTimeout+0xb2>
+ 8006316:	68fb      	ldr	r3, [r7, #12]
+ 8006318:	681b      	ldr	r3, [r3, #0]
+ 800631a:	69db      	ldr	r3, [r3, #28]
+ 800631c:	f403 6300 	and.w	r3, r3, #2048	@ 0x800
+ 8006320:	f5b3 6f00 	cmp.w	r3, #2048	@ 0x800
+ 8006324:	d111      	bne.n	800634a <UART_WaitOnFlagUntilTimeout+0xb2>
         {
           /* Clear Receiver Timeout flag*/
           __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_RTOF);
- 8006316:	68fb      	ldr	r3, [r7, #12]
- 8006318:	681b      	ldr	r3, [r3, #0]
- 800631a:	f44f 6200 	mov.w	r2, #2048	@ 0x800
- 800631e:	621a      	str	r2, [r3, #32]
+ 8006326:	68fb      	ldr	r3, [r7, #12]
+ 8006328:	681b      	ldr	r3, [r3, #0]
+ 800632a:	f44f 6200 	mov.w	r2, #2048	@ 0x800
+ 800632e:	621a      	str	r2, [r3, #32]
 
           /* Blocking error : transfer is aborted
           Set the UART state ready to be able to start again the process,
           Disable Rx Interrupts if ongoing */
           UART_EndRxTransfer(huart);
- 8006320:	68f8      	ldr	r0, [r7, #12]
- 8006322:	f000 f81e 	bl	8006362 <UART_EndRxTransfer>
+ 8006330:	68f8      	ldr	r0, [r7, #12]
+ 8006332:	f000 f81e 	bl	8006372 <UART_EndRxTransfer>
 
           huart->ErrorCode = HAL_UART_ERROR_RTO;
- 8006326:	68fb      	ldr	r3, [r7, #12]
- 8006328:	2220      	movs	r2, #32
- 800632a:	f8c3 2090 	str.w	r2, [r3, #144]	@ 0x90
+ 8006336:	68fb      	ldr	r3, [r7, #12]
+ 8006338:	2220      	movs	r2, #32
+ 800633a:	f8c3 2090 	str.w	r2, [r3, #144]	@ 0x90
 
           /* Process Unlocked */
           __HAL_UNLOCK(huart);
- 800632e:	68fb      	ldr	r3, [r7, #12]
- 8006330:	2200      	movs	r2, #0
- 8006332:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 800633e:	68fb      	ldr	r3, [r7, #12]
+ 8006340:	2200      	movs	r2, #0
+ 8006342:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
           return HAL_TIMEOUT;
- 8006336:	2303      	movs	r3, #3
- 8006338:	e00f      	b.n	800635a <UART_WaitOnFlagUntilTimeout+0xd2>
+ 8006346:	2303      	movs	r3, #3
+ 8006348:	e00f      	b.n	800636a <UART_WaitOnFlagUntilTimeout+0xd2>
   while ((__HAL_UART_GET_FLAG(huart, Flag) ? SET : RESET) == Status)
- 800633a:	68fb      	ldr	r3, [r7, #12]
- 800633c:	681b      	ldr	r3, [r3, #0]
- 800633e:	69da      	ldr	r2, [r3, #28]
- 8006340:	68bb      	ldr	r3, [r7, #8]
- 8006342:	4013      	ands	r3, r2
- 8006344:	68ba      	ldr	r2, [r7, #8]
- 8006346:	429a      	cmp	r2, r3
- 8006348:	bf0c      	ite	eq
- 800634a:	2301      	moveq	r3, #1
- 800634c:	2300      	movne	r3, #0
- 800634e:	b2db      	uxtb	r3, r3
- 8006350:	461a      	mov	r2, r3
- 8006352:	79fb      	ldrb	r3, [r7, #7]
- 8006354:	429a      	cmp	r2, r3
- 8006356:	d0a0      	beq.n	800629a <UART_WaitOnFlagUntilTimeout+0x12>
+ 800634a:	68fb      	ldr	r3, [r7, #12]
+ 800634c:	681b      	ldr	r3, [r3, #0]
+ 800634e:	69da      	ldr	r2, [r3, #28]
+ 8006350:	68bb      	ldr	r3, [r7, #8]
+ 8006352:	4013      	ands	r3, r2
+ 8006354:	68ba      	ldr	r2, [r7, #8]
+ 8006356:	429a      	cmp	r2, r3
+ 8006358:	bf0c      	ite	eq
+ 800635a:	2301      	moveq	r3, #1
+ 800635c:	2300      	movne	r3, #0
+ 800635e:	b2db      	uxtb	r3, r3
+ 8006360:	461a      	mov	r2, r3
+ 8006362:	79fb      	ldrb	r3, [r7, #7]
+ 8006364:	429a      	cmp	r2, r3
+ 8006366:	d0a0      	beq.n	80062aa <UART_WaitOnFlagUntilTimeout+0x12>
         }
       }
     }
   }
   return HAL_OK;
- 8006358:	2300      	movs	r3, #0
+ 8006368:	2300      	movs	r3, #0
 }
- 800635a:	4618      	mov	r0, r3
- 800635c:	3710      	adds	r7, #16
- 800635e:	46bd      	mov	sp, r7
- 8006360:	bd80      	pop	{r7, pc}
+ 800636a:	4618      	mov	r0, r3
+ 800636c:	3710      	adds	r7, #16
+ 800636e:	46bd      	mov	sp, r7
+ 8006370:	bd80      	pop	{r7, pc}
 
-08006362 <UART_EndRxTransfer>:
+08006372 <UART_EndRxTransfer>:
   * @brief  End ongoing Rx transfer on UART peripheral (following error detection or Reception completion).
   * @param  huart UART handle.
   * @retval None
   */
 static void UART_EndRxTransfer(UART_HandleTypeDef *huart)
 {
- 8006362:	b480      	push	{r7}
- 8006364:	b095      	sub	sp, #84	@ 0x54
- 8006366:	af00      	add	r7, sp, #0
- 8006368:	6078      	str	r0, [r7, #4]
+ 8006372:	b480      	push	{r7}
+ 8006374:	b095      	sub	sp, #84	@ 0x54
+ 8006376:	af00      	add	r7, sp, #0
+ 8006378:	6078      	str	r0, [r7, #4]
   /* Disable RXNE, PE and ERR (Frame error, noise error, overrun error) interrupts */
   ATOMIC_CLEAR_BIT(huart->Instance->CR1, (USART_CR1_RXNEIE_RXFNEIE | USART_CR1_PEIE));
- 800636a:	687b      	ldr	r3, [r7, #4]
- 800636c:	681b      	ldr	r3, [r3, #0]
- 800636e:	637b      	str	r3, [r7, #52]	@ 0x34
+ 800637a:	687b      	ldr	r3, [r7, #4]
+ 800637c:	681b      	ldr	r3, [r3, #0]
+ 800637e:	637b      	str	r3, [r7, #52]	@ 0x34
    __ASM volatile ("ldrex %0, %1" : "=r" (result) : "Q" (*addr) );
- 8006370:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
- 8006372:	e853 3f00 	ldrex	r3, [r3]
- 8006376:	633b      	str	r3, [r7, #48]	@ 0x30
+ 8006380:	6b7b      	ldr	r3, [r7, #52]	@ 0x34
+ 8006382:	e853 3f00 	ldrex	r3, [r3]
+ 8006386:	633b      	str	r3, [r7, #48]	@ 0x30
    return(result);
- 8006378:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
- 800637a:	f423 7390 	bic.w	r3, r3, #288	@ 0x120
- 800637e:	64fb      	str	r3, [r7, #76]	@ 0x4c
- 8006380:	687b      	ldr	r3, [r7, #4]
- 8006382:	681b      	ldr	r3, [r3, #0]
- 8006384:	461a      	mov	r2, r3
- 8006386:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
- 8006388:	643b      	str	r3, [r7, #64]	@ 0x40
- 800638a:	63fa      	str	r2, [r7, #60]	@ 0x3c
+ 8006388:	6b3b      	ldr	r3, [r7, #48]	@ 0x30
+ 800638a:	f423 7390 	bic.w	r3, r3, #288	@ 0x120
+ 800638e:	64fb      	str	r3, [r7, #76]	@ 0x4c
+ 8006390:	687b      	ldr	r3, [r7, #4]
+ 8006392:	681b      	ldr	r3, [r3, #0]
+ 8006394:	461a      	mov	r2, r3
+ 8006396:	6cfb      	ldr	r3, [r7, #76]	@ 0x4c
+ 8006398:	643b      	str	r3, [r7, #64]	@ 0x40
+ 800639a:	63fa      	str	r2, [r7, #60]	@ 0x3c
    __ASM volatile ("strex %0, %2, %1" : "=&r" (result), "=Q" (*addr) : "r" (value) );
- 800638c:	6bf9      	ldr	r1, [r7, #60]	@ 0x3c
- 800638e:	6c3a      	ldr	r2, [r7, #64]	@ 0x40
- 8006390:	e841 2300 	strex	r3, r2, [r1]
- 8006394:	63bb      	str	r3, [r7, #56]	@ 0x38
+ 800639c:	6bf9      	ldr	r1, [r7, #60]	@ 0x3c
+ 800639e:	6c3a      	ldr	r2, [r7, #64]	@ 0x40
+ 80063a0:	e841 2300 	strex	r3, r2, [r1]
+ 80063a4:	63bb      	str	r3, [r7, #56]	@ 0x38
    return(result);
- 8006396:	6bbb      	ldr	r3, [r7, #56]	@ 0x38
- 8006398:	2b00      	cmp	r3, #0
- 800639a:	d1e6      	bne.n	800636a <UART_EndRxTransfer+0x8>
+ 80063a6:	6bbb      	ldr	r3, [r7, #56]	@ 0x38
+ 80063a8:	2b00      	cmp	r3, #0
+ 80063aa:	d1e6      	bne.n	800637a <UART_EndRxTransfer+0x8>
   ATOMIC_CLEAR_BIT(huart->Instance->CR3, (USART_CR3_EIE | USART_CR3_RXFTIE));
- 800639c:	687b      	ldr	r3, [r7, #4]
- 800639e:	681b      	ldr	r3, [r3, #0]
- 80063a0:	3308      	adds	r3, #8
- 80063a2:	623b      	str	r3, [r7, #32]
+ 80063ac:	687b      	ldr	r3, [r7, #4]
+ 80063ae:	681b      	ldr	r3, [r3, #0]
+ 80063b0:	3308      	adds	r3, #8
+ 80063b2:	623b      	str	r3, [r7, #32]
    __ASM volatile ("ldrex %0, %1" : "=r" (result) : "Q" (*addr) );
- 80063a4:	6a3b      	ldr	r3, [r7, #32]
- 80063a6:	e853 3f00 	ldrex	r3, [r3]
- 80063aa:	61fb      	str	r3, [r7, #28]
+ 80063b4:	6a3b      	ldr	r3, [r7, #32]
+ 80063b6:	e853 3f00 	ldrex	r3, [r3]
+ 80063ba:	61fb      	str	r3, [r7, #28]
    return(result);
- 80063ac:	69fb      	ldr	r3, [r7, #28]
- 80063ae:	f023 5380 	bic.w	r3, r3, #268435456	@ 0x10000000
- 80063b2:	f023 0301 	bic.w	r3, r3, #1
- 80063b6:	64bb      	str	r3, [r7, #72]	@ 0x48
- 80063b8:	687b      	ldr	r3, [r7, #4]
- 80063ba:	681b      	ldr	r3, [r3, #0]
- 80063bc:	3308      	adds	r3, #8
- 80063be:	6cba      	ldr	r2, [r7, #72]	@ 0x48
- 80063c0:	62fa      	str	r2, [r7, #44]	@ 0x2c
- 80063c2:	62bb      	str	r3, [r7, #40]	@ 0x28
+ 80063bc:	69fb      	ldr	r3, [r7, #28]
+ 80063be:	f023 5380 	bic.w	r3, r3, #268435456	@ 0x10000000
+ 80063c2:	f023 0301 	bic.w	r3, r3, #1
+ 80063c6:	64bb      	str	r3, [r7, #72]	@ 0x48
+ 80063c8:	687b      	ldr	r3, [r7, #4]
+ 80063ca:	681b      	ldr	r3, [r3, #0]
+ 80063cc:	3308      	adds	r3, #8
+ 80063ce:	6cba      	ldr	r2, [r7, #72]	@ 0x48
+ 80063d0:	62fa      	str	r2, [r7, #44]	@ 0x2c
+ 80063d2:	62bb      	str	r3, [r7, #40]	@ 0x28
    __ASM volatile ("strex %0, %2, %1" : "=&r" (result), "=Q" (*addr) : "r" (value) );
- 80063c4:	6ab9      	ldr	r1, [r7, #40]	@ 0x28
- 80063c6:	6afa      	ldr	r2, [r7, #44]	@ 0x2c
- 80063c8:	e841 2300 	strex	r3, r2, [r1]
- 80063cc:	627b      	str	r3, [r7, #36]	@ 0x24
+ 80063d4:	6ab9      	ldr	r1, [r7, #40]	@ 0x28
+ 80063d6:	6afa      	ldr	r2, [r7, #44]	@ 0x2c
+ 80063d8:	e841 2300 	strex	r3, r2, [r1]
+ 80063dc:	627b      	str	r3, [r7, #36]	@ 0x24
    return(result);
- 80063ce:	6a7b      	ldr	r3, [r7, #36]	@ 0x24
- 80063d0:	2b00      	cmp	r3, #0
- 80063d2:	d1e3      	bne.n	800639c <UART_EndRxTransfer+0x3a>
+ 80063de:	6a7b      	ldr	r3, [r7, #36]	@ 0x24
+ 80063e0:	2b00      	cmp	r3, #0
+ 80063e2:	d1e3      	bne.n	80063ac <UART_EndRxTransfer+0x3a>
 
   /* In case of reception waiting for IDLE event, disable also the IDLE IE interrupt source */
   if (huart->ReceptionType == HAL_UART_RECEPTION_TOIDLE)
- 80063d4:	687b      	ldr	r3, [r7, #4]
- 80063d6:	6edb      	ldr	r3, [r3, #108]	@ 0x6c
- 80063d8:	2b01      	cmp	r3, #1
- 80063da:	d118      	bne.n	800640e <UART_EndRxTransfer+0xac>
+ 80063e4:	687b      	ldr	r3, [r7, #4]
+ 80063e6:	6edb      	ldr	r3, [r3, #108]	@ 0x6c
+ 80063e8:	2b01      	cmp	r3, #1
+ 80063ea:	d118      	bne.n	800641e <UART_EndRxTransfer+0xac>
   {
     ATOMIC_CLEAR_BIT(huart->Instance->CR1, USART_CR1_IDLEIE);
- 80063dc:	687b      	ldr	r3, [r7, #4]
- 80063de:	681b      	ldr	r3, [r3, #0]
- 80063e0:	60fb      	str	r3, [r7, #12]
+ 80063ec:	687b      	ldr	r3, [r7, #4]
+ 80063ee:	681b      	ldr	r3, [r3, #0]
+ 80063f0:	60fb      	str	r3, [r7, #12]
    __ASM volatile ("ldrex %0, %1" : "=r" (result) : "Q" (*addr) );
- 80063e2:	68fb      	ldr	r3, [r7, #12]
- 80063e4:	e853 3f00 	ldrex	r3, [r3]
- 80063e8:	60bb      	str	r3, [r7, #8]
+ 80063f2:	68fb      	ldr	r3, [r7, #12]
+ 80063f4:	e853 3f00 	ldrex	r3, [r3]
+ 80063f8:	60bb      	str	r3, [r7, #8]
    return(result);
- 80063ea:	68bb      	ldr	r3, [r7, #8]
- 80063ec:	f023 0310 	bic.w	r3, r3, #16
- 80063f0:	647b      	str	r3, [r7, #68]	@ 0x44
- 80063f2:	687b      	ldr	r3, [r7, #4]
- 80063f4:	681b      	ldr	r3, [r3, #0]
- 80063f6:	461a      	mov	r2, r3
- 80063f8:	6c7b      	ldr	r3, [r7, #68]	@ 0x44
- 80063fa:	61bb      	str	r3, [r7, #24]
- 80063fc:	617a      	str	r2, [r7, #20]
+ 80063fa:	68bb      	ldr	r3, [r7, #8]
+ 80063fc:	f023 0310 	bic.w	r3, r3, #16
+ 8006400:	647b      	str	r3, [r7, #68]	@ 0x44
+ 8006402:	687b      	ldr	r3, [r7, #4]
+ 8006404:	681b      	ldr	r3, [r3, #0]
+ 8006406:	461a      	mov	r2, r3
+ 8006408:	6c7b      	ldr	r3, [r7, #68]	@ 0x44
+ 800640a:	61bb      	str	r3, [r7, #24]
+ 800640c:	617a      	str	r2, [r7, #20]
    __ASM volatile ("strex %0, %2, %1" : "=&r" (result), "=Q" (*addr) : "r" (value) );
- 80063fe:	6979      	ldr	r1, [r7, #20]
- 8006400:	69ba      	ldr	r2, [r7, #24]
- 8006402:	e841 2300 	strex	r3, r2, [r1]
- 8006406:	613b      	str	r3, [r7, #16]
+ 800640e:	6979      	ldr	r1, [r7, #20]
+ 8006410:	69ba      	ldr	r2, [r7, #24]
+ 8006412:	e841 2300 	strex	r3, r2, [r1]
+ 8006416:	613b      	str	r3, [r7, #16]
    return(result);
- 8006408:	693b      	ldr	r3, [r7, #16]
- 800640a:	2b00      	cmp	r3, #0
- 800640c:	d1e6      	bne.n	80063dc <UART_EndRxTransfer+0x7a>
+ 8006418:	693b      	ldr	r3, [r7, #16]
+ 800641a:	2b00      	cmp	r3, #0
+ 800641c:	d1e6      	bne.n	80063ec <UART_EndRxTransfer+0x7a>
   }
 
   /* At end of Rx process, restore huart->RxState to Ready */
   huart->RxState = HAL_UART_STATE_READY;
- 800640e:	687b      	ldr	r3, [r7, #4]
- 8006410:	2220      	movs	r2, #32
- 8006412:	f8c3 208c 	str.w	r2, [r3, #140]	@ 0x8c
+ 800641e:	687b      	ldr	r3, [r7, #4]
+ 8006420:	2220      	movs	r2, #32
+ 8006422:	f8c3 208c 	str.w	r2, [r3, #140]	@ 0x8c
   huart->ReceptionType = HAL_UART_RECEPTION_STANDARD;
- 8006416:	687b      	ldr	r3, [r7, #4]
- 8006418:	2200      	movs	r2, #0
- 800641a:	66da      	str	r2, [r3, #108]	@ 0x6c
+ 8006426:	687b      	ldr	r3, [r7, #4]
+ 8006428:	2200      	movs	r2, #0
+ 800642a:	66da      	str	r2, [r3, #108]	@ 0x6c
 
   /* Reset RxIsr function pointer */
   huart->RxISR = NULL;
- 800641c:	687b      	ldr	r3, [r7, #4]
- 800641e:	2200      	movs	r2, #0
- 8006420:	675a      	str	r2, [r3, #116]	@ 0x74
+ 800642c:	687b      	ldr	r3, [r7, #4]
+ 800642e:	2200      	movs	r2, #0
+ 8006430:	675a      	str	r2, [r3, #116]	@ 0x74
 }
- 8006422:	bf00      	nop
- 8006424:	3754      	adds	r7, #84	@ 0x54
- 8006426:	46bd      	mov	sp, r7
- 8006428:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800642c:	4770      	bx	lr
+ 8006432:	bf00      	nop
+ 8006434:	3754      	adds	r7, #84	@ 0x54
+ 8006436:	46bd      	mov	sp, r7
+ 8006438:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 800643c:	4770      	bx	lr
 
-0800642e <HAL_UARTEx_DisableFifoMode>:
+0800643e <HAL_UARTEx_DisableFifoMode>:
   * @brief  Disable the FIFO mode.
   * @param huart      UART handle.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_UARTEx_DisableFifoMode(UART_HandleTypeDef *huart)
 {
- 800642e:	b480      	push	{r7}
- 8006430:	b085      	sub	sp, #20
- 8006432:	af00      	add	r7, sp, #0
- 8006434:	6078      	str	r0, [r7, #4]
+ 800643e:	b480      	push	{r7}
+ 8006440:	b085      	sub	sp, #20
+ 8006442:	af00      	add	r7, sp, #0
+ 8006444:	6078      	str	r0, [r7, #4]
 
   /* Check parameters */
   assert_param(IS_UART_FIFO_INSTANCE(huart->Instance));
 
   /* Process Locked */
   __HAL_LOCK(huart);
- 8006436:	687b      	ldr	r3, [r7, #4]
- 8006438:	f893 3084 	ldrb.w	r3, [r3, #132]	@ 0x84
- 800643c:	2b01      	cmp	r3, #1
- 800643e:	d101      	bne.n	8006444 <HAL_UARTEx_DisableFifoMode+0x16>
- 8006440:	2302      	movs	r3, #2
- 8006442:	e027      	b.n	8006494 <HAL_UARTEx_DisableFifoMode+0x66>
- 8006444:	687b      	ldr	r3, [r7, #4]
- 8006446:	2201      	movs	r2, #1
- 8006448:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 8006446:	687b      	ldr	r3, [r7, #4]
+ 8006448:	f893 3084 	ldrb.w	r3, [r3, #132]	@ 0x84
+ 800644c:	2b01      	cmp	r3, #1
+ 800644e:	d101      	bne.n	8006454 <HAL_UARTEx_DisableFifoMode+0x16>
+ 8006450:	2302      	movs	r3, #2
+ 8006452:	e027      	b.n	80064a4 <HAL_UARTEx_DisableFifoMode+0x66>
+ 8006454:	687b      	ldr	r3, [r7, #4]
+ 8006456:	2201      	movs	r2, #1
+ 8006458:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
   huart->gState = HAL_UART_STATE_BUSY;
- 800644c:	687b      	ldr	r3, [r7, #4]
- 800644e:	2224      	movs	r2, #36	@ 0x24
- 8006450:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
+ 800645c:	687b      	ldr	r3, [r7, #4]
+ 800645e:	2224      	movs	r2, #36	@ 0x24
+ 8006460:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
 
   /* Save actual UART configuration */
   tmpcr1 = READ_REG(huart->Instance->CR1);
- 8006454:	687b      	ldr	r3, [r7, #4]
- 8006456:	681b      	ldr	r3, [r3, #0]
- 8006458:	681b      	ldr	r3, [r3, #0]
- 800645a:	60fb      	str	r3, [r7, #12]
+ 8006464:	687b      	ldr	r3, [r7, #4]
+ 8006466:	681b      	ldr	r3, [r3, #0]
+ 8006468:	681b      	ldr	r3, [r3, #0]
+ 800646a:	60fb      	str	r3, [r7, #12]
 
   /* Disable UART */
   __HAL_UART_DISABLE(huart);
- 800645c:	687b      	ldr	r3, [r7, #4]
- 800645e:	681b      	ldr	r3, [r3, #0]
- 8006460:	681a      	ldr	r2, [r3, #0]
- 8006462:	687b      	ldr	r3, [r7, #4]
- 8006464:	681b      	ldr	r3, [r3, #0]
- 8006466:	f022 0201 	bic.w	r2, r2, #1
- 800646a:	601a      	str	r2, [r3, #0]
+ 800646c:	687b      	ldr	r3, [r7, #4]
+ 800646e:	681b      	ldr	r3, [r3, #0]
+ 8006470:	681a      	ldr	r2, [r3, #0]
+ 8006472:	687b      	ldr	r3, [r7, #4]
+ 8006474:	681b      	ldr	r3, [r3, #0]
+ 8006476:	f022 0201 	bic.w	r2, r2, #1
+ 800647a:	601a      	str	r2, [r3, #0]
 
-  /* Enable FIFO mode */
+  /* Disable FIFO mode */
   CLEAR_BIT(tmpcr1, USART_CR1_FIFOEN);
- 800646c:	68fb      	ldr	r3, [r7, #12]
- 800646e:	f023 5300 	bic.w	r3, r3, #536870912	@ 0x20000000
- 8006472:	60fb      	str	r3, [r7, #12]
+ 800647c:	68fb      	ldr	r3, [r7, #12]
+ 800647e:	f023 5300 	bic.w	r3, r3, #536870912	@ 0x20000000
+ 8006482:	60fb      	str	r3, [r7, #12]
   huart->FifoMode = UART_FIFOMODE_DISABLE;
- 8006474:	687b      	ldr	r3, [r7, #4]
- 8006476:	2200      	movs	r2, #0
- 8006478:	665a      	str	r2, [r3, #100]	@ 0x64
+ 8006484:	687b      	ldr	r3, [r7, #4]
+ 8006486:	2200      	movs	r2, #0
+ 8006488:	665a      	str	r2, [r3, #100]	@ 0x64
 
   /* Restore UART configuration */
   WRITE_REG(huart->Instance->CR1, tmpcr1);
- 800647a:	687b      	ldr	r3, [r7, #4]
- 800647c:	681b      	ldr	r3, [r3, #0]
- 800647e:	68fa      	ldr	r2, [r7, #12]
- 8006480:	601a      	str	r2, [r3, #0]
+ 800648a:	687b      	ldr	r3, [r7, #4]
+ 800648c:	681b      	ldr	r3, [r3, #0]
+ 800648e:	68fa      	ldr	r2, [r7, #12]
+ 8006490:	601a      	str	r2, [r3, #0]
 
   huart->gState = HAL_UART_STATE_READY;
- 8006482:	687b      	ldr	r3, [r7, #4]
- 8006484:	2220      	movs	r2, #32
- 8006486:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
+ 8006492:	687b      	ldr	r3, [r7, #4]
+ 8006494:	2220      	movs	r2, #32
+ 8006496:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
 
   /* Process Unlocked */
   __HAL_UNLOCK(huart);
- 800648a:	687b      	ldr	r3, [r7, #4]
- 800648c:	2200      	movs	r2, #0
- 800648e:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 800649a:	687b      	ldr	r3, [r7, #4]
+ 800649c:	2200      	movs	r2, #0
+ 800649e:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
   return HAL_OK;
- 8006492:	2300      	movs	r3, #0
+ 80064a2:	2300      	movs	r3, #0
 }
- 8006494:	4618      	mov	r0, r3
- 8006496:	3714      	adds	r7, #20
- 8006498:	46bd      	mov	sp, r7
- 800649a:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800649e:	4770      	bx	lr
+ 80064a4:	4618      	mov	r0, r3
+ 80064a6:	3714      	adds	r7, #20
+ 80064a8:	46bd      	mov	sp, r7
+ 80064aa:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 80064ae:	4770      	bx	lr
 
-080064a0 <HAL_UARTEx_SetTxFifoThreshold>:
+080064b0 <HAL_UARTEx_SetTxFifoThreshold>:
   *            @arg @ref UART_TXFIFO_THRESHOLD_7_8
   *            @arg @ref UART_TXFIFO_THRESHOLD_8_8
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_UARTEx_SetTxFifoThreshold(UART_HandleTypeDef *huart, uint32_t Threshold)
 {
- 80064a0:	b580      	push	{r7, lr}
- 80064a2:	b084      	sub	sp, #16
- 80064a4:	af00      	add	r7, sp, #0
- 80064a6:	6078      	str	r0, [r7, #4]
- 80064a8:	6039      	str	r1, [r7, #0]
+ 80064b0:	b580      	push	{r7, lr}
+ 80064b2:	b084      	sub	sp, #16
+ 80064b4:	af00      	add	r7, sp, #0
+ 80064b6:	6078      	str	r0, [r7, #4]
+ 80064b8:	6039      	str	r1, [r7, #0]
   /* Check parameters */
   assert_param(IS_UART_FIFO_INSTANCE(huart->Instance));
   assert_param(IS_UART_TXFIFO_THRESHOLD(Threshold));
 
   /* Process Locked */
   __HAL_LOCK(huart);
- 80064aa:	687b      	ldr	r3, [r7, #4]
- 80064ac:	f893 3084 	ldrb.w	r3, [r3, #132]	@ 0x84
- 80064b0:	2b01      	cmp	r3, #1
- 80064b2:	d101      	bne.n	80064b8 <HAL_UARTEx_SetTxFifoThreshold+0x18>
- 80064b4:	2302      	movs	r3, #2
- 80064b6:	e02d      	b.n	8006514 <HAL_UARTEx_SetTxFifoThreshold+0x74>
- 80064b8:	687b      	ldr	r3, [r7, #4]
- 80064ba:	2201      	movs	r2, #1
- 80064bc:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 80064ba:	687b      	ldr	r3, [r7, #4]
+ 80064bc:	f893 3084 	ldrb.w	r3, [r3, #132]	@ 0x84
+ 80064c0:	2b01      	cmp	r3, #1
+ 80064c2:	d101      	bne.n	80064c8 <HAL_UARTEx_SetTxFifoThreshold+0x18>
+ 80064c4:	2302      	movs	r3, #2
+ 80064c6:	e02d      	b.n	8006524 <HAL_UARTEx_SetTxFifoThreshold+0x74>
+ 80064c8:	687b      	ldr	r3, [r7, #4]
+ 80064ca:	2201      	movs	r2, #1
+ 80064cc:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
   huart->gState = HAL_UART_STATE_BUSY;
- 80064c0:	687b      	ldr	r3, [r7, #4]
- 80064c2:	2224      	movs	r2, #36	@ 0x24
- 80064c4:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
+ 80064d0:	687b      	ldr	r3, [r7, #4]
+ 80064d2:	2224      	movs	r2, #36	@ 0x24
+ 80064d4:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
 
   /* Save actual UART configuration */
   tmpcr1 = READ_REG(huart->Instance->CR1);
- 80064c8:	687b      	ldr	r3, [r7, #4]
- 80064ca:	681b      	ldr	r3, [r3, #0]
- 80064cc:	681b      	ldr	r3, [r3, #0]
- 80064ce:	60fb      	str	r3, [r7, #12]
+ 80064d8:	687b      	ldr	r3, [r7, #4]
+ 80064da:	681b      	ldr	r3, [r3, #0]
+ 80064dc:	681b      	ldr	r3, [r3, #0]
+ 80064de:	60fb      	str	r3, [r7, #12]
 
   /* Disable UART */
   __HAL_UART_DISABLE(huart);
- 80064d0:	687b      	ldr	r3, [r7, #4]
- 80064d2:	681b      	ldr	r3, [r3, #0]
- 80064d4:	681a      	ldr	r2, [r3, #0]
- 80064d6:	687b      	ldr	r3, [r7, #4]
- 80064d8:	681b      	ldr	r3, [r3, #0]
- 80064da:	f022 0201 	bic.w	r2, r2, #1
- 80064de:	601a      	str	r2, [r3, #0]
+ 80064e0:	687b      	ldr	r3, [r7, #4]
+ 80064e2:	681b      	ldr	r3, [r3, #0]
+ 80064e4:	681a      	ldr	r2, [r3, #0]
+ 80064e6:	687b      	ldr	r3, [r7, #4]
+ 80064e8:	681b      	ldr	r3, [r3, #0]
+ 80064ea:	f022 0201 	bic.w	r2, r2, #1
+ 80064ee:	601a      	str	r2, [r3, #0]
 
   /* Update TX threshold configuration */
   MODIFY_REG(huart->Instance->CR3, USART_CR3_TXFTCFG, Threshold);
- 80064e0:	687b      	ldr	r3, [r7, #4]
- 80064e2:	681b      	ldr	r3, [r3, #0]
- 80064e4:	689b      	ldr	r3, [r3, #8]
- 80064e6:	f023 4160 	bic.w	r1, r3, #3758096384	@ 0xe0000000
- 80064ea:	687b      	ldr	r3, [r7, #4]
- 80064ec:	681b      	ldr	r3, [r3, #0]
- 80064ee:	683a      	ldr	r2, [r7, #0]
- 80064f0:	430a      	orrs	r2, r1
- 80064f2:	609a      	str	r2, [r3, #8]
+ 80064f0:	687b      	ldr	r3, [r7, #4]
+ 80064f2:	681b      	ldr	r3, [r3, #0]
+ 80064f4:	689b      	ldr	r3, [r3, #8]
+ 80064f6:	f023 4160 	bic.w	r1, r3, #3758096384	@ 0xe0000000
+ 80064fa:	687b      	ldr	r3, [r7, #4]
+ 80064fc:	681b      	ldr	r3, [r3, #0]
+ 80064fe:	683a      	ldr	r2, [r7, #0]
+ 8006500:	430a      	orrs	r2, r1
+ 8006502:	609a      	str	r2, [r3, #8]
 
   /* Determine the number of data to process during RX/TX ISR execution */
   UARTEx_SetNbDataToProcess(huart);
- 80064f4:	6878      	ldr	r0, [r7, #4]
- 80064f6:	f000 f84f 	bl	8006598 <UARTEx_SetNbDataToProcess>
+ 8006504:	6878      	ldr	r0, [r7, #4]
+ 8006506:	f000 f84f 	bl	80065a8 <UARTEx_SetNbDataToProcess>
 
   /* Restore UART configuration */
   WRITE_REG(huart->Instance->CR1, tmpcr1);
- 80064fa:	687b      	ldr	r3, [r7, #4]
- 80064fc:	681b      	ldr	r3, [r3, #0]
- 80064fe:	68fa      	ldr	r2, [r7, #12]
- 8006500:	601a      	str	r2, [r3, #0]
+ 800650a:	687b      	ldr	r3, [r7, #4]
+ 800650c:	681b      	ldr	r3, [r3, #0]
+ 800650e:	68fa      	ldr	r2, [r7, #12]
+ 8006510:	601a      	str	r2, [r3, #0]
 
   huart->gState = HAL_UART_STATE_READY;
- 8006502:	687b      	ldr	r3, [r7, #4]
- 8006504:	2220      	movs	r2, #32
- 8006506:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
+ 8006512:	687b      	ldr	r3, [r7, #4]
+ 8006514:	2220      	movs	r2, #32
+ 8006516:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
 
   /* Process Unlocked */
   __HAL_UNLOCK(huart);
- 800650a:	687b      	ldr	r3, [r7, #4]
- 800650c:	2200      	movs	r2, #0
- 800650e:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 800651a:	687b      	ldr	r3, [r7, #4]
+ 800651c:	2200      	movs	r2, #0
+ 800651e:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
   return HAL_OK;
- 8006512:	2300      	movs	r3, #0
+ 8006522:	2300      	movs	r3, #0
 }
- 8006514:	4618      	mov	r0, r3
- 8006516:	3710      	adds	r7, #16
- 8006518:	46bd      	mov	sp, r7
- 800651a:	bd80      	pop	{r7, pc}
+ 8006524:	4618      	mov	r0, r3
+ 8006526:	3710      	adds	r7, #16
+ 8006528:	46bd      	mov	sp, r7
+ 800652a:	bd80      	pop	{r7, pc}
 
-0800651c <HAL_UARTEx_SetRxFifoThreshold>:
+0800652c <HAL_UARTEx_SetRxFifoThreshold>:
   *            @arg @ref UART_RXFIFO_THRESHOLD_7_8
   *            @arg @ref UART_RXFIFO_THRESHOLD_8_8
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_UARTEx_SetRxFifoThreshold(UART_HandleTypeDef *huart, uint32_t Threshold)
 {
- 800651c:	b580      	push	{r7, lr}
- 800651e:	b084      	sub	sp, #16
- 8006520:	af00      	add	r7, sp, #0
- 8006522:	6078      	str	r0, [r7, #4]
- 8006524:	6039      	str	r1, [r7, #0]
+ 800652c:	b580      	push	{r7, lr}
+ 800652e:	b084      	sub	sp, #16
+ 8006530:	af00      	add	r7, sp, #0
+ 8006532:	6078      	str	r0, [r7, #4]
+ 8006534:	6039      	str	r1, [r7, #0]
   /* Check the parameters */
   assert_param(IS_UART_FIFO_INSTANCE(huart->Instance));
   assert_param(IS_UART_RXFIFO_THRESHOLD(Threshold));
 
   /* Process Locked */
   __HAL_LOCK(huart);
- 8006526:	687b      	ldr	r3, [r7, #4]
- 8006528:	f893 3084 	ldrb.w	r3, [r3, #132]	@ 0x84
- 800652c:	2b01      	cmp	r3, #1
- 800652e:	d101      	bne.n	8006534 <HAL_UARTEx_SetRxFifoThreshold+0x18>
- 8006530:	2302      	movs	r3, #2
- 8006532:	e02d      	b.n	8006590 <HAL_UARTEx_SetRxFifoThreshold+0x74>
- 8006534:	687b      	ldr	r3, [r7, #4]
- 8006536:	2201      	movs	r2, #1
- 8006538:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 8006536:	687b      	ldr	r3, [r7, #4]
+ 8006538:	f893 3084 	ldrb.w	r3, [r3, #132]	@ 0x84
+ 800653c:	2b01      	cmp	r3, #1
+ 800653e:	d101      	bne.n	8006544 <HAL_UARTEx_SetRxFifoThreshold+0x18>
+ 8006540:	2302      	movs	r3, #2
+ 8006542:	e02d      	b.n	80065a0 <HAL_UARTEx_SetRxFifoThreshold+0x74>
+ 8006544:	687b      	ldr	r3, [r7, #4]
+ 8006546:	2201      	movs	r2, #1
+ 8006548:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
   huart->gState = HAL_UART_STATE_BUSY;
- 800653c:	687b      	ldr	r3, [r7, #4]
- 800653e:	2224      	movs	r2, #36	@ 0x24
- 8006540:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
+ 800654c:	687b      	ldr	r3, [r7, #4]
+ 800654e:	2224      	movs	r2, #36	@ 0x24
+ 8006550:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
 
   /* Save actual UART configuration */
   tmpcr1 = READ_REG(huart->Instance->CR1);
- 8006544:	687b      	ldr	r3, [r7, #4]
- 8006546:	681b      	ldr	r3, [r3, #0]
- 8006548:	681b      	ldr	r3, [r3, #0]
- 800654a:	60fb      	str	r3, [r7, #12]
+ 8006554:	687b      	ldr	r3, [r7, #4]
+ 8006556:	681b      	ldr	r3, [r3, #0]
+ 8006558:	681b      	ldr	r3, [r3, #0]
+ 800655a:	60fb      	str	r3, [r7, #12]
 
   /* Disable UART */
   __HAL_UART_DISABLE(huart);
- 800654c:	687b      	ldr	r3, [r7, #4]
- 800654e:	681b      	ldr	r3, [r3, #0]
- 8006550:	681a      	ldr	r2, [r3, #0]
- 8006552:	687b      	ldr	r3, [r7, #4]
- 8006554:	681b      	ldr	r3, [r3, #0]
- 8006556:	f022 0201 	bic.w	r2, r2, #1
- 800655a:	601a      	str	r2, [r3, #0]
+ 800655c:	687b      	ldr	r3, [r7, #4]
+ 800655e:	681b      	ldr	r3, [r3, #0]
+ 8006560:	681a      	ldr	r2, [r3, #0]
+ 8006562:	687b      	ldr	r3, [r7, #4]
+ 8006564:	681b      	ldr	r3, [r3, #0]
+ 8006566:	f022 0201 	bic.w	r2, r2, #1
+ 800656a:	601a      	str	r2, [r3, #0]
 
   /* Update RX threshold configuration */
   MODIFY_REG(huart->Instance->CR3, USART_CR3_RXFTCFG, Threshold);
- 800655c:	687b      	ldr	r3, [r7, #4]
- 800655e:	681b      	ldr	r3, [r3, #0]
- 8006560:	689b      	ldr	r3, [r3, #8]
- 8006562:	f023 6160 	bic.w	r1, r3, #234881024	@ 0xe000000
- 8006566:	687b      	ldr	r3, [r7, #4]
- 8006568:	681b      	ldr	r3, [r3, #0]
- 800656a:	683a      	ldr	r2, [r7, #0]
- 800656c:	430a      	orrs	r2, r1
- 800656e:	609a      	str	r2, [r3, #8]
+ 800656c:	687b      	ldr	r3, [r7, #4]
+ 800656e:	681b      	ldr	r3, [r3, #0]
+ 8006570:	689b      	ldr	r3, [r3, #8]
+ 8006572:	f023 6160 	bic.w	r1, r3, #234881024	@ 0xe000000
+ 8006576:	687b      	ldr	r3, [r7, #4]
+ 8006578:	681b      	ldr	r3, [r3, #0]
+ 800657a:	683a      	ldr	r2, [r7, #0]
+ 800657c:	430a      	orrs	r2, r1
+ 800657e:	609a      	str	r2, [r3, #8]
 
   /* Determine the number of data to process during RX/TX ISR execution */
   UARTEx_SetNbDataToProcess(huart);
- 8006570:	6878      	ldr	r0, [r7, #4]
- 8006572:	f000 f811 	bl	8006598 <UARTEx_SetNbDataToProcess>
+ 8006580:	6878      	ldr	r0, [r7, #4]
+ 8006582:	f000 f811 	bl	80065a8 <UARTEx_SetNbDataToProcess>
 
   /* Restore UART configuration */
   WRITE_REG(huart->Instance->CR1, tmpcr1);
- 8006576:	687b      	ldr	r3, [r7, #4]
- 8006578:	681b      	ldr	r3, [r3, #0]
- 800657a:	68fa      	ldr	r2, [r7, #12]
- 800657c:	601a      	str	r2, [r3, #0]
+ 8006586:	687b      	ldr	r3, [r7, #4]
+ 8006588:	681b      	ldr	r3, [r3, #0]
+ 800658a:	68fa      	ldr	r2, [r7, #12]
+ 800658c:	601a      	str	r2, [r3, #0]
 
   huart->gState = HAL_UART_STATE_READY;
- 800657e:	687b      	ldr	r3, [r7, #4]
- 8006580:	2220      	movs	r2, #32
- 8006582:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
+ 800658e:	687b      	ldr	r3, [r7, #4]
+ 8006590:	2220      	movs	r2, #32
+ 8006592:	f8c3 2088 	str.w	r2, [r3, #136]	@ 0x88
 
   /* Process Unlocked */
   __HAL_UNLOCK(huart);
- 8006586:	687b      	ldr	r3, [r7, #4]
- 8006588:	2200      	movs	r2, #0
- 800658a:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
+ 8006596:	687b      	ldr	r3, [r7, #4]
+ 8006598:	2200      	movs	r2, #0
+ 800659a:	f883 2084 	strb.w	r2, [r3, #132]	@ 0x84
 
   return HAL_OK;
- 800658e:	2300      	movs	r3, #0
+ 800659e:	2300      	movs	r3, #0
 }
- 8006590:	4618      	mov	r0, r3
- 8006592:	3710      	adds	r7, #16
- 8006594:	46bd      	mov	sp, r7
- 8006596:	bd80      	pop	{r7, pc}
+ 80065a0:	4618      	mov	r0, r3
+ 80065a2:	3710      	adds	r7, #16
+ 80065a4:	46bd      	mov	sp, r7
+ 80065a6:	bd80      	pop	{r7, pc}
 
-08006598 <UARTEx_SetNbDataToProcess>:
+080065a8 <UARTEx_SetNbDataToProcess>:
   *       the UART configuration registers.
   * @param huart UART handle.
   * @retval None
   */
 static void UARTEx_SetNbDataToProcess(UART_HandleTypeDef *huart)
 {
- 8006598:	b480      	push	{r7}
- 800659a:	b085      	sub	sp, #20
- 800659c:	af00      	add	r7, sp, #0
- 800659e:	6078      	str	r0, [r7, #4]
+ 80065a8:	b480      	push	{r7}
+ 80065aa:	b085      	sub	sp, #20
+ 80065ac:	af00      	add	r7, sp, #0
+ 80065ae:	6078      	str	r0, [r7, #4]
   uint8_t rx_fifo_threshold;
   uint8_t tx_fifo_threshold;
   static const uint8_t numerator[] = {1U, 1U, 1U, 3U, 7U, 1U, 0U, 0U};
   static const uint8_t denominator[] = {8U, 4U, 2U, 4U, 8U, 1U, 1U, 1U};
 
   if (huart->FifoMode == UART_FIFOMODE_DISABLE)
- 80065a0:	687b      	ldr	r3, [r7, #4]
- 80065a2:	6e5b      	ldr	r3, [r3, #100]	@ 0x64
- 80065a4:	2b00      	cmp	r3, #0
- 80065a6:	d108      	bne.n	80065ba <UARTEx_SetNbDataToProcess+0x22>
+ 80065b0:	687b      	ldr	r3, [r7, #4]
+ 80065b2:	6e5b      	ldr	r3, [r3, #100]	@ 0x64
+ 80065b4:	2b00      	cmp	r3, #0
+ 80065b6:	d108      	bne.n	80065ca <UARTEx_SetNbDataToProcess+0x22>
   {
     huart->NbTxDataToProcess = 1U;
- 80065a8:	687b      	ldr	r3, [r7, #4]
- 80065aa:	2201      	movs	r2, #1
- 80065ac:	f8a3 206a 	strh.w	r2, [r3, #106]	@ 0x6a
+ 80065b8:	687b      	ldr	r3, [r7, #4]
+ 80065ba:	2201      	movs	r2, #1
+ 80065bc:	f8a3 206a 	strh.w	r2, [r3, #106]	@ 0x6a
     huart->NbRxDataToProcess = 1U;
- 80065b0:	687b      	ldr	r3, [r7, #4]
- 80065b2:	2201      	movs	r2, #1
- 80065b4:	f8a3 2068 	strh.w	r2, [r3, #104]	@ 0x68
+ 80065c0:	687b      	ldr	r3, [r7, #4]
+ 80065c2:	2201      	movs	r2, #1
+ 80065c4:	f8a3 2068 	strh.w	r2, [r3, #104]	@ 0x68
     huart->NbTxDataToProcess = ((uint16_t)tx_fifo_depth * numerator[tx_fifo_threshold]) /
                                (uint16_t)denominator[tx_fifo_threshold];
     huart->NbRxDataToProcess = ((uint16_t)rx_fifo_depth * numerator[rx_fifo_threshold]) /
                                (uint16_t)denominator[rx_fifo_threshold];
   }
 }
- 80065b8:	e031      	b.n	800661e <UARTEx_SetNbDataToProcess+0x86>
+ 80065c8:	e031      	b.n	800662e <UARTEx_SetNbDataToProcess+0x86>
     rx_fifo_depth = RX_FIFO_DEPTH;
- 80065ba:	2308      	movs	r3, #8
- 80065bc:	73fb      	strb	r3, [r7, #15]
+ 80065ca:	2308      	movs	r3, #8
+ 80065cc:	73fb      	strb	r3, [r7, #15]
     tx_fifo_depth = TX_FIFO_DEPTH;
- 80065be:	2308      	movs	r3, #8
- 80065c0:	73bb      	strb	r3, [r7, #14]
+ 80065ce:	2308      	movs	r3, #8
+ 80065d0:	73bb      	strb	r3, [r7, #14]
     rx_fifo_threshold = (uint8_t)(READ_BIT(huart->Instance->CR3, USART_CR3_RXFTCFG) >> USART_CR3_RXFTCFG_Pos);
- 80065c2:	687b      	ldr	r3, [r7, #4]
- 80065c4:	681b      	ldr	r3, [r3, #0]
- 80065c6:	689b      	ldr	r3, [r3, #8]
- 80065c8:	0e5b      	lsrs	r3, r3, #25
- 80065ca:	b2db      	uxtb	r3, r3
- 80065cc:	f003 0307 	and.w	r3, r3, #7
- 80065d0:	737b      	strb	r3, [r7, #13]
-    tx_fifo_threshold = (uint8_t)(READ_BIT(huart->Instance->CR3, USART_CR3_TXFTCFG) >> USART_CR3_TXFTCFG_Pos);
  80065d2:	687b      	ldr	r3, [r7, #4]
  80065d4:	681b      	ldr	r3, [r3, #0]
  80065d6:	689b      	ldr	r3, [r3, #8]
- 80065d8:	0f5b      	lsrs	r3, r3, #29
+ 80065d8:	0e5b      	lsrs	r3, r3, #25
  80065da:	b2db      	uxtb	r3, r3
  80065dc:	f003 0307 	and.w	r3, r3, #7
- 80065e0:	733b      	strb	r3, [r7, #12]
+ 80065e0:	737b      	strb	r3, [r7, #13]
+    tx_fifo_threshold = (uint8_t)(READ_BIT(huart->Instance->CR3, USART_CR3_TXFTCFG) >> USART_CR3_TXFTCFG_Pos);
+ 80065e2:	687b      	ldr	r3, [r7, #4]
+ 80065e4:	681b      	ldr	r3, [r3, #0]
+ 80065e6:	689b      	ldr	r3, [r3, #8]
+ 80065e8:	0f5b      	lsrs	r3, r3, #29
+ 80065ea:	b2db      	uxtb	r3, r3
+ 80065ec:	f003 0307 	and.w	r3, r3, #7
+ 80065f0:	733b      	strb	r3, [r7, #12]
     huart->NbTxDataToProcess = ((uint16_t)tx_fifo_depth * numerator[tx_fifo_threshold]) /
- 80065e2:	7bbb      	ldrb	r3, [r7, #14]
- 80065e4:	7b3a      	ldrb	r2, [r7, #12]
- 80065e6:	4911      	ldr	r1, [pc, #68]	@ (800662c <UARTEx_SetNbDataToProcess+0x94>)
- 80065e8:	5c8a      	ldrb	r2, [r1, r2]
- 80065ea:	fb02 f303 	mul.w	r3, r2, r3
+ 80065f2:	7bbb      	ldrb	r3, [r7, #14]
+ 80065f4:	7b3a      	ldrb	r2, [r7, #12]
+ 80065f6:	4911      	ldr	r1, [pc, #68]	@ (800663c <UARTEx_SetNbDataToProcess+0x94>)
+ 80065f8:	5c8a      	ldrb	r2, [r1, r2]
+ 80065fa:	fb02 f303 	mul.w	r3, r2, r3
                                (uint16_t)denominator[tx_fifo_threshold];
- 80065ee:	7b3a      	ldrb	r2, [r7, #12]
- 80065f0:	490f      	ldr	r1, [pc, #60]	@ (8006630 <UARTEx_SetNbDataToProcess+0x98>)
- 80065f2:	5c8a      	ldrb	r2, [r1, r2]
+ 80065fe:	7b3a      	ldrb	r2, [r7, #12]
+ 8006600:	490f      	ldr	r1, [pc, #60]	@ (8006640 <UARTEx_SetNbDataToProcess+0x98>)
+ 8006602:	5c8a      	ldrb	r2, [r1, r2]
     huart->NbTxDataToProcess = ((uint16_t)tx_fifo_depth * numerator[tx_fifo_threshold]) /
- 80065f4:	fb93 f3f2 	sdiv	r3, r3, r2
- 80065f8:	b29a      	uxth	r2, r3
- 80065fa:	687b      	ldr	r3, [r7, #4]
- 80065fc:	f8a3 206a 	strh.w	r2, [r3, #106]	@ 0x6a
+ 8006604:	fb93 f3f2 	sdiv	r3, r3, r2
+ 8006608:	b29a      	uxth	r2, r3
+ 800660a:	687b      	ldr	r3, [r7, #4]
+ 800660c:	f8a3 206a 	strh.w	r2, [r3, #106]	@ 0x6a
     huart->NbRxDataToProcess = ((uint16_t)rx_fifo_depth * numerator[rx_fifo_threshold]) /
- 8006600:	7bfb      	ldrb	r3, [r7, #15]
- 8006602:	7b7a      	ldrb	r2, [r7, #13]
- 8006604:	4909      	ldr	r1, [pc, #36]	@ (800662c <UARTEx_SetNbDataToProcess+0x94>)
- 8006606:	5c8a      	ldrb	r2, [r1, r2]
- 8006608:	fb02 f303 	mul.w	r3, r2, r3
+ 8006610:	7bfb      	ldrb	r3, [r7, #15]
+ 8006612:	7b7a      	ldrb	r2, [r7, #13]
+ 8006614:	4909      	ldr	r1, [pc, #36]	@ (800663c <UARTEx_SetNbDataToProcess+0x94>)
+ 8006616:	5c8a      	ldrb	r2, [r1, r2]
+ 8006618:	fb02 f303 	mul.w	r3, r2, r3
                                (uint16_t)denominator[rx_fifo_threshold];
- 800660c:	7b7a      	ldrb	r2, [r7, #13]
- 800660e:	4908      	ldr	r1, [pc, #32]	@ (8006630 <UARTEx_SetNbDataToProcess+0x98>)
- 8006610:	5c8a      	ldrb	r2, [r1, r2]
+ 800661c:	7b7a      	ldrb	r2, [r7, #13]
+ 800661e:	4908      	ldr	r1, [pc, #32]	@ (8006640 <UARTEx_SetNbDataToProcess+0x98>)
+ 8006620:	5c8a      	ldrb	r2, [r1, r2]
     huart->NbRxDataToProcess = ((uint16_t)rx_fifo_depth * numerator[rx_fifo_threshold]) /
- 8006612:	fb93 f3f2 	sdiv	r3, r3, r2
- 8006616:	b29a      	uxth	r2, r3
- 8006618:	687b      	ldr	r3, [r7, #4]
- 800661a:	f8a3 2068 	strh.w	r2, [r3, #104]	@ 0x68
+ 8006622:	fb93 f3f2 	sdiv	r3, r3, r2
+ 8006626:	b29a      	uxth	r2, r3
+ 8006628:	687b      	ldr	r3, [r7, #4]
+ 800662a:	f8a3 2068 	strh.w	r2, [r3, #104]	@ 0x68
 }
- 800661e:	bf00      	nop
- 8006620:	3714      	adds	r7, #20
- 8006622:	46bd      	mov	sp, r7
- 8006624:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8006628:	4770      	bx	lr
- 800662a:	bf00      	nop
- 800662c:	08006874 	.word	0x08006874
- 8006630:	0800687c 	.word	0x0800687c
+ 800662e:	bf00      	nop
+ 8006630:	3714      	adds	r7, #20
+ 8006632:	46bd      	mov	sp, r7
+ 8006634:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8006638:	4770      	bx	lr
+ 800663a:	bf00      	nop
+ 800663c:	08006884 	.word	0x08006884
+ 8006640:	0800688c 	.word	0x0800688c
 
-08006634 <FM_MAIN_Main>:
+08006644 <FM_MAIN_Main>:
  * @param   Ninguno.
  * @retval  Ninguno.
  *
  */
 void FM_MAIN_Main()
 {
- 8006634:	b580      	push	{r7, lr}
- 8006636:	b082      	sub	sp, #8
- 8006638:	af00      	add	r7, sp, #0
+ 8006644:	b580      	push	{r7, lr}
+ 8006646:	b082      	sub	sp, #8
+ 8006648:	af00      	add	r7, sp, #0
   // Se resetea el PCF8553
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
- 800663a:	2200      	movs	r2, #0
- 800663c:	2140      	movs	r1, #64	@ 0x40
- 800663e:	482a      	ldr	r0, [pc, #168]	@ (80066e8 <FM_MAIN_Main+0xb4>)
- 8006640:	f7fa ffc2 	bl	80015c8 <HAL_GPIO_WritePin>
-  HAL_Delay(10);
- 8006644:	200a      	movs	r0, #10
- 8006646:	f7fa fc0f 	bl	8000e68 <HAL_Delay>
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
- 800664a:	2201      	movs	r2, #1
+ 800664a:	2200      	movs	r2, #0
  800664c:	2140      	movs	r1, #64	@ 0x40
- 800664e:	4826      	ldr	r0, [pc, #152]	@ (80066e8 <FM_MAIN_Main+0xb4>)
+ 800664e:	482a      	ldr	r0, [pc, #168]	@ (80066f8 <FM_MAIN_Main+0xb4>)
  8006650:	f7fa ffba 	bl	80015c8 <HAL_GPIO_WritePin>
+  HAL_Delay(10);
+ 8006654:	200a      	movs	r0, #10
+ 8006656:	f7fa fc07 	bl	8000e68 <HAL_Delay>
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+ 800665a:	2201      	movs	r2, #1
+ 800665c:	2140      	movs	r1, #64	@ 0x40
+ 800665e:	4826      	ldr	r0, [pc, #152]	@ (80066f8 <FM_MAIN_Main+0xb4>)
+ 8006660:	f7fa ffb2 	bl	80015c8 <HAL_GPIO_WritePin>
 
   power_mode_t power_mode = MODE_STOP_2;
- 8006654:	2303      	movs	r3, #3
- 8006656:	71fb      	strb	r3, [r7, #7]
+ 8006664:	2303      	movs	r3, #3
+ 8006666:	71fb      	strb	r3, [r7, #7]
 
   for (;;)
   {
 
     wakeup_flag = 1;
- 8006658:	4b24      	ldr	r3, [pc, #144]	@ (80066ec <FM_MAIN_Main+0xb8>)
- 800665a:	2201      	movs	r2, #1
- 800665c:	601a      	str	r2, [r3, #0]
+ 8006668:	4b24      	ldr	r3, [pc, #144]	@ (80066fc <FM_MAIN_Main+0xb8>)
+ 800666a:	2201      	movs	r2, #1
+ 800666c:	601a      	str	r2, [r3, #0]
 
     // Shutdown mode reinicia el equipo, entonces el parpadeo antes de entrar al modo de cambiar el modo.
     HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_SET);
- 800665e:	2201      	movs	r2, #1
- 8006660:	2140      	movs	r1, #64	@ 0x40
- 8006662:	4823      	ldr	r0, [pc, #140]	@ (80066f0 <FM_MAIN_Main+0xbc>)
- 8006664:	f7fa ffb0 	bl	80015c8 <HAL_GPIO_WritePin>
-    HAL_Delay(10);
- 8006668:	200a      	movs	r0, #10
- 800666a:	f7fa fbfd 	bl	8000e68 <HAL_Delay>
-    HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_RESET);
- 800666e:	2200      	movs	r2, #0
+ 800666e:	2201      	movs	r2, #1
  8006670:	2140      	movs	r1, #64	@ 0x40
- 8006672:	481f      	ldr	r0, [pc, #124]	@ (80066f0 <FM_MAIN_Main+0xbc>)
+ 8006672:	4823      	ldr	r0, [pc, #140]	@ (8006700 <FM_MAIN_Main+0xbc>)
  8006674:	f7fa ffa8 	bl	80015c8 <HAL_GPIO_WritePin>
+    HAL_Delay(10);
+ 8006678:	200a      	movs	r0, #10
+ 800667a:	f7fa fbf5 	bl	8000e68 <HAL_Delay>
+    HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_RESET);
+ 800667e:	2200      	movs	r2, #0
+ 8006680:	2140      	movs	r1, #64	@ 0x40
+ 8006682:	481f      	ldr	r0, [pc, #124]	@ (8006700 <FM_MAIN_Main+0xbc>)
+ 8006684:	f7fa ffa0 	bl	80015c8 <HAL_GPIO_WritePin>
 
     switch (power_mode)
- 8006678:	79fb      	ldrb	r3, [r7, #7]
- 800667a:	2b07      	cmp	r3, #7
- 800667c:	d832      	bhi.n	80066e4 <FM_MAIN_Main+0xb0>
- 800667e:	a201      	add	r2, pc, #4	@ (adr r2, 8006684 <FM_MAIN_Main+0x50>)
- 8006680:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
- 8006684:	080066a5 	.word	0x080066a5
- 8006688:	080066e5 	.word	0x080066e5
- 800668c:	080066b1 	.word	0x080066b1
- 8006690:	080066c1 	.word	0x080066c1
- 8006694:	080066d1 	.word	0x080066d1
- 8006698:	080066d9 	.word	0x080066d9
- 800669c:	080066e5 	.word	0x080066e5
- 80066a0:	080066df 	.word	0x080066df
+ 8006688:	79fb      	ldrb	r3, [r7, #7]
+ 800668a:	2b07      	cmp	r3, #7
+ 800668c:	d832      	bhi.n	80066f4 <FM_MAIN_Main+0xb0>
+ 800668e:	a201      	add	r2, pc, #4	@ (adr r2, 8006694 <FM_MAIN_Main+0x50>)
+ 8006690:	f852 f023 	ldr.w	pc, [r2, r3, lsl #2]
+ 8006694:	080066b5 	.word	0x080066b5
+ 8006698:	080066f5 	.word	0x080066f5
+ 800669c:	080066c1 	.word	0x080066c1
+ 80066a0:	080066d1 	.word	0x080066d1
+ 80066a4:	080066e1 	.word	0x080066e1
+ 80066a8:	080066e9 	.word	0x080066e9
+ 80066ac:	080066f5 	.word	0x080066f5
+ 80066b0:	080066ef 	.word	0x080066ef
     {
     case MODE_RUN:
       while (wakeup_flag);
- 80066a4:	bf00      	nop
- 80066a6:	4b11      	ldr	r3, [pc, #68]	@ (80066ec <FM_MAIN_Main+0xb8>)
- 80066a8:	681b      	ldr	r3, [r3, #0]
- 80066aa:	2b00      	cmp	r3, #0
- 80066ac:	d1fb      	bne.n	80066a6 <FM_MAIN_Main+0x72>
+ 80066b4:	bf00      	nop
+ 80066b6:	4b11      	ldr	r3, [pc, #68]	@ (80066fc <FM_MAIN_Main+0xb8>)
+ 80066b8:	681b      	ldr	r3, [r3, #0]
+ 80066ba:	2b00      	cmp	r3, #0
+ 80066bc:	d1fb      	bne.n	80066b6 <FM_MAIN_Main+0x72>
       break;
- 80066ae:	e01a      	b.n	80066e6 <FM_MAIN_Main+0xb2>
+ 80066be:	e01a      	b.n	80066f6 <FM_MAIN_Main+0xb2>
     case MODE_SLEEP:
       break;
     case MODE_STOP_1:
       HAL_SuspendTick();
- 80066b0:	f7fa fbfe 	bl	8000eb0 <HAL_SuspendTick>
+ 80066c0:	f7fa fbf6 	bl	8000eb0 <HAL_SuspendTick>
       HAL_PWREx_EnterSTOP1Mode(PWR_STOPENTRY_WFI);
- 80066b4:	2001      	movs	r0, #1
- 80066b6:	f7fb f8d5 	bl	8001864 <HAL_PWREx_EnterSTOP1Mode>
+ 80066c4:	2001      	movs	r0, #1
+ 80066c6:	f7fb f8cd 	bl	8001864 <HAL_PWREx_EnterSTOP1Mode>
       HAL_ResumeTick();
- 80066ba:	f7fa fc09 	bl	8000ed0 <HAL_ResumeTick>
+ 80066ca:	f7fa fc01 	bl	8000ed0 <HAL_ResumeTick>
       break;
- 80066be:	e012      	b.n	80066e6 <FM_MAIN_Main+0xb2>
+ 80066ce:	e012      	b.n	80066f6 <FM_MAIN_Main+0xb2>
     case MODE_STOP_2:
       /*
        * Consumo 17.38uA
        */
       HAL_SuspendTick();
- 80066c0:	f7fa fbf6 	bl	8000eb0 <HAL_SuspendTick>
+ 80066d0:	f7fa fbee 	bl	8000eb0 <HAL_SuspendTick>
       HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
- 80066c4:	2001      	movs	r0, #1
- 80066c6:	f7fb f8f9 	bl	80018bc <HAL_PWREx_EnterSTOP2Mode>
+ 80066d4:	2001      	movs	r0, #1
+ 80066d6:	f7fb f8f1 	bl	80018bc <HAL_PWREx_EnterSTOP2Mode>
       HAL_ResumeTick();
- 80066ca:	f7fa fc01 	bl	8000ed0 <HAL_ResumeTick>
+ 80066da:	f7fa fbf9 	bl	8000ed0 <HAL_ResumeTick>
       break;
- 80066ce:	e00a      	b.n	80066e6 <FM_MAIN_Main+0xb2>
+ 80066de:	e00a      	b.n	80066f6 <FM_MAIN_Main+0xb2>
     case MODE_STOP_3:
       HAL_PWREx_EnterSTOP3Mode(PWR_STOPENTRY_WFI);
- 80066d0:	2001      	movs	r0, #1
- 80066d2:	f7fb f91f 	bl	8001914 <HAL_PWREx_EnterSTOP3Mode>
+ 80066e0:	2001      	movs	r0, #1
+ 80066e2:	f7fb f917 	bl	8001914 <HAL_PWREx_EnterSTOP3Mode>
       break;
- 80066d6:	e006      	b.n	80066e6 <FM_MAIN_Main+0xb2>
+ 80066e6:	e006      	b.n	80066f6 <FM_MAIN_Main+0xb2>
     case MODE_STANDBY_RTC:
       /*
        * Consumo 11.04uA
        * No se se esta despertando
        */
       HAL_PWR_EnterSTANDBYMode();
- 80066d8:	f7fa ffce 	bl	8001678 <HAL_PWR_EnterSTANDBYMode>
+ 80066e8:	f7fa ffc6 	bl	8001678 <HAL_PWR_EnterSTANDBYMode>
       break;
- 80066dc:	e003      	b.n	80066e6 <FM_MAIN_Main+0xb2>
+ 80066ec:	e003      	b.n	80066f6 <FM_MAIN_Main+0xb2>
     case MODE_STANDBY:
       break;
     case MODE_SHUTDOWN:
       HAL_PWREx_EnterSHUTDOWNMode();
- 80066de:	f7fb f945 	bl	800196c <HAL_PWREx_EnterSHUTDOWNMode>
+ 80066ee:	f7fb f93d 	bl	800196c <HAL_PWREx_EnterSHUTDOWNMode>
       break;
- 80066e2:	e000      	b.n	80066e6 <FM_MAIN_Main+0xb2>
+ 80066f2:	e000      	b.n	80066f6 <FM_MAIN_Main+0xb2>
     default:
       break;
- 80066e4:	bf00      	nop
+ 80066f4:	bf00      	nop
     wakeup_flag = 1;
- 80066e6:	e7b7      	b.n	8006658 <FM_MAIN_Main+0x24>
- 80066e8:	42020000 	.word	0x42020000
- 80066ec:	200000f0 	.word	0x200000f0
- 80066f0:	42020400 	.word	0x42020400
+ 80066f6:	e7b7      	b.n	8006668 <FM_MAIN_Main+0x24>
+ 80066f8:	42020000 	.word	0x42020000
+ 80066fc:	200000f0 	.word	0x200000f0
+ 8006700:	42020400 	.word	0x42020400
 
-080066f4 <HAL_RTCEx_WakeUpTimerEventCallback>:
+08006704 <HAL_RTCEx_WakeUpTimerEventCallback>:
  * @brief  Wake Up Timer callback.
  * @param  hrtc RTC handle
  * @retval None
  */
 void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc)
 {
- 80066f4:	b480      	push	{r7}
- 80066f6:	b083      	sub	sp, #12
- 80066f8:	af00      	add	r7, sp, #0
- 80066fa:	6078      	str	r0, [r7, #4]
+ 8006704:	b480      	push	{r7}
+ 8006706:	b083      	sub	sp, #12
+ 8006708:	af00      	add	r7, sp, #0
+ 800670a:	6078      	str	r0, [r7, #4]
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hrtc);
   wakeup_flag = 0;
- 80066fc:	4b04      	ldr	r3, [pc, #16]	@ (8006710 <HAL_RTCEx_WakeUpTimerEventCallback+0x1c>)
- 80066fe:	2200      	movs	r2, #0
- 8006700:	601a      	str	r2, [r3, #0]
+ 800670c:	4b04      	ldr	r3, [pc, #16]	@ (8006720 <HAL_RTCEx_WakeUpTimerEventCallback+0x1c>)
+ 800670e:	2200      	movs	r2, #0
+ 8006710:	601a      	str	r2, [r3, #0]
 
 }
- 8006702:	bf00      	nop
- 8006704:	370c      	adds	r7, #12
- 8006706:	46bd      	mov	sp, r7
- 8006708:	f85d 7b04 	ldr.w	r7, [sp], #4
- 800670c:	4770      	bx	lr
- 800670e:	bf00      	nop
- 8006710:	200000f0 	.word	0x200000f0
-
-08006714 <memset>:
- 8006714:	4402      	add	r2, r0
- 8006716:	4603      	mov	r3, r0
- 8006718:	4293      	cmp	r3, r2
- 800671a:	d100      	bne.n	800671e <memset+0xa>
+ 8006712:	bf00      	nop
+ 8006714:	370c      	adds	r7, #12
+ 8006716:	46bd      	mov	sp, r7
+ 8006718:	f85d 7b04 	ldr.w	r7, [sp], #4
  800671c:	4770      	bx	lr
- 800671e:	f803 1b01 	strb.w	r1, [r3], #1
- 8006722:	e7f9      	b.n	8006718 <memset+0x4>
+ 800671e:	bf00      	nop
+ 8006720:	200000f0 	.word	0x200000f0
 
-08006724 <__libc_init_array>:
- 8006724:	b570      	push	{r4, r5, r6, lr}
- 8006726:	4d0d      	ldr	r5, [pc, #52]	@ (800675c <__libc_init_array+0x38>)
- 8006728:	2600      	movs	r6, #0
- 800672a:	4c0d      	ldr	r4, [pc, #52]	@ (8006760 <__libc_init_array+0x3c>)
- 800672c:	1b64      	subs	r4, r4, r5
- 800672e:	10a4      	asrs	r4, r4, #2
- 8006730:	42a6      	cmp	r6, r4
- 8006732:	d109      	bne.n	8006748 <__libc_init_array+0x24>
- 8006734:	4d0b      	ldr	r5, [pc, #44]	@ (8006764 <__libc_init_array+0x40>)
- 8006736:	2600      	movs	r6, #0
- 8006738:	4c0b      	ldr	r4, [pc, #44]	@ (8006768 <__libc_init_array+0x44>)
- 800673a:	f000 f817 	bl	800676c <_init>
- 800673e:	1b64      	subs	r4, r4, r5
- 8006740:	10a4      	asrs	r4, r4, #2
- 8006742:	42a6      	cmp	r6, r4
- 8006744:	d105      	bne.n	8006752 <__libc_init_array+0x2e>
- 8006746:	bd70      	pop	{r4, r5, r6, pc}
- 8006748:	f855 3b04 	ldr.w	r3, [r5], #4
- 800674c:	3601      	adds	r6, #1
- 800674e:	4798      	blx	r3
- 8006750:	e7ee      	b.n	8006730 <__libc_init_array+0xc>
- 8006752:	f855 3b04 	ldr.w	r3, [r5], #4
- 8006756:	3601      	adds	r6, #1
- 8006758:	4798      	blx	r3
- 800675a:	e7f2      	b.n	8006742 <__libc_init_array+0x1e>
- 800675c:	0800688c 	.word	0x0800688c
- 8006760:	0800688c 	.word	0x0800688c
- 8006764:	0800688c 	.word	0x0800688c
- 8006768:	08006890 	.word	0x08006890
+08006724 <memset>:
+ 8006724:	4402      	add	r2, r0
+ 8006726:	4603      	mov	r3, r0
+ 8006728:	4293      	cmp	r3, r2
+ 800672a:	d100      	bne.n	800672e <memset+0xa>
+ 800672c:	4770      	bx	lr
+ 800672e:	f803 1b01 	strb.w	r1, [r3], #1
+ 8006732:	e7f9      	b.n	8006728 <memset+0x4>
 
-0800676c <_init>:
- 800676c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 800676e:	bf00      	nop
- 8006770:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 8006772:	bc08      	pop	{r3}
- 8006774:	469e      	mov	lr, r3
- 8006776:	4770      	bx	lr
+08006734 <__libc_init_array>:
+ 8006734:	b570      	push	{r4, r5, r6, lr}
+ 8006736:	4d0d      	ldr	r5, [pc, #52]	@ (800676c <__libc_init_array+0x38>)
+ 8006738:	2600      	movs	r6, #0
+ 800673a:	4c0d      	ldr	r4, [pc, #52]	@ (8006770 <__libc_init_array+0x3c>)
+ 800673c:	1b64      	subs	r4, r4, r5
+ 800673e:	10a4      	asrs	r4, r4, #2
+ 8006740:	42a6      	cmp	r6, r4
+ 8006742:	d109      	bne.n	8006758 <__libc_init_array+0x24>
+ 8006744:	4d0b      	ldr	r5, [pc, #44]	@ (8006774 <__libc_init_array+0x40>)
+ 8006746:	2600      	movs	r6, #0
+ 8006748:	4c0b      	ldr	r4, [pc, #44]	@ (8006778 <__libc_init_array+0x44>)
+ 800674a:	f000 f817 	bl	800677c <_init>
+ 800674e:	1b64      	subs	r4, r4, r5
+ 8006750:	10a4      	asrs	r4, r4, #2
+ 8006752:	42a6      	cmp	r6, r4
+ 8006754:	d105      	bne.n	8006762 <__libc_init_array+0x2e>
+ 8006756:	bd70      	pop	{r4, r5, r6, pc}
+ 8006758:	f855 3b04 	ldr.w	r3, [r5], #4
+ 800675c:	3601      	adds	r6, #1
+ 800675e:	4798      	blx	r3
+ 8006760:	e7ee      	b.n	8006740 <__libc_init_array+0xc>
+ 8006762:	f855 3b04 	ldr.w	r3, [r5], #4
+ 8006766:	3601      	adds	r6, #1
+ 8006768:	4798      	blx	r3
+ 800676a:	e7f2      	b.n	8006752 <__libc_init_array+0x1e>
+ 800676c:	0800689c 	.word	0x0800689c
+ 8006770:	0800689c 	.word	0x0800689c
+ 8006774:	0800689c 	.word	0x0800689c
+ 8006778:	080068a0 	.word	0x080068a0
 
-08006778 <_fini>:
- 8006778:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
- 800677a:	bf00      	nop
- 800677c:	bcf8      	pop	{r3, r4, r5, r6, r7}
- 800677e:	bc08      	pop	{r3}
- 8006780:	469e      	mov	lr, r3
- 8006782:	4770      	bx	lr
+0800677c <_init>:
+ 800677c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 800677e:	bf00      	nop
+ 8006780:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 8006782:	bc08      	pop	{r3}
+ 8006784:	469e      	mov	lr, r3
+ 8006786:	4770      	bx	lr
+
+08006788 <_fini>:
+ 8006788:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 800678a:	bf00      	nop
+ 800678c:	bcf8      	pop	{r3, r4, r5, r6, r7}
+ 800678e:	bc08      	pop	{r3}
+ 8006790:	469e      	mov	lr, r3
+ 8006792:	4770      	bx	lr

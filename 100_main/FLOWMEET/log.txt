@@ -20,3 +20,13 @@
  - Se crea la función FM_DEBUG_Init(), lee el estado de los jumpers al reset y al salir de la configuración.
  - Se Agrega salto de linea en los mensajes de debug FM_DEBUG_UartMsg
  - Agrego archivo power_performace.txt al versionado.
+ 
+ 
+Version 4 (en proceso)
+- Se crea la version de firmware 01.01.04
+ Autor: Daniel H Sagarra
+ Fecha: 29/12/24
+  Modificaciones:
+ - Actualizo a ver de CubeIDE 1.17.0
+ - Migro proyecto 102_stop a version MX 6.13
+ - Creo proyecto 200_pulse counter

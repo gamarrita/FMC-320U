@@ -1,0 +1,4 @@
+../libs/fm_lcd.c:54:6:FM_LCD_Init	1
+../libs/fm_lcd.c:64:6:FM_LCD_PutChar	1
+../libs/fm_lcd.c:79:6:FM_LCD_PutString	6
+../libs/fm_lcd.c:128:6:FM_LCD_PutUnsignedInt32	3

@@ -1,0 +1,9 @@
+../libs/fm_pcf8553.c:202:13:ReadyToSend	1
+../libs/fm_pcf8553.c:216:13:SpiInit	2
+../libs/fm_pcf8553.c:253:6:Blink	1
+../libs/fm_pcf8553.c:271:6:FM_PCF8553_ClearBuffer	2
+../libs/fm_pcf8553.c:285:6:FM_PCF8553_Init	1
+../libs/fm_pcf8553.c:324:6:FM_PCF8553_Refresh	2
+../libs/fm_pcf8553.c:342:6:FM_PCF8553_Reset	1
+../libs/fm_pcf8553.c:361:6:FM_PCF8553_WriteAll	2
+../libs/fm_pcf8553.c:378:6:FM_PC8553_WriteByte	1

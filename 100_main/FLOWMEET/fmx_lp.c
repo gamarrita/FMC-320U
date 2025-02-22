@@ -154,8 +154,8 @@ ULONG FMX_LP_Adjust(void)
 }
 
 /**
- * @brief	Funcion de retardo que simula actividad
- * @note	Esta funcion no va a idle como tx_sleep, esta ultima no serviria para simular actividad.
+ * @brief	Función de retardo que simula actividad
+ * @note	Esta función no va a idle como tx_sleep, esta ultima no serviría para simular actividad.
  * 			HAL_delay, se ve afectada por las interrupciones del RTOS scheduler.
  * @param
  * @retval None
@@ -163,8 +163,7 @@ ULONG FMX_LP_Adjust(void)
 void FMX_LP_Delay(ULONG counter)
 {
   ULONG initial_time = tx_time_get();
-  while ((tx_time_get() - initial_time) < counter)
-    ;
+  while ((tx_time_get() - initial_time) < counter);
 }
 
 // Interrupts

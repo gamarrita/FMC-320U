@@ -95,7 +95,7 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PAPin PAPin PAPin */
+  /*Configure GPIO pins : PCF8553_CE_Pin PCF8553_RESET_Pin MCX_ENABLE_Pin */
   GPIO_InitStruct.Pin = PCF8553_CE_Pin|PCF8553_RESET_Pin|MCX_ENABLE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -112,15 +112,15 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PEPin PEPin PEPin PEPin */
+  /*Configure GPIO pins : KEY_DOWN_Pin KEY_UP_Pin KEY_ENTER_Pin KEY_ESC_Pin */
   GPIO_InitStruct.Pin = KEY_DOWN_Pin|KEY_UP_Pin|KEY_ENTER_Pin|KEY_ESC_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PD8 PD9 PD10 PD11
-                           PD12 PD15 PD0 PDPin
-                           PDPin PD5 PD6 PD7 */
+                           PD12 PD15 PD0 SETUP_3_Pin
+                           SETUP_4_Pin PD5 PD6 PD7 */
   GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11
                           |GPIO_PIN_12|GPIO_PIN_15|GPIO_PIN_0|SETUP_3_Pin
                           |SETUP_4_Pin|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
@@ -128,20 +128,20 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PDPin PDPin */
+  /*Configure GPIO pins : DEBUG_LED_Pin DEBUG_UART_Pin */
   GPIO_InitStruct.Pin = DEBUG_LED_Pin|DEBUG_UART_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PBPin PBPin PBPin */
+  /*Configure GPIO pins : LED_ERROR_Pin LED_ACTIVE_Pin LED_SIGNAL_Pin */
   GPIO_InitStruct.Pin = LED_ERROR_Pin|LED_ACTIVE_Pin|LED_SIGNAL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : PtPin */
+  /*Configure GPIO pin : LED_BACKLIGHT_Pin */
   GPIO_InitStruct.Pin = LED_BACKLIGHT_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;

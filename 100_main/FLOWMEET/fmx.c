@@ -215,9 +215,9 @@ void ThreadEntryMain(ULONG thread_input)
 
 /*
  * @brief	Lee los pulsos acumulados del timer 4, actualiza el conteo de pulsos
- * @note
- * @param	  Parametro pasado al crear el servicio
- * @retval			Ninguno.
+ * @note    Este thread es el único que se ejecuta regularmente, si no hay interrupción ira a idle 1 segundo.
+ * @param	Parámetro pasado al crear el servicio.
+ * @retval	Ninguno.
  *
  */
 void ThreadEntryPulseUpdate(ULONG thread_input)
@@ -230,8 +230,13 @@ void ThreadEntryPulseUpdate(ULONG thread_input)
   uint16_t counter_new = 0;
   uint16_t counter_old = 0;
 
+  char debug__msg_1[] = "lptim4=";
+
   for (;;)
   {
+
+//    lptim3_capture = LPTIM3->CCR1;
+//     lptim4_counter = LPTIM4->CNT;
 
     capture_old = capture_new;
     capture_new = lptim3_capture;
@@ -240,6 +245,9 @@ void ThreadEntryPulseUpdate(ULONG thread_input)
     counter_old = counter_new;
     counter_new = lptim4_counter;
     counter_delta = (counter_new - counter_old);
+
+    FM_DEBUG_UartMsg(debug__msg_1, sizeof(debug__msg_1));
+    FM_DEBUG_UartUint16(LPTIM4->CNT);
 
     FM_FMC_PulseAdd(counter_delta);
 
@@ -264,7 +272,6 @@ void ThreadEntryPulseUpdate(ULONG thread_input)
     // Evento para refrescar la pantalla.
     tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
 
-    // Este thread es el unico que se ejecuta regularmente, si no hay interrupción ira a idle 1 segundo.
     tx_thread_sleep(102); // Se ajusto a 102 para tener 1 segundo aproximadamente.
 
     /*
@@ -273,7 +280,7 @@ void ThreadEntryPulseUpdate(ULONG thread_input)
      * en stop mode, habilito la interrupción, en el proximo flanco se tomara nota del contador
      * del LPTIM 3 y de los pulsos acumulados del sensor primario en el LPTIM 4. Tendremos cantidad
      * de pulsos del sensor primario y la cantidad de pulsos de 32768Hz dentro de estos. Con los
-     * datos anteriores se puede calcular la frecuencia con resoluciond de 0.1Hz.
+     * datos anteriores se puede calcular la frecuencia con resolución de 0.1Hz.
      */
     __HAL_LPTIM_ENABLE_IT(&hlptim3, LPTIM_IT_CC1);
   }
