@@ -17,6 +17,8 @@
 #include "fm_logger.h"
 #include "fm_rtc.h"
 #include "main.h"
+#include "fm_mxc.h"
+
 
 // Typedef.
 
@@ -77,6 +79,8 @@ void FM_INIT_Init()
 
   FM_DEBUG_Init();
 
+  FM_MXC_PowerOff();
+
   // El CubeMX configura el LPTIM pero es mi responsabilidad que arranque
   if (HAL_LPTIM_Counter_Start(&hlptim1) != HAL_OK)
   {
@@ -127,6 +131,9 @@ void FM_INIT_Init()
     }
   }
   FM_DEBUG_UartUint32(chip_info.reset_counter);
+
+
+
   FM_FLASH_NewReset(); // Registra un nuevo reset, por cualquier motivo.
 }
 

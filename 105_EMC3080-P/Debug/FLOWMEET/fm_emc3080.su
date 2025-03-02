@@ -1,4 +1,0 @@
-../FLOWMEET/fm_emc3080.c:48:6:FM_EMC3080_Power	16	static
-../FLOWMEET/fm_emc3080.c:60:6:FM_EMC3080_Msg	24	static
-../FLOWMEET/fm_emc3080.c:83:6:FM_EMC3080_Plus	16	static
-../FLOWMEET/fm_emc3080.c:90:6:FM_EMC3080_Standby	24	static

@@ -77,8 +77,10 @@ void Error_Handler(void);
 #define KEY_ESC_Pin GPIO_PIN_13
 #define KEY_ESC_GPIO_Port GPIOE
 #define KEY_ESC_EXTI_IRQn EXTI13_IRQn
-#define MCX_ENABLE_Pin GPIO_PIN_8
-#define MCX_ENABLE_GPIO_Port GPIOA
+#define MXC_ON_Pin GPIO_PIN_8
+#define MXC_ON_GPIO_Port GPIOC
+#define MXC_ENABLE_Pin GPIO_PIN_8
+#define MXC_ENABLE_GPIO_Port GPIOA
 #define DEBUG_LED_Pin GPIO_PIN_1
 #define DEBUG_LED_GPIO_Port GPIOD
 #define DEBUG_UART_Pin GPIO_PIN_2

@@ -23,7 +23,7 @@
 ../libs/fm_fmc.c:419:20:FM_FMC_TotalizerTimeUnitGet	1
 ../libs/fm_fmc.c:427:14:FM_FMC_TotalizerTimeUnitSet	2
 ../libs/fm_fmc.c:450:6:FM_FMC_TtlReset	1
-../libs/fm_fmc.c:459:9:FM_FMC_TotalizerFpSelGet	1
-../libs/fm_fmc.c:467:6:FM_FMC_TotalizerFpInc	2
-../libs/fm_fmc.c:484:6:FM_FMC_TotalizerStrUnitGet	1
-../libs/fm_fmc.c:495:6:FM_FMC_TotalizerTimeUnitSel	6
+../libs/fm_fmc.c:464:9:FM_FMC_TotalizerFpSelGet	1
+../libs/fm_fmc.c:472:6:FM_FMC_TotalizerFpInc	2
+../libs/fm_fmc.c:489:6:FM_FMC_TotalizerStrUnitGet	1
+../libs/fm_fmc.c:500:6:FM_FMC_TotalizerTimeUnitSel	6

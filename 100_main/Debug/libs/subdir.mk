@@ -13,6 +13,7 @@ C_SRCS += \
 ../libs/fm_lcd.c \
 ../libs/fm_lcd_ll.c \
 ../libs/fm_logger.c \
+../libs/fm_mxc.c \
 ../libs/fm_pcf8553.c \
 ../libs/fm_rtc.c 
 
@@ -25,6 +26,7 @@ OBJS += \
 ./libs/fm_lcd.o \
 ./libs/fm_lcd_ll.o \
 ./libs/fm_logger.o \
+./libs/fm_mxc.o \
 ./libs/fm_pcf8553.o \
 ./libs/fm_rtc.o 
 
@@ -37,6 +39,7 @@ C_DEPS += \
 ./libs/fm_lcd.d \
 ./libs/fm_lcd_ll.d \
 ./libs/fm_logger.d \
+./libs/fm_mxc.d \
 ./libs/fm_pcf8553.d \
 ./libs/fm_rtc.d 
 
@@ -48,7 +51,7 @@ libs/%.o libs/%.su libs/%.cyclo: ../libs/%.c libs/subdir.mk
 clean: clean-libs
 
 clean-libs:
-	-$(RM) ./libs/fm_backup.cyclo ./libs/fm_backup.d ./libs/fm_backup.o ./libs/fm_backup.su ./libs/fm_debug.cyclo ./libs/fm_debug.d ./libs/fm_debug.o ./libs/fm_debug.su ./libs/fm_factory.cyclo ./libs/fm_factory.d ./libs/fm_factory.o ./libs/fm_factory.su ./libs/fm_flash.cyclo ./libs/fm_flash.d ./libs/fm_flash.o ./libs/fm_flash.su ./libs/fm_fmc.cyclo ./libs/fm_fmc.d ./libs/fm_fmc.o ./libs/fm_fmc.su ./libs/fm_lcd.cyclo ./libs/fm_lcd.d ./libs/fm_lcd.o ./libs/fm_lcd.su ./libs/fm_lcd_ll.cyclo ./libs/fm_lcd_ll.d ./libs/fm_lcd_ll.o ./libs/fm_lcd_ll.su ./libs/fm_logger.cyclo ./libs/fm_logger.d ./libs/fm_logger.o ./libs/fm_logger.su ./libs/fm_pcf8553.cyclo ./libs/fm_pcf8553.d ./libs/fm_pcf8553.o ./libs/fm_pcf8553.su ./libs/fm_rtc.cyclo ./libs/fm_rtc.d ./libs/fm_rtc.o ./libs/fm_rtc.su
+	-$(RM) ./libs/fm_backup.cyclo ./libs/fm_backup.d ./libs/fm_backup.o ./libs/fm_backup.su ./libs/fm_debug.cyclo ./libs/fm_debug.d ./libs/fm_debug.o ./libs/fm_debug.su ./libs/fm_factory.cyclo ./libs/fm_factory.d ./libs/fm_factory.o ./libs/fm_factory.su ./libs/fm_flash.cyclo ./libs/fm_flash.d ./libs/fm_flash.o ./libs/fm_flash.su ./libs/fm_fmc.cyclo ./libs/fm_fmc.d ./libs/fm_fmc.o ./libs/fm_fmc.su ./libs/fm_lcd.cyclo ./libs/fm_lcd.d ./libs/fm_lcd.o ./libs/fm_lcd.su ./libs/fm_lcd_ll.cyclo ./libs/fm_lcd_ll.d ./libs/fm_lcd_ll.o ./libs/fm_lcd_ll.su ./libs/fm_logger.cyclo ./libs/fm_logger.d ./libs/fm_logger.o ./libs/fm_logger.su ./libs/fm_mxc.cyclo ./libs/fm_mxc.d ./libs/fm_mxc.o ./libs/fm_mxc.su ./libs/fm_pcf8553.cyclo ./libs/fm_pcf8553.d ./libs/fm_pcf8553.o ./libs/fm_pcf8553.su ./libs/fm_rtc.cyclo ./libs/fm_rtc.d ./libs/fm_rtc.o ./libs/fm_rtc.su
 
 .PHONY: clean-libs
 

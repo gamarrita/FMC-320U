@@ -20,7 +20,6 @@
 #include "main.h"
 #include "icache.h"
 #include "memorymap.h"
-#include "rtc.h"
 #include "usart.h"
 #include "gpio.h"
 
@@ -82,11 +81,11 @@ int main(void)
 
   /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
-
   /* Configure the System Power */
   SystemPower_Config();
+
+  /* Configure the system clock */
+  SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
 
@@ -95,8 +94,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_ICACHE_Init();
-  MX_RTC_Init();
   MX_USART3_UART_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -131,12 +130,10 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB buses clocks
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_MSI;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_1;
-  RCC_OscInitStruct.LSIDiv = RCC_LSI_DIV1;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -171,14 +168,6 @@ static void SystemPower_Config(void)
    * Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
    */
   HAL_PWREx_DisableUCPDDeadBattery();
-
-  /*
-   * Switch to SMPS regulator instead of LDO
-   */
-  if (HAL_PWREx_ConfigSupply(PWR_SMPS_SUPPLY) != HAL_OK)
-  {
-    Error_Handler();
-  }
 /* USER CODE BEGIN PWR */
 /* USER CODE END PWR */
 }

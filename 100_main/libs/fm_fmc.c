@@ -454,7 +454,12 @@ void FM_FMC_TtlReset()
 }
 
 /*
- * @brief
+ * @brief   Devuelve la posición del punto fijo para la medición de volumen.
+ * @note    El usuario del computador de caudales puede elegir con cuantos puntos decimales se muestran los
+ *          los valores del ACM y TTL. Esta funcion retorna esta informacion para que se puedan formatear
+ *          correctamente los datos.
+ * @param   Ninguno
+ * @retval  0,1,2,3, son la cantidad decimales possibles.
  */
 uint8_t FM_FMC_TotalizerFpSelGet()
 {
