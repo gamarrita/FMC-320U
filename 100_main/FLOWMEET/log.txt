@@ -20,3 +20,9 @@
  - Se crea la función FM_DEBUG_Init(), lee el estado de los jumpers al reset y al salir de la configuración.
  - Se Agrega salto de linea en los mensajes de debug FM_DEBUG_UartMsg
  - Agrego archivo power_performace.txt al versionado.
+ 
+ Version 4
+ - Se crea la version de firmware 01.01.04
+ - Modifica la froma en que se cuentan los pulsos
+ - Se crean librerias para conectar por bluettoth e imprimir
+ 

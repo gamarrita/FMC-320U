@@ -223,34 +223,44 @@ void ThreadEntryMain(ULONG thread_input)
 void ThreadEntryPulseUpdate(ULONG thread_input)
 {
   uint8_t blink_point = 0;
-  uint16_t capture_delta;
-  uint16_t capture_new = 0;
-  uint16_t capture_old = 0;
-  uint16_t counter_delta;
-  uint16_t counter_new = 0;
-  uint16_t counter_old = 0;
+
+  uint16_t rate_tick_delta;   // Período medido en n pulsos, el LPTIM3 mide ticks de clock 32769hz
+  uint16_t rate_tick_new = 0;     // Ultima captura del LPTIM3.
+  uint16_t rate_tick_old = 0;
+
+  uint16_t rate_pulse_delta;   // Cantidad de pulsos entre captura, los n pulsos medidos en rate_tick_delta.
+  uint16_t rate_pulse_new = 0;
+  uint16_t rate_pulse_old = 0;
+
+  uint16_t vol_pulse_delta;     // Pulsos que se traducirían a volumen.
+  uint16_t vol_pulse_new = 0;
+  uint16_t vol_pulse_old = 0;
 
   for (;;)
   {
 
-    capture_old = capture_new;
-    capture_new = lptim3_capture;
-    capture_delta = (capture_new - capture_old);
+    rate_tick_old = rate_tick_new;
+    rate_tick_new = lptim3_capture;
+    rate_tick_delta = (rate_tick_new - rate_tick_old);
 
-    counter_old = counter_new;
-    counter_new = lptim4_counter;
-    counter_delta = (counter_new - counter_old);
+    rate_pulse_old = rate_pulse_new;
+    rate_pulse_new = lptim4_counter;
+    rate_pulse_delta = (rate_pulse_new - rate_pulse_old);
 
-    FM_FMC_PulseAdd(counter_delta);
+    vol_pulse_old = vol_pulse_new;
+    vol_pulse_new = LPTIM4->CNT;
+    vol_pulse_delta = (vol_pulse_new - vol_pulse_old);
 
-    FM_FMC_CaptureSet(counter_delta, capture_delta);
+    FM_FMC_PulseAdd(vol_pulse_delta);
+
+    FM_FMC_CaptureSet(rate_pulse_delta, rate_tick_delta);
 
     FM_FMC_TtlCalc();
     FM_FMC_AcmCalc();
     FM_FMC_RateCalc();
 
     // Parpadeo del segmento testigo si se reciben pulsos del sensor primario
-    if (capture_delta && blink_point)
+    if (vol_pulse_new)//rate_pulse_delta && blink_point)
     {
       FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_POINT, 1);
       blink_point = 0;

@@ -1,8 +1,8 @@
 ../FLOWMEET/fmx.c:99:6:FMX_Init	64	static,ignoring_inline_asm
 ../FLOWMEET/fmx.c:175:6:ThreadEntryMain	32	static
-../FLOWMEET/fmx.c:223:6:ThreadEntryPulseUpdate	32	static
-../FLOWMEET/fmx.c:289:6:TimerEntryKeyThreeSeconds	16	static
-../FLOWMEET/fmx.c:321:6:TimerEntryBackLightOff	16	static
-../FLOWMEET/fmx.c:339:6:HAL_GPIO_EXTI_Falling_Callback	16	static
-../FLOWMEET/fmx.c:415:6:HAL_GPIO_EXTI_Rising_Callback	16	static
-../FLOWMEET/fmx.c:442:6:HAL_LPTIM_IC_CaptureCallback	16	static
+../FLOWMEET/fmx.c:223:6:ThreadEntryPulseUpdate	40	static
+../FLOWMEET/fmx.c:299:6:TimerEntryKeyThreeSeconds	16	static
+../FLOWMEET/fmx.c:331:6:TimerEntryBackLightOff	16	static
+../FLOWMEET/fmx.c:349:6:HAL_GPIO_EXTI_Falling_Callback	16	static
+../FLOWMEET/fmx.c:425:6:HAL_GPIO_EXTI_Rising_Callback	16	static
+../FLOWMEET/fmx.c:452:6:HAL_LPTIM_IC_CaptureCallback	16	static

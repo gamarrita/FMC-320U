@@ -100,7 +100,7 @@ void FM_INIT_Init()
   __HAL_RCC_LPTIM3_CLKAM_ENABLE();
   __HAL_RCC_LPTIM4_CLKAM_ENABLE();
 
-  // Habilito la RAM BACKUP antes de usarla.
+  // Habilito la RAM BACKUP antes de usar.
   FM_BACKUP_Init();
 
   chip_info = FM_FLASH_ChipInfoRead();
