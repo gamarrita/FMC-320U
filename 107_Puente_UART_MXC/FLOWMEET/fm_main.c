@@ -83,20 +83,6 @@ void FM_MAIN_Main()
 
 // Interrupts
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-  if(huart == &huart1)
-  {
-    HAL_UART_Transmit_IT(&huart3, &uart_rx_char, 1);
-    HAL_UART_Receive_IT(&huart1, &uart_rx_char, 1);
-  }
-
-  if(huart == &huart3)
-  {
-    HAL_UART_Transmit_IT(&huart1, &mxc_rx_char, 1);
-    HAL_UART_Receive_IT(&huart3, &mxc_rx_char, 1);
-  }
-}
 
 /*** end of file ***/
 

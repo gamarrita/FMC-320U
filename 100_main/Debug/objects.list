@@ -221,5 +221,6 @@
 "./libs/fm_lcd.o"
 "./libs/fm_lcd_ll.o"
 "./libs/fm_logger.o"
+"./libs/fm_mxc.o"
 "./libs/fm_pcf8553.o"
 "./libs/fm_rtc.o"

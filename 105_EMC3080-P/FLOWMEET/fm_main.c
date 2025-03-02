@@ -1,4 +1,3 @@
-
 /*
  * @brief
  *
@@ -8,12 +7,11 @@
  */
 
 // Includes.
-#include <fm_mxc.h>
-#include "fm_main.h"
 #include "main.h"
+#include "fm_mxc.h"
+#include "fm_main.h"
 #include "string.h"
-
-
+#include "fm_debug.h"
 
 // Typedef.
 
@@ -47,28 +45,23 @@ extern UART_HandleTypeDef huart3;
  */
 void FM_MAIN_Main()
 {
-  char msg_power_on[] = "FM_MAIN_Main\n";
+  FM_DEBUG_Init();
 
-  HAL_UART_Transmit(&huart1, (uint8_t *)msg_power_on, strlen(msg_power_on), 10);
-
-  FM_MXC_InitPtr();
-
-  for(int i = 0; i < 3 ;i++)
+  for (int n = 1; n; n--)
   {
-    HAL_UART_Transmit_IT(&huart3, (uint8_t *)msg_power_on, strlen(msg_power_on));
-    HAL_Delay(1000);
+    FM_MXC_PowerOn();
+    FM_MXC_BTConnect();
+    FM_MXC_Print("FLOWMEET\r\n");
+    FM_MXC_PowerOff();
   }
 
-  for(;;)
-    {
-      HAL_GPIO_TogglePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin);
-      HAL_Delay(1000);
-    }
+
+  HAL_SuspendTick();
+  HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
+  HAL_ResumeTick();
 }
 
 // Interrupts
 
-
 /*** end of file ***/
-
 

@@ -18,6 +18,7 @@
 #include "fm_factory.h"
 #include "fm_logger.h"
 #include "fm_rtc.h"
+#include "fm_mxc.h"
 
 // Typedef.
 
@@ -30,6 +31,7 @@ typedef enum
   MENU_USER_VERSION,
   MENU_USER_TTL_RATE,
   MENU_USER_ACM_RATE,
+  MENU_USER_PRINT_ACM,
   MENU_USER_DATE_TIME,
   MENU_USER_END,
 } enum_menu_user;
@@ -54,15 +56,22 @@ char userline_3[3];
 
 // Private function prototypes.
 
+/*
+ * Los siguientes prototipos se ordenan de la forma que se recorren en el menu, no alfabético. El mismo orden
+ * se usa para los cuerpos de las funciones.
+ */
+void MenuUserPowerOnEntry();
+void MenuUserVersionEntry();
+void MenuUserTtlRateEntry();
+void MenuUserTtlRateRefresh();
 void MenuUserAcmRateEntry();
 void MenuUserAcmRateRefresh();
 void MenuUserRateRefresh();
+void MenuUserPrintAcmEntry();
+void MenuUserPrintAcmRefresh();
 void MenuUserClockEntry();
 void MenuUserClockRefresh();
-void MenuUserPowerOnEntry();
-void MenuUserTtlRateEntry();
-void MenuUserTtlRateRefresh();
-void MenuUserVersionEntry();
+
 
 // Private function bodies.
 
@@ -252,6 +261,49 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
       break;
     }
     break;
+  case MENU_USER_PRINT_ACM:
+    if (!entry_counter)
+    {
+      entry_counter++;
+      MenuUserPrintAcmEntry();
+    }
+    switch (this_event)
+    {
+    case FMX_EVENT_REFRESH:
+      MenuUserPrintAcmRefresh();
+      break;
+    case FMX_EVENT_KEY_DOWN:
+      entry_counter = 0;
+      menu_index++;
+      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      break;
+    case FMX_EVENT_KEY_UP:
+      entry_counter = 0;
+      menu_index--;
+      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      break;
+    case FMX_EVENT_KEY_ESC:
+      FM_MXC_PowerOn();
+      FM_MXC_BTConnect();
+      FM_MXC_Print("FLOWMEET SRL\n\r");
+      FM_MXC_PowerOff();
+      break;
+    case FMX_EVENT_KEY_ENTER:
+      break;
+    case FMX_EVENT_KEY_DOWN_LONG:
+      break;
+    case FMX_EVENT_KEY_UP_LONG:
+      break;
+    case FMX_EVENT_KEY_ESC_LONG:
+      break;
+    case FMX_EVENT_KEY_ENTER_LONG:
+      FM_FMC_AcmReset();
+      break;
+    default:
+      FM_DEBUG_LedError(1);
+      break;
+    }
+    break;
   case MENU_USER_DATE_TIME:
     if (!entry_counter)
     {
@@ -311,7 +363,6 @@ void MenuUserPowerOnEntry()
   const char msg_debug_power_on[] = "power on entry";
 
   FM_DEBUG_UartMsg(msg_debug_power_on, sizeof(msg_debug_power_on));
-
 
   // Enciendo todos los segmentos de LCD para verifica que funcionen
   FM_LCD_Init(0xff);
@@ -536,8 +587,69 @@ void MenuUserRateRefresh()
   }
 
   FM_LCD_PutString(user_line_2, FM_LCD_LL_ROW_2_COLS, FM_LCD_LL_ROW_2);
-
   FM_DEBUG_UartMsg(user_line_2, strlen(user_line_2));
+}
+
+/*
+ * @brief
+ * @note
+ * @param
+ * @retval
+ */
+void MenuUserPrintAcmEntry()
+{
+  FM_LCD_LL_Clear();
+  FM_LCD_LL_BlinkClear();
+
+  FM_LCD_LL_PutChar_1('P');
+  FM_LCD_LL_PutChar_2('R');
+
+  // Escribo en memoria shadow de pantalla los símbolos de este menu.
+  FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_ACM_2, 1);
+
+}
+
+/*
+ * @brief   Pantalla para impresión de tickets.
+ * @note
+ * @param   Ninguno.
+ * @retval  Ninguno.
+ */
+void MenuUserPrintAcmRefresh()
+{
+  ufp3_t acm;
+  uint32_t p_integer;       // parte entera
+  uint32_t p_frac;  // parte fracional
+  int sel;
+
+  //
+  acm = FM_FMC_AcmGet();
+  sel = FM_FMC_TotalizerFpSelGet();
+
+  p_integer = acm / 1000;
+  p_frac = acm % 1000;
+
+  switch (sel)
+  {
+  case FM_FMC_FP_SEL_0:
+    snprintf(user_line_1, sizeof(user_line_1), "%8lu", p_integer);
+    break;
+  case FM_FMC_FP_SEL_1:
+    p_frac /= 100;
+    snprintf(user_line_1, sizeof(user_line_1), "%7lu.%1lu", p_integer, p_frac);
+    break;
+  case FM_FMC_FP_SEL_2:
+    p_frac /= 10;
+    snprintf(user_line_1, sizeof(user_line_1), "%6lu.%02lu", p_integer, p_frac);
+    break;
+  case FM_FMC_FP_SEL_3:
+    snprintf(user_line_1, sizeof(user_line_1), "%5lu.%03lu", p_integer, p_frac);
+    break;
+  default:
+    FM_DEBUG_LedError(1);
+    break;
+  }
+  FM_LCD_PutString(user_line_1, FM_LCD_LL_ROW_1_COLS, FM_LCD_LL_ROW_1);
 }
 
 /*

@@ -45,7 +45,8 @@ FLOWMEET/fm_init.o: ../FLOWMEET/fm_init.c \
  ../Middlewares/ST/threadx/ports/cortex_m33/gnu/inc/tx_port.h \
  ../Core/Inc/tx_user.h ../FLOWMEET/fm_init.h \
  D:/githubs/FMC-320U/100_main/libs/fm_logger.h \
- D:/githubs/FMC-320U/100_main/libs/fm_rtc.h
+ D:/githubs/FMC-320U/100_main/libs/fm_rtc.h \
+ D:/githubs/FMC-320U/100_main/libs/fm_mxc.h
 D:/githubs/FMC-320U/100_main/libs/fm_backup.h:
 D:/githubs/FMC-320U/100_main/libs/fm_debug.h:
 ../Core/Inc/main.h:
@@ -96,3 +97,4 @@ D:/githubs/FMC-320U/100_main/FLOWMEET/fmx.h:
 ../FLOWMEET/fm_init.h:
 D:/githubs/FMC-320U/100_main/libs/fm_logger.h:
 D:/githubs/FMC-320U/100_main/libs/fm_rtc.h:
+D:/githubs/FMC-320U/100_main/libs/fm_mxc.h:

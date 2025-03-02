@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define MXC_ON_Pin GPIO_PIN_8
+#define MXC_ON_GPIO_Port GPIOC
 #define MXC_ENABLE_Pin GPIO_PIN_8
 #define MXC_ENABLE_GPIO_Port GPIOA
 #define DEBUG_LED_Pin GPIO_PIN_1
