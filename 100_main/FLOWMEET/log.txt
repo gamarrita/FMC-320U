@@ -26,3 +26,9 @@
  - Modifica la froma en que se cuentan los pulsos
  - Se crean librerias para conectar por bluettoth e imprimir
  
+ Version 5
+ - Se crea la version de firmware 01.01.05
+ - Verifico conteo de pulos: NO TESTEADO
+ - Verifico consumo: OK
+ - Verifico impresion de tickets:OK
+ 

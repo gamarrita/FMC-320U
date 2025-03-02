@@ -222,8 +222,6 @@ void ThreadEntryMain(ULONG thread_input)
  */
 void ThreadEntryPulseUpdate(ULONG thread_input)
 {
-  uint8_t blink_point = 0;
-
   uint16_t rate_tick_delta;   // Período medido en n pulsos, el LPTIM3 mide ticks de clock 32769hz
   uint16_t rate_tick_new = 0;     // Ultima captura del LPTIM3.
   uint16_t rate_tick_old = 0;
@@ -263,12 +261,10 @@ void ThreadEntryPulseUpdate(ULONG thread_input)
     if (vol_pulse_new)//rate_pulse_delta && blink_point)
     {
       FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_POINT, 1);
-      blink_point = 0;
     }
     else
     {
       FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_POINT, 0);
-      blink_point = 1;
     }
 
     // Evento para refrescar la pantalla.
