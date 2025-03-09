@@ -34,6 +34,7 @@ typedef enum
 // Defines.
 
 // Function prototypes
+void FM_RTC_GetPpt(char *time_str, char *date_str);
 void FM_RTC_Gets(char *time, char *data);
 void FM_RTC_Set(fm_rtc_set_t sel, uint8_t mode);
 void FM_RTC_Init();

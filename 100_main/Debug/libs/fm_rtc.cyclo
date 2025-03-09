@@ -1,3 +1,4 @@
 ../libs/fm_rtc.c:43:6:FM_RTC_Gets	1
-../libs/fm_rtc.c:64:6:FM_RTC_Set	27
-../libs/fm_rtc.c:189:6:FM_RTC_Init	3
+../libs/fm_rtc.c:61:6:FM_RTC_GetPpt	1
+../libs/fm_rtc.c:84:6:FM_RTC_Set	27
+../libs/fm_rtc.c:209:6:FM_RTC_Init	3

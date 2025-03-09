@@ -74,6 +74,11 @@ fm_fmc_vol_data_t vol_unit_list[] =
 
 // Global variables, statics.
 
+/*
+ * La siguiente variable se guarda en la RAM de Backup, esta mantenida por la batería CR2032.
+ * Al momento es la única variable de este tipo, de crear mas variables de este tipo se debera verificar
+ * espacio disponible en RAM, se cuenta con solamente 2K disponibles en RAM_BACKUP_Section.
+ */
 fm_fmc_totalizer_t totalizer __attribute__((section(".RAM_BACKUP_Section")));
 
 // Private function prototypes.
@@ -530,6 +535,12 @@ void FM_FMC_TotalizerTimeUnitSel(fm_fmc_time_unit_t sel)
     break;
   }
 }
+
+uint16_t FM_FMC_TicketNumberGet()
+{
+  return totalizer.ticket_number;
+}
+
 
 // Interrupts
 

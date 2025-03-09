@@ -47,7 +47,8 @@ FLOWMEET/fm_user.o: ../FLOWMEET/fm_user.c ../FLOWMEET/fm_user.h \
  D:/githubs/FMC-320U/100_main/libs/fm_fmc.h \
  D:/githubs/FMC-320U/100_main/libs/fm_logger.h \
  D:/githubs/FMC-320U/100_main/libs/fm_rtc.h \
- D:/githubs/FMC-320U/100_main/libs/fm_mxc.h
+ D:/githubs/FMC-320U/100_main/libs/fm_mxc.h \
+ D:/githubs/FMC-320U/100_main/libs/fm_ppt.h
 ../FLOWMEET/fm_user.h:
 D:/githubs/FMC-320U/100_main/libs/fm_fmc.h:
 D:/githubs/FMC-320U/100_main/libs/fm_lcd_ll.h:
@@ -101,3 +102,4 @@ D:/githubs/FMC-320U/100_main/libs/fm_fmc.h:
 D:/githubs/FMC-320U/100_main/libs/fm_logger.h:
 D:/githubs/FMC-320U/100_main/libs/fm_rtc.h:
 D:/githubs/FMC-320U/100_main/libs/fm_mxc.h:
+D:/githubs/FMC-320U/100_main/libs/fm_ppt.h:

@@ -17,7 +17,7 @@
 // Typedef.
 
 // Const data.
-const char msg_version_firmware[] = "01.02.01"; // Version.Revision.Release
+const char msg_version_firmware[] = "01.01.06"; // Version.Revision.Release
 
 /*
  *  Esta constante se usa en dos situaciones:
@@ -38,10 +38,11 @@ const fm_fmc_totalizer_t sensor_0 =
     .time_unit = TIME_UNIT_SECOND,
     .rate.factor_r = 1000,
     .rate.rate_pf_sel = 0,
-    .rate.limit_high = 1500000, // frecuencia maxima 1500Hz
-    .rate.limit_low = 250, // frecuencia minima 0,1 Hzz
+    .rate.limit_high = 1500000, // frecuencia máxima 1500Hz
+    .rate.limit_low = 250, // frecuencia minima 0,1 Hz
     .rate.delta_t = 1000, // filtro un segundo
     .rate.filter = 1, // filtro un segundo
+    .ticket_number = 1,
     };
 
 // Valor típicos para un sensor Serie AI DN25, turbina axial diámetro interno 1" paso total.
@@ -56,10 +57,11 @@ const fm_fmc_totalizer_t sensor_ai_25 =
     .time_unit = TIME_UNIT_SECOND,
     .rate.factor_r = 1000,
     .rate.rate_pf_sel = 3,
-    .rate.limit_high = 1500000, // frecuencia maxima 1500Hz
-    .rate.limit_low = 250, // frecuencia minima 0,1 Hzz
+    .rate.limit_high = 1500000, // frecuencia máxima 1500Hz
+    .rate.limit_low = 250, // frecuencia minima 0,1 Hz
     .rate.delta_t = 1000, // filtro un segundo
     .rate.filter = 1, // filtro un segundo
+    .ticket_number = 1,
     };
 
 // Valor típicos para un sensor Serie AI DN80, turbina axial diámetro interno 3" paso total.
@@ -74,10 +76,11 @@ const fm_fmc_totalizer_t sensor_ai_80 =
     .time_unit = TIME_UNIT_SECOND,
     .rate.factor_r = 1000,
     .rate.rate_pf_sel = 3,
-    .rate.limit_high = 1500000, // frecuencia maxima 1500Hz
-    .rate.limit_low = 250, // frecuencia minima 0,1 Hzz
+    .rate.limit_high = 1500000, // frecuencia máxima 1500Hz
+    .rate.limit_low = 250, // frecuencia minima 0,1 Hz
     .rate.delta_t = 1000, // filtro un segundo
     .rate.filter = 1, // filtro un segundo
+    .ticket_number = 1,
     };
 
 // Defines.
@@ -108,9 +111,12 @@ const char* FM_FACTORY_FirmwareVersionGet(void)
 }
 
 /*
- Se tienen almacenados en flash diferentes conjuntos de variables del
- tipo fm_fmc_totalizer, cada conjunto tiene diferentes propósitos. Leer
- cada uno en su declaración.
+ * brief    Devuelve los valores de fabrica para un sensor estándar.
+ * note     En este mismo archivo se tienen valores típicos para varios sensores primarios, esto permite
+ *          poder hacer pruebas con valores típicos que serian usados en la vida real del caudalímetro. sin
+ *          Que luego de grabar la flash se tengan valores reales es util durante la etapa de desarrollo.
+ * param    sel, modelo de sensor elegido como valores iniciales de configuración.
+ * ret      Configuración inicial.
  */
 fm_fmc_totalizer_t FM_FACTORY_TotalizerGet(sensors_list_t sel)
 {

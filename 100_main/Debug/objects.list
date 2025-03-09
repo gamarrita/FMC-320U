@@ -223,4 +223,5 @@
 "./libs/fm_logger.o"
 "./libs/fm_mxc.o"
 "./libs/fm_pcf8553.o"
+"./libs/fm_ppt.o"
 "./libs/fm_rtc.o"

@@ -1,8 +1,4 @@
 /*
- *
- * Author: DHS
- * Version:  1.1
- * 
  * @brief Uso de la BACKUP RAM
  *
  * La BACKUP RAM, es un bolque de memoria ram que se puede mantener alimentado con una bateria
@@ -48,7 +44,7 @@
  * Versión 1
  * Autor: Daniel H Sagarra
  * Fecha: 08/09/2024
- * Modificaciones: version inicial.
+ * - Version inicial.
  * 
  */
 

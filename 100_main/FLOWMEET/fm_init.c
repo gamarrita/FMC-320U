@@ -137,19 +137,6 @@ void FM_INIT_Init()
   FM_FLASH_NewReset(); // Registra un nuevo reset, por cualquier motivo.
 }
 
-
-/*
- * @brief
- * @param
- * @retval
- *
- */
-void FM_INIT_Setup()
-{
-
-}
-
-
 // Interrupts
 
 /*** end of file ***/

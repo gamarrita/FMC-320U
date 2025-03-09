@@ -36,7 +36,7 @@ extern RTC_HandleTypeDef hrtc;
 // Public function bodies.
 
 /*
- * 	@brief	devuelve fecha y ahora en dos strings.
+ * 	@brief	devuelve fecha y ahora en dos strings. Formato para LCD ddmmaa y hhmmss
  * 	@param	time_str, puntero a string, aquí se escribe la hora.
  * 	@param 	date_str, puntero a string, aquí se escribe la fecha.
  */
@@ -51,6 +51,26 @@ void FM_RTC_Gets(char *time_str, char *date_str)
   sprintf(time_str, "%02d.%02d.%02d ", time.Hours, time.Minutes, time.Seconds);
   sprintf(date_str, "%02d.%02d.20%02d ", date.Date, date.Month, date.Year);
 }
+
+
+/*
+ *  @brief  devuelve fecha y ahora en dos strings. Formato para impresora
+ *  @param  time_str, puntero a string, aquí se escribe la hora.
+ *  @param  date_str, puntero a string, aquí se escribe la fecha.
+ */
+void FM_RTC_GetPpt(char *time_str, char *date_str)
+{
+  RTC_TimeTypeDef time;
+  RTC_DateTypeDef date;
+
+  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+
+  sprintf(time_str, "%02d:%02d:%02d ", time.Hours, time.Minutes, time.Seconds);
+  sprintf(date_str, "%02d/%02d/20%02d ", date.Date, date.Month, date.Year);
+}
+
+
 
 /*
  * @brief		modifica el reloj de tiempo real.

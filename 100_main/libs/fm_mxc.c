@@ -304,6 +304,12 @@ void FM_MXC_BTConnect()
   {
     FM_DEBUG_LedError(1);
   }
+
+  retval = MXC_SendAT(AT_BSENDRAW, 1);
+  if (retval == FM_MXC_FAIL)
+  {
+    FM_DEBUG_LedError(1);
+  }
 }
 
 /*
@@ -374,15 +380,13 @@ fm_mxc_status_t MXC_SendAT(at_id_t id, int retry)
  */
 void FM_MXC_Print(char *str)
 {
-  MXC_SendAT(AT_BSENDRAW, 1);
 
   /*
    *  Pese a que espero respuesta, segundo 0x0a, si no agrego retardo adicional, perecería que MXChip no esta
    *  preparado para transmitir.
    */
   HAL_UART_Transmit_IT(&huart3, (uint8_t*) str, strlen(str));
-  HAL_Delay(250);
-  MXC_SendAT(AT_PLUS, 1);
+  tx_thread_sleep(40);
 }
 
 // Interrupts

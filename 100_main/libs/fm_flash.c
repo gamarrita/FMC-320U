@@ -5,8 +5,6 @@
  * El cube MX tiene la herramienta "Memory Managment" que ayuda a configurar bloques de FLASH, en nuestro
  * aso para usarlos como pseudo RAM.
  *
- *
- *
  *	MEMORY
  *	{
  *	  FLASH	(rx)	: ORIGIN = 0x08000000, LENGTH = 1024K
@@ -21,10 +19,13 @@
  *
  * 
  * Version 1
- * Autor : Daniel H Sagarra
+ * Autor: Daniel H Sagarra
  * Fecha 10/11/2024
  * Modificaciones: version inicial.
  * 
+ * Version 2
+ *
+ *
  */
 
 // Includes.
@@ -36,26 +37,33 @@
  *  Rango de memoria flash usado como pseudo ram, todos los usos posibles.
  */
 #define FLASH_START	0x08100000
-#define FLASH_END	0x08200000
+#define FLASH_END	0x081FFFFF
 
 /*
  * La pagina es el minimo tamaño borrable. Antes de escribir hay que borrar y se borra de a n
- * paginas. Adicionalmente, toda seccion de memoria a ser usada como pseudo-flash tendra un tamaño
+ * paginas. Adicionalmente, toda seccion de memoria a ser usada como pseudo-flash tendía un tamaño
  * entero de paginas
  */
 #define PAGE_SIZE  FLASH_PAGE_SIZE // 8KB en STM3U575
 
-// Parte de la pseudo flash se la reserca para guardar informacion del chip.
+// Parte de la pseudo flash se la reserva para guardar información del chip.
 #define FLASH_CHIP_INFO_START	0x08100000
-#define FLASH_CHIP_INFO_END		0x08102000
+#define FLASH_CHIP_INFO_END		0x08101FFF
 
 // Parte de la pseudo ram se la usa para el equipo, configuraciones calibraciones, etc.
 #define FLASH_DEVICE_START	0x08102000
-#define FLASH_DEVICE_END	0x08104000
+#define FLASH_DEVICE_END	0x08103FFF
 
 // Rango de memoria usado para data logger
 #define FLASH_LOG_START	0x08104000
-#define FLASH_LOG_END	0x08200000
+#define FLASH_LOG_END	0x081FFFFF
+
+
+
+
+
+
+
 
 // Const data.
 
@@ -148,27 +156,27 @@ uint32_t FM_FLASH_Write(uint32_t memory_address, uint8_t *data, uint16_t data_le
   {
       0 };
 
-  // Verifico que la direccion de memoria inicial sea valida
+  // Verifico que la dirección de memoria inicial sea valida
   if ((memory_address) < FLASH_START)
   {
     return 0; // Datos a escribir por fuera de BANK 2
   }
 
   /*
-   * La longitud  de datos a escribir deberia ser una cantidad enteras de bloque.
-   * Si no lo es ajusto a que lo sea, no se escribiran los datos que no completen un bloque.
+   * La longitud  de datos a escribir debería ser una cantidad enteras de bloque.
+   * Si no lo es ajusto a que lo sea, no se escribirían los datos que no completen un bloque.
    * Si data_lenth es menor que un bloque no se escribira nada.
    */
   block_aling = data_length % FM_FLASH_BLOCK_SIZE;
   data_length -= block_aling;
 
-  // Verifico que la direccion de memoria final sea valida.
+  // Verifico que la dirección de memoria final sea valida.
   if ((memory_address + data_length) > FLASH_END)
   {
     return 0;
   }
 
-  // Verifico que la posicion de momoria inicial esta al comienzo de un bloque
+  // Verifico que la posición de memoria inicial esta al comienzo de un bloque
   if (memory_address % FM_FLASH_BLOCK_SIZE)
   {
     return 0;
@@ -182,8 +190,23 @@ uint32_t FM_FLASH_Write(uint32_t memory_address, uint8_t *data, uint16_t data_le
   // Primera pagina a borrar.
   flash_erase_struct.Page = (memory_address - FLASH_START) / FLASH_PAGE_SIZE;
 
-  // Cantidad de paginas a borrar.
-  flash_erase_struct.NbPages = 1 + data_length / FLASH_PAGE_SIZE;
+  /*
+   *  Cantidad de paginas a borrar. Se necesita condicional para detectar si la cantidad de datos a escribir,
+   *  primero se deben borrar, es múltiplo entero de una pagina, explicación:
+   *  - Si la cantidad de datos es múltiplo entero de una pago el cociente da el numero exacto de paginas a
+   *  borrar
+   *  - Si no la cantidad a borrar no es múltiplo entero, da resto, esto quiere decir que se necesita borrar
+   *  una pagina completa para que entre este resto.
+   */
+  if(data_length % FLASH_PAGE_SIZE)
+  {
+    flash_erase_struct.NbPages = 1 + data_length / FLASH_PAGE_SIZE;
+  }
+  else
+  {
+    flash_erase_struct.NbPages = data_length / FLASH_PAGE_SIZE;
+  }
+
 
   // Selecciono banco, solamente uso el BANK 2.
   flash_erase_struct.Banks = FLASH_BANK_2;

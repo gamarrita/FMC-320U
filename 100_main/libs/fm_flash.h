@@ -1,7 +1,11 @@
 /*
+ * brief
+ *
+ *
+ * Version 1
  * Autor: Daniel H Sagarra
- * 
- * Notas:
+ * Fecha: 3/3/2025
+ * - Comienzo control de version a esta fecha.
  * 
  */
 
@@ -13,14 +17,14 @@
 // Defines.
 
 /*
- * La memoria flash se escribe de a n Bytes, esta catidad en se la llama BLOCK_SIZE, se define
+ * La memoria flash se escribe de a n Bytes, esta cantidad en se la llama BLOCK_SIZE, se define
  * cuanto es n para este microcontrolador.
  */
 #define FM_FLASH_BLOCK_SIZE  16
 
 /*
- * Informacion del chip se guarda en flash, en lo que sigue se define el tamaño, en bytes,
- * de la estructura que guardara la informacion del chip.
+ * Información del chip se guarda en flash, en lo que sigue se define el tamaño, en bytes,
+ * de la estructura que guardara la información del chip.
  */
 #define FM_FLASH_CHIP_INFO_SIZE (FM_FLASH_BLOCK_SIZE * 1)
 
@@ -31,10 +35,10 @@ typedef union
   uint8_t data[FM_FLASH_CHIP_INFO_SIZE];
   struct
   {
-    uint16_t reset_counter;
-    uint8_t reset_factory;
-    uint32_t reserved_3;
-    uint32_t reserved_4;
+    uint16_t    reset_counter;
+    uint8_t     reset_factory;
+    uint32_t    reserved_3;
+    uint32_t    reserved_4;
   };
 } flash_chip_info_t;
 

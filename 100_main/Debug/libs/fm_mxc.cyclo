@@ -3,7 +3,7 @@
 ../libs/fm_mxc.c:252:6:FM_MXC_PowerOff	1
 ../libs/fm_mxc.c:266:6:FM_MXC_Sleep	1
 ../libs/fm_mxc.c:277:6:FM_MXC_Wakeup	1
-../libs/fm_mxc.c:292:6:FM_MXC_BTConnect	3
-../libs/fm_mxc.c:317:17:MXC_SendAT	5
-../libs/fm_mxc.c:375:6:FM_MXC_Print	1
-../libs/fm_mxc.c:395:6:HAL_UART_RxCpltCallback	1
+../libs/fm_mxc.c:292:6:FM_MXC_BTConnect	4
+../libs/fm_mxc.c:323:17:MXC_SendAT	5
+../libs/fm_mxc.c:381:6:FM_MXC_Print	1
+../libs/fm_mxc.c:399:6:HAL_UART_RxCpltCallback	1

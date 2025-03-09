@@ -101,6 +101,7 @@ typedef struct
   fm_fmc_vol_unit_t vol_unit; // Unidades de volumen, esta tambien se usa en el caudal.
   fm_fmc_time_unit_t time_unit;
   fm_fmc_rate_t rate;
+  uint16_t ticket_number;
 } fm_fmc_totalizer_t;
 
 // Defines.
@@ -110,16 +111,14 @@ typedef struct
 
 // Function prototypes
 
-// Las siguientes funciones operan sobre ACM
+// Las siguientes funciones operan en totalizer.acm
 ufp3_t FM_FMC_AcmCalc();
 ufp3_t FM_FMC_AcmGet();
 void FM_FMC_AcmReset();
 
-void FM_FMC_CaptureSet(uint16_t pulse, uint16_t time);
-
 // Las siguientes funciones operan sobre los factores K y calibración.
 //void 	FM_FMC_FactorCalcRenew();
-ufp3_t FM_FMC_FactorCalGet();
+ufp3_t  FM_FMC_FactorCalGet();
 uint32_t FM_FMC_FactorCalSet(ufp3_t factor_cal);
 double FM_FMC_FactorKCalc(ufp3_t factor_k, fm_fmc_vol_unit_t unit);
 double FM_FMC_FactorKGet();
@@ -131,13 +130,13 @@ fm_fmc_totalizer_t FM_FMC_GetEnviroment(void);
 void FM_FMC_Init(sensors_list_t);
 
 // Las siguientes funciones operan en totalizar.rate
-ufp3_t FM_FMC_RateCalc();
-ufp3_t FM_FMC_RateGet();
+void    FM_FMC_CaptureSet(uint16_t pulse, uint16_t time);
+ufp3_t  FM_FMC_RateCalc();
+ufp3_t  FM_FMC_RateGet();
 uint8_t FM_FMC_RateFpSelGet();
-void FM_FMC_RateFpInc();
+void    FM_FMC_RateFpInc();
 
-// Las siguientes funciones operan sobre (totalizer.)
-
+// Las siguientes funciones operan en totalizer.
 uint8_t FM_FMC_TotalizerFpSelGet();
 void FM_FMC_TotalizerFpInc();
 void FM_FMC_TotalizerStrUnitGet(char **string, fm_fmc_vol_unit_t);
@@ -146,6 +145,8 @@ fm_fmc_time_unit_t FM_FMC_TotalizerTimeUnitGet();
 fmx_status_t FM_FMC_TotalizerTimeUnitSet(fm_fmc_time_unit_t time_unit);
 fm_fmc_vol_unit_t FM_FMC_TotalizerVolUnitGet();
 uint32_t FM_FMC_TotalizerVolUnitSet(fm_fmc_vol_unit_t);
+uint16_t FM_FMC_TicketNumberGet();
+
 
 // Las siguientes funciones operan en totalizar.factor_cal
 

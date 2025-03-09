@@ -108,7 +108,6 @@ UINT FMX_Init(VOID *memory_ptr)
   {
     __disable_irq();
     FM_DEBUG_LedError(1);
-
     for (;;)
     {
     }

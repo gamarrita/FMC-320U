@@ -1,0 +1,2 @@
+../libs/fm_ppt.c:53:6:FM_PPT_FormatTicket	8	static
+../libs/fm_ppt.c:62:6:FM_PPT_PrintTicket	56	static

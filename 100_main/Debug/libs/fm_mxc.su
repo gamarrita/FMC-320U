@@ -4,6 +4,6 @@
 ../libs/fm_mxc.c:266:6:FM_MXC_Sleep	8	static
 ../libs/fm_mxc.c:277:6:FM_MXC_Wakeup	8	static
 ../libs/fm_mxc.c:292:6:FM_MXC_BTConnect	16	static
-../libs/fm_mxc.c:317:17:MXC_SendAT	40	static
-../libs/fm_mxc.c:375:6:FM_MXC_Print	16	static
-../libs/fm_mxc.c:395:6:HAL_UART_RxCpltCallback	16	static
+../libs/fm_mxc.c:323:17:MXC_SendAT	40	static
+../libs/fm_mxc.c:381:6:FM_MXC_Print	16	static
+../libs/fm_mxc.c:399:6:HAL_UART_RxCpltCallback	16	static

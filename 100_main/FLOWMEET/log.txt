@@ -32,3 +32,11 @@
  - Verifico consumo: OK
  - Verifico impresion de tickets:OK
  
+ ERROR, DE REGISTRO, AQUI NO SE REGISTRO BIEN EL SALTO ENTRE VERSIONES. 
+ 
+ Version 6 BETA
+ - Se crea version de firmware 01.01.06  
+ - Se tiene compatibilidad con impresora, version para pruebas en FLOWMEET.
+ - Se modifica fm_flash.c por posible bug en borrado de paginas, en algunos casos se borraria una pagina de mas. 
+ 
+ 

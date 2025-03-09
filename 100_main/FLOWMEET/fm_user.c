@@ -19,6 +19,7 @@
 #include "fm_logger.h"
 #include "fm_rtc.h"
 #include "fm_mxc.h"
+#include "fm_ppt.h"
 
 // Typedef.
 
@@ -283,9 +284,10 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
       tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
       break;
     case FMX_EVENT_KEY_ESC:
+      FM_PPT_FormatTicket();
       FM_MXC_PowerOn();
       FM_MXC_BTConnect();
-      FM_MXC_Print("FLOWMEET SRL\n\r");
+      FM_PPT_PrintTicket();
       FM_MXC_PowerOff();
       break;
     case FMX_EVENT_KEY_ENTER:
