@@ -58,13 +58,6 @@
 #define FLASH_LOG_START	0x08104000
 #define FLASH_LOG_END	0x081FFFFF
 
-
-
-
-
-
-
-
 // Const data.
 
 // Defines.

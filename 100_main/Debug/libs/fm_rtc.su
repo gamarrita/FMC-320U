@@ -1,4 +1,0 @@
-../libs/fm_rtc.c:43:6:FM_RTC_Gets	48	static
-../libs/fm_rtc.c:61:6:FM_RTC_GetPpt	48	static
-../libs/fm_rtc.c:84:6:FM_RTC_Set	40	static
-../libs/fm_rtc.c:209:6:FM_RTC_Init	32	static

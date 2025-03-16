@@ -1,4 +1,0 @@
-../Core/Src/lptim.c:31:6:MX_LPTIM3_Init	3
-../Core/Src/lptim.c:71:6:MX_LPTIM4_Init	2
-../Core/Src/lptim.c:103:6:HAL_LPTIM_MspInit	5
-../Core/Src/lptim.c:179:6:HAL_LPTIM_MspDeInit	3

@@ -39,4 +39,12 @@
  - Se tiene compatibilidad con impresora, version para pruebas en FLOWMEET.
  - Se modifica fm_flash.c por posible bug en borrado de paginas, en algunos casos se borraria una pagina de mas. 
  
+ Version 7 BETA -  Version con cambios en control de versiones y descripcion.
+ - Se hicieron cambiios a la Vesion 6 BETA, menores, pero no se documentaron aqui. 
+ - Se modifica la descripcion del archivo READ.md
+ - Se elimina del control de versiones a las carpetas Debug
+ 
+ 
+ 
+ 
  

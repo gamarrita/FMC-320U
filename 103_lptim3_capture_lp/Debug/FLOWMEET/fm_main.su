@@ -1,3 +1,0 @@
-../FLOWMEET/fm_main.c:96:6:FM_MAIN_Main	8	static
-../FLOWMEET/fm_main.c:133:6:HAL_LPTIM_IC_CaptureCallback	16	static
-../FLOWMEET/fm_main.c:157:6:HAL_RTCEx_WakeUpTimerEventCallback	16	static

@@ -538,8 +538,10 @@ void FM_FMC_TotalizerTimeUnitSel(fm_fmc_time_unit_t sel)
 
 uint16_t FM_FMC_TicketNumberGet()
 {
+  totalizer.ticket_number++;
   return totalizer.ticket_number;
 }
+
 
 
 // Interrupts

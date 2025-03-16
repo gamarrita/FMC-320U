@@ -240,7 +240,7 @@ void FM_MXC_PowerOn()
   tx_thread_sleep(10);
 
   FM_MXC_Mode(FM_MXC_MODE_ON);
-  tx_thread_sleep(200);
+  tx_thread_sleep(200); // Si no le doy tiempo al EMC-3080 luego de encender, no responde.
 }
 
 /*
@@ -251,10 +251,20 @@ void FM_MXC_PowerOn()
  */
 void FM_MXC_PowerOff()
 {
+  tx_thread_sleep(100);
   HAL_UART_MspDeInit(&huart3);
 
+  /*
+   * El Modulo podria estar ejecuntando un tarea, se introduce un retardo antes de apagarlo.
+   * Ejemplo, se enviá a imprimir un ticket completo, el UART de STM32 envia toda la informcion al EMC3080.
+   * En este codigo se pueden poner continuas las funciones:
+   * FM_PPT_PrintTicket();
+   * FM_MXC_PowerOff();
+   * Si este es el caso, sin retardo se corta la energia del EMC-3080 antes de que pueda procesar la operación.
+   */
+
+
   FM_MXC_Mode(FM_MXC_MODE_OFF);
-  tx_thread_sleep(10);
 }
 
 /*
@@ -380,13 +390,7 @@ fm_mxc_status_t MXC_SendAT(at_id_t id, int retry)
  */
 void FM_MXC_Print(char *str)
 {
-
-  /*
-   *  Pese a que espero respuesta, segundo 0x0a, si no agrego retardo adicional, perecería que MXChip no esta
-   *  preparado para transmitir.
-   */
   HAL_UART_Transmit_IT(&huart3, (uint8_t*) str, strlen(str));
-  tx_thread_sleep(40);
 }
 
 // Interrupts

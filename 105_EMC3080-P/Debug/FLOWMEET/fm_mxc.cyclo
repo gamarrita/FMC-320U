@@ -1,9 +1,0 @@
-../FLOWMEET/fm_mxc.c:198:6:FM_MXC_Mode	5
-../FLOWMEET/fm_mxc.c:229:6:FM_MXC_PowerOn	1
-../FLOWMEET/fm_mxc.c:261:6:FM_MXC_PowerOff	1
-../FLOWMEET/fm_mxc.c:288:6:FM_MXC_Sleep	1
-../FLOWMEET/fm_mxc.c:299:6:FM_MXC_Wakeup	1
-../FLOWMEET/fm_mxc.c:314:6:FM_MXC_BTConnect	3
-../FLOWMEET/fm_mxc.c:339:17:MXC_SendAT	5
-../FLOWMEET/fm_mxc.c:397:6:FM_MXC_Print	1
-../FLOWMEET/fm_mxc.c:417:6:HAL_UART_RxCpltCallback	1

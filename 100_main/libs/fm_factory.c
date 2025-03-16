@@ -42,7 +42,7 @@ const fm_fmc_totalizer_t sensor_0 =
     .rate.limit_low = 250, // frecuencia minima 0,1 Hz
     .rate.delta_t = 1000, // filtro un segundo
     .rate.filter = 1, // filtro un segundo
-    .ticket_number = 1,
+    .ticket_number = 0,
     };
 
 // Valor típicos para un sensor Serie AI DN25, turbina axial diámetro interno 1" paso total.
@@ -61,7 +61,7 @@ const fm_fmc_totalizer_t sensor_ai_25 =
     .rate.limit_low = 250, // frecuencia minima 0,1 Hz
     .rate.delta_t = 1000, // filtro un segundo
     .rate.filter = 1, // filtro un segundo
-    .ticket_number = 1,
+    .ticket_number = 0,
     };
 
 // Valor típicos para un sensor Serie AI DN80, turbina axial diámetro interno 3" paso total.
@@ -80,7 +80,7 @@ const fm_fmc_totalizer_t sensor_ai_80 =
     .rate.limit_low = 250, // frecuencia minima 0,1 Hz
     .rate.delta_t = 1000, // filtro un segundo
     .rate.filter = 1, // filtro un segundo
-    .ticket_number = 1,
+    .ticket_number = 0,
     };
 
 // Defines.

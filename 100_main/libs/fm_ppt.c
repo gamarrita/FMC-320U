@@ -43,6 +43,7 @@ typedef struct {
 
 // Global variables, statics.
 ticket_data_t ticket;
+char page_buffer[240];
 
 // Private function prototypes.
 
@@ -61,51 +62,41 @@ void FM_PPT_FormatTicket()
 
 void FM_PPT_PrintTicket()
 {
-  char line[MAX_FIELD_LEN];
-
   //Línea separadora superior
-  snprintf(line, MAX_FIELD_LEN, "  ============================\n");
-  FM_MXC_Print(line);
+  snprintf(page_buffer, MAX_FIELD_LEN, "  ============================\n");
 
   // Número de control (etiqueta izquierda, valor derecha)
-  snprintf(line, MAX_FIELD_LEN, "%-15s%s\n", "Ticket Nro:", ticket.number);
-  FM_MXC_Print(line);
+  snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "Ticket Nro: ", ticket.number);
 
   // TTL
-  snprintf(line, MAX_FIELD_LEN, "%-15s%s\n", "TTL:", ticket.ttl);
-  FM_MXC_Print(line);
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "TTL:", ticket.ttl);
 
   // Fecha
-  snprintf(line, MAX_FIELD_LEN, "%-15s%s\n", "Fecha:", ticket.date);
-  FM_MXC_Print(line);
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "Fecha:", ticket.date);
 
   // Hora
-  snprintf(line, MAX_FIELD_LEN, "%-15s%s\n", "Hora:", ticket.time);
-  FM_MXC_Print(line);
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "Hora:", ticket.time);
 
   // ACM
-  snprintf(line, MAX_FIELD_LEN, "%-15s%s\n", "ACM:", ticket.acm);
-  FM_MXC_Print(line);
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "ACM:", ticket.acm);
 
 
-  snprintf(line, MAX_FIELD_LEN, "\n\n\n\n");
-  FM_MXC_Print(line);
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "\n\n");
 
   // Operario (dejar en blanco para llenar a mano)
-  snprintf(line, MAX_FIELD_LEN, "Operario: \n\n\n\n");
-  FM_MXC_Print(line);
-
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "Operario: \n\n\n");
 
   // Recibió (dejar en blanco para llenar a mano)
-  snprintf(line, MAX_FIELD_LEN, "Recibió: \n\n\n\n");
-  FM_MXC_Print(line);
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "Recibió: \n\n\n");
 
   // (Opcional) Línea separadora inferior
-  snprintf(line, MAX_FIELD_LEN, "  ============================  \n");
-  FM_MXC_Print(line);
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "  ============================  \n");
 
-  snprintf(line, MAX_FIELD_LEN, "\n\n\n\n");
-  FM_MXC_Print(line);
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "\n\n\n");
+
+  FM_MXC_Print(page_buffer);
+
+
 }
 
 // Interrupts
