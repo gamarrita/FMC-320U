@@ -38,7 +38,7 @@ typedef enum
 
 // Function prototypes
 void FM_MXC_Mode(fm_mxc_mode_t mode);
-void FM_MXC_BTConnect();
+fmx_status_t FM_MXC_BTConnect();
 void FM_MXC_PowerOn();
 void FM_MXC_PowerOff();
 void FM_MXC_ATMode();

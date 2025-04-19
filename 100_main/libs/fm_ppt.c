@@ -84,18 +84,17 @@ void FM_PPT_PrintTicket()
   snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "\n\n");
 
   // Operario (dejar en blanco para llenar a mano)
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "Operario: \n\n\n");
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "Operario:\n\n\n\n");
 
   // Recibió (dejar en blanco para llenar a mano)
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "Recibió: \n\n\n");
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "Recibio:\n\n\n\n");
 
   // (Opcional) Línea separadora inferior
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "  ============================  \n");
+  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "  ============================\n");
 
   snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "\n\n\n");
 
   FM_MXC_Print(page_buffer);
-
 
 }
 

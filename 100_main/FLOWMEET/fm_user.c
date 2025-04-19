@@ -35,9 +35,27 @@ typedef enum
   MENU_USER_PRINT_ACM,
   MENU_USER_DATE_TIME,
   MENU_USER_END,
-} enum_menu_user;
+} menu_user_t;
+
+// Código de errores de impresión.
+typedef enum
+{
+  PRINT_OK = 0,         // No se detecta error en la ultima impresión, listo para imprimir.
+  PRINT_POWER_ON,    // Se encendiendo la zona de alimentacion para el modulo blueooth
+  PRINT_CONNECTING, // Enviando comando para conectar el modulo bluetooth con la impresora
+  PRINT_PRINTING,   // Imprimiendo, se le esta enviado el ticket a la impreso
+  PRINT_ERROR_1,     // Se detecto error en la ultima impresión, listo para imprimir.
+} print_status_t;
 
 // Const data.
+char print_status_msg[][3] =
+{
+    "--",
+    "03",
+    "02",
+    "01",
+    "E1",
+    "E2", };
 
 // Defines.
 #define TRUE 	1
@@ -48,7 +66,6 @@ typedef enum
 // Project variables, non-static, at least used in other file.
 
 // External variables.
-extern TX_EVENT_FLAGS_GROUP event_cb_keypad;
 
 // Global variables, statics.
 char user_line_1[20];
@@ -72,7 +89,7 @@ void MenuUserPrintAcmEntry();
 void MenuUserPrintAcmRefresh();
 void MenuUserClockEntry();
 void MenuUserClockRefresh();
-
+void MenuUserPrintAcmStatus(print_status_t sel);
 
 // Private function bodies.
 
@@ -82,15 +99,17 @@ void MenuUserClockRefresh();
  *  @brief navegación por el menu.
  *  @note
  *  @param
- *  @retval
- *
+ *  @retval 0, Al salir no se necesita refrescar o cambiar de pantalla.
+ *          1, Al salir se debe volver a ingresar para refrescar la pantalla.
+ *          2, Al Salir se debe volver  a ingresar por que cambio del menu de usuario al de configuración.
+ *          3, Al Salir se debe volver  a ingresar por que cambio del menu de configuración al de usuario.
  */
 uint8_t FM_USER_MenuNav(fmx_events_t this_event)
 {
-  static enum_menu_user menu_index = 0;
+  static menu_user_t menu_index = 0;
   static uint32_t entry_counter = 0;
-
-  uint32_t entries_to_exti;
+  uint32_t entries_to_exit;
+  fmx_status_t exit_status = FMX_STATUS_OK;
   uint8_t menu_setup = FALSE; // pasa a valer TRUE si hay que ingresar a menu setup.
 
   switch (menu_index)
@@ -102,12 +121,12 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     }
 
     entry_counter++;
-    entries_to_exti = 3;
-    if (entry_counter >= entries_to_exti)
+    entries_to_exit = 3;
+    if (entry_counter >= entries_to_exit)
     {
       entry_counter = 0;
       menu_index++;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
     }
 
     switch (this_event)
@@ -119,8 +138,8 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_UP:
       break;
     case FMX_EVENT_KEY_ESC:
-      entry_counter = entries_to_exti; // fuerzo salida
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR); // evita retardo en salida
+      entry_counter = entries_to_exit; // fuerzo salida
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ENTER:
       break;
@@ -131,6 +150,10 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ESC_LONG:
       break;
     case FMX_EVENT_KEY_ENTER_LONG:
+      break;
+    case FMX_EVENT_KEY_EXT_1:
+      break;
+    case FMX_EVENT_KEY_EXT_2:
       break;
     default:
       FM_DEBUG_LedError(1);
@@ -145,12 +168,12 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     }
 
     entry_counter++;
-    entries_to_exti = 3;
-    if (entry_counter >= entries_to_exti)
+    entries_to_exit = 3;
+    if (entry_counter >= entries_to_exit)
     {
       entry_counter = 0;
       menu_index++;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
     }
     switch (this_event)
     {
@@ -163,8 +186,8 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ESC:
       break;
     case FMX_EVENT_KEY_ENTER:
-      entry_counter = entries_to_exti; // Fuerzo salida
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      entry_counter = entries_to_exit; // Fuerzo salida
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_DOWN_LONG:
       break;
@@ -174,6 +197,11 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
+    case FMX_EVENT_KEY_EXT_1:
+      break;
+    case FMX_EVENT_KEY_EXT_2:
+      break;
+
     default:
       FM_DEBUG_LedError(1);
       break;
@@ -191,9 +219,10 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
       MenuUserTtlRateRefresh();
       break;
     case FMX_EVENT_KEY_DOWN:
+    case FMX_EVENT_KEY_EXT_1:
       entry_counter = 0;
-      menu_index++;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      menu_index++;;
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_UP:
       break;
@@ -218,6 +247,9 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
+    case FMX_EVENT_KEY_EXT_2:
+      break;
+
     default:
       FM_DEBUG_LedError(1);
       break;
@@ -235,14 +267,15 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
       MenuUserAcmRateRefresh();
       break;
     case FMX_EVENT_KEY_DOWN:
+    case FMX_EVENT_KEY_EXT_1:
       entry_counter = 0;
       menu_index++;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_UP:
       entry_counter = 0;
       menu_index--;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ESC:
       break;
@@ -255,6 +288,7 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ESC_LONG:
       break;
     case FMX_EVENT_KEY_ENTER_LONG:
+    case FMX_EVENT_KEY_EXT_2:
       FM_FMC_AcmReset();
       break;
     default:
@@ -274,20 +308,37 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
       MenuUserPrintAcmRefresh();
       break;
     case FMX_EVENT_KEY_DOWN:
+    case FMX_EVENT_KEY_EXT_1:
       entry_counter = 0;
       menu_index++;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_UP:
       entry_counter = 0;
       menu_index--;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ESC:
+    case FMX_EVENT_KEY_EXT_2:
       FM_PPT_FormatTicket();
+
+      MenuUserPrintAcmStatus(PRINT_POWER_ON);
       FM_MXC_PowerOn();
-      FM_MXC_BTConnect();
-      FM_PPT_PrintTicket();
+
+      MenuUserPrintAcmStatus(PRINT_CONNECTING);
+      exit_status = FM_MXC_BTConnect();
+
+      if (exit_status == FMX_STATUS_OK)
+      {
+        MenuUserPrintAcmStatus(PRINT_PRINTING);
+        FM_PPT_PrintTicket();
+        tx_thread_sleep(200);
+        MenuUserPrintAcmStatus(PRINT_OK);
+      }
+      else
+      {
+        MenuUserPrintAcmStatus(PRINT_ERROR_1);
+      }
       FM_MXC_PowerOff();
       break;
     case FMX_EVENT_KEY_ENTER:
@@ -322,7 +373,7 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_UP:
       entry_counter = 0;
       menu_index--;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ESC:
       break;
@@ -335,6 +386,13 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ESC_LONG:
       break;
     case FMX_EVENT_KEY_ENTER_LONG:
+      break;
+    case FMX_EVENT_KEY_EXT_1:
+      entry_counter = 0;
+      menu_index = MENU_USER_TTL_RATE;
+      FMX_RefreshEventTrue();
+      break;
+    case FMX_EVENT_KEY_EXT_2:
       break;
     default:
       FM_DEBUG_LedError(1);
@@ -369,8 +427,6 @@ void MenuUserPowerOnEntry()
   // Enciendo todos los segmentos de LCD para verifica que funcionen
   FM_LCD_Init(0xff);
 
-  // Se enciende backlight al inicio, para verificar que funciones
-  HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port, LED_BACKLIGHT_Pin, GPIO_PIN_RESET);
 }
 
 /*
@@ -390,7 +446,6 @@ void MenuUserVersionEntry()
   FM_LCD_PutString(msg_version, strlen(msg_version), FM_LCD_LL_ROW_2);
 
   // Apago el backlight antes de salir de este menu.
-  HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port, LED_BACKLIGHT_Pin, GPIO_PIN_SET);
 }
 
 /*
@@ -593,22 +648,36 @@ void MenuUserRateRefresh()
 }
 
 /*
- * @brief
+ * @brief   Configuración inicial de esta pantalla de menu de usuario.
  * @note
- * @param
- * @retval
+ * @param   Ninguno.
+ * @retval  Ninguno.
  */
 void MenuUserPrintAcmEntry()
 {
   FM_LCD_LL_Clear();
   FM_LCD_LL_BlinkClear();
 
+  // Al ingresar al menu de impression no puede haber error de impression, aun no se imprimió.
+  MenuUserPrintAcmStatus(PRINT_OK);
+
   FM_LCD_LL_PutChar_1('P');
   FM_LCD_LL_PutChar_2('R');
 
   // Escribo en memoria shadow de pantalla los símbolos de este menu.
   FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_ACM_2, 1);
+}
 
+/*
+ * @brief
+ * @note
+ * @param
+ * @retval
+ */
+void MenuUserPrintAcmStatus(print_status_t sel)
+{
+  FM_LCD_PutString(print_status_msg[sel], strlen(print_status_msg[sel]), FM_LCD_LL_ROW_2);
+  FM_LCD_LL_Refresh();
 }
 
 /*

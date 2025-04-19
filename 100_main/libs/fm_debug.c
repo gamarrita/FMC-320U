@@ -62,6 +62,8 @@
 #define TRUE    1
 #define FALSE   0
 
+#define STOP_ON_ERROR 1 // Comentar esta instruccion o el computador se detendrá ante un error.
+
 /*
  * Las siguientes macros definen: cual es el tamaño maximo de caracteres,
  * incluyendo el terminador nulo, corresponde para los diferentes tipos de
@@ -129,12 +131,19 @@ void FM_DEBUG_Init()
    leds_enable_pin = HAL_GPIO_ReadPin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
    uart_enable_pin = HAL_GPIO_ReadPin(DEBUG_UART_GPIO_Port, DEBUG_UART_Pin);
 
+   // Los LEDs de error, signal y active, se usan solo con motivo de debug, un jumper controla si los LEDs
+   // están activos.
    if(leds_enable_pin == GPIO_PIN_RESET)
    {
+     // Activo la posibilidad de prender y apagar los LEDs.
      debug_led_enable = TRUE;
    }
    else
    {
+     // Primero apago los LEDs, luego desactivo la posibilidad de prender y apagar.
+     HAL_GPIO_WritePin(LED_ERROR_GPIO_Port, LED_ERROR_Pin, GPIO_PIN_RESET);
+     HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_RESET);
+     HAL_GPIO_WritePin(LED_SIGNAL_GPIO_Port, LED_SIGNAL_Pin, GPIO_PIN_RESET);
      debug_led_enable = FALSE;
    }
 
@@ -193,6 +202,13 @@ void FM_DEBUG_LedError(int led_status)
   {
     HAL_GPIO_WritePin(LED_ERROR_GPIO_Port, LED_ERROR_Pin, GPIO_PIN_RESET);
   }
+
+#ifdef STOP_ON_ERROR
+  {
+    while(STOP_ON_ERROR);
+  }
+#endif
+
 }
 
 

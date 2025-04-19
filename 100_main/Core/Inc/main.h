@@ -85,10 +85,12 @@ void Error_Handler(void);
 #define DEBUG_LED_GPIO_Port GPIOD
 #define DEBUG_UART_Pin GPIO_PIN_2
 #define DEBUG_UART_GPIO_Port GPIOD
-#define SETUP_3_Pin GPIO_PIN_3
-#define SETUP_3_GPIO_Port GPIOD
-#define SETUP_4_Pin GPIO_PIN_4
-#define SETUP_4_GPIO_Port GPIOD
+#define KEY_EXT_1_Pin GPIO_PIN_3
+#define KEY_EXT_1_GPIO_Port GPIOD
+#define KEY_EXT_1_EXTI_IRQn EXTI3_IRQn
+#define KEY_EXT_2_Pin GPIO_PIN_4
+#define KEY_EXT_2_GPIO_Port GPIOD
+#define KEY_EXT_2_EXTI_IRQn EXTI4_IRQn
 #define LED_ERROR_Pin GPIO_PIN_5
 #define LED_ERROR_GPIO_Port GPIOB
 #define LED_ACTIVE_Pin GPIO_PIN_6

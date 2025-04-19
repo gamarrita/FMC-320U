@@ -25,15 +25,17 @@ typedef enum
  */
 typedef enum
 {
-  FMX_EVENT_REFRESH = 0x0001,
-  FMX_EVENT_KEY_DOWN = 0x0002,
-  FMX_EVENT_KEY_UP = 0x0004,
-  FMX_EVENT_KEY_ESC = 0x0008,
-  FMX_EVENT_KEY_ENTER = 0x0010,
-  FMX_EVENT_KEY_DOWN_LONG = 0x0020,
-  FMX_EVENT_KEY_UP_LONG = 0x0040,
-  FMX_EVENT_KEY_ESC_LONG = 0x0080,
-  FMX_EVENT_KEY_ENTER_LONG = 0x0100,
+  FMX_EVENT_REFRESH = 0,
+  FMX_EVENT_KEY_DOWN,
+  FMX_EVENT_KEY_UP,
+  FMX_EVENT_KEY_ESC,
+  FMX_EVENT_KEY_ENTER,
+  FMX_EVENT_KEY_DOWN_LONG,
+  FMX_EVENT_KEY_UP_LONG,
+  FMX_EVENT_KEY_ESC_LONG,
+  FMX_EVENT_KEY_ENTER_LONG,
+  FMX_EVENT_KEY_EXT_1,
+  FMX_EVENT_KEY_EXT_2
 } fmx_events_t;
 
 typedef enum
@@ -53,6 +55,9 @@ extern const uint32_t FMX_DEBUG_UART_1_ENABLE;
 
 // Function prototypes
 UINT FMX_Init(VOID *memory_ptr);
+void FMX_LcdBackLightOn();
+void FMX_RefreshEventTrue();
+
 
 #endif /* MODULE_H */
 

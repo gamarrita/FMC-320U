@@ -49,7 +49,7 @@ fm_fmc_vol_data_t vol_unit_list[] =
     },
     {
         .unit_convert = 158.987304, 	// Cantidad de litros en un barril.
-        .name = "BR" },
+        .name = "BL" },
     {
         .unit_convert = 3.78541,		// Cantidad de litro en un galón.
         .name = "GL", },

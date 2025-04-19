@@ -122,11 +122,9 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PD10 PD11 PD12 PD15
-                           PD0 SETUP_3_Pin SETUP_4_Pin PD5
-                           PD6 PD7 */
+                           PD0 PD5 PD6 PD7 */
   GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_15
-                          |GPIO_PIN_0|SETUP_3_Pin|SETUP_4_Pin|GPIO_PIN_5
-                          |GPIO_PIN_6|GPIO_PIN_7;
+                          |GPIO_PIN_0|GPIO_PIN_5|GPIO_PIN_6|GPIO_PIN_7;
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
@@ -144,6 +142,12 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : KEY_EXT_1_Pin KEY_EXT_2_Pin */
+  GPIO_InitStruct.Pin = KEY_EXT_1_Pin|KEY_EXT_2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
   /*Configure GPIO pins : LED_ERROR_Pin LED_ACTIVE_Pin LED_SIGNAL_Pin */
   GPIO_InitStruct.Pin = LED_ERROR_Pin|LED_ACTIVE_Pin|LED_SIGNAL_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -159,6 +163,12 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(LED_BACKLIGHT_GPIO_Port, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI3_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI4_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+
   HAL_NVIC_SetPriority(EXTI10_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI10_IRQn);
 

@@ -23,12 +23,17 @@
 #define TRUE  1
 #define FALSE 0
 
+#define QUEUE_EVENT_SIZE (4 * 1) // Mantener multipolor de 4, solo porque lo via asi, no se si es necesario.
 #define STACK_SIZE (1024 * 16)
 #define THREAD_PRIORITY_10	10
 #define THRESHOLD_10		10
 #define SLICE_0				0
 
-#define FMX_DEBUG_LOCAL
+#define TIMER_BACKLIGHT_INITI   1000 // ms * 10 de backlight encendido al iniciar, el computador.
+#define TIMER_BACKLIGHT_GUI     500  // ms * 10 de backlight encendido al interactuar con el teclado.
+#define TIMER_EXTI_DEBUNCE      100   // ms * 10 interrupciones desabilidada para eviar rebote.
+
+#define FMX_DEBUG_LOCAL // Y esto para que sirve???
 
 // Typedef.
 
@@ -46,12 +51,14 @@ extern LPTIM_HandleTypeDef hlptim4; // Pulsos de sensor primario, para calculo d
 // Global variables, statics.
 uint16_t lptim3_capture;
 uint16_t lptim4_counter;
+uint8_t *gprt;
 
 // Thread del RTOS, responsable de contabilizar los pulsos acumulados.
 
 // Grupo de eventos del RTOS, responsable de atender al teclado y otros eventos.
-TX_EVENT_FLAGS_GROUP event_cb_keypad;	// control block de eventos, teclado y otros eventos.
-char event_name_keypad[] = "EVENT KEYPAD";
+TX_QUEUE queue_cb_event;	// control block de eventos, teclado y otros eventos.
+char queuet_name_event[] = "QUEUE EVENT";
+uint32_t queue_storage[QUEUE_EVENT_SIZE];
 
 TX_THREAD thread_cb_pulse_update;
 char thread_name_pulse_update[] = "THREAD PULSE UPDATE";
@@ -67,6 +74,10 @@ char timer_name_key_thee_seconds[] = "TIMER KEY THREE SECONDS";
 // Timer del RTOS, apaga backlight del LCD luego de un tiempo de no actividad.
 TX_TIMER timer_cb_backlight_off;			// control block time
 char timer_name_backlight_off[] = "BACK LIGHT ON";
+
+// Timer del RTOS, quita rebotes de KEY_EXT_1 y KEY_EXT_2.
+TX_TIMER timer_cb_debunce;    // control block del timer, manejo de tecla presionada 3 segundos.
+char timer_name_debunce[] = "Debunce EXTI";
 
 /*
  * El teclado reacciona cuando se libera una tecla, no al presionar, es su función principal.
@@ -84,131 +95,63 @@ void ThreadEntryPulseUpdate(ULONG thread_input);
 void ThreadEntryMain(ULONG thread_input);
 void TimerEntryKeyThreeSeconds(ULONG timer_key);
 void TimerEntryBackLightOff(ULONG timer_key);
+void TimerEntryDebunce(ULONG timer_key);
 
 // Private function bodies.
-
-/*
- * @breif 	Inicia servicio del RTOS
- * @note 	Inicia componente del RTOS. Es llamada por App_ThreadX_Init(), una funcion creada or
- * 			CubeMX que crea los servicios de RTOS seteados en el mismo CubeMX. App_Thread_Init()
- * 			tiene una sección de usuario justamente para el motivo que se la usa aqui.
- * @param 	puntero al pool memory del RTOS
- * @reval	Retorna éxito o si hay problema.
- *
- */
-UINT FMX_Init(VOID *memory_ptr)
-{
-  UINT ret = TX_SUCCESS;
-  CHAR *pointer;
-
-  TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*) memory_ptr;
-
-  // Reserva memoria para el thread luego lo crea.
-  if (tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT) != TX_SUCCESS)
-  {
-    __disable_irq();
-    FM_DEBUG_LedError(1);
-    for (;;)
-    {
-    }
-  }
-
-  if (tx_thread_create(&thread_cb_pulse_update, thread_name_pulse_update, ThreadEntryPulseUpdate,
-      0, pointer, STACK_SIZE, THREAD_PRIORITY_10, THRESHOLD_10, SLICE_0,
-      TX_AUTO_START) != TX_SUCCESS)
-  {
-    __disable_irq();
-    FM_DEBUG_LedError(1);
-    for (;;)
-    {
-    }
-  }
-
-  // Reserva memoria para un thread, luego lo crea.
-  if (tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT) != TX_SUCCESS)
-  {
-    __disable_irq();
-    FM_DEBUG_LedError(1);
-    for (;;)
-    {
-    }
-  }
-
-  if (tx_thread_create(&thread_cb_main, thread_name_main, ThreadEntryMain,
-      0, pointer, STACK_SIZE, THREAD_PRIORITY_10, THRESHOLD_10, SLICE_0,
-      TX_AUTO_START) != TX_SUCCESS)
-  {
-    __disable_irq();
-    FM_DEBUG_LedError(1);
-    for (;;)
-    {
-    }
-  }
-
-  // Crea grupo de eventos
-  if (tx_event_flags_create(&event_cb_keypad, event_name_keypad) != TX_SUCCESS)
-  {
-    return TX_GROUP_ERROR;
-  }
-
-  // Crea timer
-  if (tx_timer_create(&timer_cb_key_three_seconds, timer_name_key_thee_seconds, TimerEntryKeyThreeSeconds,
-      0x1234, 300, 100, TX_NO_ACTIVATE) != TX_SUCCESS)
-  {
-    return TX_TIMER_ERROR;
-  }
-
-  // Crea timer
-  if (tx_timer_create(&timer_cb_backlight_off, timer_name_backlight_off, TimerEntryBackLightOff, 0x1234,
-      500, 500, TX_AUTO_ACTIVATE) != TX_SUCCESS)
-  {
-    return TX_TIMER_ERROR;
-  }
-
-  return ret;
-}
 
 /*
  * @brief función principal.
  */
 void ThreadEntryMain(ULONG thread_input)
 {
-  ULONG new_event;
+  uint32_t received_event;
   uint8_t menu = 0;
   uint8_t menu_change;
 
-  HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port, LED_BACKLIGHT_Pin, GPIO_PIN_SET);
+  /*
+   * Enciendo el backlight LCD.
+   * Este es el único punto donde se puede encender el backlight de manera manual.
+   * En cualquier otro punto del firmware usar FMX_LcdBackLightOn(); esto asegura que se apague.
+   */
+  HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port, LED_BACKLIGHT_Pin, GPIO_PIN_RESET);
+  tx_timer_activate(&timer_cb_backlight_off);
 
-  tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+  gprt = &menu;
 
   for (;;)
   {
-    tx_event_flags_get(&event_cb_keypad, FMX_EVENT_GROUP, TX_OR_CLEAR, &new_event, TX_WAIT_FOREVER);
+    tx_queue_receive(&queue_cb_event, &received_event, TX_WAIT_FOREVER);
+
+    if ((received_event > FMX_EVENT_REFRESH) && (received_event <= FMX_EVENT_KEY_EXT_2))
+    {
+      FMX_LcdBackLightOn();
+    }
 
     switch (menu)
     {
     case 0:
-      menu_change = FM_USER_MenuNav(new_event);
+      menu_change = FM_USER_MenuNav(received_event);
       if (menu_change)
       {
         menu_change = 0;
         menu = 1;
-        tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+        FMX_RefreshEventTrue();
       }
       break;
     case 1:
-      menu_change = FM_SETUP_MenuNav(new_event);
+      menu_change = FM_SETUP_MenuNav(received_event);
       if (menu_change)
       {
         menu_change = 0;
         menu = 0;
-        tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+        FMX_RefreshEventTrue();
       }
       break;
     default:
       break;
     }
     FM_LCD_LL_Refresh();
+
   }
 }
 
@@ -221,6 +164,8 @@ void ThreadEntryMain(ULONG thread_input)
  */
 void ThreadEntryPulseUpdate(ULONG thread_input)
 {
+  static uint8_t blink = 1;
+
   uint16_t rate_tick_delta;   // Período medido en n pulsos, el LPTIM3 mide ticks de clock 32769hz
   uint16_t rate_tick_new = 0;     // Ultima captura del LPTIM3.
   uint16_t rate_tick_old = 0;
@@ -256,8 +201,10 @@ void ThreadEntryPulseUpdate(ULONG thread_input)
     FM_FMC_AcmCalc();
     FM_FMC_RateCalc();
 
+    blink ^=1;
+
     // Parpadeo del segmento testigo si se reciben pulsos del sensor primario
-    if (vol_pulse_new)//rate_pulse_delta && blink_point)
+    if (rate_pulse_delta && blink)
     {
       FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_POINT, 1);
     }
@@ -267,9 +214,10 @@ void ThreadEntryPulseUpdate(ULONG thread_input)
     }
 
     // Evento para refrescar la pantalla.
-    tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
 
-    // Este thread es el unico que se ejecuta regularmente, si no hay interrupción ira a idle 1 segundo.
+    FMX_RefreshEventTrue();
+
+    // Este thread es el único que se ejecuta regularmente, si no hay interrupción ira a idle 1 segundo.
     tx_thread_sleep(102); // Se ajusto a 102 para tener 1 segundo aproximadamente.
 
     /*
@@ -278,7 +226,7 @@ void ThreadEntryPulseUpdate(ULONG thread_input)
      * en stop mode, habilito la interrupción, en el proximo flanco se tomara nota del contador
      * del LPTIM 3 y de los pulsos acumulados del sensor primario en el LPTIM 4. Tendremos cantidad
      * de pulsos del sensor primario y la cantidad de pulsos de 32768Hz dentro de estos. Con los
-     * datos anteriores se puede calcular la frecuencia con resoluciond de 0.1Hz.
+     * datos anteriores se puede calcular la frecuencia con resolucion de 0.1Hz.
      */
     __HAL_LPTIM_ENABLE_IT(&hlptim3, LPTIM_IT_CC1);
   }
@@ -293,27 +241,33 @@ void ThreadEntryPulseUpdate(ULONG thread_input)
  */
 void TimerEntryKeyThreeSeconds(ULONG timer_input)
 {
+  fmx_events_t event_new;
+
   if (HAL_GPIO_ReadPin(KEY_DOWN_GPIO_Port, KEY_DOWN_Pin))
   {
-    tx_event_flags_set(&event_cb_keypad, (uint32_t) FMX_EVENT_KEY_DOWN_LONG, TX_OR);
+    event_new = FMX_EVENT_KEY_DOWN_LONG;
+    tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT);
     key_down_skip_next = TRUE;
   }
 
   if (HAL_GPIO_ReadPin(KEY_UP_GPIO_Port, KEY_UP_Pin))
   {
-    tx_event_flags_set(&event_cb_keypad, (uint32_t) FMX_EVENT_KEY_UP_LONG, TX_OR);
+    event_new = FMX_EVENT_KEY_UP_LONG;
+    tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT);
     key_up_skip_next = TRUE;
   }
 
   if (HAL_GPIO_ReadPin(KEY_ESC_GPIO_Port, KEY_ESC_Pin))
   {
-    tx_event_flags_set(&event_cb_keypad, (uint32_t) FMX_EVENT_KEY_ESC_LONG, TX_OR);
+    event_new = FMX_EVENT_KEY_ESC_LONG;
+    tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT);
     key_esc_skip_next = TRUE;
   }
 
   if (HAL_GPIO_ReadPin(KEY_ENTER_GPIO_Port, KEY_ENTER_Pin))
   {
-    tx_event_flags_set(&event_cb_keypad, (uint32_t) FMX_EVENT_KEY_ENTER_LONG, TX_OR);
+    event_new = FMX_EVENT_KEY_ENTER_LONG;
+    tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT);
     key_enter_skip_next = TRUE;
   }
 }
@@ -329,7 +283,137 @@ void TimerEntryBackLightOff(ULONG timer_input)
   HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port, LED_BACKLIGHT_Pin, GPIO_PIN_SET);
 }
 
+/*
+ * @brief   Activa EXTI de los pulsadores externos luego de un tiempo de debunce
+ * @param   Ver documentación del ThreadX.
+ * @retval  Ver documentación del ThreadX.
+ */
+void TimerEntryDebunce(ULONG timer_input)
+{
+  HAL_NVIC_EnableIRQ(EXTI3_IRQn);
+  HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+}
+
 // Public function bodies.
+
+/*
+ * @breif   Inicia servicio del RTOS
+ * @note    Inicia componente del RTOS. Es llamada por App_ThreadX_Init(). Es mi plantilla, la función creada
+ *          por CubeMX se la deja sin modificar y se llama a esta. Similar al concepto de dejar main()
+ *          intacto y llamar fm_main(). Al crear los componentes del ThreadX si uno da error se detiene la
+ *          ejecución del programa. Esta misma técnica no se puede aplicar en otras partes del firmware,
+ *          aca si porque facilita encontrar problemas de configuración del ThreadX rapidamente durante el
+ *          desarrollo.
+ * @param   puntero al pool memory del RTOS
+ * @reval   Retorna éxito o si hay problema.
+ *
+ */
+UINT FMX_Init(VOID *memory_ptr)
+{
+  UINT ret = TX_SUCCESS;
+  CHAR *pointer;
+
+  TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*) memory_ptr;
+
+  // Reserva memoria para el thread luego lo crea.
+  if (tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT) != TX_SUCCESS)
+  {
+    __disable_irq();
+    FM_DEBUG_LedError(1);
+  }
+
+  if (tx_thread_create(&thread_cb_pulse_update, thread_name_pulse_update, ThreadEntryPulseUpdate,
+      0, pointer, STACK_SIZE, THREAD_PRIORITY_10, THRESHOLD_10, SLICE_0,
+      TX_AUTO_START) != TX_SUCCESS)
+  {
+    __disable_irq();
+    FM_DEBUG_LedError(1);
+    while(1);
+  }
+
+  // Reserva memoria para un thread, luego lo crea.
+  if (tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT) != TX_SUCCESS)
+  {
+    __disable_irq();
+    FM_DEBUG_LedError(1);
+    while(1);
+  }
+
+  if (tx_thread_create(&thread_cb_main, thread_name_main, ThreadEntryMain,
+      0, pointer, STACK_SIZE, THREAD_PRIORITY_10, THRESHOLD_10, SLICE_0,
+      TX_AUTO_START) != TX_SUCCESS)
+  {
+    __disable_irq();
+    FM_DEBUG_LedError(1);
+    while(1);
+  }
+
+  // Crea cola para eventos.
+  if (tx_queue_create(&queue_cb_event, queuet_name_event, 1, queue_storage,
+      sizeof(queue_storage)) != TX_SUCCESS)
+  {
+    FM_DEBUG_LedError(1);
+    while(1);
+  }
+
+  // Crea timer para controlar segunda función de las teclas, cuando se mantienen apretadas.
+  if (tx_timer_create(&timer_cb_key_three_seconds, timer_name_key_thee_seconds, TimerEntryKeyThreeSeconds,
+      0x1234, 300, 100, TX_NO_ACTIVATE) != TX_SUCCESS)
+  {
+    FM_DEBUG_LedError(1);
+    return TX_TIMER_ERROR;
+    while(1);
+  }
+
+  // Crea timer para el apagado automático del backlight del LCD.
+  if (tx_timer_create(&timer_cb_backlight_off, timer_name_backlight_off, TimerEntryBackLightOff, 0x1234,
+      TIMER_BACKLIGHT_INITI, 0, TX_AUTO_ACTIVATE) != TX_SUCCESS)
+  {
+    FM_DEBUG_LedError(1);
+    return TX_TIMER_ERROR;
+    while(1);
+  }
+
+  // Crea timer para quitar los rebores de los botones externos.
+  if (tx_timer_create(&timer_cb_debunce, timer_name_debunce, TimerEntryDebunce, 0x1234,
+      TIMER_EXTI_DEBUNCE, 0, TX_AUTO_ACTIVATE) != TX_SUCCESS)
+  {
+    FM_DEBUG_LedError(1);
+    return TX_TIMER_ERROR;
+    while(1);
+  }
+  return ret;
+}
+
+/*
+ * @brief   Enciende el backlight
+ * @Note    Esta es la única función que se debería usar para encender el backlight.
+ * @retval
+ */
+void FMX_LcdBackLightOn()
+{
+  HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port, LED_BACKLIGHT_Pin, GPIO_PIN_RESET);
+  tx_timer_deactivate(&timer_cb_backlight_off);
+  tx_timer_change(&timer_cb_backlight_off, TIMER_BACKLIGHT_GUI, TIMER_BACKLIGHT_GUI);
+  tx_timer_activate(&timer_cb_backlight_off);
+}
+
+/*
+ * @brief   Si la cola esta vacia agrega un evento de refresco,
+ * @Note    Esta es la única función que se debería usar para encender el backlight.
+ * @retval
+ */
+void FMX_RefreshEventTrue()
+{
+  ULONG event_new;
+
+  if (queue_cb_event.tx_queue_enqueued == 0)
+  {
+    event_new = FMX_EVENT_REFRESH;
+    tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT);
+  }
+
+}
 
 // Interrupts
 
@@ -343,23 +427,13 @@ void TimerEntryBackLightOff(ULONG timer_input)
  */
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
+  uint32_t event_new;
 
   /* Prevent unused argument(s) compilation warning */
   UNUSED(GPIO_Pin);
 
   // Se soltó la tecla, detengo el timer que detecta si fue presionada por 3 segundos
   tx_timer_deactivate(&timer_cb_key_three_seconds);
-
-  /*
-   * El backlight del LCD deme permanecer encendido durante 10 segundos luego de soltar la tecla.
-   * Luego de liberar por primera vez la tecla, se puede volver a presionar y solar la misma u otra tecla.
-   * El siguiente algoritmo frenan el timer, lo pone a cero, y lo vuelve a iniciar con frescos
-   * 10 segundos para el apagado.
-   *
-   */
-  tx_timer_deactivate(&timer_cb_backlight_off);
-  tx_timer_change(&timer_cb_backlight_off, 500, 500);
-  tx_timer_activate(&timer_cb_backlight_off);
 
   switch (GPIO_Pin)
   {
@@ -370,7 +444,11 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     }
     else
     {
-      tx_event_flags_set(&event_cb_keypad, (uint32_t) FMX_EVENT_KEY_ENTER, TX_OR);
+      event_new = FMX_EVENT_KEY_ENTER;
+      if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+      {
+        FM_DEBUG_LedError(1);
+      }
     }
     break;
   case KEY_DOWN_Pin:
@@ -380,7 +458,11 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     }
     else
     {
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_KEY_DOWN, TX_OR);
+      event_new = FMX_EVENT_KEY_DOWN;
+      if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+      {
+        FM_DEBUG_LedError(1);
+      }
     }
     break;
   case KEY_ESC_Pin:
@@ -390,7 +472,11 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     }
     else
     {
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_KEY_ESC, TX_OR);
+      event_new = FMX_EVENT_KEY_ESC;
+      if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+      {
+        FM_DEBUG_LedError(1);
+      }
     }
     break;
   case KEY_UP_Pin:
@@ -400,8 +486,32 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     }
     else
     {
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_KEY_UP, TX_OR);
+      event_new = FMX_EVENT_KEY_UP;
+      if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+      {
+        FM_DEBUG_LedError(1);
+      }
     }
+    break;
+  case KEY_EXT_1_Pin:
+    HAL_NVIC_DisableIRQ(EXTI3_IRQn);
+    event_new = FMX_EVENT_KEY_EXT_1;
+    if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+    {
+      FM_DEBUG_LedError(1);
+    }
+    tx_timer_change(&timer_cb_debunce, TIMER_EXTI_DEBUNCE, 0);
+    tx_timer_activate(&timer_cb_debunce);
+    break;
+  case KEY_EXT_2_Pin:
+    HAL_NVIC_DisableIRQ(EXTI4_IRQn);
+    event_new = FMX_EVENT_KEY_EXT_2;
+    if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+    {
+      FM_DEBUG_LedError(1);
+    }
+    tx_timer_change(&timer_cb_debunce, TIMER_EXTI_DEBUNCE, 0);
+    tx_timer_activate(&timer_cb_debunce);
     break;
   default:
     FM_DEBUG_LedError(1);
@@ -423,18 +533,12 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
   UNUSED(GPIO_Pin);
 
   /*
-   * Antes de activar un timer para que tenga 3 segundos frescos se debe usar tx_timer_change.
+   * Antes de activar un timer para que tenga x mili-seg frescos se debe usar tx_timer_change.
    * Para la doble función de la tecla primero se espera 3 segundos, pero esta funcion luego repite cada
    * un segundo si se mantiene presionada la tecla.
    */
-  tx_timer_change(&timer_cb_key_three_seconds, 300, 100);
+  tx_timer_change(&timer_cb_key_three_seconds, 250, 80);
   tx_timer_activate(&timer_cb_key_three_seconds);
-
-  /*
-   * Se enciende el backlight del LCD al presionar una tecla.
-   */
-  HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port, LED_BACKLIGHT_Pin, GPIO_PIN_RESET);
-
 }
 
 /*

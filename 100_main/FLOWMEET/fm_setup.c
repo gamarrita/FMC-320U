@@ -62,7 +62,6 @@ typedef enum
 
 // External variables.
 extern RTC_HandleTypeDef hrtc;
-extern TX_EVENT_FLAGS_GROUP event_cb_keypad;
 
 // Global variables, statics.
 
@@ -158,7 +157,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     {
       entry_counter = 0; // Permite ejecutar función Entry del siguiente menu.
       menu_index++; // en la próxima entada se ejecuta el siguiente menu.
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
     }
     switch (this_event)
     {
@@ -173,7 +172,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_ENTER:
       entry_counter = entries_to_exit; // Fuerzo salida.
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_DOWN_LONG:
       break;
@@ -253,7 +252,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     {
       entry_counter = 0;
       menu_index++;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
     }
     break;
   case MENU_SETUP_FACTOR_C:
@@ -277,7 +276,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       MenuSetupFactorCalEdit(MENU_MODE_EXIT);
       entry_counter = 0;
       menu_index++;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ENTER:
       MenuSetupFactorCalEdit(MENU_MODE_NEXT);
@@ -316,7 +315,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       MenuSetupVolUnitEdit(MENU_MODE_EXIT);
       entry_counter = 0;
       menu_index++;
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ENTER:
       break;
@@ -352,7 +351,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_ESC:
       MenuSetupTimeUnitEdit(MENU_MODE_EXIT);
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
       entry_counter = 0;
       menu_index++;
       break;
@@ -391,7 +390,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_ESC:
       MenuSetupDateEdit(MENU_MODE_EXIT);
-      tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+      FMX_RefreshEventTrue();
       entry_counter = 0;
 
       /*
@@ -419,7 +418,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     }
     break;
   case MENU_SETUP_END:
-    tx_event_flags_set(&event_cb_keypad, (ULONG) FMX_EVENT_REFRESH, TX_OR);
+    FMX_RefreshEventTrue();
     FM_FMC_Init(FM_FACTORY_RAM_BACKUP); // Necesario para calcular factores con nueva configuración.
     menu_index = MENU_SETUP_INIT; // El indice ajustado para la próxima entrada al menu de configuración.
     menu_user = TRUE; // Retorna al menu de usuario.
@@ -477,14 +476,13 @@ void MenuSetupPasswordEntry(uint8_t pass_len)
  * 					mode 2, solo refresca la pantalla.
  * @retval	ninguno.
  */
-void MenuSetupPasswordEnter(uint8_t cmd)
+void MenuSetupPasswordEnter(menu_mode_t cmd)
 {
   const char debug_msg[] = "MenuSetupPasswordEnter";
 
   static uint8_t my_index = 0;
 
   FM_DEBUG_UartMsg(debug_msg, sizeof(debug_msg));
-
 
   switch (cmd)
   {
@@ -617,7 +615,7 @@ void MenuSetupVolUnitEntry()
  * 			mode 2, cambia a anterior unidad de volumen.
  * @retval
  */
-void MenuSetupVolUnitEdit(uint8_t mode)
+void MenuSetupVolUnitEdit(menu_mode_t mode)
 {
   static ufp3_t factor_cal;
   double factor_k;
@@ -706,7 +704,7 @@ void MenuSetupTimeUnitEntry()
  * 			mode 2, cambia a anterior unidad de tiempo.
  *
  */
-void MenuSetupTimeUnitEdit(uint8_t mode)
+void MenuSetupTimeUnitEdit(menu_mode_t mode)
 {
   double factor_rate;
   static fm_fmc_time_unit_t time_unit = TIME_UNIT_SECOND;

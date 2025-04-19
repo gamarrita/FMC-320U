@@ -10,6 +10,7 @@
  */
 
 // Includes.
+#include "fmx.h"
 #include "fm_mxc.h"
 #include "main.h"
 #include "string.h"
@@ -299,27 +300,28 @@ void FM_MXC_Wakeup()
  * @param   Ninguno.
  * @retval  Ninguno.
  */
-void FM_MXC_BTConnect()
+fmx_status_t FM_MXC_BTConnect()
 {
   fm_mxc_status_t retval;
 
   retval = MXC_SendAT(AT_BINQ_NAME, 1);
   if (retval == FM_MXC_FAIL)
   {
-    FM_DEBUG_LedError(1);
+    return FMX_STATUS_ERROR;
   }
 
   retval = MXC_SendAT(AT_BCONN_0, 1);
   if (retval == FM_MXC_FAIL)
   {
-    FM_DEBUG_LedError(1);
+    return FMX_STATUS_ERROR;
   }
 
   retval = MXC_SendAT(AT_BSENDRAW, 1);
   if (retval == FM_MXC_FAIL)
   {
-    FM_DEBUG_LedError(1);
+    return FMX_STATUS_ERROR;
   }
+  return FMX_STATUS_OK;
 }
 
 /*

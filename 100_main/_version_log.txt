@@ -44,7 +44,32 @@
  - Se modifica la descripcion del archivo READ.md
  - Se elimina del control de versiones a las carpetas Debug
  
- 
- 
+ Version 01.01.008 - Primera version comercial con impresion de ticket
+  (+) EMC-3080P para impresion
+  (+) Impresion de ticket en Gadnic
+  (+) Pusadores y funciones EXT_1 y EXT_2.
+  (m) Se cambia pantallas de version a firmware 01.01.008
+  (m) Se modifica pantalla de impresion.
+  (d) Comportamiento de los LEDs de debug, al salir del setup podian quedar prendigo el de error.
+  (m) Para procesar los eventos, teclas presionadas, refrecos, etc, se paso de usar tx_event a tx_queue.
+  (d) El segmento punto, testigo del ingreso de pulsos no estaba funcionando, se reparo.
+  (m) El archivo de texto para control de version, este archivo, se mueve a la carpeta 100_main y se lo llama _VERSION.
+
+(+) Agrega funcion.
+(-) Se quita una funcion.
+(m) Modifica firmware, tipicamente para que sea mas claro o robusto.
+(d) Debug, elimina un error.
+
+Consumo 85uA, condiciones:
+- Promedio de en un minuto medido con el PPK2
+- Bateriaas AA 3.1 volts total
+- Si conectar ST-LINK
+- Led azul de actividad habilitado
+- Conextado a generado de señales por medio de dos pickup acoplados en serie y frecuencia de 100Hz
+   
+  
+  
+  
+  
  
  
