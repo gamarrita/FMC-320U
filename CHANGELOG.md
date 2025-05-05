@@ -32,6 +32,10 @@ Consumo 43uA, condiciones:
 - Sin conectar pickup
 
 ### Testeos completados
-
+- Encendido sin pulsos -> OK
+- Encendido con pulsos -> OK
+- Recorrer el menu de usuario con botones arriba y abajo -> OK
+- Recorrer el menu botones externos -> OK
+- Impresion de ticket con 
 
 
