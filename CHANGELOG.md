@@ -13,7 +13,7 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 - N/A
 
 ### Changed
-- N/A
+- Cambio presentacion de version a 00.00.001 BT
 
 
 ### Datos de consumo
