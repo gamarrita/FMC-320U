@@ -6,7 +6,6 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 
 ### Notas
 
-
 ### Added
 - Inicialización del proyecto.
 
@@ -14,7 +13,7 @@ Todos los cambios notables de este proyecto se documentarán en este archivo.
 - N/A
 
 ### Changed
-- Se modifica contenido de cCONTRIBUTING.mcd
+- N/A
 
 
 ### Datos de consumo
