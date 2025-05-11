@@ -66,8 +66,8 @@ char print_status_msg[][3] =
 // Project variables, non-static, at least used in other file.
 
 // External variables.
+extern uint8_t gobal_refresh_1000; // Alguna entidad solicita mantener refrescos cada 1 segundo.
 extern TX_QUEUE queue_cb_event;
-extern TX_TIMER fmx_event_refresh;
 
 // Global variables, statics.
 char user_line_1[20];
@@ -115,6 +115,12 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
   ULONG received_event;
   //UINT tx_status;
 
+  if (this_event == FMX_EVENT_EMPTY)
+  {
+    // Idealmente si el evento es el EMPTY, debería salir, y ahorrar el tiempo  de procesamiento, actualmente
+    // se hace este cambio de valor porque algun problema hace que no se refresque correctamente la pantalla.
+    this_event = FMX_EVENT_REFRESH;
+  }
 
   switch (menu_index)
   {
@@ -281,33 +287,30 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     }
     break;
   case MENU_USER_DATE_TIME:
+
+    // Este menu solicita refrescos cada 1000 mili segundos.
+    gobal_refresh_1000 = TRUE;
     if (!entry_counter)
     {
       entry_counter++;
       MenuUserClockEntry();
-
-      // Se necesita refresco cada un segundo para ver avanzar el reloj.
-      // Este timer se debe desactivar al salir de este menu.
-      tx_timer_activate(&fmx_event_refresh);
+      FMX_RefreshEventTrue();
     }
     switch (this_event)
     {
     case FMX_EVENT_REFRESH:
       MenuUserClockRefresh();
       entry_counter++;
-      if(entry_counter == 60)
+      if (entry_counter == 60)
       {
-        tx_timer_deactivate(&fmx_event_refresh);
-            entry_counter = 0;
-            menu_index = MENU_USER_TTL_RATE;
-            FMX_RefreshEventTrue();
-
+        entry_counter = 0;
+        menu_index = MENU_USER_TTL_RATE;
+        FMX_RefreshEventTrue();
       }
       break;
     case FMX_EVENT_KEY_DOWN:
       break;
     case FMX_EVENT_KEY_UP:
-      tx_timer_deactivate(&fmx_event_refresh);
       entry_counter = 0;
       menu_index--;
       FMX_RefreshEventTrue();
@@ -325,7 +328,6 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
     case FMX_EVENT_KEY_EXT_1:
-      tx_timer_deactivate(&fmx_event_refresh);
       entry_counter = 0;
       menu_index = MENU_USER_TTL_RATE;
       FMX_RefreshEventTrue();
@@ -379,7 +381,7 @@ void MenuUserVersionEntry()
   msg_release = FM_FACTORY_ReleaseGet();
 
   FM_LCD_LL_PutChar_1(*msg_release);
-  FM_LCD_LL_PutChar_2(*(msg_release+1));
+  FM_LCD_LL_PutChar_2(*(msg_release + 1));
 }
 
 /*

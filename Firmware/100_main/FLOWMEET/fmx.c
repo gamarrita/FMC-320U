@@ -17,6 +17,7 @@
 #include "fm_lcd.h"
 #include "fm_user.h"
 #include "fm_setup.h"
+#include "tx_api.h"
 
 // Defines.
 
@@ -49,12 +50,16 @@ extern LPTIM_HandleTypeDef hlptim3; // Pulsos de sensor primario, para calculo d
 extern LPTIM_HandleTypeDef hlptim4; // Pulsos de sensor primario, para calculo de caudal.
 
 // Global variables, statics.
+
+uint8_t fmc_calc_flag = FALSE; // Ingresan pulsos desde el sensor  primario.
+uint8_t gobal_refresh_1000 = FALSE; // Alguna entidad solicita mantener refrescos cada 1000 mili segundo.
+
 uint16_t lptim3_capture;
 uint16_t lptim4_counter;
 
 uint16_t rate_tick_old = 0;
 uint16_t rate_tick_new = 0;     // Ultima captura del LPTIM3.
-uint16_t rate_tick_delta;   // Período medido en n pulsos, el LPTIM3 mide ticks de clock 32769hz
+uint16_t rate_tick_delta; // Período medido en n pulsos, el LPTIM3 mide ticks de clock 32769hz
 
 uint16_t rate_pulse_old = 0;
 uint16_t rate_pulse_new = 0;
@@ -67,7 +72,7 @@ uint16_t vol_pulse_delta;     // Pulsos que se traducirían a volumen.
 // Thread del RTOS, responsable de contabilizar los pulsos acumulados.
 
 // Grupo de eventos del RTOS, responsable de atender al teclado y otros eventos.
-TX_QUEUE queue_cb_event;	// control block de eventos, teclado y otros eventos.
+TX_QUEUE queue_cb_event;   // control block de eventos, teclado y otros eventos.
 char queue_name_event[] = "QUEUE EVENT";
 uint32_t queue_storage_event[QUEUE_EVENT_SIZE];
 
@@ -95,9 +100,6 @@ char timer_name_backlight_off[] = "BACK LIGHT ON";
 TX_TIMER timer_cb_debunce;    //
 char timer_name_debunce[] = "DEBOUNCE EXTI";
 
-// Timer del RTOS, quita rebotes de KEY_EXT_1 y KEY_EXT_2.
-TX_TIMER fmx_event_refresh;    //
-char fmx_name_event_refresh[] = "TIMER EVENT REFRESH";
 
 /*
  * El teclado reacciona cuando se libera una tecla, no al presionar, es su función principal.
@@ -111,7 +113,7 @@ uint8_t key_enter_skip_next = FALSE;
 uint8_t key_esc_skip_next = FALSE;
 
 // Private function prototypes.
-void ThreadEntryPulseUpdate(ULONG thread_input);
+void PulseUpdate();
 void ThreadEntryMain(ULONG thread_input);
 void TimerEntryKeyThreeSeconds(ULONG timer_key);
 void TimerEntryBackLightOff(ULONG timer_key);
@@ -128,6 +130,7 @@ void ThreadEntryMain(ULONG thread_input)
   uint8_t menu = 0;
   uint8_t menu_change;
   UINT tx_status;
+  ULONG sleep_time = 100;
 
   /*
    * Enciendo el backlight LCD.
@@ -140,11 +143,70 @@ void ThreadEntryMain(ULONG thread_input)
   // Limpio eventos.
   do
   {
-    tx_status = tx_queue_receive(&queue_cb_event, &received_event, TX_NO_WAIT);
+    tx_status = tx_queue_receive(&queue_cb_event, &received_event,
+    TX_NO_WAIT);
   } while (tx_status != TX_QUEUE_EMPTY);
 
   for (;;)
   {
+
+    PulseUpdate();
+    /*
+     * En lo que sigue se  justifica cual es valor, que por defefto se enviaria a dormir al  computador.
+     *
+     * Idealmente debería dormir para siempre, hasta que algo pase, tiempo indefinido. Si bien esto es posible,
+     * no se puede con el esquema actual. El RTOS necesita un tiempo de expiración, al menos uno,
+     * para poder traducir el idle time a un tiempo valido para ingresar a stop mode.
+     * Si todos los procesos pasan a idle con TX_WAIT_FOREVER, el calculo que hace el RTOS "falla",
+     * se saldrá del stop mode justo después de ingresar.
+     * El timer 1 programado con un prescaler de 16 y alimentado con una frecuencia de 32768Hz, tiene
+     * una capacidad máxima de 32 segundo. En conclusion no se puede ir a dormir por mas de 32 segundos.
+     * Ir a dormir por mas de 5 segundos, o quizás 3 segundos no aporta mucho a la duración de la batería
+     * Salir de stop mode cada 3 o 5 segundos ayuda a detectar alguna inconsistencias durante el desarrollo.
+     * Se decide dejar el time out en 5 segundos para lo que resta de la vida util del computador de
+     * caudales.
+     * Si el computador nunca saliese de stop mode 2 consumiría 33uA.
+     * Si el computador sale una vez cada 5 segundos consume 42uA
+     * Si el computador sale una vez cada 3 segundos consume 45uA
+     * Si el computador sale una vez cada 1 segundos consume 63uA
+     *
+     *
+     * Nota, las mediciones en este caso se hicieron con el ST-LKINK desconectado, si se conecta el ST-LINK
+     * hay un drenaje de corriente desde ST-LINK hacia el computador, y el consumo disminuye 5uA
+     * aproximadamente. Aunque es algo considerable, desconectar y conectar el ST-LINK para cada medición no
+     * justifica la operatoria. En otros puntos, donde se menciona consumo, puede que se dejara el ST-LINK
+     * conectado, y que el valor corresponda a la lectura directa a esta menos estos 5uA, es decir si no
+     * menciona que se desconecto el ST-LINK no sirve para calculo fino, en muchos casos no se necesita.
+     */
+    sleep_time = 500;
+
+    // El menu de configuración necesita refrescos de cada 1  segundo.
+    if (menu == 1)
+    {
+      sleep_time = 100;
+    }
+
+    // Si ingresan pulsos se necesita refrescos cada 1  segundo
+    if (fmc_calc_flag)
+    {
+      sleep_time = 100;
+
+      /*
+       * Si no ingresa un nuevo pulso este el valor se descuenta, se necesitan al menos dos repeticiones de refresco
+       * de caudal, cuando este  se detiene, para visualizar fluidamente como va a cero.
+       */
+      fmc_calc_flag--;
+    }
+
+    if (gobal_refresh_1000)
+    {
+      // Alguien solicito refrescos cada 1 segundo, no es permanente, lo debera solicitar nuevamente.
+      sleep_time = 100;
+      gobal_refresh_1000 = FALSE;
+    }
+
+
+
     switch (menu)
     {
     case 0:
@@ -157,6 +219,10 @@ void ThreadEntryMain(ULONG thread_input)
       }
       break;
     case 1:
+      if (received_event == FMX_EVENT_EMPTY)
+      {
+        received_event = FMX_EVENT_REFRESH;
+      }
       menu_change = FM_SETUP_MenuNav(received_event);
       if (menu_change)
       {
@@ -169,47 +235,17 @@ void ThreadEntryMain(ULONG thread_input)
       break;
     }
 
+    /*
+     *  El ultimo evento ya se proceso, esta es una variable intermedia que la tengo que limpiar. Si hay un evento
+     *  en la cola se escribiría correctamente cuando se ejecute tx_queue_receive();
+     */
+    received_event = FMX_EVENT_EMPTY;
+
     // Refrescar lo que se ve en pantalla.
     FM_LCD_LL_Refresh();
 
-    // Se detiene hasta recibir un evento.
-    // Se deberían evaluar todos los retornos posibles de tx_status.
-    do
-    {
-      /*
-       * En teoría aquí debería esperar, para siempre, hasta que algo pase. Si bien esto es posible,
-       * no se puede con el esquema actual. El RTOS necesita un tiempo de expiración, al menos uno,
-       * para poder traducir el idle time a un tiempo valido para ingresar a stop mode.
-       * Si todos los procesos pasan a idle con TX_WAIT_FOREVER, el calculo que hace el RTOS "falla",
-       * se saldrá del stop mode justo después de ingresar.
-       * El timer 1 programado con un prescaler de 16 y alimentado con una frecuencia de 32768Hz, tiene
-       * una capacidad máxima de 32 segundo. En conclusion no se puede ir a dormir por mas de 32 segundos.
-       * Ir a dormir por mas de 5 segundos, o quizás 3 segundos no aporta mucho a la duración de la batería
-       * Salir de stop mode cada 3 o 5 segundos ayuda a detectar alguna inconsistencias durante el desarrollo.
-       * Se decide dejar el time out en 5 segundos para lo que resta de la vida util del computador de
-       * caudales.
-       * Si el computador nunca saliese de stop mode 2 consumiría 33uA.
-       * Si el computador sale una vez cada 5 segundos consume 42uA
-       * Si el computador sale una vez cada 3 segundos consume 45uA
-       * Si el computador sale una vez cada 1 segundos consume 63uA
-       *
-       *
-       * Nota, las mediciones en este caso se hicieron con el ST-LKINK desconectado, si se conecta el ST-LINK
-       * hay un drenaje de corriente desde ST-LINK hacia el computador, y el consumo disminuye 5uA
-       * aproximadamente. Aunque es algo considerable, desconectar y conectar el ST-LINK para cada medición no
-       * justifica la operatoria. En otros puntos, donde se menciona consumo, puede que se dejara el ST-LINK
-       * conectado, y que el valor corresponda a la lectura directa a esta menos estos 5uA, es decir si no
-       * menciona que se desconecto el ST-LINK no sirve para calculo fino, en muchos casos no se necesita.
-       */
-      tx_status = tx_queue_receive(&queue_cb_event, &received_event, 500);
-    } while (tx_status == TX_QUEUE_EMPTY);
+    tx_status = tx_queue_receive(&queue_cb_event, &received_event, sleep_time);
 
-    if (tx_status != TX_SUCCESS)
-    {
-      received_event = FMX_EVENT_EMPTY;
-    }
-
-    // Si es evento de interfaz de usuario iluminar el LCD
     if ((received_event > FMX_EVENT_REFRESH) && (received_event <= FMX_EVENT_KEY_EXT_2))
     {
       FMX_LcdBackLightOn();
@@ -224,81 +260,84 @@ void ThreadEntryMain(ULONG thread_input)
  * @retval			Ninguno.
  *
  */
-void ThreadEntryPulseUpdate(ULONG thread_input)
+void PulseUpdate()
 {
   static uint8_t blink = 1;
 
-  for (;;)
+  blink ^= 1;
+
+  if (rate_pulse_delta)
   {
-
-    // Pulsos del sensor primario capturados en el ultimo intervalo.
-    // El caudal se calculara en función de cuanto pulsos ingresan en aproximadamente 1 segundo.
-    rate_pulse_old = rate_pulse_new;
-    rate_pulse_new = lptim4_counter;
-    rate_pulse_delta = (rate_pulse_new - rate_pulse_old);
-
+    //Si  ingresan pulsus el período  se calcula  normalmente.
     rate_tick_old = rate_tick_new;
     rate_tick_new = lptim3_capture;
     rate_tick_delta = (rate_tick_new - rate_tick_old);
 
-    vol_pulse_old = vol_pulse_new;
-    vol_pulse_new = LPTIM4->CNT;
-    vol_pulse_delta = (vol_pulse_new - vol_pulse_old);
-
-    /*
-     * En teoría, aquí debería esperarse indefinidamente hasta que ocurra algún evento.
-     * Aunque esto es técnicamente posible, no se puede implementar con el esquema actual.
-     * El RTOS requiere al menos un tiempo de expiración para poder traducir el tiempo en idle
-     * a un valor válido que permita entrar en stop mode.
-     *
-     * Si todos los procesos entran en idle usando TX_WAIT_FOREVER, el cálculo interno del RTOS falla,
-     * provocando que el sistema salga del stop mode inmediatamente después de haber ingresado.
-     *
-     * El Timer 1, configurado con un prescaler de 16 y una frecuencia base de 32.768 Hz, tiene
-     * una capacidad máxima de conteo de 32 segundos. Por lo tanto, no es posible dormir más de 32 segundos.
-     *
-     * Además, existe una limitación práctica: dormir por más de 3 o 5 segundos no aporta beneficios
-     * significativos al ahorro energético, y salir periódicamente del stop mode (cada 3 a 5 segundos)
-     * permite detectar posibles inconsistencias en la interfaz de usuario.
-     *
-     * El valor de timeout para el evento esperado se ajustará dinámicamente. A medida que se adquiera
-     * mayor confianza en la estabilidad del sistema, este valor podrá incrementarse hasta unos 30 segundos.
-     *
-     * Referencias de consumo:
-     * - En stop mode 2 sin salir: 33 µA
-     * - Saliendo cada 3 segundos: 44 µA
-     * - Saliendo cada 5 segundos: 40 µA
-     *
-     * Nota: Estas mediciones se realizaron con el ST-LINK desconectado. Si se conecta el ST-LINK,
-     * hay un drenaje de corriente hacia el computador, lo que reduce el consumo en aproximadamente 5 µA.
-     * Aunque este efecto es significativo, no se consideró práctico conectar y desconectar el ST-LINK
-     * para cada medición. Este puede ser el único lugar donde se mencione dicho efecto. En otros puntos
-     * donde se hable de consumo, es probable que los valores estén subestimados por unos 5 µA, ya que
-     * la mayoría de las mediciones se realizaron con el ST-LINK conectado.
-     */
-    __HAL_LPTIM_ENABLE_IT(&hlptim3, LPTIM_IT_CC1);
-
-    FM_FMC_PulseAdd(vol_pulse_delta);
-    FM_FMC_CaptureSet(rate_pulse_delta, rate_tick_delta);
-    FM_FMC_TtlCalc();
-    FM_FMC_AcmCalc();
-    FM_FMC_RateCalc();
-    blink ^= 1;
+    // Si  ingresan pulsos el segmento testigo parpadea.
     FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_POINT, blink);
-    // Evento para refrescar la pantalla.
-    FMX_RefreshEventTrue();
-
-    if (rate_pulse_delta)
-    {
-      tx_thread_sleep(100);
-    }
-    else
-    {
-      tx_semaphore_get(&sem_cb_pulse_wakeup, TX_WAIT_FOREVER);
-      rate_tick_new = LPTIM3->CNT;
-      tx_thread_sleep(25);
-    }
   }
+  else
+  {
+    // No ingresaron pulsos.
+    rate_tick_delta = 32768;
+
+    // Si estoy en este bloque el caudal es cero, segmento testigo de caudal apagado.
+    FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_POINT, 0);
+  }
+
+  // Pulsos del sensor primario capturados en el ultimo intervalo.
+  // El caudal se calculara en función de cuanto pulsos ingresan en aproximadamente 1 segundo.
+  rate_pulse_old = rate_pulse_new;
+  rate_pulse_new = lptim4_counter;
+  rate_pulse_delta = (rate_pulse_new - rate_pulse_old);
+
+  vol_pulse_old = vol_pulse_new;
+  vol_pulse_new = LPTIM4->CNT;
+  vol_pulse_delta = (vol_pulse_new - vol_pulse_old);
+
+  /*
+   * Este bloque explica la técnica utilizada para medir el caudal, un posible bug en el silicio del STM32U575,
+   * y la solución aplicada.
+   *
+   * La forma típica de medir el caudal consiste en determinar el período de una señal, calcular su frecuencia
+   * y, a partir de esta, obtener el caudal. Para lograr alta precisión, se requiere una alta frecuencia de reloj.
+   * Sin embargo, en dispositivos de bajo consumo, como un caudalímetro portátil, mantener una frecuencia elevada
+   * es incompatible con una operación energéticamente eficiente.
+   *
+   * La técnica empleada en este caso es la siguiente:
+   * - Se utiliza un timer (LPTIM3), alimentado por un reloj de 32.768 Hz, configurado en modo captura continua.
+   *   Este timer no genera interrupciones por sí mismo.
+   * - Periódicamente, el microcontrolador se activa para actualizar los valores de caudal y volumen, y en ese momento:
+   *     - Se lee el último valor capturado por LPTIM3 (que representa el tiempo del último flanco de la señal).
+   *     - Simultáneamente, otro timer (LPTIM4) cuenta la cantidad de pulsos ingresados durante el período inactivo.
+   * - Con ambos datos, se puede calcular el período promedio de los pulsos registrados mientras el sistema estaba en modo de bajo consumo.
+   *
+   * Este método brinda una resolución adecuada para frecuencias menores a 10 kHz, con una precisión mejor al 0.01%.
+   * Ha sido probado con éxito en múltiples modelos de caudalímetros. Sin embargo, se detectó un problema:
+   *
+   * El módulo de captura (LPTIM3) no actualiza correctamente el valor de la última captura cuando el microcontrolador
+   * está en modo de bajo consumo y se han producido una cantidad par de capturas.
+   *
+   * La solución consiste en habilitar temporalmente la interrupción por captura del LPTIM3. El proceso es:
+   * 1) Mientras el microcontrolador está en modo activo (run), se habilita la interrupción de captura en LPTIM3.
+   * 2) Se produce una captura, ya sea durante el modo activo o una vez que el sistema ha ingresado en modo stop.
+   * 3) En la rutina de interrupción, se registran los valores de LPTIM3 y LPTIM4, y se desactiva la interrupción.
+   * 4) El sistema vuelve al modo stop hasta el siguiente ciclo de actividad.
+   *
+   * Aunque este método funciona, tiene dos desventajas en comparación con el método original:
+   * - Si la nueva captura ocurre fuera del período activo, el microcontrolador se despierta antes de tiempo
+   *   para atender la interrupción. Esto impacta el consumo, especialmente en señales de baja frecuencia.
+   * - Existe un retardo en la actualización de la lectura de caudal: el valor mostrado en pantalla (por ejemplo,
+   *   cada segundo) puede corresponder a una captura del segundo anterior. Aunque este desfase no suele ser
+   *   crítico, se vuelve perceptible al detener el flujo.
+   */
+  __HAL_LPTIM_ENABLE_IT(&hlptim3, LPTIM_IT_CC1);
+
+  FM_FMC_PulseAdd(vol_pulse_delta);
+  FM_FMC_CaptureSet(rate_pulse_delta, rate_tick_delta);
+  FM_FMC_TtlCalc();
+  FM_FMC_AcmCalc();
+  FM_FMC_RateCalc();
 }
 
 /*
@@ -315,28 +354,40 @@ void TimerEntryKeyThreeSeconds(ULONG timer_input)
   if (HAL_GPIO_ReadPin(KEY_DOWN_GPIO_Port, KEY_DOWN_Pin))
   {
     event_new = FMX_EVENT_KEY_DOWN_LONG;
-    tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT);
+    if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+    {
+      FM_DEBUG_LedError(1);
+    }
     key_down_skip_next = TRUE;
   }
 
   if (HAL_GPIO_ReadPin(KEY_UP_GPIO_Port, KEY_UP_Pin))
   {
     event_new = FMX_EVENT_KEY_UP_LONG;
-    tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT);
+    if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+    {
+      FM_DEBUG_LedError(1);
+    }
     key_up_skip_next = TRUE;
   }
 
   if (HAL_GPIO_ReadPin(KEY_ESC_GPIO_Port, KEY_ESC_Pin))
   {
     event_new = FMX_EVENT_KEY_ESC_LONG;
-    tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT);
+    if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+    {
+      FM_DEBUG_LedError(1);
+    }
     key_esc_skip_next = TRUE;
   }
 
   if (HAL_GPIO_ReadPin(KEY_ENTER_GPIO_Port, KEY_ENTER_Pin))
   {
     event_new = FMX_EVENT_KEY_ENTER_LONG;
-    tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT);
+    if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+    {
+      FM_DEBUG_LedError(1);
+    }
     key_enter_skip_next = TRUE;
   }
 }
@@ -365,9 +416,18 @@ void TimerEntryDebunce(ULONG timer_input)
   // Es timer one-shot no se necesita ejecutar tx_timer_deactivate().
 }
 
+/*
+ * @brief   Timer para refrescar datos del computador y pantalla.
+ * @note
+ * @param   Ver documentación del ThreadX.
+ * @retval  Ninguno.
+ */
 void TimerEntryEventRefresh(ULONG timer_input)
 {
+  // Si la cora de eventos esta vaciá agrega un evento de refresco.
   FMX_RefreshEventTrue();
+
+  //
 }
 
 // Public function bodies.
@@ -391,31 +451,17 @@ UINT FMX_Init(VOID *memory_ptr)
 
   TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*) memory_ptr;
 
-// Reserva memoria para el thread luego lo crea.
-  if (tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT) != TX_SUCCESS)
-  {
-    __disable_irq();
-    FM_DEBUG_LedError(1);
-  }
-  if (tx_thread_create(&thread_cb_pulse_update, thread_name_pulse_update, ThreadEntryPulseUpdate,
-      0, pointer, STACK_SIZE, THREAD_PRIORITY_10, THRESHOLD_10, SLICE_0,
-      TX_AUTO_START) != TX_SUCCESS)
-  {
-    __disable_irq();
-    FM_DEBUG_LedError(1);
-    while (1);
-  }
-
 // Reserva memoria para un thread, luego lo crea.
-  if (tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT) != TX_SUCCESS)
+  if (tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE,
+  TX_NO_WAIT) != TX_SUCCESS)
   {
     __disable_irq();
     FM_DEBUG_LedError(1);
     while (1);
   }
 
-  if (tx_thread_create(&thread_cb_main, thread_name_main, ThreadEntryMain,
-      0, pointer, STACK_SIZE, THREAD_PRIORITY_10, THRESHOLD_10, SLICE_0,
+  if (tx_thread_create(&thread_cb_main, thread_name_main, ThreadEntryMain, 0, pointer, STACK_SIZE,
+      THREAD_PRIORITY_10, THRESHOLD_10, SLICE_0,
       TX_AUTO_START) != TX_SUCCESS)
   {
     __disable_irq();
@@ -465,15 +511,6 @@ UINT FMX_Init(VOID *memory_ptr)
     while (1);
   }
 
-  // Crea timer para quitar los rebores de los botones externos.
-  if (tx_timer_create(&fmx_event_refresh, fmx_name_event_refresh, TimerEntryEventRefresh, 0x1234,
-      100, 100, TX_NO_ACTIVATE) != TX_SUCCESS)
-  {
-    FM_DEBUG_LedError(1);
-    return TX_TIMER_ERROR;
-    while (1);
-  }
-
   return ret;
 }
 
@@ -486,13 +523,14 @@ void FMX_LcdBackLightOn()
 {
   HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port, LED_BACKLIGHT_Pin, GPIO_PIN_RESET);
   tx_timer_deactivate(&timer_cb_backlight_off);
-  tx_timer_change(&timer_cb_backlight_off, TIMER_BACKLIGHT_GUI, TIMER_BACKLIGHT_GUI);
+  tx_timer_change(&timer_cb_backlight_off, TIMER_BACKLIGHT_GUI,
+  TIMER_BACKLIGHT_GUI);
   tx_timer_activate(&timer_cb_backlight_off);
 }
 
 /*
  * @brief   Si la cola esta vacía agrega un evento de refresco,
- * @Note    Esta es la única función que se debería usar para encender el backlight.
+ * @Note
  * @retval
  */
 void FMX_RefreshEventTrue()
@@ -536,7 +574,8 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     else
     {
       event_new = FMX_EVENT_KEY_ENTER;
-      if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+      if (tx_queue_send(&queue_cb_event, &event_new,
+      TX_NO_WAIT) != TX_SUCCESS)
       {
         FM_DEBUG_LedError(1);
       }
@@ -550,7 +589,8 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     else
     {
       event_new = FMX_EVENT_KEY_DOWN;
-      if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+      if (tx_queue_send(&queue_cb_event, &event_new,
+      TX_NO_WAIT) != TX_SUCCESS)
       {
         FM_DEBUG_LedError(1);
       }
@@ -564,7 +604,8 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     else
     {
       event_new = FMX_EVENT_KEY_ESC;
-      if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+      if (tx_queue_send(&queue_cb_event, &event_new,
+      TX_NO_WAIT) != TX_SUCCESS)
       {
         FM_DEBUG_LedError(1);
       }
@@ -578,7 +619,8 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
     else
     {
       event_new = FMX_EVENT_KEY_UP;
-      if (tx_queue_send(&queue_cb_event, &event_new, TX_NO_WAIT) != TX_SUCCESS)
+      if (tx_queue_send(&queue_cb_event, &event_new,
+      TX_NO_WAIT) != TX_SUCCESS)
       {
         FM_DEBUG_LedError(1);
       }
@@ -628,7 +670,7 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
    * Para la doble función de la tecla primero se espera 3 segundos, pero esta funcion luego repite cada
    * un segundo si se mantiene presionada la tecla.
    */
-  tx_timer_change(&timer_cb_key_three_seconds, 250, 80);
+  tx_timer_change(&timer_cb_key_three_seconds, 250, 150);
   tx_timer_activate(&timer_cb_key_three_seconds);
 }
 
@@ -644,10 +686,19 @@ void HAL_LPTIM_IC_CaptureCallback(LPTIM_HandleTypeDef *hlptim)
   lptim3_capture = LPTIM3->CCR1;
   lptim4_counter = LPTIM4->CNT;
 
-  if (sem_cb_pulse_wakeup.tx_semaphore_count == 0)
+  if (rate_pulse_delta == 0)
   {
-    tx_semaphore_put(&sem_cb_pulse_wakeup);
+    /*
+     * Si estoy dentro de este bloque, el caudal paso de cero a no cero, quiero refrescar el valor en pantalla para
+     * tener un rapido feedback en pantalla del computador de esta situación.
+     */
+    FMX_RefreshEventTrue();
+
+    // Al estar el caudal detenido, rate_tick_new no se calcula desde PulseUpdate();
+    rate_tick_new =  lptim3_capture;
   }
+
+  fmc_calc_flag = 2;
 
   __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_CC1);
 }

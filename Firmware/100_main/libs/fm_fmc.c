@@ -322,11 +322,6 @@ ufp3_t FM_FMC_RateCalc()
   rate *= 1000;
   totalizer.rate.rate = (ufp3_t) rate;
 
-  if(totalizer.rate.rate > 1000000)
-  {
-    return totalizer.rate.rate;
-  }
-
   return (totalizer.rate.rate);
 }
 

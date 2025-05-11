@@ -21,23 +21,22 @@ typedef enum
 
 /*
  * Lista de eventos eventos, un bit por cada evento, máximo 32 eventos.
- * Lugo se necesitara una mascara con todos los bits de los eventos
+ * No se puede usar typedef, como se usa con ThreadX, en eventos, y el evento es ULONG, falla al comparar.
  */
-typedef enum
-{
-  FMX_EVENT_EMPTY = 0, // Sin evento a procesar o tx_queue_receive(() devuelve TX_QUEUE_EMPTY
-  FMX_EVENT_REFRESH,
-  FMX_EVENT_KEY_DOWN,
-  FMX_EVENT_KEY_UP,
-  FMX_EVENT_KEY_ESC,
-  FMX_EVENT_KEY_ENTER,
-  FMX_EVENT_KEY_DOWN_LONG,
-  FMX_EVENT_KEY_UP_LONG,
-  FMX_EVENT_KEY_ESC_LONG,
-  FMX_EVENT_KEY_ENTER_LONG,
-  FMX_EVENT_KEY_EXT_1,
-  FMX_EVENT_KEY_EXT_2,
-} fmx_events_t;
+typedef ULONG fmx_events_t;
+#define FMX_EVENT_EMPTY             ((fmx_events_t)0)
+#define FMX_EVENT_REFRESH           ((fmx_events_t)1)
+#define FMX_EVENT_KEY_DOWN          ((fmx_events_t)2)
+#define FMX_EVENT_KEY_UP            ((fmx_events_t)3)
+#define FMX_EVENT_KEY_ESC           ((fmx_events_t)4)
+#define FMX_EVENT_KEY_ENTER         ((fmx_events_t)5)
+#define FMX_EVENT_KEY_DOWN_LONG     ((fmx_events_t)6)
+#define FMX_EVENT_KEY_UP_LONG       ((fmx_events_t)7)
+#define FMX_EVENT_KEY_ESC_LONG      ((fmx_events_t)8)
+#define FMX_EVENT_KEY_ENTER_LONG    ((fmx_events_t)9)
+#define FMX_EVENT_KEY_EXT_1         ((fmx_events_t)10)
+#define FMX_EVENT_KEY_EXT_2         ((fmx_events_t)11)
+#define FMX_EVENT_END               ((fmx_events_t)12)
 
 typedef enum
 {

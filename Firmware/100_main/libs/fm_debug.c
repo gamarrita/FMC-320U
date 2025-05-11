@@ -62,7 +62,7 @@
 #define TRUE    1
 #define FALSE   0
 
-#define STOP_ON_ERROR 1 // Comentar esta instruccion o el computador se detendrá ante un error.
+#define STOP_ON_ERROR 1 // Comentar esta instrucción o el computador se detendrá ante un error.
 
 /*
  * Las siguientes macros definen: cual es el tamaño maximo de caracteres,
@@ -204,6 +204,7 @@ void FM_DEBUG_LedError(int led_status)
   }
 
 #ifdef STOP_ON_ERROR
+#warning "Si se detecta un error esto detiene al computador, solo valido para testeo y desarrollo no producción."
   {
     while(STOP_ON_ERROR);
   }
