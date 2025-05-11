@@ -43,11 +43,11 @@ extern RTC_HandleTypeDef hrtc;
  */
 void FM_RTC_Gets(char *time_str, char *date_str)
 {
-  RTC_TimeTypeDef time;
-  RTC_DateTypeDef date;
+  RTC_TimeTypeDef time = {0};
+  RTC_DateTypeDef date = {0};
 
-  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
   HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
 
   sprintf(time_str, "%02d.%02d.%02d ", time.Hours, time.Minutes, time.Seconds);
   sprintf(date_str, "%02d.%02d.20%02d ", date.Date, date.Month, date.Year);
@@ -62,13 +62,13 @@ void FM_RTC_Gets(char *time_str, char *date_str)
  */
 uint32_t FM_RTC_GetUnixTime(void)
 {
-    RTC_TimeTypeDef time;
-    RTC_DateTypeDef date;
+    RTC_TimeTypeDef time = {0};
+    RTC_DateTypeDef date = {0};
     struct tm t;
 
     // Leer hora y fecha del RTC
-    HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
     HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+    HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
 
     // Llenar estructura tm (asumiendo año base 2000)
     t.tm_year = 2000 + date.Year - 1900; // tm_year: años desde 1900
@@ -92,11 +92,11 @@ uint32_t FM_RTC_GetUnixTime(void)
  */
 void FM_RTC_GetPpt(char *time_str, char *date_str)
 {
-  RTC_TimeTypeDef time;
-  RTC_DateTypeDef date;
+  RTC_TimeTypeDef time = {0};
+  RTC_DateTypeDef date = {0};
 
-  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
   HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
 
   sprintf(time_str, "%02d:%02d:%02d ", time.Hours, time.Minutes, time.Seconds);
   sprintf(date_str, "%02d/%02d/20%02d ", date.Date, date.Month, date.Year);
@@ -116,11 +116,12 @@ void FM_RTC_GetPpt(char *time_str, char *date_str)
 void FM_RTC_Set(fm_rtc_set_t sel, uint8_t mode)
 {
 
-  RTC_TimeTypeDef time;
-  RTC_DateTypeDef date;
+  //
+  RTC_TimeTypeDef time = {0};
+  RTC_DateTypeDef date = {0};
 
-  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
   HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
 
   switch (sel)
   {
@@ -225,14 +226,16 @@ void FM_RTC_Set(fm_rtc_set_t sel, uint8_t mode)
     break;
   }
 
-  if (HAL_RTC_SetTime(&hrtc, &time, RTC_FORMAT_BIN) != HAL_OK)
-  {
-    FM_DEBUG_LedError(1);
-  }
   if (HAL_RTC_SetDate(&hrtc, &date, RTC_FORMAT_BIN) != HAL_OK)
   {
     FM_DEBUG_LedError(1);
   }
+
+  if (HAL_RTC_SetTime(&hrtc, &time, RTC_FORMAT_BIN) != HAL_OK)
+  {
+    FM_DEBUG_LedError(1);
+  }
+
 }
 
 /*
@@ -241,8 +244,8 @@ void FM_RTC_Set(fm_rtc_set_t sel, uint8_t mode)
 void FM_RTC_Init()
 {
 
-  RTC_TimeTypeDef time;
-  RTC_DateTypeDef date;
+  RTC_TimeTypeDef time = {0};
+  RTC_DateTypeDef date = {0};
 
   time.Hours = ((uint8_t) 0x08U);
   time.Minutes = ((uint8_t) 0x37U);

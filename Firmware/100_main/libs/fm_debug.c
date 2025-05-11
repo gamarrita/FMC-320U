@@ -204,7 +204,7 @@ void FM_DEBUG_LedError(int led_status)
   }
 
 #ifdef STOP_ON_ERROR
-#warning "Si se detecta un error esto detiene al computador, solo valido para testeo y desarrollo no producción."
+
   {
     while(STOP_ON_ERROR);
   }

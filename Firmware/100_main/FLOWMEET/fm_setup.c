@@ -781,7 +781,7 @@ void MenuSetupDateEntry()
 
 /*
  * @brief 	edición de hora, minuto y segundo.
- * @param		mode, comando a ejecutar.
+ * @param	mode, comando a ejecutar.
  * @retval	ninguno.
  */
 void MenuSetupDateEdit(menu_mode_t sel)
@@ -852,8 +852,9 @@ void MenuSetupDateEdit(menu_mode_t sel)
     break;
   }
 
-  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
   HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
+  HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+
 
   sprintf(setup_line_2, "%02d.%02d.%02d ", time.Hours, time.Minutes, time.Seconds);
   sprintf(setup_line_1, "%02d.%02d.20%02d ", date.Date, date.Month, date.Year);

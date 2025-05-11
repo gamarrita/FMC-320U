@@ -13,12 +13,13 @@ Se registra los cmbios para el firmware, y cambios  que  no
 - Inicialización del proyecto.
 
 ### Fixed
-- N/A
+- Corrige problema de escritura en el RTC, por no inicializar a cero estas estructuras RTC_TimeTypeDef time = {0}; y  RTC_DateTypeDef date = {0};
 
 ### Changed
-- Cambio presentacion de version a 01.01.009 B0
+- Cambio presentacion de version a 01.01.009-B0
 - Carpeta tag en administracion.
 - Integro en la forma en que se calcula en tiempo a estar en idel, se  controla desde void ThreadEntryMain(ULONG thread_input).
+- Bug en fm_rtc, 
 
 ### Removed
  - Documendos nos correcpodes en carpeta administracion ta
@@ -38,10 +39,8 @@ Consumo 43uA, condiciones:
 - Sin conectar pickup
 
 ### Testeos completados
-- Encendido sin pulsos -> OK
-- Encendido con pulsos -> OK
-- Recorrer el menu de usuario con botones arriba y abajo -> OK
-- Recorrer el menu botones externos -> OK
-- Impresion de ticket con 
-
+0x2FB396C8 - OK
+0x2FB39787 - OK
+0x2FB397FE - OK
+0x2FB398FC - 
 

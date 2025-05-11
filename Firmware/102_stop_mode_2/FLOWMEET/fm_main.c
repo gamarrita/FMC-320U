@@ -65,7 +65,7 @@ void FM_MAIN_Main()
   HAL_Delay(10);
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
 
-  power_mode_t power_mode = MODE_STOP_2;
+  power_mode_t power_mode = MODE_STANDBY_RTC;
 
   for (;;)
   {
