@@ -19,6 +19,7 @@ Se registra los cmbios para el firmware, y cambios  que  no
 - Cambio presentacion de version a 01.01.009-B0
 - Carpeta tag en administracion.
 - Integro en la forma en que se calcula en tiempo a estar en idel, se  controla desde void ThreadEntryMain(ULONG thread_input).
+- Modifica archivo CONTRIBUTING.md
 
 ### Removed
  - Documentos no correspondientes eliminados de la carpeta de administración.
