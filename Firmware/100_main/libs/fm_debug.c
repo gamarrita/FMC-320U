@@ -62,7 +62,7 @@
 #define TRUE    1
 #define FALSE   0
 
-#define STOP_ON_ERROR 1 // Comentar esta instrucción o el computador se detendrá ante un error.
+//#define STOP_ON_ERROR 1 // Comentar esta instrucción o el computador se detendrá ante un error.
 
 /*
  * Las siguientes macros definen: cual es el tamaño maximo de caracteres,
@@ -99,7 +99,6 @@ int debug_led_enable;
 char str_buffer[SIZE_OF_INT32]; // Como tamaño elijo el mayor de la lista
 const char FM_DEBUG_ASCII_CR[] = "\n"; // Valor 10 tabla ASCII
 
-
 // Private function prototypes.
 
 // Public function bodies.
@@ -113,55 +112,57 @@ const char FM_DEBUG_ASCII_CR[] = "\n"; // Valor 10 tabla ASCII
  */
 void FM_DEBUG_Init()
 {
-  GPIO_InitTypeDef gpio_init = {0};
+  GPIO_InitTypeDef gpio_init =
+  {
+      0 };
   GPIO_PinState leds_enable_pin;
   GPIO_PinState uart_enable_pin;
 
   /*Configure GPIO pin : PtPin */
-   gpio_init.Pin = DEBUG_LED_Pin;
-   gpio_init.Mode = GPIO_MODE_INPUT;
-   gpio_init.Pull = GPIO_PULLUP;
-   HAL_GPIO_Init(DEBUG_LED_GPIO_Port, &gpio_init);
+  gpio_init.Pin = DEBUG_LED_Pin;
+  gpio_init.Mode = GPIO_MODE_INPUT;
+  gpio_init.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(DEBUG_LED_GPIO_Port, &gpio_init);
 
-   gpio_init.Pin = DEBUG_UART_Pin;
-   HAL_GPIO_Init(DEBUG_UART_GPIO_Port, &gpio_init);
+  gpio_init.Pin = DEBUG_UART_Pin;
+  HAL_GPIO_Init(DEBUG_UART_GPIO_Port, &gpio_init);
 
-   HAL_Delay(10);
+  HAL_Delay(10);
 
-   leds_enable_pin = HAL_GPIO_ReadPin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
-   uart_enable_pin = HAL_GPIO_ReadPin(DEBUG_UART_GPIO_Port, DEBUG_UART_Pin);
+  leds_enable_pin = HAL_GPIO_ReadPin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
+  uart_enable_pin = HAL_GPIO_ReadPin(DEBUG_UART_GPIO_Port, DEBUG_UART_Pin);
 
-   // Los LEDs de error, signal y active, se usan solo con motivo de debug, un jumper controla si los LEDs
-   // están activos.
-   if(leds_enable_pin == GPIO_PIN_RESET)
-   {
-     // Activo la posibilidad de prender y apagar los LEDs.
-     debug_led_enable = TRUE;
-   }
-   else
-   {
-     // Primero apago los LEDs, luego desactivo la posibilidad de prender y apagar.
-     HAL_GPIO_WritePin(LED_ERROR_GPIO_Port, LED_ERROR_Pin, GPIO_PIN_RESET);
-     HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_RESET);
-     HAL_GPIO_WritePin(LED_SIGNAL_GPIO_Port, LED_SIGNAL_Pin, GPIO_PIN_RESET);
-     debug_led_enable = FALSE;
-   }
+  // Los LEDs de error, signal y active, se usan solo con motivo de debug, un jumper controla si los LEDs
+  // están activos.
+  if (leds_enable_pin == GPIO_PIN_RESET)
+  {
+    // Activo la posibilidad de prender y apagar los LEDs.
+    debug_led_enable = TRUE;
+  }
+  else
+  {
+    // Primero apago los LEDs, luego desactivo la posibilidad de prender y apagar.
+    HAL_GPIO_WritePin(LED_ERROR_GPIO_Port, LED_ERROR_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LED_SIGNAL_GPIO_Port, LED_SIGNAL_Pin, GPIO_PIN_RESET);
+    debug_led_enable = FALSE;
+  }
 
-   if(uart_enable_pin == GPIO_PIN_RESET)
-   {
-     debug_uart_enable = TRUE;
-   }
-   else
-   {
-     debug_uart_enable = FALSE;
-   }
+  if (uart_enable_pin == GPIO_PIN_RESET)
+  {
+    debug_uart_enable = TRUE;
+  }
+  else
+  {
+    debug_uart_enable = FALSE;
+  }
 
-   gpio_init.Pin = DEBUG_LED_Pin;
-   gpio_init.Mode = GPIO_MODE_ANALOG;
-   HAL_GPIO_Init(DEBUG_LED_GPIO_Port, &gpio_init);
+  gpio_init.Pin = DEBUG_LED_Pin;
+  gpio_init.Mode = GPIO_MODE_ANALOG;
+  HAL_GPIO_Init(DEBUG_LED_GPIO_Port, &gpio_init);
 
-   gpio_init.Pin = DEBUG_UART_Pin;
-   HAL_GPIO_Init(DEBUG_UART_GPIO_Port, &gpio_init);
+  gpio_init.Pin = DEBUG_UART_Pin;
+  HAL_GPIO_Init(DEBUG_UART_GPIO_Port, &gpio_init);
 }
 
 /*
@@ -194,7 +195,7 @@ void FM_DEBUG_ItmMsg(const char *msg, uint8_t len)
 
 void FM_DEBUG_LedError(int led_status)
 {
-  if(debug_led_enable && led_status)
+  if (debug_led_enable && led_status)
   {
     HAL_GPIO_WritePin(LED_ERROR_GPIO_Port, LED_ERROR_Pin, GPIO_PIN_SET);
   }
@@ -205,17 +206,17 @@ void FM_DEBUG_LedError(int led_status)
 
 #ifdef STOP_ON_ERROR
 
+#warning "Advertencia: comectar esta linea para version beta y de produccion"
   {
-    while(STOP_ON_ERROR);
+    while (STOP_ON_ERROR);
   }
 #endif
 
 }
 
-
 void FM_DEBUG_LedActive(int led_status)
 {
-  if(debug_led_enable && led_status)
+  if (debug_led_enable && led_status)
   {
     HAL_GPIO_WritePin(LED_ACTIVE_GPIO_Port, LED_ACTIVE_Pin, GPIO_PIN_SET);
   }
@@ -227,7 +228,7 @@ void FM_DEBUG_LedActive(int led_status)
 
 void FM_DEBUG_LedSginal(int led_status)
 {
-  if(debug_led_enable && led_status)
+  if (debug_led_enable && led_status)
   {
     HAL_GPIO_WritePin(LED_SIGNAL_GPIO_Port, LED_SIGNAL_Pin, GPIO_PIN_SET);
   }
@@ -236,7 +237,6 @@ void FM_DEBUG_LedSginal(int led_status)
     HAL_GPIO_WritePin(LED_SIGNAL_GPIO_Port, LED_SIGNAL_Pin, GPIO_PIN_RESET);
   }
 }
-
 
 /*
  * @brief   Envía mensajes de debug por uart, un handle al UART es declarado en otro modulo, esto modulo lo
@@ -248,7 +248,7 @@ void FM_DEBUG_UartMsg(const char *p_msg, uint8_t len)
 {
   HAL_StatusTypeDef ret;
 
-  if(!debug_uart_enable)
+  if (!debug_uart_enable)
   {
     return;
   }
@@ -269,7 +269,7 @@ void FM_DEBUG_UartMsg(const char *p_msg, uint8_t len)
   }
   else
   {
-     HAL_UART_Transmit(&huart1, (const uint8_t *)FM_DEBUG_ASCII_CR, 1, WAIT_FOR_UART_5MS);
+    HAL_UART_Transmit(&huart1, (const uint8_t*) FM_DEBUG_ASCII_CR, 1, WAIT_FOR_UART_5MS);
   }
 }
 
@@ -281,7 +281,7 @@ void FM_DEBUG_UartMsg(const char *p_msg, uint8_t len)
 void FM_DEBUG_UartUint8(uint8_t num)
 {
 
-  if(!debug_uart_enable)
+  if (!debug_uart_enable)
   {
     return;
   }
@@ -298,7 +298,7 @@ void FM_DEBUG_UartUint8(uint8_t num)
 void FM_DEBUG_UartUint16(uint16_t num)
 {
 
-  if(!debug_uart_enable)
+  if (!debug_uart_enable)
   {
     return;
   }
@@ -315,7 +315,7 @@ void FM_DEBUG_UartUint16(uint16_t num)
 void FM_DEBUG_UartUint32(uint32_t num)
 {
 
-  if(!debug_uart_enable)
+  if (!debug_uart_enable)
   {
     return;
   }
@@ -331,7 +331,7 @@ void FM_DEBUG_UartUint32(uint32_t num)
 void FM_DEBUG_UartInt32(int32_t num)
 {
 
-  if(!debug_uart_enable)
+  if (!debug_uart_enable)
   {
     return;
   }
@@ -348,7 +348,7 @@ void FM_DEBUG_UartInt32(int32_t num)
 void FM_DEBUG_UartFloat(float num)
 {
 
-  if(!debug_uart_enable)
+  if (!debug_uart_enable)
   {
     return;
   }
@@ -356,7 +356,6 @@ void FM_DEBUG_UartFloat(float num)
   snprintf((char*) str_buffer, SIZE_OF_FLOAT, "%0.2f\n", num);
   FM_DEBUG_UartMsg(str_buffer, SIZE_OF_FLOAT);
 }
-
 
 // Private function bodies.
 

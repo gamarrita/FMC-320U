@@ -2,11 +2,11 @@
 
 Se registra los cmbios para el firmware, y cambios  que  no 
 
-## [UNRELEASED]
+## [01.01.009-B0] 2025-05-11
 
 ### Notas
 - Se crea un nuevo repositorio, aqui se empieza  desde la version 01.01.09
-- Se uso una concencion de nombres  para poder soportar multiples archivos  CHANGELOG_XYZ-md
+- Se usó una convención de nombres para permitir múltiples archivos CHANGELOG_XYZ.md
 - Se mejoro redaccion de archivos relacionados con git flow.
 
 ### Added
@@ -19,10 +19,9 @@ Se registra los cmbios para el firmware, y cambios  que  no
 - Cambio presentacion de version a 01.01.009-B0
 - Carpeta tag en administracion.
 - Integro en la forma en que se calcula en tiempo a estar en idel, se  controla desde void ThreadEntryMain(ULONG thread_input).
-- Bug en fm_rtc, 
 
 ### Removed
- - Documendos nos correcpodes en carpeta administracion ta
+ - Documentos no correspondientes eliminados de la carpeta de administración.
 
 ### Datos de consumo
 Consumo 76uA, condiciones:
@@ -42,5 +41,5 @@ Consumo 43uA, condiciones:
 0x2FB396C8 - OK
 0x2FB39787 - OK
 0x2FB397FE - OK
-0x2FB398FC - 
-
+0x2FB398FC - OK
+0x2FB40A04 - OK
