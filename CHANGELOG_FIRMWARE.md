@@ -2,6 +2,24 @@
 
 Se registra los cmbios para el firmware, y cambios  que  no 
 
+## [UNVERSIONED]
+
+### Notas
+
+### Added
+
+### Fixed
+
+### Changed
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
+
+
+
 ## [01.01.009-B0] 2025-05-11
 
 ### Notas
@@ -44,3 +62,22 @@ Consumo 43uA, condiciones:
 0x2FB397FE - OK
 0x2FB398FC - OK
 0x2FB40A04 - OK
+
+
+# Tempate
+
+## [UNVERSIONED]
+
+### Notas
+
+### Added
+
+### Fixed
+
+### Changed
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
