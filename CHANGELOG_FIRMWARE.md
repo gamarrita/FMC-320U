@@ -1,6 +1,6 @@
 # Registro de cambios en el firmware del computador FM-320U
 
-## [UNVERSIONEDED]
+## [UNVERSIONED]
 
 ### Notas
 

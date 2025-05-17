@@ -595,6 +595,7 @@ void MenuSetupVolUnitEntry()
 
   FM_LCD_LL_Clear();
   FM_LCD_LL_BlinkClear();
+  FM_LCD_LL_BlinkChar(1);
   MenuSetupVolUnitEdit(MENU_MODE_INIT);
 
   // Muestro unidad de tiempo.

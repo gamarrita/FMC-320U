@@ -145,6 +145,22 @@ octal_t octal_2[] =
         .pos = 6,
         .reg = 5 } };
 
+
+/*
+ * @brief   Controla el encendido y apagado del parpadeo.
+ * @note
+ * @param   state:  0 parpadeo desactivado,
+ *                  1 activado y encendido,
+ *                  2 activado y apagado.
+ * @retval  ninguno
+ */
+void FM_LCD_LL_BlinkChar(uint8_t state)
+{
+  blink_char_1 = state;
+  blink_char_2 = state;
+}
+
+
 // Private function prototypes.
 void WriteLine(uint8_t seg, uint8_t data);
 

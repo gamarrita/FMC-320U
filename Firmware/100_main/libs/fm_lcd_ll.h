@@ -144,6 +144,7 @@ typedef enum
 
 // Public function prototypes.
 void FM_LCD_LL_BlinkClear();
+void FM_LCD_LL_BlinkChar(uint8_t state);
 void FM_LCD_LL_BlinkNumber(fm_lcd_ll_row_t row, uint8_t digit, fm_lcd_ll_blink_t state);
 uint8_t FM_LCD_ll_BlinkRefresh();
 void FM_LCD_LL_BlinkSymbol(fm_lcd_ll_sym_t, fm_lcd_ll_blink_t);
