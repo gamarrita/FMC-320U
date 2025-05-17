@@ -1,18 +1,21 @@
-# Changelog
+# Registro de cambios en el firmware del computador FM-320U
 
-Se registra los cmbios para el firmware, y cambios  que  no 
-
-## [UNVERSIONED]
+## [gv01.01.009-B1] - 250517
 
 ### Notas
 
 ### Added
+Carpeta con documentos de produccion
 
 ### Fixed
+- Error de cambio de pantalla a ingresar al menu setup
 
 ### Changed
+- Se programa un refresco a 200ms si un caracter programado a parpadear esta apagado.
+- Sa cambia orden de lectura del RTC, HAL_RTC_GetTime luego date, parece solucionar el promela de edicion de la fecha y hora del computador.
 
 ### Removed
+- Archivo de como usar CHANGELOG_RULES.md, informacion duplicada con esta.
 
 ### Datos de consumo
 
@@ -64,9 +67,7 @@ Consumo 43uA, condiciones:
 0x2FB40A04 - OK
 
 
-# Tempate
-
-## [UNVERSIONED]
+## [UNVERSIONEDED]
 
 ### Notas
 

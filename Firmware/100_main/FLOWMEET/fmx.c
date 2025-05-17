@@ -235,6 +235,11 @@ void ThreadEntryMain(ULONG thread_input)
       break;
     }
 
+    if(FM_LCD_ll_BlinkRefresh())
+    {
+      sleep_time = 20;
+    }
+
     /*
      *  El ultimo evento ya se proceso, esta es una variable intermedia que la tengo que limpiar. Si hay un evento
      *  en la cola se escribiría correctamente cuando se ejecute tx_queue_receive();

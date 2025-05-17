@@ -8,7 +8,7 @@
  * Fila superior de puntos decimales cantidad 7.
  * Fila inferior de caracteres numericos, cantidad 7, son de 7 segmentos.
  * Fila inferior de puntos decimales cantidad 6.
- * Simbolos: Batteria, POWER, RATE, E, BATCH, ACM_1, TTL, /, ACM_2, H, S, D, M
+ * Símbolos: Batería, POWER, RATE, E, BATCH, ACM_1, TTL, /, ACM_2, H, S, D, M
  *
  * Version 2
  * Autor: Daniel H Sagarra
@@ -31,6 +31,8 @@ typedef struct
 } octal_t;
 
 // Defines.
+#define FALSE   0
+#define TRUE    1
 
 /*
  * Ver hoja de datos del lcd, cada segmento se identifica con una letra, se
@@ -61,10 +63,12 @@ typedef struct
 
 // Global variables, statics.
 
+uint8_t  blink_short_refresh = 0;
+
 /*
  * Lo que se quiera escribir en las líneas 1 y 2 primero se vuelca a este
- * buffer. Leer el buffer es la unica manera practica que se tiene para
- * saber que esta escrito en la pantalla, no se debe corromper esta condicion.
+ * buffer. Leer el buffer es la única manera practica que se tiene para
+ * saber que esta escrito en la pantalla, no se debe corromper esta condición.
  */
 //uint8_t lines_buffer[FM_LCD_LL_ROWS][FM_LCD_LL_COLS] = { 0 };
 fm_lcd_ll_blink_t blink_number[FM_LCD_LL_ROWS][FM_LCD_LL_COLS]; // Mapa de dígitos a parpadear.
@@ -82,10 +86,10 @@ uint8_t g_row; // se usara para calcular que registro y posición del bit a modi
  *  de 8 bits cada uno, 160 bits par controlar la misma cantidad de segmentos.
  *  Los valores de inicialización de la siguiente tabla corresponde al caracter
  *  ubicado mas a la derecha en la tabla superior, ver datasheet del LCD.
- *  Cada par de valores pos y reg se corresponden a la direccion de un registro
+ *  Cada par de valores pos y reg se corresponden a la dirección de un registro
  *  y el bit correspondiente que controlan los segmentos de A a G.
- *  Solo se necesitan los datos de este caracter, las posiciones de los demas
- *  se obtienen por aritmetica dentro de la funcion WriteLine.
+ *  Solo se necesitan los datos de este caracter, las posiciones de los demás
+ *  se obtienen por aritmética dentro de la función WriteLine.
  */
 octal_t octal_1[] =
 {
@@ -141,10 +145,6 @@ octal_t octal_2[] =
         .pos = 6,
         .reg = 5 } };
 
-// Private function prototypes.
-void WriteLine(uint8_t seg, uint8_t data);
-
-// Public function bodies.
 
 /*
  * @brief   Controla el encendido y apagado del parpadeo.
@@ -159,6 +159,12 @@ void FM_LCD_LL_BlinkChar(uint8_t state)
   blink_char_1 = state;
   blink_char_2 = state;
 }
+
+
+// Private function prototypes.
+void WriteLine(uint8_t seg, uint8_t data);
+
+// Public function bodies.
 
 /*
  * @brief		Detiene todos los parpadeos.
@@ -200,7 +206,6 @@ void FM_LCD_LL_BlinkClear()
  */
 void FM_LCD_LL_BlinkNumber(fm_lcd_ll_row_t row, uint8_t digit, fm_lcd_ll_blink_t state)
 {
-
   switch (row)
   {
   case (FM_LCD_LL_ROW_1):
@@ -218,7 +223,23 @@ void FM_LCD_LL_BlinkNumber(fm_lcd_ll_row_t row, uint8_t digit, fm_lcd_ll_blink_t
   default:
     break;
   }
-  return; // para usar con breakpoint;
+}
+
+/*
+ * @brief
+ * @note
+ * @param
+ * @retval
+ */
+uint8_t FM_LCD_ll_BlinkRefresh()
+{
+  uint8_t ret;
+
+  ret = blink_short_refresh;
+  blink_short_refresh = FALSE;
+
+  return ret;
+
 }
 
 /*
@@ -233,8 +254,8 @@ void FM_LCD_LL_BlinkSymbol(fm_lcd_ll_sym_t symbol, fm_lcd_ll_blink_t blink)
 }
 
 /*
- * @brief		apaga todos los segmentos de la pantalla.
- * @note		ninguno
+ * @brief	apaga todos los segmentos de la pantalla.
+ * @note	ninguno
  * @param  	ninguno
  * @retval 	ninguno
  */
@@ -323,6 +344,7 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     case FM_LCD_LL_BLINK_ON_OFF:
       blink_number[row][col] = FM_LCD_LL_BLINK_ON_ON;
       c = ' ';  // Parpadeo encendido, se visualiza el cursor.
+      blink_short_refresh = TRUE; // El símbolo debe durar poco apagado, se necesita refresco rapido;
       break;
     default:
       FM_DEBUG_LedError(1);
@@ -898,12 +920,13 @@ void FM_LCD_LL_PutChar_1(char ascii_char)
   {
   case 0:
     break;
-  case 1:
+  case FM_LCD_LL_BLINK_ON_ON:
     blink_char_1 = FM_LCD_LL_BLINK_ON_OFF;
     break;
-  case 2:
+  case FM_LCD_LL_BLINK_ON_OFF:
     blink_char_1 = FM_LCD_LL_BLINK_ON_ON;
     ascii_char = ' ';
+    blink_short_refresh = TRUE; // El símbolo debe durar poco apagado, se necesita refresco rapido;
     return;
     break;
   }
@@ -1228,10 +1251,10 @@ void FM_LCD_LL_PutChar_2(char ascii_char)
   case FM_LCD_LL_BLINK_OFF:
     break;
   case FM_LCD_LL_BLINK_ON_ON:
-    blink_char_2 = 2;
+    blink_char_2 = FM_LCD_LL_BLINK_ON_OFF;
     break;
   case FM_LCD_LL_BLINK_ON_OFF:
-    blink_char_2 = 1;
+    blink_char_2 = FM_LCD_LL_BLINK_ON_ON;
     return;
     break;
   }

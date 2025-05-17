@@ -171,8 +171,6 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ESC:
       break;
     case FMX_EVENT_KEY_ENTER:
-      entry_counter = entries_to_exit; // Fuerzo salida.
-      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_DOWN_LONG:
       break;
@@ -597,7 +595,6 @@ void MenuSetupVolUnitEntry()
 
   FM_LCD_LL_Clear();
   FM_LCD_LL_BlinkClear();
-
   FM_LCD_LL_BlinkChar(1);
   MenuSetupVolUnitEdit(MENU_MODE_INIT);
 

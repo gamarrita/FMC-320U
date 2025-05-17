@@ -46,8 +46,8 @@ void FM_RTC_Gets(char *time_str, char *date_str)
   RTC_TimeTypeDef time = {0};
   RTC_DateTypeDef date = {0};
 
-  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
   HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
 
   sprintf(time_str, "%02d.%02d.%02d ", time.Hours, time.Minutes, time.Seconds);
   sprintf(date_str, "%02d.%02d.20%02d ", date.Date, date.Month, date.Year);
@@ -120,8 +120,8 @@ void FM_RTC_Set(fm_rtc_set_t sel, uint8_t mode)
   RTC_TimeTypeDef time = {0};
   RTC_DateTypeDef date = {0};
 
-  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
   HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
 
   switch (sel)
   {
