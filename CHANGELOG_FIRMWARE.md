@@ -8,8 +8,11 @@
 Carpeta con documentos de produccion
 
 ### Fixed
+- Error de cambio de pantalla a ingresar al menu setup
 
 ### Changed
+- Se programa un refresco a 200ms si un caracter programado a parpadear esta apagado.
+- Sa cambia orden de lectura del RTC, HAL_RTC_GetTime luego date, parece solucionar el promela de edicion de la fecha y hora del computador.
 
 ### Removed
 - Archivo de como usar CHANGELOG_RULES.md, informacion duplicada con esta.

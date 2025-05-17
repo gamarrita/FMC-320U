@@ -120,8 +120,8 @@ void FM_RTC_Set(fm_rtc_set_t sel, uint8_t mode)
   RTC_TimeTypeDef time = {0};
   RTC_DateTypeDef date = {0};
 
-  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
   HAL_RTC_GetTime(&hrtc, &time, RTC_FORMAT_BIN);
+  HAL_RTC_GetDate(&hrtc, &date, RTC_FORMAT_BIN);
 
   switch (sel)
   {
