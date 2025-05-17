@@ -62,7 +62,7 @@
 #define TRUE    1
 #define FALSE   0
 
-//#define STOP_ON_ERROR 1 // Comentar esta instrucción o el computador se detendrá ante un error.
+#define STOP_ON_ERROR 1 // Comentar esta instrucción o el computador se detendrá ante un error.
 
 /*
  * Las siguientes macros definen: cual es el tamaño maximo de caracteres,
@@ -82,7 +82,7 @@
 //Debug.
 
 #define FM_DEBUG_UART_MSG 		// Mensajes de uso general.
-#define FM_DEBUG_UART_ERROR		// Mensajes de errpres.
+#define FM_DEBUG_UART_ERROR		// Mensajes de errores.
 
 // Typedef.
 

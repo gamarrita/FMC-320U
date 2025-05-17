@@ -59,8 +59,9 @@
  *   no resulta en la practica, se buscara otro esquena, posiblemente mixto, usando BACKUP RAM Y RAM.
  */
 fm_log_data_t data_buffer[BUFFER_SIZE] __attribute__((section(".RAM_BACKUP_Section")));
-uint8_t data_index = 0;
 
+uint8_t data_index = 0;
+uint8_t data_index = 0;
 
 
 // Contador en RAM BACKUP, cuenta la cantidad de resets:
@@ -77,24 +78,24 @@ uint8_t data_index = 0;
  * @param   data, datos a agregar a la BACKUP RAM
  * @retval  ninguno
  */
-void fm_log_data_add(fm_log_data_t data)
+void fm_log_data_new(fm_log_data_t data)
 {
-
-  if(data_index < BUFFER_SIZE) // length
-  {
-
-    // Se debe vovlar
-  }
-  else
-  {
-    data_index = 0;
-  }
 
   data.ttl = FM_FMC_TtlGet();
   data.acm = FM_FMC_AcmGet();
   data.factor_k = FM_FMC_FactorKGet();
   data.seconds = FM_RTC_GetUnixTime();
   data_buffer[data_index] = data;
+
+  data_index++;
+
+  if(data_index >= BUFFER_SIZE) // length
+  {
+    data_index = 0;
+    fm_log_block_flash();
+  }
+
+
 }
 
 /*

@@ -43,8 +43,8 @@ typedef struct
 
 
 // Function prototypes
-void fm_log_data_add(fm_log_data_t data);
-void fm_log_block_flash();
+void fm_log_data_new(fm_log_data_t data);
+void fm_log_block_new();
 void fm_log_data_check();
 
 
