@@ -1,6 +1,6 @@
 # Registro de cambios en el firmware del computador FM-320U
 
-## [UNVERSIONED]
+## [gv01.01.009-B1] - 250517
 
 ### Notas
 
