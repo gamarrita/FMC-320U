@@ -1,6 +1,24 @@
-# Changelog
+# Registro de cambios en el firmware del computador FM-320U
 
-Se registra los cmbios para el firmware, y cambios  que  no 
+## [UNVERSIONEDED]
+
+### Notas
+
+### Added
+Carpeta con documentos de produccion
+
+### Fixed
+
+### Changed
+
+### Removed
+- Archivo de como usar CHANGELOG_RULES.md, informacion duplicada con esta.
+
+### Datos de consumo
+
+### Testeos completados
+
+
 
 ## [01.01.009-B0] 2025-05-11
 
@@ -44,3 +62,20 @@ Consumo 43uA, condiciones:
 0x2FB397FE - OK
 0x2FB398FC - OK
 0x2FB40A04 - OK
+
+
+## [UNVERSIONEDED]
+
+### Notas
+
+### Added
+
+### Fixed
+
+### Changed
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
