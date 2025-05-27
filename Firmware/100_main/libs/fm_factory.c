@@ -18,7 +18,7 @@
 
 // Const data.
 const char msg_version_firmware[] = "01.01.009"; // Version.Revision.Release
-const char msg_release[] = "B2"; // Version.Revision.Release
+const char msg_release[] = "B3"; // Version.Revision.Release
 
 /*
  *  Esta constante se usa en dos situaciones:

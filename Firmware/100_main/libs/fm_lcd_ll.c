@@ -561,6 +561,16 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_F, 0);
     WriteLine(SEG_G, 0);
     break;
+  case 'b':
+    WriteLine(SEG_A, 0);
+    WriteLine(SEG_B, 1);
+    WriteLine(SEG_C, 0);
+    WriteLine(SEG_D, 1);
+    WriteLine(SEG_E, 1);
+    WriteLine(SEG_F, 1);
+    WriteLine(SEG_G, 1);
+    WriteLine(SEG_H, 0);
+    break;
   default:
     break;
   }

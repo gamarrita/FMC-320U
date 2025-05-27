@@ -1,5 +1,25 @@
 # Registro de cambios en el firmware del computador FM-320U
 
+
+## [01.01.009-B3] 2025-05-27
+
+### Notas
+
+### Added
+
+### Fixed
+- No permitia ajustar el factor a su valor minimo.
+
+### Changed
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
+
+---------------------------------------------------------------------------------------------------
+
 ## [01.01.009-B2] 2025-05-27
 
 ### Notas
@@ -22,7 +42,7 @@ Carpeta con documentos de produccion
 
 ### Testeos completados
 
-
+---------------------------------------------------------------------------------------------------
 
 ## [01.01.009-B0] 2025-05-11
 
@@ -67,6 +87,7 @@ Consumo 43uA, condiciones:
 0x2FB398FC - OK
 0x2FB40A04 - OK
 
+---------------------------------------------------------------------------------------------------
 
 ## [UNVERSIONEDED]
 
