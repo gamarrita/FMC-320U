@@ -1,6 +1,6 @@
 # Registro de cambios en el firmware del computador FM-320U
 
-## [gv01.01.009-B1] - 250517
+## [01.01.009-B2] 2025-05-27
 
 ### Notas
 
@@ -12,7 +12,8 @@ Carpeta con documentos de produccion
 
 ### Changed
 - Se programa un refresco a 200ms si un caracter programado a parpadear esta apagado.
-- Sa cambia orden de lectura del RTC, HAL_RTC_GetTime luego date, parece solucionar el promela de edicion de la fecha y hora del computador.
+- Se cambia orden de lectura del RTC, HAL_RTC_GetTime luego date, parece solucionar el promela de edicion de la fecha y hora del computador.
+- Cambia la manera en que procesa el segmento '.' en los caracteres de 8 segmentos
 
 ### Removed
 - Archivo de como usar CHANGELOG_RULES.md, informacion duplicada con esta.

@@ -176,8 +176,10 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
       menu_setup = TRUE;
       break;
     case FMX_EVENT_KEY_ENTER_LONG:
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_EXT_2:
+      FMX_RefreshEventTrue();
       break;
     default:
       FM_DEBUG_LedError(1);
@@ -211,14 +213,18 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
     case FMX_EVENT_KEY_ENTER:
       break;
     case FMX_EVENT_KEY_DOWN_LONG:
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_UP_LONG:
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ESC_LONG:
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ENTER_LONG:
     case FMX_EVENT_KEY_EXT_2:
       FM_FMC_AcmReset();
+      MenuUserAcmRateRefresh();
       break;
     default:
       FM_DEBUG_LedError(1);

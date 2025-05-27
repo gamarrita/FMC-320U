@@ -630,12 +630,14 @@ void MenuSetupVolUnitEdit(menu_mode_t mode)
     if (vol_unit < (VOL_UNIT_END - 1))
     {
       vol_unit++;
+      FMX_RefreshEventTrue();
     }
     break;
   case MENU_MODE_DEC:
     if (vol_unit > 0)
     {
       vol_unit--;
+      FMX_RefreshEventTrue();
     }
     break;
   case MENU_MODE_EXIT:
@@ -654,6 +656,7 @@ void MenuSetupVolUnitEdit(menu_mode_t mode)
   factor_k = FM_FMC_FactorKCalc(factor_cal, vol_unit);
   snprintf(setup_line_1, sizeof(setup_line_1), "%09.3f", factor_k);
   FM_LCD_PutString(setup_line_1, FM_LCD_LL_ROW_1_COLS + 1, FM_LCD_LL_ROW_1);
+
 
   // Muestro la unidad de volumen
   FM_FMC_TotalizerStrUnitGet(&ptr, vol_unit);
@@ -718,12 +721,14 @@ void MenuSetupTimeUnitEdit(menu_mode_t mode)
     if (time_unit < (TIME_UNIT_END - 1))
     {
       time_unit++;
+      FMX_RefreshEventTrue();
     }
     break;
   case MENU_MODE_DEC:
     if (time_unit > TIME_UNIT_SECOND)
     {
       time_unit--;
+      FMX_RefreshEventTrue();
     }
     break;
   case MENU_MODE_EXIT:
@@ -791,6 +796,7 @@ void MenuSetupDateEdit(menu_mode_t sel)
   switch (sel)
   {
   case MENU_MODE_INIT:
+    idx = FM_RTC_SET_YEAR;
     break;
   case MENU_MODE_INC:
     FM_RTC_Set(idx, 1);

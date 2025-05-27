@@ -6,7 +6,7 @@ Este archivo documenta la compatibilidad entre distintas versiones de firmware, 
 
 | Firmware       | Hardware      | App           | Notas                                                    |
 |----------------|---------------|---------------|----------------------------------------------------------|
-| v01.01.09      | v2.0          |               |                                                          |
+| v01.01.09      | V1R2R1        |               |                                                          |
 
 
 ##  Consideraciones

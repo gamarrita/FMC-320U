@@ -237,7 +237,7 @@ void ThreadEntryMain(ULONG thread_input)
 
     if(FM_LCD_ll_BlinkRefresh())
     {
-      sleep_time = 20;
+      sleep_time = 15;
     }
 
     /*

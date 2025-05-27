@@ -100,19 +100,26 @@ void FM_LCD_PutString(const char *my_str, uint32_t len, fm_lcd_ll_row_t row)
     index_end = len;
   }
 
+  /*
+   * Recorre la cadena de caracteres para armar el buffer del LCD de 8 segmentos, en la cadena los '.' son
+   * elementos de la cadena, en el LCD el '.' es parte de un caracter, al menos así esta implementado.
+   */
   while ((lcd_index < index_end) && my_str[str_index])
   {
     FM_LCD_LL_PutChar(my_str[str_index], lcd_index, row);
     str_index++;
+    lcd_index++;
 
-    /*
-     * Si el proximo caracter a escribir es un punto ".", se debe manejar de manera diferente
-     * a caracteres normales. El punto no es el siguiente caracter, es parte del mismo
-     * símbolo ya escrito.
-     */
-    if (my_str[str_index] != '.')
+    // Si el proximo caracter a imprimir es el punto ".", en LCD de 8 segmentos es parte del caracter.
+    if ((my_str[str_index] == '.'))
     {
-      lcd_index++;
+      // No existe el punto decimal luego del ultimo digito, el digito mas a la derecha.
+      if (lcd_index < index_end)
+      {
+        FM_LCD_LL_PutChar(my_str[str_index], lcd_index - 1, row);
+        // Avanzo en el string, ya se imprimió el punto decimal.
+      }
+      str_index++;
     }
   }
 }
