@@ -2,6 +2,10 @@
 
 Este archivo documenta los cambios en el proyecto FMC-320U.
 
+## Identificacion del commit
+- Para commits que tengan que ver con el firmware usar el siguiente formato para el titulo "[FIRMWARE] Prefijo - Descripcion"
+- Ejemplo [FIRMWARE] Chore - Mejora en comentarios del codigo"
+
 
 ## Convenciones de nombres de ramas
 
@@ -27,19 +31,27 @@ Utilizá los siguientes prefijos para indicar el propósito de cada rama:
 - `docs`: Cambios en la documentación
 - `chore`: Tareas menores o mantenimiento
 
+## Etiquetas antes del commit:
+- Usar [FIRMWARE]       como etiqueta en titulo de commit para firmware
+- Usar [HARWARE]        como etiqueta en titulo de commit para harware
+- Usar [ADMINISTRACION] como etiqueta en titulo de commit para administracion
+- Usar [BIBLIOTECA]     ...
+- Usar [GLOBAL]         como etiqueta de commit de cambio en multiples carpetas
+
+
 ## Situaciones comunes donde se necesita un nuevo commit, procedimientos:
 - Situacion: se necesita crear una nueva version beta, produccion detecto errores en la beta que esta testeando.
 - Agregá sección `[UNRELEASED]` en `CHANGELOG.md`
 - Hacé un commit tipo `chore:` o `docs:`
 - Ejemplo: `chore: inicia sección UNRELEASED tras erroes que euncuentra produccion en v01.01.009-B0`
 
-- Situacion: dentro de la rama release/firmware-x.y.z-beta
+- Situacion: cambios intermedios dentro de la rama release/firmware-x.y.z-beta
 - Durante testeo y validaciones:
 - Usá `test:` para registrar lo que validaste
 - Usá `fix:` para errores encontrados durante pruebas
 
 - Situacion: liberar una versión:
-- Usá `release:` antes de hacer el tag
+- Hacer un commit con el nombre 'release: abc' antes de hacer el tag
 - Ejemplo: `release: cierra v01.01.009 para producción`
 
 

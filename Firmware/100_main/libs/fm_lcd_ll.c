@@ -63,14 +63,13 @@ typedef struct
 
 // Global variables, statics.
 
-uint8_t  blink_short_refresh = 0;
+uint8_t blink_short_refresh = 0;
 
 /*
  * Lo que se quiera escribir en las líneas 1 y 2 primero se vuelca a este
  * buffer. Leer el buffer es la única manera practica que se tiene para
  * saber que esta escrito en la pantalla, no se debe corromper esta condición.
  */
-//uint8_t lines_buffer[FM_LCD_LL_ROWS][FM_LCD_LL_COLS] = { 0 };
 fm_lcd_ll_blink_t blink_number[FM_LCD_LL_ROWS][FM_LCD_LL_COLS]; // Mapa de dígitos a parpadear.
 fm_lcd_ll_blink_t blink_char_1 = 0;
 fm_lcd_ll_blink_t blink_char_2 = 0;
@@ -145,7 +144,6 @@ octal_t octal_2[] =
         .pos = 6,
         .reg = 5 } };
 
-
 /*
  * @brief   Controla el encendido y apagado del parpadeo.
  * @note
@@ -159,7 +157,6 @@ void FM_LCD_LL_BlinkChar(uint8_t state)
   blink_char_1 = state;
   blink_char_2 = state;
 }
-
 
 // Private function prototypes.
 void WriteLine(uint8_t seg, uint8_t data);
@@ -261,7 +258,6 @@ void FM_LCD_LL_BlinkSymbol(fm_lcd_ll_sym_t symbol, fm_lcd_ll_blink_t blink)
 void FM_LCD_LL_Clear()
 {
   FM_PCF8553_ClearBuffer();
-
   FM_PCF8553_WriteAll(PCF8553_SEGMENTS_OFF);
 }
 
@@ -331,7 +327,7 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
       break;
     case FM_LCD_LL_BLINK_ON_OFF:
       blink_number[row][col] = FM_LCD_LL_BLINK_ON_ON;
-      c = ' ';  // Parpadeo encendido, se visualiza el cursor.
+      c = ' ';  // Parpadeo encendido, se visualiza el cursor, corresponde a caracter apagado.
       blink_short_refresh = TRUE; // El símbolo debe durar poco apagado, se necesita refresco rapido;
       break;
     default:
@@ -346,10 +342,24 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
   {
   case FM_LCD_LL_ROW_1:
     g_col = col;
+    if (col != (ROW_1_SIZE - 1))
+    {
+      if (c != '.')
+      {
+        WriteLine(SEG_H, 0);
+      }
+    }
     break;
   case FM_LCD_LL_ROW_2:
     g_col = 6 - col; // @suppress("Avoid magic numbers")
     break;
+    if (col != (ROW_2_SIZE - 1))
+    {
+      if (c != '.')
+      {
+        WriteLine(SEG_H, 0);
+      }
+    }
   default:
     return;
   }
@@ -364,7 +374,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 0);
     WriteLine(SEG_F, 0);
     WriteLine(SEG_G, 0);
-    WriteLine(SEG_H, 0);
     break;
   case '-': //
     WriteLine(SEG_A, 0);
@@ -374,7 +383,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 0);
     WriteLine(SEG_F, 0);
     WriteLine(SEG_G, 0);
-    WriteLine(SEG_H, 0);
     break;
   case ' ':
     WriteLine(SEG_A, 0);
@@ -384,7 +392,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 0);
     WriteLine(SEG_F, 0);
     WriteLine(SEG_G, 0);
-    WriteLine(SEG_H, 0);
     break;
   case '.':
     WriteLine(SEG_H, 1);
@@ -397,7 +404,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 1);
     WriteLine(SEG_F, 1);
     WriteLine(SEG_G, 1);
-    WriteLine(SEG_H, 0);
     break;
   case '1':
     WriteLine(SEG_A, 0);
@@ -407,7 +413,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 0);
     WriteLine(SEG_F, 1);
     WriteLine(SEG_G, 0);
-    WriteLine(SEG_H, 0);
     break;
   case '2':
     WriteLine(SEG_A, 1);
@@ -417,7 +422,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 0);
     WriteLine(SEG_F, 1);
     WriteLine(SEG_G, 1);
-    WriteLine(SEG_H, 0);
     break;
   case '3':
     WriteLine(SEG_A, 1);
@@ -427,7 +431,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 0);
     WriteLine(SEG_F, 1);
     WriteLine(SEG_G, 1);
-    WriteLine(SEG_H, 0);
     break;
   case '4':
     WriteLine(SEG_A, 0);
@@ -437,7 +440,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 1);
     WriteLine(SEG_F, 1);
     WriteLine(SEG_G, 0);
-    WriteLine(SEG_H, 0);
     break;
   case '5':
     WriteLine(SEG_A, 1);
@@ -447,7 +449,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 1);
     WriteLine(SEG_F, 0);
     WriteLine(SEG_G, 1);
-    WriteLine(SEG_H, 0);
     break;
   case '6':
     WriteLine(SEG_A, 1);
@@ -457,7 +458,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 1);
     WriteLine(SEG_F, 0);
     WriteLine(SEG_G, 1);
-    WriteLine(SEG_H, 0);
     break;
   case '7':
     WriteLine(SEG_A, 0);
@@ -467,7 +467,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 0);
     WriteLine(SEG_F, 1);
     WriteLine(SEG_G, 1);
-    WriteLine(SEG_H, 0);
     break;
   case '8':
     WriteLine(SEG_A, 1);
@@ -477,7 +476,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 1);
     WriteLine(SEG_F, 1);
     WriteLine(SEG_G, 1);
-    WriteLine(SEG_H, 0);
     break;
   case '9':
     WriteLine(SEG_A, 0);
@@ -487,7 +485,6 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_E, 1);
     WriteLine(SEG_F, 1);
     WriteLine(SEG_G, 1);
-    WriteLine(SEG_H, 0);
     break;
   case 'A':
     WriteLine(SEG_A, 0);
@@ -499,14 +496,14 @@ void FM_LCD_LL_PutChar(char c, uint8_t col, fm_lcd_ll_row_t row)
     WriteLine(SEG_G, 1);
     break;
   case 'E':
-     WriteLine(SEG_A, 1);
-     WriteLine(SEG_B, 1);
-     WriteLine(SEG_C, 0);
-     WriteLine(SEG_D, 1);
-     WriteLine(SEG_E, 1);
-     WriteLine(SEG_F, 0);
-     WriteLine(SEG_G, 1);
-     break;
+    WriteLine(SEG_A, 1);
+    WriteLine(SEG_B, 1);
+    WriteLine(SEG_C, 0);
+    WriteLine(SEG_D, 1);
+    WriteLine(SEG_E, 1);
+    WriteLine(SEG_F, 0);
+    WriteLine(SEG_G, 1);
+    break;
   case 'L':
     WriteLine(SEG_A, 1);
     WriteLine(SEG_B, 1);

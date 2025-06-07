@@ -1,5 +1,23 @@
 # Registro de cambios en el firmware del computador FM-320U
 
+## [01.01.009] 2025-06-07
+
+### Notas
+
+### Added
+
+### Fixed
+- Punto decimal no se borraba.
+
+### Changed
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
+
+---------------------------------------------------------------------------------------------------
 
 ## [01.01.009-B3] 2025-05-27
 
@@ -9,6 +27,7 @@
 
 ### Fixed
 - No permitia ajustar el factor a su valor minimo.
+-
 
 ### Changed
 
