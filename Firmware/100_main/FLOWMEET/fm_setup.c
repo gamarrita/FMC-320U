@@ -159,31 +159,6 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       menu_index++; // en la próxima entada se ejecuta el siguiente menu.
       FMX_RefreshEventTrue();
     }
-    switch (this_event)
-    {
-    case FMX_EVENT_REFRESH:
-      break;
-    case FMX_EVENT_KEY_DOWN:
-
-      break;
-    case FMX_EVENT_KEY_UP:
-      break;
-    case FMX_EVENT_KEY_ESC:
-      break;
-    case FMX_EVENT_KEY_ENTER:
-      break;
-    case FMX_EVENT_KEY_DOWN_LONG:
-      break;
-    case FMX_EVENT_KEY_UP_LONG:
-      break;
-    case FMX_EVENT_KEY_ESC_LONG:
-      break;
-    case FMX_EVENT_KEY_ENTER_LONG:
-      break;
-    default:
-      FM_DEBUG_LedError(1);
-      break;
-    }
     break;
   case MENU_SETUP_PASSWORD:
     if (!entry_counter)
@@ -195,7 +170,6 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     switch (this_event)
     {
     case FMX_EVENT_REFRESH:
-      //MenuSetupPasswordEnter(MENU_MODE_);
       break;
     case FMX_EVENT_KEY_DOWN:
       if (password[entry_counter - 1] != this_event)
@@ -204,6 +178,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       }
       entry_counter++;
       MenuSetupPasswordEnter(MENU_MODE_INC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_UP:
       if (password[entry_counter - 1] != this_event)
@@ -212,6 +187,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       }
       entry_counter++;
       MenuSetupPasswordEnter(MENU_MODE_INC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ESC:
       if (password[entry_counter - 1] != this_event)
@@ -220,6 +196,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       }
       entry_counter++;
       MenuSetupPasswordEnter(MENU_MODE_INC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ENTER:
       if (password[entry_counter - 1] != this_event)
@@ -228,6 +205,7 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       }
       entry_counter++;
       MenuSetupPasswordEnter(MENU_MODE_INC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_DOWN_LONG:
       break;
@@ -250,7 +228,6 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     {
       entry_counter = 0;
       menu_index++;
-      FMX_RefreshEventTrue();
     }
     break;
   case MENU_SETUP_FACTOR_C:
@@ -266,18 +243,22 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_DOWN:
       MenuSetupFactorCalEdit(MENU_MODE_DEC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_UP:
       MenuSetupFactorCalEdit(MENU_MODE_INC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ESC:
       MenuSetupFactorCalEdit(MENU_MODE_EXIT);
+      FMX_RefreshEventTrue();
       entry_counter = 0;
       menu_index++;
       FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ENTER:
       MenuSetupFactorCalEdit(MENU_MODE_NEXT);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_DOWN_LONG:
       break;
@@ -305,9 +286,11 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_DOWN:
       MenuSetupVolUnitEdit(MENU_MODE_DEC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_UP:
       MenuSetupVolUnitEdit(MENU_MODE_INC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ESC:
       MenuSetupVolUnitEdit(MENU_MODE_EXIT);
@@ -343,9 +326,11 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_DOWN:
       MenuSetupTimeUnitEdit(MENU_MODE_DEC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_UP:
       MenuSetupTimeUnitEdit(MENU_MODE_INC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ESC:
       MenuSetupTimeUnitEdit(MENU_MODE_EXIT);
@@ -382,9 +367,11 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_DOWN:
       MenuSetupDateEdit(MENU_MODE_DEC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_UP:
       MenuSetupDateEdit(MENU_MODE_INC);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_ESC:
       MenuSetupDateEdit(MENU_MODE_EXIT);
@@ -400,13 +387,13 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
       break;
     case FMX_EVENT_KEY_ENTER:
       MenuSetupDateEdit(MENU_MODE_NEXT);
+      FMX_RefreshEventTrue();
       break;
     case FMX_EVENT_KEY_DOWN_LONG:
       break;
     case FMX_EVENT_KEY_UP_LONG:
       break;
     case FMX_EVENT_KEY_ESC_LONG:
-      MenuSetupDateEdit(MENU_MODE_REFRESH);
       break;
     case FMX_EVENT_KEY_ENTER_LONG:
       break;
@@ -421,7 +408,6 @@ uint8_t FM_SETUP_MenuNav(fmx_events_t this_event)
     menu_index = MENU_SETUP_INIT; // El indice ajustado para la próxima entrada al menu de configuración.
     menu_user = TRUE; // Retorna al menu de usuario.
     FM_DEBUG_Init(); // Le los jumper de configuración y ajusta comportamiento UART y LEDs de debug.
-
     break;
   default:
     FM_DEBUG_LedError(1);
@@ -655,6 +641,7 @@ void MenuSetupVolUnitEdit(menu_mode_t mode)
   snprintf(setup_line_1, sizeof(setup_line_1), "%09.3f", factor_k);
   FM_LCD_PutString(setup_line_1, FM_LCD_LL_ROW_1_COLS + 1, FM_LCD_LL_ROW_1);
 
+
   // Muestro la unidad de volumen
   FM_FMC_TotalizerStrUnitGet(&ptr, vol_unit);
   FM_LCD_PutChar(ptr);
@@ -751,8 +738,14 @@ void MenuSetupTimeUnitEdit(menu_mode_t mode)
 
   // Muestro pulsos acumulados
   pulse_ttl = (uint32_t) FM_FMC_TtlPulseGet();
-  snprintf(setup_line_1, sizeof(setup_line_1), "%08lu", pulse_ttl);
+
+  // Cantidad de pulsos acumulados.
+  snprintf(setup_line_2, sizeof(setup_line_2), "%07lu", pulse_ttl);
+  FM_LCD_PutString(setup_line_2, FM_LCD_LL_ROW_2_COLS + 1, FM_LCD_LL_ROW_2);
+
+  snprintf(setup_line_1, sizeof(setup_line_1), "%08lu", pulse_ttl/10000000);
   FM_LCD_PutString(setup_line_1, FM_LCD_LL_ROW_1_COLS + 1, FM_LCD_LL_ROW_1);
+
 
   // Refresco la unidad de tiempo mostrada en pantalla.
   FM_FMC_TotalizerTimeUnitSel(time_unit);
@@ -791,6 +784,7 @@ void MenuSetupDateEdit(menu_mode_t sel)
   switch (sel)
   {
   case MENU_MODE_INIT:
+    idx = FM_RTC_SET_YEAR;
     break;
   case MENU_MODE_INC:
     FM_RTC_Set(idx, 1);

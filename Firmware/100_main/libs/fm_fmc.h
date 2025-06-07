@@ -132,7 +132,7 @@ void FM_FMC_Init(sensors_list_t);
 // Las siguientes funciones operan en totalizar.rate
 void    FM_FMC_CaptureSet(uint16_t pulse, uint16_t time);
 ufp3_t  FM_FMC_RateCalc();
-void FM_FMC_RateClear();
+void    FM_FMC_RateClear();
 ufp3_t  FM_FMC_RateGet();
 uint8_t FM_FMC_RateFpSelGet();
 void    FM_FMC_RateFpInc();

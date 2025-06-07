@@ -192,8 +192,8 @@ void ThreadEntryMain(ULONG thread_input)
       sleep_time = 100;
 
       /*
-       * Si no ingresa un nuevo pulso este el valor se descuenta, se necesitan al menos dos repeticiones de refresco
-       * de caudal, cuando este  se detiene, para visualizar fluidamente como va a cero.
+       * Si no ingresa un nuevo pulso este el valor se descuenta, se necesitan al menos dos repeticiones de
+       * refresco de caudal, cuando este  se detiene, para visualizar fluidamente como va a cero.
        */
       fmc_calc_flag--;
     }
@@ -204,8 +204,6 @@ void ThreadEntryMain(ULONG thread_input)
       sleep_time = 100;
       gobal_refresh_1000 = FALSE;
     }
-
-
 
     switch (menu)
     {
@@ -235,9 +233,10 @@ void ThreadEntryMain(ULONG thread_input)
       break;
     }
 
+    // Si
     if(FM_LCD_ll_BlinkRefresh())
     {
-      sleep_time = 20;
+      sleep_time = 30;
     }
 
     /*

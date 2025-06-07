@@ -1,6 +1,45 @@
 # Registro de cambios en el firmware del computador FM-320U
 
-## [gv01.01.009-B1] - 250517
+## [01.01.009] 2025-06-07
+
+### Notas
+
+### Added
+
+### Fixed
+- Punto decimal no se borraba.
+
+### Changed
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
+
+---------------------------------------------------------------------------------------------------
+
+## [01.01.009-B3] 2025-05-27
+
+### Notas
+
+### Added
+
+### Fixed
+- No permitia ajustar el factor a su valor minimo.
+-
+
+### Changed
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
+
+---------------------------------------------------------------------------------------------------
+
+## [01.01.009-B2] 2025-05-27
 
 ### Notas
 
@@ -12,7 +51,8 @@ Carpeta con documentos de produccion
 
 ### Changed
 - Se programa un refresco a 200ms si un caracter programado a parpadear esta apagado.
-- Sa cambia orden de lectura del RTC, HAL_RTC_GetTime luego date, parece solucionar el promela de edicion de la fecha y hora del computador.
+- Se cambia orden de lectura del RTC, HAL_RTC_GetTime luego date, parece solucionar el promela de edicion de la fecha y hora del computador.
+- Cambia la manera en que procesa el segmento '.' en los caracteres de 8 segmentos
 
 ### Removed
 - Archivo de como usar CHANGELOG_RULES.md, informacion duplicada con esta.
@@ -21,7 +61,7 @@ Carpeta con documentos de produccion
 
 ### Testeos completados
 
-
+---------------------------------------------------------------------------------------------------
 
 ## [01.01.009-B0] 2025-05-11
 
@@ -66,6 +106,7 @@ Consumo 43uA, condiciones:
 0x2FB398FC - OK
 0x2FB40A04 - OK
 
+---------------------------------------------------------------------------------------------------
 
 ## [UNVERSIONEDED]
 

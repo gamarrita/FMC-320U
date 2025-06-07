@@ -178,7 +178,7 @@ uint32_t FM_FMC_FactorCalSet(ufp3_t factor_cal)
 {
   // Esta implementación es provisoria, hay que hacer chequeo de contorno antes de modificar totalizer.
 
-  if ((factor_cal > FM_FMC_FACTOR_CAL_MIN) && (factor_cal < FM_FMC_FACTOR_CAL_MAX))
+  if ((factor_cal >= FM_FMC_FACTOR_CAL_MIN) && (factor_cal <= FM_FMC_FACTOR_CAL_MAX))
   {
     totalizer.factor_cal = factor_cal;
   }
