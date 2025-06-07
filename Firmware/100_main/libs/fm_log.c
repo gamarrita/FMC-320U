@@ -61,8 +61,6 @@
 fm_log_data_t data_buffer[BUFFER_SIZE] __attribute__((section(".RAM_BACKUP_Section")));
 
 uint8_t data_index = 0;
-uint8_t data_index = 0;
-
 
 // Contador en RAM BACKUP, cuenta la cantidad de resets:
 
@@ -92,10 +90,8 @@ void fm_log_data_new(fm_log_data_t data)
   if(data_index >= BUFFER_SIZE) // length
   {
     data_index = 0;
-    fm_log_block_flash();
+  //  fm_log_block_flash();
   }
-
-
 }
 
 /*

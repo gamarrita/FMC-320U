@@ -1,5 +1,26 @@
 # Registro de cambios en el firmware del computador FM-320U
 
+## [01.01.010-D0] Beta 0 en desarrollo.
+
+### Docs
+ 
+### Chore
+- Cambio identificador de version en rama beta de ##[UNVERSIONED] a la version, terminada en D para develo y B beta terminada.
+
+### Added
+
+### Fixed
+
+### Refactory
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
+
+---------------------------------------------------------------------------------------------------
+
 ## [01.01.009] 2025-06-07
 
 ### Notas
@@ -110,13 +131,13 @@ Consumo 43uA, condiciones:
 
 ## [UNVERSIONEDED]
 
-### Notas
+### Chore
 
 ### Added
 
 ### Fixed
 
-### Changed
+### Refoctory
 
 ### Removed
 

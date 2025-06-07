@@ -17,8 +17,8 @@
 // Typedef.
 
 // Const data.
-const char msg_version_firmware[] = "01.01.009"; // Version.Revision.Release
-const char msg_release[] = "  "; // Version.Revision.Release
+const char msg_version_firmware[] = "01.01.010"; // Version.Revision.Release
+const char msg_release[] = "D0"; // Version.Revision.Release
 
 /*
  *  Esta constante se usa en dos situaciones:
