@@ -1,15 +1,11 @@
 /*
+ * @brief Manejo del registro de datos.
  *
- * Author: DHS
- * Version:  1.1
- * 
- * @brief Permire usar la flash como RAM. Configura la memoria RAM BACKUP
  *
- * Version 1
- * Autor: Daniel H Sagarra
- * Fecha 10/11/2024
- * Modificaciones: version inicial.
- * 
+ *
+ *
+ *
+ * Autor: Daniel Hernan Sagarra
  */
 
 // Includes.
@@ -18,6 +14,7 @@
 #include "main.h"
 #include "fm_flash.h"
 #include "fm_debug.h"
+#include "fm_fmc.h"
 
 // Defines.
 
@@ -71,17 +68,17 @@ uint8_t data_index = 0;
 // Public function bodies.
 
 /*
- * @brief   Controla el encendido y apagado del parpadeo.
+ * @brief   Guarda datos en la RAM BACKUP hasta completar un bloque que se escribe en la FLASH.
  * @note
  * @param   data, datos a agregar a la BACKUP RAM
  * @retval  ninguno
  */
-void fm_log_data_new(fm_log_data_t data)
+void FM_LOG_Ram(fm_log_data_t data)
 {
 
   data.ttl = FM_FMC_TtlGet();
   data.acm = FM_FMC_AcmGet();
-  data.factor_k = FM_FMC_FactorKGet();
+  data.factor_cal =  FM_FMC_FactorCalGet();
   data.seconds = FM_RTC_GetUnixTime();
   data_buffer[data_index] = data;
 
@@ -90,22 +87,31 @@ void fm_log_data_new(fm_log_data_t data)
   if(data_index >= BUFFER_SIZE) // length
   {
     data_index = 0;
-  //  fm_log_block_flash();
+    FM_LOG_Flash();
   }
 }
 
 /*
- * @brief   Controla el encendido y apagado del parpadeo.
+ * @brief   Guarda el contenido de la RAM BACKUP en la FLASH.
  * @note
- * @param   state:  0 parpadeo desactivado,
- *                  1 activado y encendido,
- *                  2 activado y apagado.
+ * @param
  * @retval  ninguno
  */
-void fm_log_block_flash()
+void FM_LOG_Flah()
+{
+  int a = 1;
+
+  while(a)
+  {
+    FM_DEBUG_LedError(1);
+  }
+}
+
+void FM_LOG_Monitor()
 {
 
 }
+
 
 
 // Interrupts

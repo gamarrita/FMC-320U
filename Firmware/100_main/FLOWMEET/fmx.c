@@ -50,8 +50,7 @@ extern LPTIM_HandleTypeDef hlptim3; // Pulsos de sensor primario, para calculo d
 extern LPTIM_HandleTypeDef hlptim4; // Pulsos de sensor primario, para calculo de caudal.
 
 // Global variables, statics.
-
-uint8_t fmc_calc_flag = FALSE; // Ingresan pulsos desde el sensor  primario.
+uint8_t pulse_front_end_active = 0; // 0 si no ingresan pulsos del sensor primario.
 uint8_t gobal_refresh_1000 = FALSE; // Alguna entidad solicita mantener refrescos cada 1000 mili segundo.
 
 uint16_t lptim3_capture;
@@ -152,19 +151,15 @@ void ThreadEntryMain(ULONG thread_input)
 
     PulseUpdate();
     /*
-     * En lo que sigue se  justifica cual es valor, que por defefto se enviaria a dormir al  computador.
-     *
-     * Idealmente debería dormir para siempre, hasta que algo pase, tiempo indefinido. Si bien esto es posible,
-     * no se puede con el esquema actual. El RTOS necesita un tiempo de expiración, al menos uno,
-     * para poder traducir el idle time a un tiempo valido para ingresar a stop mode.
+     * Idealmente micro deberia permanecer en stop mode hasta que algo pase, tiempo indefinido.
+     * Esto es posible, el el RTOS necesita un tiempo de expiración.
+     * Para al menos una tarea del RTOS se necesita un idle time finito.
      * Si todos los procesos pasan a idle con TX_WAIT_FOREVER, el calculo que hace el RTOS "falla",
      * se saldrá del stop mode justo después de ingresar.
-     * El timer 1 programado con un prescaler de 16 y alimentado con una frecuencia de 32768Hz, tiene
+     * El LPTIM 1 programado con un prescaler de 16 y alimentado con una frecuencia de 32768Hz, tiene
      * una capacidad máxima de 32 segundo. En conclusion no se puede ir a dormir por mas de 32 segundos.
-     * Ir a dormir por mas de 5 segundos, o quizás 3 segundos no aporta mucho a la duración de la batería
-     * Salir de stop mode cada 3 o 5 segundos ayuda a detectar alguna inconsistencias durante el desarrollo.
-     * Se decide dejar el time out en 5 segundos para lo que resta de la vida util del computador de
-     * caudales.
+     * Ir a dormir por mas de 5 segundos no aporta mucho a la duración de la batería.
+     * Se decide dejar el time out en 5 segundos.
      * Si el computador nunca saliese de stop mode 2 consumiría 33uA.
      * Si el computador sale una vez cada 5 segundos consume 42uA
      * Si el computador sale una vez cada 3 segundos consume 45uA
@@ -187,7 +182,7 @@ void ThreadEntryMain(ULONG thread_input)
     }
 
     // Si ingresan pulsos se necesita refrescos cada 1  segundo
-    if (fmc_calc_flag)
+    if (pulse_front_end_active)
     {
       sleep_time = 100;
 
@@ -195,7 +190,7 @@ void ThreadEntryMain(ULONG thread_input)
        * Si no ingresa un nuevo pulso este el valor se descuenta, se necesitan al menos dos repeticiones de
        * refresco de caudal, cuando este  se detiene, para visualizar fluidamente como va a cero.
        */
-      fmc_calc_flag--;
+      pulse_front_end_active--;
     }
 
     if (gobal_refresh_1000)
@@ -240,8 +235,9 @@ void ThreadEntryMain(ULONG thread_input)
     }
 
     /*
-     *  El ultimo evento ya se proceso, esta es una variable intermedia que la tengo que limpiar. Si hay un evento
-     *  en la cola se escribiría correctamente cuando se ejecute tx_queue_receive();
+     * La variable received_event se proceso en FM_xyz_MenuNav(). La limpio con la siguiente instrucción.
+     * Un mejora es pasar la variable como puntero, en este caso la llamada a la función puede determinar
+     * un nuevo evento.
      */
     received_event = FMX_EVENT_EMPTY;
 
@@ -260,8 +256,8 @@ void ThreadEntryMain(ULONG thread_input)
 /*
  * @brief	Lee los pulsos acumulados del timer 4, actualiza el conteo de pulsos
  * @note
- * @param	  Parametro pasado al crear el servicio
- * @retval			Ninguno.
+ * @param
+ * @retval	Ninguno.
  *
  */
 void PulseUpdate()
@@ -300,13 +296,13 @@ void PulseUpdate()
   vol_pulse_delta = (vol_pulse_new - vol_pulse_old);
 
   /*
-   * Este bloque explica la técnica utilizada para medir el caudal, un posible bug en el silicio del STM32U575,
-   * y la solución aplicada.
+   * Este bloque explica la técnica utilizada para medir el caudal, un posible bug en el silicio del
+   * STM32U575 y la solución aplicada.
    *
-   * La forma típica de medir el caudal consiste en determinar el período de una señal, calcular su frecuencia
-   * y, a partir de esta, obtener el caudal. Para lograr alta precisión, se requiere una alta frecuencia de reloj.
-   * Sin embargo, en dispositivos de bajo consumo, como un caudalímetro portátil, mantener una frecuencia elevada
-   * es incompatible con una operación energéticamente eficiente.
+   * La forma típica de medir el caudal consiste en determinar el período de una señal, calcular la
+   * frecuencia, con la frecuencia y otros datos se obtiene el caudal. Para lograr alta precisión, se requiere
+   * una alta frecuencia de reloj. Este esquema típico no es aplicable debido a que alta frecuencia no es
+   * compatible con bajo consumo.
    *
    * La técnica empleada en este caso es la siguiente:
    * - Se utiliza un timer (LPTIM3), alimentado por un reloj de 32.768 Hz, configurado en modo captura continua.
@@ -679,8 +675,16 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 }
 
 /*
- * @brief
- * @note
+ * @brief   Interrupción de captura en LPTIM 3. Pulsos del sensor primario, turbina u otro, provocan la
+ *          captura del contador del LPTIM 3.
+ * @note    La salida del front-end del pick-up se conecta a un pin de captura del microcontrolador. Esta
+ *          interrupción se habilita habilita cada un segundo, aproximadamente, esperando el flanco.
+ *          Entre dos interrupciones se tiene:
+ *          - Un numero entero de pulsos del sensor primario
+ *          - La cantidad de pulsos de frecuencia 32.768Hz que ingresaron en esa venta de tiempo.
+ *           Aunque la frecuencia con la que se mide el período no es muy alta, si la comparamos con por
+ *           ejemplo una señal de 200Hz, típica de una turbina chica, al medir sobre mucho periodos, la
+ *           resolución en la medición de la frecuencia, y por lo tanto en el caudal, es suficiente.
  * @param
  * @retval
  *
@@ -693,8 +697,8 @@ void HAL_LPTIM_IC_CaptureCallback(LPTIM_HandleTypeDef *hlptim)
   if (rate_pulse_delta == 0)
   {
     /*
-     * Si estoy dentro de este bloque, el caudal paso de cero a no cero, quiero refrescar el valor en pantalla para
-     * tener un rapido feedback en pantalla del computador de esta situación.
+     * Si estoy dentro de este bloque, el caudal paso de cero a no cero, quiero refrescar el valor en pantalla
+     * para tener un rapido feedback en pantalla del computador de esta situación.
      */
     FMX_RefreshEventTrue();
 
@@ -702,8 +706,9 @@ void HAL_LPTIM_IC_CaptureCallback(LPTIM_HandleTypeDef *hlptim)
     rate_tick_new =  lptim3_capture;
   }
 
-  fmc_calc_flag = 2;
+  pulse_front_end_active = 2;
 
+  // Des-habilito esta interrupción.
   __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_CC1);
 }
 
