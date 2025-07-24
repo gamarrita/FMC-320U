@@ -1,6 +1,6 @@
 # CONTRIBUTING
 
-Este archivo documenta los cambios en el proyecto FMC-320U.
+Este archivo documenta los procedimiento para hacer commits en el proyecto FMC-320U.
 
 ## Identificacion del commit
 - Para commits que tengan que ver con el firmware usar el siguiente formato para el titulo "[FIRMWARE] Prefijo - Descripcion"

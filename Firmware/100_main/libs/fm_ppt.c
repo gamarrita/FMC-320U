@@ -23,15 +23,15 @@
 #define PRINTER_LEN 32      // Cantidad de columnas de la impresora
 #define MAX_FIELD_LEN (PRINTER_LEN + 2)  // Columnas de la impresora + \n\0
 
-
 // Typedef.
-typedef struct {
+typedef struct
+{
     char number[RIGHT_LEN];
     char ttl[RIGHT_LEN];
-    char date[RIGHT_LEN];   // formato esperado: "DD/MM/AAAA"
-    char time[RIGHT_LEN];   // formato esperado: "HH:MM" (o "HH:MM:SS")
+    char date[RIGHT_LEN];  // formato esperado: "DD/MM/AAAA"
+    char time[RIGHT_LEN];  // formato esperado: "HH:MM" (o "HH:MM:SS")
     char acm[RIGHT_LEN];
-}ticket_data_t;
+} ticket_data_t;
 
 // Const data.
 
@@ -54,47 +54,47 @@ char page_buffer[240];
 void FM_PPT_FormatTicket()
 {
 
-  snprintf(ticket.number, MAX_FIELD_LEN, "%u", FM_FMC_TicketNumberGet());
-  snprintf(ticket.ttl, MAX_FIELD_LEN, "%lu", FM_FMC_TtlGet());
-  FM_RTC_GetPpt(ticket.time, ticket.date);
-  snprintf(ticket.acm, MAX_FIELD_LEN, "%lu", FM_FMC_AcmGet());
+    snprintf(ticket.number, MAX_FIELD_LEN, "%u", FM_FMC_TicketNumberGet());
+    snprintf(ticket.ttl, MAX_FIELD_LEN, "%lu", FM_FMC_TtlGet());
+    FM_RTC_GetPpt(ticket.time, ticket.date);
+    snprintf(ticket.acm, MAX_FIELD_LEN, "%lu", FM_FMC_AcmGet());
 }
 
 void FM_PPT_PrintTicket()
 {
-  //Línea separadora superior
-  snprintf(page_buffer, MAX_FIELD_LEN, "  ============================\n");
+    //Línea separadora superior
+    snprintf(page_buffer, MAX_FIELD_LEN, "  ============================\n");
 
-  // Número de control (etiqueta izquierda, valor derecha)
-  snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "Ticket Nro: ", ticket.number);
+    // Número de control (etiqueta izquierda, valor derecha)
+    snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "Ticket Nro: ",
+            ticket.number);
 
-  // TTL
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "TTL:", ticket.ttl);
+    // TTL
+    snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "TTL:", ticket.ttl);
 
-  // Fecha
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "Fecha:", ticket.date);
+    // Fecha
+    snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "Fecha:", ticket.date);
 
-  // Hora
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "Hora:", ticket.time);
+    // Hora
+    snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "Hora:", ticket.time);
 
-  // ACM
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "ACM:", ticket.acm);
+    // ACM
+    snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "%-10s%s\n", "ACM:", ticket.acm);
 
+    snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "\n\n");
 
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "\n\n");
+    // Operario (dejar en blanco para llenar a mano)
+    snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "Operario:\n\n\n\n");
 
-  // Operario (dejar en blanco para llenar a mano)
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "Operario:\n\n\n\n");
+    // Recibió (dejar en blanco para llenar a mano)
+    snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "Recibio:\n\n\n\n");
 
-  // Recibió (dejar en blanco para llenar a mano)
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "Recibio:\n\n\n\n");
+    // (Opcional) Línea separadora inferior
+    snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "  ============================\n");
 
-  // (Opcional) Línea separadora inferior
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "  ============================\n");
+    snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "\n\n\n");
 
-  snprintf(page_buffer+strlen(page_buffer), MAX_FIELD_LEN, "\n\n\n");
-
-  FM_MXC_Print(page_buffer);
+    FM_MXC_Print(page_buffer);
 
 }
 

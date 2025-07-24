@@ -32,39 +32,24 @@
 // Const data.
 // Cantidad de segundos en otras unidades de tiempo
 const uint32_t seconds_in[] =
-{
-    1,
-    60,
-    3600,
-    86400, };
+{ 1, 60, 3600, 86400, };
 
 /*
  * Esta lista de arreglos debe contener un elemento por cada elemento de la variable fm_fmc_vol_unit_t.
  */
 fm_fmc_vol_data_t vol_unit_list[] =
 {
-    {
-        .unit_convert = 1,
-        .name = "00" // Unidad adimensional.
-    },
-    {
-        .unit_convert = 158.987304, 	// Cantidad de litros en un barril.
-        .name = "BL" },
-    {
-        .unit_convert = 3.78541,		// Cantidad de litro en un galón.
-        .name = "GL", },
-    {
-        .unit_convert = 1,
-        .name = "KG", },
-    {
-        .unit_convert = 1,
-        .name = "LT", },
-    {
-        .unit_convert = 1000,
-        .name = "M3", },
-    {
-        .unit_convert = 1,
-        .name = "ME", }, };
+{ .unit_convert = 1, .name = "00"
+// Unidad adimensional.
+        },
+        { .unit_convert = 158.987304,  // Cantidad de litros en un barril.
+                .name = "BL" },
+        { .unit_convert = 3.78541, // Cantidad de litro en un galón.
+                .name = "GL", },
+        { .unit_convert = 1, .name = "KG", },
+        { .unit_convert = 1, .name = "LT", },
+        { .unit_convert = 1000, .name = "M3", },
+        { .unit_convert = 1, .name = "ME", }, };
 
 //Debug.
 
@@ -80,8 +65,6 @@ fm_fmc_vol_data_t vol_unit_list[] =
  * espacio disponible en RAM, se cuenta con solamente 2K disponibles en RAM_BACKUP_Section.
  */
 fm_fmc_totalizer_t totalizer __attribute__((section(".RAM_BACKUP_Section")));
-
-
 
 // Private function prototypes.
 
@@ -100,9 +83,9 @@ fm_fmc_totalizer_t totalizer __attribute__((section(".RAM_BACKUP_Section")));
  */
 void FM_FMC_Init(sensors_list_t sensor)
 {
-  totalizer = FM_FACTORY_TotalizerGet(sensor);
-  totalizer.factor_k = FM_FMC_FactorKCalc(totalizer.factor_cal, totalizer.vol_unit);
-  totalizer.rate.factor_r = FM_FMC_FactorRateCalc(totalizer.factor_k, totalizer.time_unit);
+    totalizer = FM_FACTORY_TotalizerGet(sensor);
+    totalizer.factor_k = FM_FMC_FactorKCalc(totalizer.factor_cal, totalizer.vol_unit);
+    totalizer.rate.factor_r = FM_FMC_FactorRateCalc(totalizer.factor_k, totalizer.time_unit);
 }
 
 /*
@@ -113,14 +96,14 @@ void FM_FMC_Init(sensors_list_t sensor)
  */
 ufp3_t FM_FMC_AcmCalc()
 {
-  double acm;
+    double acm;
 
-  acm = totalizer.pulse_acm;
-  acm /= totalizer.factor_k;
-  acm *= 1000;
-  totalizer.acm = (ufp3_t) acm;
+    acm = totalizer.pulse_acm;
+    acm /= totalizer.factor_k;
+    acm *= 1000;
+    totalizer.acm = (ufp3_t) acm;
 
-  return totalizer.acm;
+    return totalizer.acm;
 }
 
 /*
@@ -132,7 +115,19 @@ ufp3_t FM_FMC_AcmCalc()
  */
 ufp3_t FM_FMC_AcmGet()
 {
-  return (totalizer.acm);
+    return (totalizer.acm);
+}
+
+/*
+ * @brief   Devuelve el ultimo valor calculado del ACM.
+ * @note    No calcula el ACM actual, devuelve el calculado por FM_FMC_TtlCal();
+ *          en su ultimo llamado.
+ * @param   Ninguno.
+ * @retval  Volume actual en ACM
+ */
+uint64_t FM_FMC_AcmGetPulse()
+{
+    return (totalizer.pulse_acm);
 }
 
 /*
@@ -143,8 +138,8 @@ ufp3_t FM_FMC_AcmGet()
  */
 void FM_FMC_AcmReset()
 {
-  totalizer.acm = 0;
-  totalizer.pulse_acm = 0;
+    totalizer.acm = 0;
+    totalizer.pulse_acm = 0;
 }
 
 /*
@@ -155,8 +150,8 @@ void FM_FMC_AcmReset()
  */
 void FM_FMC_CaptureSet(uint16_t pulse, uint16_t time)
 {
-  totalizer.rate.delta_p = pulse;
-  totalizer.rate.delta_t = time;
+    totalizer.rate.delta_p = pulse;
+    totalizer.rate.delta_t = time;
 }
 
 /*
@@ -164,7 +159,7 @@ void FM_FMC_CaptureSet(uint16_t pulse, uint16_t time)
  */
 ufp3_t FM_FMC_FactorCalGet()
 {
-  return totalizer.factor_cal;
+    return totalizer.factor_cal;
 }
 
 /*
@@ -176,17 +171,17 @@ ufp3_t FM_FMC_FactorCalGet()
  */
 uint32_t FM_FMC_FactorCalSet(ufp3_t factor_cal)
 {
-  // Esta implementación es provisoria, hay que hacer chequeo de contorno antes de modificar totalizer.
+    // Esta implementación es provisoria, hay que hacer chequeo de contorno antes de modificar totalizer.
 
-  if ((factor_cal >= FM_FMC_FACTOR_CAL_MIN) && (factor_cal <= FM_FMC_FACTOR_CAL_MAX))
-  {
-    totalizer.factor_cal = factor_cal;
-  }
-  else
-  {
-    return 0;
-  }
-  return 1;
+    if ((factor_cal >= FM_FMC_FACTOR_CAL_MIN) && (factor_cal <= FM_FMC_FACTOR_CAL_MAX))
+    {
+        totalizer.factor_cal = factor_cal;
+    }
+    else
+    {
+        return 0;
+    }
+    return 1;
 }
 
 /*
@@ -197,17 +192,17 @@ uint32_t FM_FMC_FactorCalSet(ufp3_t factor_cal)
  */
 double FM_FMC_FactorKCalc(ufp3_t factor_cal, fm_fmc_vol_unit_t unit)
 {
-  double factor_k;
+    double factor_k;
 
-  // Factor de conversion de unidad calibración, litro, a unidad de visualización.
-  factor_k = factor_cal;
+    // Factor de conversion de unidad calibración, litro, a unidad de visualización.
+    factor_k = factor_cal;
 
-  // El factor K es el de calibración, en litros, convertido a la unidad de volumen seleccionada.
-  factor_k *= vol_unit_list[unit].unit_convert;
+    // El factor K es el de calibración, en litros, convertido a la unidad de volumen seleccionada.
+    factor_k *= vol_unit_list[unit].unit_convert;
 
-  factor_k /= 1000; // Se necesita para convertir de ufp_t a double.
+    factor_k /= 1000;  // Se necesita para convertir de ufp_t a double.
 
-  return factor_k;
+    return factor_k;
 }
 
 /*
@@ -219,7 +214,7 @@ double FM_FMC_FactorKCalc(ufp3_t factor_cal, fm_fmc_vol_unit_t unit)
  */
 double FM_FMC_FactorKGet()
 {
-  return totalizer.factor_k;
+    return totalizer.factor_k;
 }
 
 /*
@@ -231,17 +226,17 @@ double FM_FMC_FactorKGet()
  */
 uint32_t FM_FMC_FactorKSet(ufp3_t factor_k)
 {
-  // Esta implementación es provisoria, hay que hacer chequeo de contorno antes de modificar totalizer.
+    // Esta implementación es provisoria, hay que hacer chequeo de contorno antes de modificar totalizer.
 
-  if ((factor_k > FM_FMC_FACTOR_CAL_MIN) && (factor_k < FM_FMC_FACTOR_CAL_MAX))
-  {
-    totalizer.factor_k = factor_k;
-  }
-  else
-  {
-    return 0;
-  }
-  return 1;
+    if ((factor_k > FM_FMC_FACTOR_CAL_MIN) && (factor_k < FM_FMC_FACTOR_CAL_MAX))
+    {
+        totalizer.factor_k = factor_k;
+    }
+    else
+    {
+        return 0;
+    }
+    return 1;
 }
 
 /*
@@ -252,13 +247,13 @@ uint32_t FM_FMC_FactorKSet(ufp3_t factor_k)
  */
 double FM_FMC_FactorRateCalc(double factor_k, fm_fmc_time_unit_t time_unit)
 {
-  double factor_r;
+    double factor_r;
 
-  factor_r = 32768.0;
-  factor_r /= factor_k;
-  factor_r *= seconds_in[time_unit];
+    factor_r = 32768.0;
+    factor_r /= factor_k;
+    factor_r *= seconds_in[time_unit];
 
-  return factor_r;
+    return factor_r;
 }
 
 /*
@@ -269,19 +264,19 @@ double FM_FMC_FactorRateCalc(double factor_k, fm_fmc_time_unit_t time_unit)
  */
 fmx_status_t FM_FMC_FactorRateSet(double factor_rate)
 {
-  fmx_status_t status = FMX_STATUS_OK;
+    fmx_status_t status = FMX_STATUS_OK;
 
-  if (factor_rate > 0)
-  {
-    totalizer.rate.factor_r = factor_rate;
-  }
-  else
-  {
-    totalizer.rate.factor_r = 1;
-    status = FMX_STATUS_ERROR;
-  }
+    if (factor_rate > 0)
+    {
+        totalizer.rate.factor_r = factor_rate;
+    }
+    else
+    {
+        totalizer.rate.factor_r = 1;
+        status = FMX_STATUS_ERROR;
+    }
 
-  return status;
+    return status;
 }
 
 /*
@@ -289,7 +284,7 @@ fmx_status_t FM_FMC_FactorRateSet(double factor_rate)
  */
 fm_fmc_totalizer_t FM_FMC_GetEnviroment(void)
 {
-  return totalizer;
+    return totalizer;
 }
 
 /*
@@ -300,8 +295,8 @@ fm_fmc_totalizer_t FM_FMC_GetEnviroment(void)
  */
 void FM_FMC_PulseAdd(uint32_t pulse_delta)
 {
-  totalizer.pulse_acm += pulse_delta;
-  totalizer.pulse_ttl += pulse_delta;
+    totalizer.pulse_acm += pulse_delta;
+    totalizer.pulse_ttl += pulse_delta;
 }
 
 /*
@@ -312,17 +307,17 @@ void FM_FMC_PulseAdd(uint32_t pulse_delta)
  */
 ufp3_t FM_FMC_RateCalc()
 {
-  double rate;
+    double rate;
 
-  rate = totalizer.rate.delta_p;
-  rate /= totalizer.rate.delta_t;
-  rate *= totalizer.rate.factor_r;
+    rate = totalizer.rate.delta_p;
+    rate /= totalizer.rate.delta_t;
+    rate *= totalizer.rate.factor_r;
 
-  // Convierto a punto fijo 3 decimales
-  rate *= 1000;
-  totalizer.rate.rate = (ufp3_t) rate;
+    // Convierto a punto fijo 3 decimales
+    rate *= 1000;
+    totalizer.rate.rate = (ufp3_t) rate;
 
-  return (totalizer.rate.rate);
+    return (totalizer.rate.rate);
 }
 
 /*
@@ -334,7 +329,7 @@ ufp3_t FM_FMC_RateCalc()
  */
 uint8_t FM_FMC_RateFpSelGet()
 {
-  return totalizer.rate.rate_pf_sel;
+    return totalizer.rate.rate_pf_sel;
 }
 
 /*
@@ -342,14 +337,14 @@ uint8_t FM_FMC_RateFpSelGet()
  */
 void FM_FMC_RateFpInc()
 {
-  if (totalizer.rate.rate_pf_sel < FM_FMC_FP_SEL_3)
-  {
-    totalizer.rate.rate_pf_sel++;
-  }
-  else
-  {
-    totalizer.rate.rate_pf_sel = FM_FMC_FP_SEL_0;
-  }
+    if (totalizer.rate.rate_pf_sel < FM_FMC_FP_SEL_3)
+    {
+        totalizer.rate.rate_pf_sel++;
+    }
+    else
+    {
+        totalizer.rate.rate_pf_sel = FM_FMC_FP_SEL_0;
+    }
 }
 
 /*
@@ -357,7 +352,7 @@ void FM_FMC_RateFpInc()
  */
 ufp3_t FM_FMC_RateGet()
 {
-  return totalizer.rate.rate;
+    return totalizer.rate.rate;
 }
 
 /*
@@ -365,9 +360,8 @@ ufp3_t FM_FMC_RateGet()
  */
 void FM_FMC_RateClear()
 {
-  totalizer.rate.rate = 0;
+    totalizer.rate.rate = 0;
 }
-
 
 /*
  * @brief   Calcula el valor actual del TTL y devuelve su valor.
@@ -377,16 +371,16 @@ void FM_FMC_RateClear()
  */
 ufp3_t FM_FMC_TtlCalc()
 {
-  double ttl = 0;
+    double ttl = 0;
 
-  ttl = totalizer.pulse_ttl;
-  ttl /= totalizer.factor_k;
+    ttl = totalizer.pulse_ttl;
+    ttl /= totalizer.factor_k;
 
-  // Paso a punto fijo tres decimales.
-  ttl *= 1000;
-  totalizer.ttl = (ufp3_t) ttl;
+    // Paso a punto fijo tres decimales.
+    ttl *= 1000;
+    totalizer.ttl = (ufp3_t) ttl;
 
-  return (totalizer.ttl);
+    return (totalizer.ttl);
 }
 
 /*
@@ -398,7 +392,7 @@ ufp3_t FM_FMC_TtlCalc()
  */
 ufp3_t FM_FMC_TtlGet()
 {
-  return (totalizer.ttl);
+    return (totalizer.ttl);
 }
 
 /*
@@ -406,7 +400,7 @@ ufp3_t FM_FMC_TtlGet()
  */
 uint64_t FM_FMC_TtlPulseGet()
 {
-  return totalizer.pulse_ttl;
+    return totalizer.pulse_ttl;
 }
 
 /*
@@ -414,7 +408,7 @@ uint64_t FM_FMC_TtlPulseGet()
  */
 fm_fmc_vol_unit_t FM_FMC_TotalizerVolUnitGet()
 {
-  return (totalizer.vol_unit);
+    return (totalizer.vol_unit);
 }
 
 /*
@@ -422,19 +416,19 @@ fm_fmc_vol_unit_t FM_FMC_TotalizerVolUnitGet()
  */
 uint32_t FM_FMC_TotalizerVolUnitSet(fm_fmc_vol_unit_t vol_unit)
 {
-  const char debug_error[] = "FM_FMC_TotalizerVolUnitSet ERROR";
+    const char debug_error[] = "FM_FMC_TotalizerVolUnitSet ERROR";
 
-  if ((vol_unit >= VOL_UNIT_BLANK) && (vol_unit < VOL_UNIT_END))
-  {
-    totalizer.vol_unit = vol_unit;
-  }
-  else
-  {
-    FM_DEBUG_LedError(1);
-    FM_DEBUG_UartMsg(debug_error, sizeof(debug_error));
-    return 0;
-  }
-  return 1;
+    if ((vol_unit >= VOL_UNIT_BLANK) && (vol_unit < VOL_UNIT_END))
+    {
+        totalizer.vol_unit = vol_unit;
+    }
+    else
+    {
+        FM_DEBUG_LedError(1);
+        FM_DEBUG_UartMsg(debug_error, sizeof(debug_error));
+        return 0;
+    }
+    return 1;
 }
 
 /*
@@ -442,7 +436,7 @@ uint32_t FM_FMC_TotalizerVolUnitSet(fm_fmc_vol_unit_t vol_unit)
  */
 fm_fmc_time_unit_t FM_FMC_TotalizerTimeUnitGet()
 {
-  return (totalizer.time_unit);
+    return (totalizer.time_unit);
 }
 
 /*
@@ -450,19 +444,19 @@ fm_fmc_time_unit_t FM_FMC_TotalizerTimeUnitGet()
  */
 fmx_status_t FM_FMC_TotalizerTimeUnitSet(fm_fmc_time_unit_t time_unit)
 {
-  const char debug_error[] = "FM_FMC_TotalizerTimeUnitSet ERROR";
+    const char debug_error[] = "FM_FMC_TotalizerTimeUnitSet ERROR";
 
-  if ((time_unit >= TIME_UNIT_SECOND) && (time_unit < TIME_UNIT_END))
-  {
-    totalizer.time_unit = time_unit;
-  }
-  else
-  {
-    FM_DEBUG_LedError(1);
-    FM_DEBUG_UartMsg(debug_error, sizeof(debug_error));
-    return FMX_STATUS_ERROR;
-  }
-  return FMX_STATUS_OK;
+    if ((time_unit >= TIME_UNIT_SECOND) && (time_unit < TIME_UNIT_END))
+    {
+        totalizer.time_unit = time_unit;
+    }
+    else
+    {
+        FM_DEBUG_LedError(1);
+        FM_DEBUG_UartMsg(debug_error, sizeof(debug_error));
+        return FMX_STATUS_ERROR;
+    }
+    return FMX_STATUS_OK;
 }
 
 /*
@@ -473,8 +467,8 @@ fmx_status_t FM_FMC_TotalizerTimeUnitSet(fm_fmc_time_unit_t time_unit)
  */
 void FM_FMC_TtlReset()
 {
-  totalizer.ttl = 0;
-  totalizer.pulse_ttl = 0;
+    totalizer.ttl = 0;
+    totalizer.pulse_ttl = 0;
 }
 
 /*
@@ -487,7 +481,7 @@ void FM_FMC_TtlReset()
  */
 uint8_t FM_FMC_TotalizerFpSelGet()
 {
-  return totalizer.vol_pf_sel;
+    return totalizer.vol_pf_sel;
 }
 
 /*
@@ -495,14 +489,14 @@ uint8_t FM_FMC_TotalizerFpSelGet()
  */
 void FM_FMC_TotalizerFpInc()
 {
-  if (totalizer.vol_pf_sel < FM_FMC_FP_SEL_3)
-  {
-    totalizer.vol_pf_sel++;
-  }
-  else
-  {
-    totalizer.vol_pf_sel = FM_FMC_FP_SEL_0;
-  }
+    if (totalizer.vol_pf_sel < FM_FMC_FP_SEL_3)
+    {
+        totalizer.vol_pf_sel++;
+    }
+    else
+    {
+        totalizer.vol_pf_sel = FM_FMC_FP_SEL_0;
+    }
 }
 
 /*
@@ -512,7 +506,7 @@ void FM_FMC_TotalizerFpInc()
  */
 void FM_FMC_TotalizerStrUnitGet(char **string, fm_fmc_vol_unit_t vol_unit)
 {
-  *string = vol_unit_list[vol_unit].name;
+    *string = vol_unit_list[vol_unit].name;
 }
 
 /*
@@ -523,45 +517,43 @@ void FM_FMC_TotalizerStrUnitGet(char **string, fm_fmc_vol_unit_t vol_unit)
  */
 void FM_FMC_TotalizerTimeUnitSel(fm_fmc_time_unit_t sel)
 {
-  static fm_fmc_time_unit_t sel_old = -1;
+    static fm_fmc_time_unit_t sel_old = -1;
 
-  // Se borran
-  if (sel != sel_old)
-  {
-    FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_S, 0);
-    FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_M, 0);
-    FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_H, 0);
-    FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_D, 0);
-  }
+    // Se borran
+    if (sel != sel_old)
+    {
+        FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_S, 0);
+        FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_M, 0);
+        FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_H, 0);
+        FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_D, 0);
+    }
 
-  sel_old = sel;
+    sel_old = sel;
 
-  switch (sel)
-  {
-  case TIME_UNIT_SECOND:
-    FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_S, 1);
-    break;
-  case TIME_UNIT_MINUTE:
-    FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_M, 1);
-    break;
-  case TIME_UNIT_HOUR:
-    FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_H, 1);
-    break;
-  case TIME_UNIT_DAY:
-    FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_D, 1);
-    break;
-  default:
-    break;
-  }
+    switch (sel)
+    {
+    case TIME_UNIT_SECOND:
+        FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_S, 1);
+        break;
+    case TIME_UNIT_MINUTE:
+        FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_M, 1);
+        break;
+    case TIME_UNIT_HOUR:
+        FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_H, 1);
+        break;
+    case TIME_UNIT_DAY:
+        FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_D, 1);
+        break;
+    default:
+        break;
+    }
 }
 
 uint16_t FM_FMC_TicketNumberGet()
 {
-  totalizer.ticket_number++;
-  return totalizer.ticket_number;
+    totalizer.ticket_number++;
+    return totalizer.ticket_number;
 }
-
-
 
 // Interrupts
 

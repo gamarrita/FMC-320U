@@ -9,7 +9,6 @@
 /*                                                                        */
 /**************************************************************************/
 
-
 /**************************************************************************/
 /**************************************************************************/
 /**                                                                       */
@@ -22,13 +21,11 @@
 
 #define TX_SOURCE_CODE
 
-
 /* Include necessary system files.  */
 
 #include "tx_api.h"
 #include "tx_thread.h"
 #include "tx_queue.h"
-
 
 /**************************************************************************/
 /*                                                                        */
@@ -75,18 +72,17 @@
 /*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
-VOID  _tx_queue_cleanup(TX_THREAD  *thread_ptr, ULONG suspension_sequence)
+VOID _tx_queue_cleanup(TX_THREAD *thread_ptr, ULONG suspension_sequence)
 {
 
 #ifndef TX_NOT_INTERRUPTABLE
-TX_INTERRUPT_SAVE_AREA
+    TX_INTERRUPT_SAVE_AREA
 #endif
 
-TX_QUEUE            *queue_ptr;
-UINT                suspended_count;
-TX_THREAD           *next_thread;
-TX_THREAD           *previous_thread;
-
+    TX_QUEUE *queue_ptr;
+    UINT suspended_count;
+    TX_THREAD *next_thread;
+    TX_THREAD *previous_thread;
 
 #ifndef TX_NOT_INTERRUPTABLE
 
@@ -94,26 +90,27 @@ TX_THREAD           *previous_thread;
     TX_DISABLE
 
     /* Determine if the cleanup is still required.  */
-    if (thread_ptr -> tx_thread_suspend_cleanup == &(_tx_queue_cleanup))
+    if (thread_ptr->tx_thread_suspend_cleanup == &(_tx_queue_cleanup))
     {
 
         /* Check for valid suspension sequence.  */
-        if (suspension_sequence == thread_ptr -> tx_thread_suspension_sequence)
+        if (suspension_sequence == thread_ptr->tx_thread_suspension_sequence)
         {
 
             /* Setup pointer to queue control block.  */
-            queue_ptr =  TX_VOID_TO_QUEUE_POINTER_CONVERT(thread_ptr -> tx_thread_suspend_control_block);
+            queue_ptr = TX_VOID_TO_QUEUE_POINTER_CONVERT(
+                    thread_ptr->tx_thread_suspend_control_block);
 
             /* Check for NULL queue pointer.  */
             if (queue_ptr != TX_NULL)
             {
 
                 /* Is the queue ID valid?  */
-                if (queue_ptr -> tx_queue_id == TX_QUEUE_ID)
+                if (queue_ptr->tx_queue_id == TX_QUEUE_ID)
                 {
 
                     /* Determine if there are any thread suspensions.  */
-                    if (queue_ptr -> tx_queue_suspended_count != TX_NO_SUSPENSIONS)
+                    if (queue_ptr->tx_queue_suspended_count != TX_NO_SUSPENSIONS)
                     {
 #else
 
@@ -124,13 +121,13 @@ TX_THREAD           *previous_thread;
                         /* Yes, we still have thread suspension!  */
 
                         /* Clear the suspension cleanup flag.  */
-                        thread_ptr -> tx_thread_suspend_cleanup =  TX_NULL;
+                        thread_ptr->tx_thread_suspend_cleanup = TX_NULL;
 
                         /* Decrement the suspended count.  */
-                        queue_ptr -> tx_queue_suspended_count--;
+                        queue_ptr->tx_queue_suspended_count--;
 
                         /* Pickup the suspended count.  */
-                        suspended_count =  queue_ptr -> tx_queue_suspended_count;
+                        suspended_count = queue_ptr->tx_queue_suspended_count;
 
                         /* Remove the suspended thread from the list.  */
 
@@ -141,7 +138,7 @@ TX_THREAD           *previous_thread;
                             /* Yes, the only suspended thread.  */
 
                             /* Update the head pointer.  */
-                            queue_ptr -> tx_queue_suspension_list =  TX_NULL;
+                            queue_ptr->tx_queue_suspension_list = TX_NULL;
                         }
                         else
                         {
@@ -149,27 +146,27 @@ TX_THREAD           *previous_thread;
                             /* At least one more thread is on the same suspension list.  */
 
                             /* Update the links of the adjacent threads.  */
-                            next_thread =                                   thread_ptr -> tx_thread_suspended_next;
-                            previous_thread =                               thread_ptr -> tx_thread_suspended_previous;
-                            next_thread -> tx_thread_suspended_previous =   previous_thread;
-                            previous_thread -> tx_thread_suspended_next =   next_thread;
+                            next_thread = thread_ptr->tx_thread_suspended_next;
+                            previous_thread = thread_ptr->tx_thread_suspended_previous;
+                            next_thread->tx_thread_suspended_previous = previous_thread;
+                            previous_thread->tx_thread_suspended_next = next_thread;
 
                             /* Determine if we need to update the head pointer.  */
-                            if (queue_ptr -> tx_queue_suspension_list == thread_ptr)
+                            if (queue_ptr->tx_queue_suspension_list == thread_ptr)
                             {
 
                                 /* Update the list head pointer.  */
-                                queue_ptr -> tx_queue_suspension_list =         next_thread;
+                                queue_ptr->tx_queue_suspension_list = next_thread;
                             }
                         }
 
                         /* Now we need to determine if this cleanup is from a terminate, timeout,
-                           or from a wait abort.  */
-                        if (thread_ptr -> tx_thread_state == TX_QUEUE_SUSP)
+                         or from a wait abort.  */
+                        if (thread_ptr->tx_thread_state == TX_QUEUE_SUSP)
                         {
 
                             /* Timeout condition and the thread still suspended on the queue.
-                               Setup return error status and resume the thread.  */
+                             Setup return error status and resume the thread.  */
 
 #ifdef TX_QUEUE_ENABLE_PERFORMANCE_INFO
 
@@ -181,17 +178,17 @@ TX_THREAD           *previous_thread;
 #endif
 
                             /* Setup return status.  */
-                            if (queue_ptr -> tx_queue_enqueued != TX_NO_MESSAGES)
+                            if (queue_ptr->tx_queue_enqueued != TX_NO_MESSAGES)
                             {
 
                                 /* Queue full timeout!  */
-                                thread_ptr -> tx_thread_suspend_status =  TX_QUEUE_FULL;
+                                thread_ptr->tx_thread_suspend_status = TX_QUEUE_FULL;
                             }
                             else
                             {
 
                                 /* Queue empty timeout!  */
-                                thread_ptr -> tx_thread_suspend_status =  TX_QUEUE_EMPTY;
+                                thread_ptr->tx_thread_suspend_status = TX_QUEUE_EMPTY;
                             }
 
 #ifdef TX_NOT_INTERRUPTABLE

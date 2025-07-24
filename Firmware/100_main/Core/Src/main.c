@@ -22,7 +22,6 @@
 #include "flash.h"
 #include "icache.h"
 #include "lptim.h"
-#include "memorymap.h"
 #include "rtc.h"
 #include "spi.h"
 #include "usart.h"
@@ -216,7 +215,7 @@ static void SystemPower_Config(void)
 
  /* MPU Configuration */
 
-void MPU_Config(void)
+static void MPU_Config(void)
 {
   MPU_Region_InitTypeDef MPU_InitStruct = {0};
   MPU_Attributes_InitTypeDef MPU_AttributesInit = {0};
@@ -321,8 +320,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.

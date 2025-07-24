@@ -9,7 +9,6 @@
 /*                                                                        */
 /**************************************************************************/
 
-
 /**************************************************************************/
 /**************************************************************************/
 /**                                                                       */
@@ -22,14 +21,12 @@
 
 #define TX_SOURCE_CODE
 
-
 /* Include necessary system files.  */
 
 #include "tx_api.h"
 #include "tx_initialize.h"
 #include "tx_thread.h"
 #include "tx_timer.h"
-
 
 /**************************************************************************/
 /*                                                                        */
@@ -87,35 +84,33 @@
 /*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
-UINT    _txe_thread_create(TX_THREAD *thread_ptr, CHAR *name_ptr,
-                VOID (*entry_function)(ULONG id), ULONG entry_input,
-                VOID *stack_start, ULONG stack_size,
-                UINT priority, UINT preempt_threshold,
-                ULONG time_slice, UINT auto_start, UINT thread_control_block_size)
+UINT _txe_thread_create(TX_THREAD *thread_ptr, CHAR *name_ptr,
+VOID (*entry_function)(ULONG id), ULONG entry_input,
+VOID *stack_start, ULONG stack_size, UINT priority, UINT preempt_threshold, ULONG time_slice,
+        UINT auto_start, UINT thread_control_block_size)
 {
 
-TX_INTERRUPT_SAVE_AREA
+    TX_INTERRUPT_SAVE_AREA
 
-UINT            status;
-UINT            break_flag;
-ULONG           i;
-TX_THREAD       *next_thread;
-VOID            *stack_end;
-UCHAR           *work_ptr;
+    UINT status;
+    UINT break_flag;
+    ULONG i;
+    TX_THREAD *next_thread;
+    VOID *stack_end;
+    UCHAR *work_ptr;
 #ifndef TX_TIMER_PROCESS_IN_ISR
-TX_THREAD       *current_thread;
+    TX_THREAD *current_thread;
 #endif
 
-
     /* Default status to success.  */
-    status =  TX_SUCCESS;
+    status = TX_SUCCESS;
 
     /* Check for an invalid thread pointer.  */
     if (thread_ptr == TX_NULL)
     {
 
         /* Thread pointer is invalid, return appropriate error code.  */
-        status =  TX_THREAD_ERROR;
+        status = TX_THREAD_ERROR;
     }
 
     /* Now check for invalid thread control block size.  */
@@ -123,7 +118,7 @@ TX_THREAD       *current_thread;
     {
 
         /* Thread pointer is invalid, return appropriate error code.  */
-        status =  TX_THREAD_ERROR;
+        status = TX_THREAD_ERROR;
     }
     else
     {
@@ -138,11 +133,11 @@ TX_THREAD       *current_thread;
         TX_RESTORE
 
         /* Next see if it is already in the created list.  */
-        break_flag =   TX_FALSE;
-        next_thread =  _tx_thread_created_ptr;
-        work_ptr =     TX_VOID_TO_UCHAR_POINTER_CONVERT(stack_start);
-        work_ptr =     TX_UCHAR_POINTER_ADD(work_ptr, (stack_size - ((ULONG) 1)));
-        stack_end =    TX_UCHAR_TO_VOID_POINTER_CONVERT(work_ptr);
+        break_flag = TX_FALSE;
+        next_thread = _tx_thread_created_ptr;
+        work_ptr = TX_VOID_TO_UCHAR_POINTER_CONVERT(stack_start);
+        work_ptr = TX_UCHAR_POINTER_ADD(work_ptr, (stack_size - ((ULONG ) 1)));
+        stack_end = TX_UCHAR_TO_VOID_POINTER_CONVERT(work_ptr);
         for (i = ((ULONG) 0); i < _tx_thread_created_count; i++)
         {
 
@@ -151,7 +146,7 @@ TX_THREAD       *current_thread;
             {
 
                 /* Set the break flag.  */
-                break_flag =  TX_TRUE;
+                break_flag = TX_TRUE;
             }
 
             /* Determine if we need to break the loop.  */
@@ -163,39 +158,39 @@ TX_THREAD       *current_thread;
             }
 
             /* Check the stack pointer to see if it overlaps with this thread's stack.  */
-            if (stack_start >= next_thread -> tx_thread_stack_start)
+            if (stack_start >= next_thread->tx_thread_stack_start)
             {
 
-                if (stack_start < next_thread -> tx_thread_stack_end)
+                if (stack_start < next_thread->tx_thread_stack_end)
                 {
 
                     /* This stack overlaps with an existing thread, clear the stack pointer to
-                       force a stack error below.  */
-                    stack_start =  TX_NULL;
+                     force a stack error below.  */
+                    stack_start = TX_NULL;
 
                     /* Set the break flag.  */
-                    break_flag =  TX_TRUE;
+                    break_flag = TX_TRUE;
                 }
             }
 
             /* Check the end of the stack to see if it is inside this thread's stack area as well.  */
-            if (stack_end >= next_thread -> tx_thread_stack_start)
+            if (stack_end >= next_thread->tx_thread_stack_start)
             {
 
-                if (stack_end < next_thread -> tx_thread_stack_end)
+                if (stack_end < next_thread->tx_thread_stack_end)
                 {
 
                     /* This stack overlaps with an existing thread, clear the stack pointer to
-                       force a stack error below.  */
-                    stack_start =  TX_NULL;
+                     force a stack error below.  */
+                    stack_start = TX_NULL;
 
                     /* Set the break flag.  */
-                    break_flag =  TX_TRUE;
+                    break_flag = TX_TRUE;
                 }
             }
 
             /* Move to the next thread.  */
-            next_thread =  next_thread -> tx_thread_created_next;
+            next_thread = next_thread->tx_thread_created_next;
         }
 
         /* Disable interrupts.  */
@@ -215,7 +210,7 @@ TX_THREAD       *current_thread;
         {
 
             /* Thread is already created, return appropriate error code.  */
-            status =  TX_THREAD_ERROR;
+            status = TX_THREAD_ERROR;
         }
 
         /* Check for invalid starting address of stack.  */
@@ -223,7 +218,7 @@ TX_THREAD       *current_thread;
         {
 
             /* Invalid stack or entry point, return appropriate error code.  */
-            status =  TX_PTR_ERROR;
+            status = TX_PTR_ERROR;
         }
 
         /* Check for invalid thread entry point.  */
@@ -231,7 +226,7 @@ TX_THREAD       *current_thread;
         {
 
             /* Invalid stack or entry point, return appropriate error code.  */
-            status =  TX_PTR_ERROR;
+            status = TX_PTR_ERROR;
         }
 
         /* Check the stack size.  */
@@ -239,7 +234,7 @@ TX_THREAD       *current_thread;
         {
 
             /* Stack is not big enough, return appropriate error code.  */
-            status =  TX_SIZE_ERROR;
+            status = TX_SIZE_ERROR;
         }
 
         /* Check the priority specified.  */
@@ -247,7 +242,7 @@ TX_THREAD       *current_thread;
         {
 
             /* Invalid priority selected, return appropriate error code.  */
-            status =  TX_PRIORITY_ERROR;
+            status = TX_PRIORITY_ERROR;
         }
 
         /* Check preemption threshold. */
@@ -255,7 +250,7 @@ TX_THREAD       *current_thread;
         {
 
             /* Invalid preempt threshold, return appropriate error code.  */
-            status =  TX_THRESH_ERROR;
+            status = TX_THRESH_ERROR;
         }
 
         /* Check the start selection.  */
@@ -263,7 +258,7 @@ TX_THREAD       *current_thread;
         {
 
             /* Invalid auto start selection, return appropriate error code.  */
-            status =  TX_START_ERROR;
+            status = TX_START_ERROR;
         }
         else
         {
@@ -278,7 +273,7 @@ TX_THREAD       *current_thread;
             {
 
                 /* Invalid caller of this function, return appropriate error code.  */
-                status =  TX_CALLER_ERROR;
+                status = TX_CALLER_ERROR;
             }
 #endif
 
@@ -291,7 +286,7 @@ TX_THREAD       *current_thread;
                 {
 
                     /* Invalid caller of this function, return appropriate error code.  */
-                    status =  TX_CALLER_ERROR;
+                    status = TX_CALLER_ERROR;
                 }
             }
         }
@@ -302,12 +297,11 @@ TX_THREAD       *current_thread;
     {
 
         /* Call actual thread create function.  */
-        status =  _tx_thread_create(thread_ptr, name_ptr, entry_function, entry_input,
-                        stack_start, stack_size, priority, preempt_threshold,
-                        time_slice, auto_start);
+        status = _tx_thread_create(thread_ptr, name_ptr, entry_function, entry_input, stack_start,
+                stack_size, priority, preempt_threshold, time_slice, auto_start);
     }
 
     /* Return completion status.  */
-    return(status);
+    return (status);
 }
 

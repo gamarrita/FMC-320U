@@ -47,7 +47,7 @@
 // Ingresa en bajo consumo o lo simula, depentiendo el valor de la variable.
 enum
 {
-  MCU_STOP_MODE_DISABLE = 0U, MCU_STOP_MODE_ENABLE
+    MCU_STOP_MODE_DISABLE = 0U, MCU_STOP_MODE_ENABLE
 } mcu_stop_mode = MCU_STOP_MODE_ENABLE;
 
 // Const data.
@@ -88,19 +88,17 @@ uint16_t lptim1_ticks;
  */
 void FMX_LP_Setup(ULONG count)
 {
-  LPTIM_OC_ConfigTypeDef config =
-  {
-      .OCPolarity = LPTIM_OCPOLARITY_HIGH,
-      .Pulse = 65535 };
+    LPTIM_OC_ConfigTypeDef config =
+    { .OCPolarity = LPTIM_OCPOLARITY_HIGH, .Pulse = 65535 };
 
-  //FM_DEBUG_UartInt32(count);
-  lptim1_ticks = (count * TICKS_TO_TICKS);
-  config.Pulse = (lptim1_ticks);
+    //FM_DEBUG_UartInt32(count);
+    lptim1_ticks = (count * TICKS_TO_TICKS);
+    config.Pulse = (lptim1_ticks);
 
-  if (HAL_LPTIM_OC_ConfigChannel(&hlptim1, &config, LPTIM_CHANNEL_1) != HAL_OK)
-  {
-    FM_DEBUG_LedError(1);
-  }
+    if (HAL_LPTIM_OC_ConfigChannel(&hlptim1, &config, LPTIM_CHANNEL_1) != HAL_OK)
+    {
+        FM_DEBUG_LedError(1);
+    }
 }
 
 /*
@@ -111,15 +109,15 @@ void FMX_LP_Setup(ULONG count)
  */
 void FMX_LP_Enter(void)
 {
-  // Antes de ingresar al modo de bajo consumo apago LED_2_ACTIVE.
+    // Antes de ingresar al modo de bajo consumo apago LED_2_ACTIVE.
 
-  HAL_LPTIM_PWM_Start_IT(&hlptim1, LPTIM_CHANNEL_1);
+    HAL_LPTIM_PWM_Start_IT(&hlptim1, LPTIM_CHANNEL_1);
 
-  FM_DEBUG_LedActive(0);
-  SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
-  HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
-  SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;
-  FM_DEBUG_LedActive(1);
+    FM_DEBUG_LedActive(0);
+    SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
+    HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
+    SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;
+    FM_DEBUG_LedActive(1);
 }
 
 /*
@@ -130,8 +128,8 @@ void FMX_LP_Enter(void)
  */
 void FMX_LP_Exit(void)
 {
-  lptim1_stop = LPTIM1->CNT;
-  HAL_LPTIM_PWM_Stop_IT(&hlptim1, LPTIM_CHANNEL_1);
+    lptim1_stop = LPTIM1->CNT;
+    HAL_LPTIM_PWM_Stop_IT(&hlptim1, LPTIM_CHANNEL_1);
 }
 
 /*
@@ -142,15 +140,15 @@ void FMX_LP_Exit(void)
  */
 ULONG FMX_LP_Adjust(void)
 {
-  ULONG tx_ticks;
-  ULONG lse_ticks;
-  ULONG drift = 0;
+    ULONG tx_ticks;
+    ULONG lse_ticks;
+    ULONG drift = 0;
 
-  lse_ticks = lptim1_stop + drift;
-  drift = lse_ticks % TICKS_TO_TICKS;
-  tx_ticks = lse_ticks / TICKS_TO_TICKS;
+    lse_ticks = lptim1_stop + drift;
+    drift = lse_ticks % TICKS_TO_TICKS;
+    tx_ticks = lse_ticks / TICKS_TO_TICKS;
 
-  return tx_ticks;
+    return tx_ticks;
 }
 
 /**
@@ -162,8 +160,8 @@ ULONG FMX_LP_Adjust(void)
  */
 void FMX_LP_Delay(ULONG counter)
 {
-  ULONG initial_time = tx_time_get();
-  while ((tx_time_get() - initial_time) < counter);
+    ULONG initial_time = tx_time_get();
+    while ((tx_time_get() - initial_time) < counter);
 }
 
 // Interrupts

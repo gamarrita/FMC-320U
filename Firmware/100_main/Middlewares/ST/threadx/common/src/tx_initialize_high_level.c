@@ -9,7 +9,6 @@
 /*                                                                        */
 /**************************************************************************/
 
-
 /**************************************************************************/
 /**************************************************************************/
 /**                                                                       */
@@ -21,7 +20,6 @@
 /**************************************************************************/
 
 #define TX_SOURCE_CODE
-
 
 /* Include necessary system files.  */
 
@@ -43,14 +41,12 @@
 #include "tx_block_pool.h"
 #include "tx_byte_pool.h"
 
-
 /* Define the unused memory pointer.  The value of the first available
-   memory address is placed in this variable in the low-level
-   initialization function.  The content of this variable is passed
-   to the application's system definition function.  */
+ memory address is placed in this variable in the low-level
+ initialization function.  The content of this variable is passed
+ to the application's system definition function.  */
 
-VOID     *_tx_initialize_unused_memory;
-
+VOID *_tx_initialize_unused_memory;
 
 /**************************************************************************/
 /*                                                                        */
@@ -110,7 +106,7 @@ VOID     *_tx_initialize_unused_memory;
 /*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
-VOID    _tx_initialize_high_level(VOID)
+VOID _tx_initialize_high_level(VOID)
 {
 
     /* Initialize event tracing, if enabled.  */

@@ -13,14 +13,19 @@
 #include "string.h"
 #include "stdio.h"
 
+// Defines.
+
 // Macros, defines, pins del Micro pins.
 
 // Typedef.
-
-// Defines.
+typedef enum
+{
+    FM_DEBUG_LED_OFF, //
+    FM_DEBUG_LED_ON,  //
+    FM_DEBUG_LED_TOGGLE
+} fm_debug_led_t;
 
 // Varibles extern usadas en otros módulos.
-
 
 // Function prototypes
 void FM_DEBUG_Init();

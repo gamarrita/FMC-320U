@@ -80,17 +80,17 @@
  */
 void FM_BACKUP_Init()
 {
-  // Habilito el acceso a la lectura/escritura de la RAM BACKUP
-  __HAL_RCC_PWR_CLK_ENABLE();
-  HAL_PWREx_ConfigSupply(PWR_LDO_SUPPLY); // Si desde CubeMX configuro SMPS se cambia a LDO
+    // Habilito el acceso a la lectura/escritura de la RAM BACKUP
+    __HAL_RCC_PWR_CLK_ENABLE();
+    HAL_PWREx_ConfigSupply(PWR_LDO_SUPPLY); // Si desde CubeMX configuro SMPS se cambia a LDO
 
-  HAL_PWR_EnableBkUpAccess();
-  __HAL_RCC_BKPSRAM_CLK_ENABLE(); // Habilito el autonomous mode de la RAM BACKUP
+    HAL_PWR_EnableBkUpAccess();
+    __HAL_RCC_BKPSRAM_CLK_ENABLE(); // Habilito el autonomous mode de la RAM BACKUP
 
-  // Enciendo regulador para que retenga memoria en standby y VBAT mode.
-  HAL_PWREx_EnableBkupRAMRetention();
+    // Enciendo regulador para que retenga memoria en standby y VBAT mode.
+    HAL_PWREx_EnableBkupRAMRetention();
 
-  //HAL_PWREx_ConfigSupply(PWR_SMPS_SUPPLY);
+    //HAL_PWREx_ConfigSupply(PWR_SMPS_SUPPLY);
 }
 
 // Interrupts
