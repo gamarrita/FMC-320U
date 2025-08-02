@@ -9,6 +9,7 @@
 /*                                                                        */
 /**************************************************************************/
 
+
 /**************************************************************************/
 /**************************************************************************/
 /**                                                                       */
@@ -21,12 +22,14 @@
 
 #define TX_SOURCE_CODE
 
+
 /* Include necessary system files.  */
 
 #include "tx_api.h"
 #include "tx_thread.h"
 #include "tx_timer.h"
 #include "tx_semaphore.h"
+
 
 /**************************************************************************/
 /*                                                                        */
@@ -70,38 +73,39 @@
 /*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
-UINT _txe_semaphore_get(TX_SEMAPHORE *semaphore_ptr, ULONG wait_option)
+UINT  _txe_semaphore_get(TX_SEMAPHORE *semaphore_ptr, ULONG wait_option)
 {
 
-    UINT status;
+UINT        status;
 
 #ifndef TX_TIMER_PROCESS_IN_ISR
-    TX_THREAD *current_thread;
+TX_THREAD   *current_thread;
 #endif
 
+
     /* Default status to success.  */
-    status = TX_SUCCESS;
+    status =  TX_SUCCESS;
 
     /* Check for an invalid semaphore pointer.  */
     if (semaphore_ptr == TX_NULL)
     {
 
         /* Semaphore pointer is invalid, return appropriate error code.  */
-        status = TX_SEMAPHORE_ERROR;
+        status =  TX_SEMAPHORE_ERROR;
     }
 
     /* Now check for invalid semaphore ID.  */
-    else if (semaphore_ptr->tx_semaphore_id != TX_SEMAPHORE_ID)
+    else if (semaphore_ptr -> tx_semaphore_id != TX_SEMAPHORE_ID)
     {
 
         /* Semaphore pointer is invalid, return appropriate error code.  */
-        status = TX_SEMAPHORE_ERROR;
+        status =  TX_SEMAPHORE_ERROR;
     }
     else
     {
 
         /* Check for a wait option error.  Only threads are allowed any form of
-         suspension.  */
+           suspension.  */
         if (wait_option != TX_NO_WAIT)
         {
 
@@ -110,7 +114,7 @@ UINT _txe_semaphore_get(TX_SEMAPHORE *semaphore_ptr, ULONG wait_option)
             {
 
                 /* A non-thread is trying to suspend, return appropriate error code.  */
-                status = TX_WAIT_ERROR;
+                status =  TX_WAIT_ERROR;
             }
 
 #ifndef TX_TIMER_PROCESS_IN_ISR
@@ -125,7 +129,7 @@ UINT _txe_semaphore_get(TX_SEMAPHORE *semaphore_ptr, ULONG wait_option)
                 {
 
                     /* A non-thread is trying to suspend, return appropriate error code.  */
-                    status = TX_WAIT_ERROR;
+                    status =  TX_WAIT_ERROR;
                 }
             }
 #endif
@@ -137,10 +141,10 @@ UINT _txe_semaphore_get(TX_SEMAPHORE *semaphore_ptr, ULONG wait_option)
     {
 
         /* Call actual get semaphore function.  */
-        status = _tx_semaphore_get(semaphore_ptr, wait_option);
+        status =  _tx_semaphore_get(semaphore_ptr, wait_option);
     }
 
     /* Return completion status.  */
-    return (status);
+    return(status);
 }
 

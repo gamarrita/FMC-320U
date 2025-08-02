@@ -28,10 +28,6 @@
 #define TRUE  1
 #define FALSE 0
 #define QUEUE_EVENT_SIZE (4 * 1) // Mantener múltiplo de 4, solo porque lo via asi, no se si es necesario.
-#define STACK_SIZE (1024 * 16)
-#define THREAD_PRIORITY_10	10
-#define THRESHOLD_10		10
-#define SLICE_0				0
 #define TIMER_BACKLIGHT_INIT   1000 // ms * 10 de backlight encendido al iniciar, el computador.
 #define TIMER_BACKLIGHT_GUI     500  // ms * 10 de backlight encendido al interactuar con el teclado.
 #define TIMER_EXTI_DEBUNCE      100   // ms * 10 interrupciones des-habilitada para evitar rebote.
@@ -96,13 +92,8 @@ static TX_TIMER backlight_off_timer;  //
 // Timer del RTOS, quita rebotes de KEY_EXT_1 y KEY_EXT_2.
 static TX_TIMER debunde_timer;  //
 
-// Elementos del RTOS usados por el modulo fm_mxc.c
-static TX_THREAD bluetooth_slave_thread; // Hilo dedicado a establecer comunicación como esclavo.
-
 // Elementos del RTOS usados por el modulo fm_cmd.c
-static TX_THREAD cmd_thread; // Hilo dedicado al procesamiento de comandos
-static TX_QUEUE cmd_queue; // Cola para comandos FM+ entrante procesados desde UART.
-uint8_t cmd_queue_buffer[3 * FM_CMD_BYTE_SIZE];
+static TX_THREAD bluetooth_slave_thread; // Hilo dedicado a establecer comunicación como esclavo.
 
 /*
  * El teclado reacciona cuando se libera una tecla, no al presionar, es su función principal.
@@ -477,13 +468,14 @@ void TimerEntryEventRefresh(ULONG timer_input)
  */
 UINT FMX_Init(VOID *memory_ptr)
 {
+    // >>>> ThreadX: variables para reservar memoria.
     UINT ret_status = TX_SUCCESS;
     CHAR *pointer;
-
     TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*) memory_ptr;
+    // <<<< Fin.
 
     // Reserva memoria para un crear hilo.
-    ret_status = tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT);
+    ret_status = tx_byte_allocate(byte_pool, (VOID**) &pointer, FMX_STACK_SIZE, TX_NO_WAIT);
     if (ret_status != TX_SUCCESS)
     {
         __disable_irq();
@@ -492,7 +484,7 @@ UINT FMX_Init(VOID *memory_ptr)
     }
     // Creo hilo principal.
     ret_status = tx_thread_create(&main_thread, "MAIN_THREAD", ThreadEntryMain, 0, pointer,
-            STACK_SIZE, THREAD_PRIORITY_10, THRESHOLD_10, SLICE_0, TX_AUTO_START);
+            FMX_STACK_SIZE, FMX_THREAD_PRIORITY_10, FMX_THRESHOLD_10, FMX_SLICE_0, TX_AUTO_START);
     if (ret_status != TX_SUCCESS)
     {
         __disable_irq();
@@ -500,7 +492,7 @@ UINT FMX_Init(VOID *memory_ptr)
         while (1);
     }
 
-    // Crea cola para eventos.
+    // >>>> ThreadX: Crea cola para eventos.
     ret_status = tx_queue_create(&event_queue, "EVENT_QUEUE", 1, queue_storage_event,
             sizeof(queue_storage_event));
     if (ret_status != TX_SUCCESS)
@@ -543,57 +535,24 @@ UINT FMX_Init(VOID *memory_ptr)
 
     // Semáforo, desbloquea al hilo de conexión por un tiempo determinado.
     ret_status = tx_semaphore_create(&bluetooth_slave_semaphore, "BT_SLAVE_SEMAPHORE", 0);
-    if (ret_status != TX_SUCCESS)
-    {
-        FM_DEBUG_LedError(1);
-        while (1);
-    }
 
-    // Reservo memoria para crear hilo.
-    ret_status = tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT);
+    FM_CMD_RtosInit(memory_ptr);
+    FM_USART_RtosInit(memory_ptr);
+
+
+    // Reserva memoria para un crear hilo.
+    ret_status = tx_byte_allocate(byte_pool, (VOID**) &pointer, FMX_STACK_SIZE, TX_NO_WAIT);
     if (ret_status != TX_SUCCESS)
     {
         __disable_irq();
         FM_DEBUG_LedError(1);
         while (1);
     }
+
     // Crea hilo de conexión, entry en fm_mxc.c, se pasa puntero a control block de un semáforo.
     ret_status = tx_thread_create(&bluetooth_slave_thread, "BT_SLAVE",
             FM_USER_ThreadEntryBluetoothSlave, (ULONG ) &bluetooth_slave_semaphore, pointer,
-            STACK_SIZE, THREAD_PRIORITY_10, THRESHOLD_10, SLICE_0, TX_AUTO_START);
-    if (ret_status != TX_SUCCESS)
-    {
-        __disable_irq();
-        FM_DEBUG_LedError(1);
-        while (1);
-    }
-
-// Sección para inicializar recursos del ThreadX usados en modulo fm_mxc.c y fm_cmd.c
-
-    // Crea cola para envió de comando FM.
-    ret_status = tx_queue_create(&cmd_queue, "CMD_QUEUE", FM_CMD_ULONG_SIZE, cmd_queue_buffer,
-            sizeof(cmd_queue_buffer));
-    if (ret_status != TX_SUCCESS)
-    {
-        __disable_irq();
-        FM_DEBUG_LedError(1);
-        while (1);
-    }
-
-    FM_CMD_InitRtos(&cmd_queue);
-    FM_CMD_InitRtos(&cmd_queue);
-
-    // Reserva memoria para un crear hilo.
-    ret_status = tx_byte_allocate(byte_pool, (VOID**) &pointer, STACK_SIZE, TX_NO_WAIT);
-    if (ret_status != TX_SUCCESS)
-    {
-        __disable_irq();
-        FM_DEBUG_LedError(1);
-        while (1);
-    }
-    // Crea hilo de conexión, entry en fm_mxc.c, se pasa puntero a control block de un semáforo.
-    ret_status = tx_thread_create(&cmd_thread, "CMD_THREAD", FM_CMD_ThreadEntry, (ULONG )&cmd_queue,
-            pointer, STACK_SIZE, THREAD_PRIORITY_10, THRESHOLD_10, SLICE_0, TX_AUTO_START);
+            FMX_STACK_SIZE, FMX_THREAD_PRIORITY_10, FMX_THRESHOLD_10, FMX_SLICE_0, TX_AUTO_START);
     if (ret_status != TX_SUCCESS)
     {
         __disable_irq();

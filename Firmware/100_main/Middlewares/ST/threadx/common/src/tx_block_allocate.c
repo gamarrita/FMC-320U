@@ -9,6 +9,7 @@
 /*                                                                        */
 /**************************************************************************/
 
+
 /**************************************************************************/
 /**************************************************************************/
 /**                                                                       */
@@ -21,6 +22,7 @@
 
 #define TX_SOURCE_CODE
 
+
 /* Include necessary system files.  */
 
 #include "tx_api.h"
@@ -29,6 +31,7 @@
 #endif
 #include "tx_thread.h"
 #include "tx_block_pool.h"
+
 
 /**************************************************************************/
 /*                                                                        */
@@ -74,29 +77,30 @@
 /*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
-UINT _tx_block_allocate(TX_BLOCK_POOL *pool_ptr, VOID **block_ptr, ULONG wait_option)
+UINT  _tx_block_allocate(TX_BLOCK_POOL *pool_ptr, VOID **block_ptr, ULONG wait_option)
 {
 
-    TX_INTERRUPT_SAVE_AREA
+TX_INTERRUPT_SAVE_AREA
 
-    UINT status;
-    TX_THREAD *thread_ptr;
-    UCHAR *work_ptr;
-    UCHAR *temp_ptr;
-    UCHAR **next_block_ptr;
-    UCHAR **return_ptr;
-    UINT suspended_count;
-    TX_THREAD *next_thread;
-    TX_THREAD *previous_thread;
+UINT                        status;
+TX_THREAD                   *thread_ptr;
+UCHAR                       *work_ptr;
+UCHAR                       *temp_ptr;
+UCHAR                       **next_block_ptr;
+UCHAR                       **return_ptr;
+UINT                        suspended_count;
+TX_THREAD                   *next_thread;
+TX_THREAD                   *previous_thread;
 #ifdef TX_ENABLE_EVENT_TRACE
-    TX_TRACE_BUFFER_ENTRY *entry_ptr;
-    ULONG time_stamp = ((ULONG) 0);
+TX_TRACE_BUFFER_ENTRY       *entry_ptr;
+ULONG                       time_stamp =  ((ULONG) 0);
 #endif
 #ifdef TX_ENABLE_EVENT_LOGGING
-    UCHAR *log_entry_ptr;
-    ULONG upper_tbu;
-    ULONG lower_tbu;
+UCHAR                       *log_entry_ptr;
+ULONG                       upper_tbu;
+ULONG                       lower_tbu;
 #endif
+
 
     /* Disable interrupts to get a block from the pool.  */
     TX_DISABLE
@@ -145,27 +149,27 @@ UINT _tx_block_allocate(TX_BLOCK_POOL *pool_ptr, VOID **block_ptr, ULONG wait_op
 #endif
 
     /* Determine if there is an available block.  */
-    if (pool_ptr->tx_block_pool_available != ((UINT) 0))
+    if (pool_ptr -> tx_block_pool_available != ((UINT) 0))
     {
 
         /* Yes, a block is available.  Decrement the available count.  */
-        pool_ptr->tx_block_pool_available--;
+        pool_ptr -> tx_block_pool_available--;
 
         /* Pickup the current block pointer.  */
-        work_ptr = pool_ptr->tx_block_pool_available_list;
+        work_ptr =  pool_ptr -> tx_block_pool_available_list;
 
         /* Return the first available block to the caller.  */
-        temp_ptr = TX_UCHAR_POINTER_ADD(work_ptr, (sizeof(UCHAR*)));
-        return_ptr = TX_INDIRECT_VOID_TO_UCHAR_POINTER_CONVERT(block_ptr);
-        *return_ptr = temp_ptr;
+        temp_ptr =  TX_UCHAR_POINTER_ADD(work_ptr, (sizeof(UCHAR *)));
+        return_ptr =  TX_INDIRECT_VOID_TO_UCHAR_POINTER_CONVERT(block_ptr);
+        *return_ptr =  temp_ptr;
 
         /* Modify the available list to point at the next block in the pool. */
-        next_block_ptr = TX_UCHAR_TO_INDIRECT_UCHAR_POINTER_CONVERT(work_ptr);
-        pool_ptr->tx_block_pool_available_list = *next_block_ptr;
+        next_block_ptr =  TX_UCHAR_TO_INDIRECT_UCHAR_POINTER_CONVERT(work_ptr);
+        pool_ptr -> tx_block_pool_available_list =  *next_block_ptr;
 
         /* Save the pool's address in the block for when it is released!  */
-        temp_ptr = TX_BLOCK_POOL_TO_UCHAR_POINTER_CONVERT(pool_ptr);
-        *next_block_ptr = temp_ptr;
+        temp_ptr =  TX_BLOCK_POOL_TO_UCHAR_POINTER_CONVERT(pool_ptr);
+        *next_block_ptr =  temp_ptr;
 
 #ifdef TX_ENABLE_EVENT_TRACE
 
@@ -195,7 +199,7 @@ UINT _tx_block_allocate(TX_BLOCK_POOL *pool_ptr, VOID **block_ptr, ULONG wait_op
 #endif
 
         /* Set status to success.  */
-        status = TX_SUCCESS;
+        status =  TX_SUCCESS;
 
         /* Restore interrupts.  */
         TX_RESTORE
@@ -204,8 +208,8 @@ UINT _tx_block_allocate(TX_BLOCK_POOL *pool_ptr, VOID **block_ptr, ULONG wait_op
     {
 
         /* Default the return pointer to NULL.  */
-        return_ptr = TX_INDIRECT_VOID_TO_UCHAR_POINTER_CONVERT(block_ptr);
-        *return_ptr = TX_NULL;
+        return_ptr =   TX_INDIRECT_VOID_TO_UCHAR_POINTER_CONVERT(block_ptr);
+        *return_ptr =  TX_NULL;
 
         /* Determine if the request specifies suspension.  */
         if (wait_option != TX_NO_WAIT)
@@ -216,7 +220,7 @@ UINT _tx_block_allocate(TX_BLOCK_POOL *pool_ptr, VOID **block_ptr, ULONG wait_op
             {
 
                 /* Suspension is not allowed if the preempt disable flag is non-zero at this point, return error completion.  */
-                status = TX_NO_MEMORY;
+                status =  TX_NO_MEMORY;
 
                 /* Restore interrupts.  */
                 TX_RESTORE
@@ -239,52 +243,52 @@ UINT _tx_block_allocate(TX_BLOCK_POOL *pool_ptr, VOID **block_ptr, ULONG wait_op
                 TX_THREAD_GET_CURRENT(thread_ptr)
 
                 /* Setup cleanup routine pointer.  */
-                thread_ptr->tx_thread_suspend_cleanup = &(_tx_block_pool_cleanup);
+                thread_ptr -> tx_thread_suspend_cleanup =  &(_tx_block_pool_cleanup);
 
                 /* Setup cleanup information, i.e. this pool control
-                 block.  */
-                thread_ptr->tx_thread_suspend_control_block = (VOID*) pool_ptr;
+                   block.  */
+                thread_ptr -> tx_thread_suspend_control_block =  (VOID *) pool_ptr;
 
                 /* Save the return block pointer address as well.  */
-                thread_ptr->tx_thread_additional_suspend_info = (VOID*) block_ptr;
+                thread_ptr -> tx_thread_additional_suspend_info =  (VOID *) block_ptr;
 
 #ifndef TX_NOT_INTERRUPTABLE
 
                 /* Increment the suspension sequence number, which is used to identify
-                 this suspension event.  */
-                thread_ptr->tx_thread_suspension_sequence++;
+                   this suspension event.  */
+                thread_ptr -> tx_thread_suspension_sequence++;
 #endif
 
                 /* Pickup the number of suspended threads.  */
-                suspended_count = (pool_ptr->tx_block_pool_suspended_count);
+                suspended_count =  (pool_ptr -> tx_block_pool_suspended_count);
 
                 /* Increment the number of suspended threads.  */
-                (pool_ptr->tx_block_pool_suspended_count)++;
+                (pool_ptr -> tx_block_pool_suspended_count)++;
 
                 /* Setup suspension list.  */
                 if (suspended_count == TX_NO_SUSPENSIONS)
                 {
 
                     /* No other threads are suspended.  Setup the head pointer and
-                     just setup this threads pointers to itself.  */
-                    pool_ptr->tx_block_pool_suspension_list = thread_ptr;
-                    thread_ptr->tx_thread_suspended_next = thread_ptr;
-                    thread_ptr->tx_thread_suspended_previous = thread_ptr;
+                       just setup this threads pointers to itself.  */
+                    pool_ptr -> tx_block_pool_suspension_list =     thread_ptr;
+                    thread_ptr -> tx_thread_suspended_next =        thread_ptr;
+                    thread_ptr -> tx_thread_suspended_previous =    thread_ptr;
                 }
                 else
                 {
 
                     /* This list is not NULL, add current thread to the end. */
-                    next_thread = pool_ptr->tx_block_pool_suspension_list;
-                    thread_ptr->tx_thread_suspended_next = next_thread;
-                    previous_thread = next_thread->tx_thread_suspended_previous;
-                    thread_ptr->tx_thread_suspended_previous = previous_thread;
-                    previous_thread->tx_thread_suspended_next = thread_ptr;
-                    next_thread->tx_thread_suspended_previous = thread_ptr;
+                    next_thread =                                   pool_ptr -> tx_block_pool_suspension_list;
+                    thread_ptr -> tx_thread_suspended_next =        next_thread;
+                    previous_thread =                               next_thread -> tx_thread_suspended_previous;
+                    thread_ptr -> tx_thread_suspended_previous =    previous_thread;
+                    previous_thread -> tx_thread_suspended_next =   thread_ptr;
+                    next_thread -> tx_thread_suspended_previous =   thread_ptr;
                 }
 
                 /* Set the state to suspended.  */
-                thread_ptr->tx_thread_state = TX_BLOCK_MEMORY;
+                thread_ptr -> tx_thread_state =       TX_BLOCK_MEMORY;
 
 #ifdef TX_NOT_INTERRUPTABLE
 
@@ -296,10 +300,10 @@ UINT _tx_block_allocate(TX_BLOCK_POOL *pool_ptr, VOID **block_ptr, ULONG wait_op
 #else
 
                 /* Set the suspending flag.  */
-                thread_ptr->tx_thread_suspending = TX_TRUE;
+                thread_ptr -> tx_thread_suspending =  TX_TRUE;
 
                 /* Setup the timeout period.  */
-                thread_ptr->tx_thread_timer.tx_timer_internal_remaining_ticks = wait_option;
+                thread_ptr -> tx_thread_timer.tx_timer_internal_remaining_ticks =  wait_option;
 
                 /* Temporarily disable preemption.  */
                 _tx_thread_preempt_disable++;
@@ -350,14 +354,14 @@ UINT _tx_block_allocate(TX_BLOCK_POOL *pool_ptr, VOID **block_ptr, ULONG wait_op
 #endif
 
                 /* Return the completion status.  */
-                status = thread_ptr->tx_thread_suspend_status;
+                status =  thread_ptr -> tx_thread_suspend_status;
             }
         }
         else
         {
 
             /* Immediate return, return error completion.  */
-            status = TX_NO_MEMORY;
+            status =  TX_NO_MEMORY;
 
             /* Restore interrupts.  */
             TX_RESTORE
@@ -365,6 +369,6 @@ UINT _tx_block_allocate(TX_BLOCK_POOL *pool_ptr, VOID **block_ptr, ULONG wait_op
     }
 
     /* Return completion status.  */
-    return (status);
+    return(status);
 }
 

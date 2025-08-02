@@ -114,9 +114,11 @@ void FMX_LP_Enter(void)
     HAL_LPTIM_PWM_Start_IT(&hlptim1, LPTIM_CHANNEL_1);
 
     FM_DEBUG_LedActive(0);
+
     SysTick->CTRL &= ~SysTick_CTRL_TICKINT_Msk;
     HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
     SysTick->CTRL |= SysTick_CTRL_TICKINT_Msk;
+
     FM_DEBUG_LedActive(1);
 }
 

@@ -15,15 +15,8 @@
 #include "main.h"
 #include "fmx.h"
 #include "tx_api.h"
-#include "fm_debug.h"
-#include "usart.h"
 
 // Typedef y enum.
-
-typedef enum
-{
-    FM_MXC_FAIL = 0, FM_MXC_OK = 1
-} fm_mxc_status_t;
 
 typedef enum
 {
@@ -36,10 +29,6 @@ typedef enum
 // Macros, defines, microcontroller pins (dhs).
 
 // Varibles extern
-
-// Defines.
-#define FM_MXC_FAIL     0
-#define FM_MXC_OK       1
 
 // Function prototypes
 void FM_MXC_Mode(fm_mxc_mode_t mode);

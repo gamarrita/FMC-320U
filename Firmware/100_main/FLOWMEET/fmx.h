@@ -26,7 +26,8 @@ typedef enum
 
 typedef enum
 {
-    FMX_STATUS_OK = 0x00,       //
+    FMX_STATUS_NULL = 0,
+    FMX_STATUS_OK,       //
     FMX_STATUS_ERROR,           //
     FMX_STATUS_BUSY,            //
     FMX_STATUS_TIMEOUT,         //
@@ -63,6 +64,12 @@ extern TX_QUEUE         fmx_deferred_cmd_queue;
 #define FMX_EVENT_KEY_EXT_2         ((fmx_events_t)11)
 #define FMX_EVENT_TIME_OUT          ((fmx_events_t)12) // Expiro el tiempo maximo que el RTOS puede estar en stop mode.
 #define FMX_EVENT_END               ((fmx_events_t)13)
+
+#define FMX_STACK_SIZE (1024 * 16)
+#define FMX_THREAD_PRIORITY_10  10
+#define FMX_THRESHOLD_10        10
+#define FMX_SLICE_0             0
+
 
 // Function prototypes
 fmx_rate_status_t FMX_GetRateStatus();

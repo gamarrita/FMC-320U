@@ -9,6 +9,7 @@
 /*                                                                        */
 /**************************************************************************/
 
+
 /**************************************************************************/
 /**************************************************************************/
 /**                                                                       */
@@ -21,11 +22,13 @@
 
 #define TX_SOURCE_CODE
 
+
 /* Include necessary system files.  */
 
 #include "tx_api.h"
 #include "tx_trace.h"
 #include "tx_semaphore.h"
+
 
 /**************************************************************************/
 /*                                                                        */
@@ -69,51 +72,52 @@
 /*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
-UINT _tx_semaphore_create(TX_SEMAPHORE *semaphore_ptr, CHAR *name_ptr, ULONG initial_count)
+UINT  _tx_semaphore_create(TX_SEMAPHORE *semaphore_ptr, CHAR *name_ptr, ULONG initial_count)
 {
 
-    TX_INTERRUPT_SAVE_AREA
+TX_INTERRUPT_SAVE_AREA
 
-    TX_SEMAPHORE *next_semaphore;
-    TX_SEMAPHORE *previous_semaphore;
+TX_SEMAPHORE    *next_semaphore;
+TX_SEMAPHORE    *previous_semaphore;
+
 
     /* Initialize semaphore control block to all zeros.  */
     TX_MEMSET(semaphore_ptr, 0, (sizeof(TX_SEMAPHORE)));
 
     /* Setup the basic semaphore fields.  */
-    semaphore_ptr->tx_semaphore_name = name_ptr;
-    semaphore_ptr->tx_semaphore_count = initial_count;
+    semaphore_ptr -> tx_semaphore_name =             name_ptr;
+    semaphore_ptr -> tx_semaphore_count =            initial_count;
 
     /* Disable interrupts to place the semaphore on the created list.  */
     TX_DISABLE
 
     /* Setup the semaphore ID to make it valid.  */
-    semaphore_ptr->tx_semaphore_id = TX_SEMAPHORE_ID;
+    semaphore_ptr -> tx_semaphore_id =  TX_SEMAPHORE_ID;
 
     /* Place the semaphore on the list of created semaphores.  First,
-     check for an empty list.  */
+       check for an empty list.  */
     if (_tx_semaphore_created_count == TX_EMPTY)
     {
 
         /* The created semaphore list is empty.  Add semaphore to empty list.  */
-        _tx_semaphore_created_ptr = semaphore_ptr;
-        semaphore_ptr->tx_semaphore_created_next = semaphore_ptr;
-        semaphore_ptr->tx_semaphore_created_previous = semaphore_ptr;
+        _tx_semaphore_created_ptr =                       semaphore_ptr;
+        semaphore_ptr -> tx_semaphore_created_next =      semaphore_ptr;
+        semaphore_ptr -> tx_semaphore_created_previous =  semaphore_ptr;
     }
     else
     {
 
         /* This list is not NULL, add to the end of the list.  */
-        next_semaphore = _tx_semaphore_created_ptr;
-        previous_semaphore = next_semaphore->tx_semaphore_created_previous;
+        next_semaphore =      _tx_semaphore_created_ptr;
+        previous_semaphore =  next_semaphore -> tx_semaphore_created_previous;
 
         /* Place the new semaphore in the list.  */
-        next_semaphore->tx_semaphore_created_previous = semaphore_ptr;
-        previous_semaphore->tx_semaphore_created_next = semaphore_ptr;
+        next_semaphore -> tx_semaphore_created_previous =  semaphore_ptr;
+        previous_semaphore -> tx_semaphore_created_next =  semaphore_ptr;
 
         /* Setup this semaphore's next and previous created links.  */
-        semaphore_ptr->tx_semaphore_created_previous = previous_semaphore;
-        semaphore_ptr->tx_semaphore_created_next = next_semaphore;
+        semaphore_ptr -> tx_semaphore_created_previous =  previous_semaphore;
+        semaphore_ptr -> tx_semaphore_created_next =      next_semaphore;
     }
 
     /* Increment the created count.  */
@@ -135,6 +139,6 @@ UINT _tx_semaphore_create(TX_SEMAPHORE *semaphore_ptr, CHAR *name_ptr, ULONG ini
     TX_RESTORE
 
     /* Return TX_SUCCESS.  */
-    return (TX_SUCCESS);
+    return(TX_SUCCESS);
 }
 

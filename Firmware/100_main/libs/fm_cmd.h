@@ -15,6 +15,8 @@
 #include "tx_api.h"
 #include "main.h"
 #include "usart.h"
+#include "fmx.h"
+#include "fm_debug.h"
 
 // Sección define sin dependencia.
 #define FM_CMD_ULONG_SIZE 16 // Tamaño del mensaje en ULONGs, es el maximo que maneja una cola.
@@ -50,8 +52,15 @@ typedef struct
 // Varibles extern
 
 // Function prototypes
-void FM_CMD_InitRtos(TX_QUEUE *queue);
+void FM_CMD_RtosInit(VOID *memory_ptr);
 void FM_CMD_ThreadEntry(ULONG input);
+void FM_CMD_HandleTemp(const char *args);
+void FM_CMD_HandleLogAll(const char *args);
+void FM_CMD_HandleCount(const char *args);
+
+
+
+
 
 #endif  // FM_MAIN_H
 

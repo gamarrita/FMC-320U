@@ -55,7 +55,7 @@ static char print_status_msg[][3] =
 // Defines.
 #define TRUE 	1
 #define FALSE 	0
-#define SLAVE_TIME_CONNECTED 120
+#define SLAVE_TIME_CONNECTED 30
 
 // Debug.
 
@@ -626,10 +626,6 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
         case FMX_EVENT_KEY_ESC:
         case FMX_EVENT_KEY_EXT_2:
             FM_PPT_FormatTicket();
-
-            MenuUserPrintAcmStatus(PRINT_POWER_ON);
-            FM_MXC_PowerOn();
-
             MenuUserPrintAcmStatus(PRINT_CONNECTING);
             exit_status = FM_MXC_ConnectMaster();
 
@@ -637,7 +633,6 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
             {
                 MenuUserPrintAcmStatus(PRINT_PRINTING);
                 FM_PPT_PrintTicket();
-                tx_thread_sleep(200);
                 MenuUserPrintAcmStatus(PRINT_OK);
             }
             else

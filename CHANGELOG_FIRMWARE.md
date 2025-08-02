@@ -1,17 +1,19 @@
 # Registro de cambios en el firmware del computador FM-320U
 
-## [01.01.010-D0] Beta 0 en desarrollo.
+## [01.01.010-B0+1] Beta
+(guardo cambios para poder hacer checkout de otras versiones, quiero probar impresion de versiones anteriores)
 
 ### Docs
- 
+ - Modifico Documentos de carpeta administracion.
 ### Chore
-- Cambio identificador de version en rama beta de ##[UNVERSIONED] a la version, terminada en D para develo y B beta terminada.
 
 ### Added
+- Agrego pantalla de bluetooth para descarga de datos, aun no es funcional.
 
 ### Fixed
 
 ### Refactory
+- Pasor UART3 de trabajar con ISR a DMA
 
 ### Removed
 

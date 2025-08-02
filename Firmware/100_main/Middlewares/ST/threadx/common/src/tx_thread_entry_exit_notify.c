@@ -9,6 +9,7 @@
 /*                                                                        */
 /**************************************************************************/
 
+
 /**************************************************************************/
 /**************************************************************************/
 /**                                                                       */
@@ -21,11 +22,13 @@
 
 #define TX_SOURCE_CODE
 
+
 /* Include necessary system files.  */
 
 #include "tx_api.h"
 #include "tx_trace.h"
 #include "tx_thread.h"
+
 
 /**************************************************************************/
 /*                                                                        */
@@ -71,8 +74,7 @@
 /*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
-UINT _tx_thread_entry_exit_notify(TX_THREAD *thread_ptr,
-        VOID (*thread_entry_exit_notify)(TX_THREAD *notify_thread_ptr, UINT id))
+UINT  _tx_thread_entry_exit_notify(TX_THREAD *thread_ptr, VOID (*thread_entry_exit_notify)(TX_THREAD *notify_thread_ptr, UINT id))
 {
 
 #ifdef TX_DISABLE_NOTIFY_CALLBACKS
@@ -81,7 +83,7 @@ UINT _tx_thread_entry_exit_notify(TX_THREAD *thread_ptr,
     TX_THREAD_ENTRY_EXIT_NOTIFY_NOT_USED(thread_entry_exit_notify);
 
     /* Feature is not enabled, return error.  */
-    return (TX_FEATURE_NOT_ENABLED);
+    return(TX_FEATURE_NOT_ENABLED);
 #else
 
 TX_INTERRUPT_SAVE_AREA

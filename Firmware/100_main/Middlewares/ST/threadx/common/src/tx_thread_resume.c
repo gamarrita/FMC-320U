@@ -9,6 +9,7 @@
 /*                                                                        */
 /**************************************************************************/
 
+
 /**************************************************************************/
 /**************************************************************************/
 /**                                                                       */
@@ -21,12 +22,14 @@
 
 #define TX_SOURCE_CODE
 
+
 /* Include necessary system files.  */
 
 #include "tx_api.h"
 #include "tx_trace.h"
 #include "tx_thread.h"
 #include "tx_initialize.h"
+
 
 /**************************************************************************/
 /*                                                                        */
@@ -69,32 +72,33 @@
 /*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
-UINT _tx_thread_resume(TX_THREAD *thread_ptr)
+UINT  _tx_thread_resume(TX_THREAD *thread_ptr)
 {
 
-    TX_INTERRUPT_SAVE_AREA
+TX_INTERRUPT_SAVE_AREA
 
-    UINT status;
-    TX_THREAD *saved_thread_ptr;
-    UINT saved_threshold = ((UINT) 0);
+UINT        status;
+TX_THREAD   *saved_thread_ptr;
+UINT        saved_threshold =  ((UINT) 0);
 
 #ifdef TX_INLINE_THREAD_RESUME_SUSPEND
-    UINT priority;
-    ULONG priority_bit;
-    TX_THREAD *head_ptr;
-    TX_THREAD *tail_ptr;
-    TX_THREAD *execute_ptr;
-    TX_THREAD *current_thread;
-    ULONG combined_flags;
+UINT            priority;
+ULONG           priority_bit;
+TX_THREAD       *head_ptr;
+TX_THREAD       *tail_ptr;
+TX_THREAD       *execute_ptr;
+TX_THREAD       *current_thread;
+ULONG           combined_flags;
 
 #ifdef TX_ENABLE_EVENT_TRACE
-    TX_TRACE_BUFFER_ENTRY *entry_ptr;
-    ULONG time_stamp = ((ULONG) 0);
+TX_TRACE_BUFFER_ENTRY       *entry_ptr;
+ULONG                       time_stamp =  ((ULONG) 0);
 #endif
 
 #if TX_MAX_PRIORITIES > 32
-    UINT map_index;
+UINT            map_index;
 #endif
+
 
 #ifdef TX_ENABLE_STACK_CHECKING
 
@@ -113,8 +117,8 @@ UINT _tx_thread_resume(TX_THREAD *thread_ptr)
     TX_EL_THREAD_RESUME_INSERT
 
     /* Determine if the thread is suspended or in the process of suspending.
-     If so, call the thread resume processing.  */
-    if (thread_ptr->tx_thread_state == TX_SUSPENDED)
+       If so, call the thread resume processing.  */
+    if (thread_ptr -> tx_thread_state == TX_SUSPENDED)
     {
 
         /* Determine if the create call is being called from initialization.  */
@@ -124,10 +128,10 @@ UINT _tx_thread_resume(TX_THREAD *thread_ptr)
             /* Yes, this resume call was made from initialization.  */
 
             /* Pickup the current thread execute pointer, which corresponds to the
-             highest priority thread ready to execute.  Interrupt lockout is
-             not required, since interrupts are assumed to be disabled during
-             initialization.  */
-            saved_thread_ptr = _tx_thread_execute_ptr;
+               highest priority thread ready to execute.  Interrupt lockout is
+               not required, since interrupts are assumed to be disabled during
+               initialization.  */
+            saved_thread_ptr =  _tx_thread_execute_ptr;
 
             /* Determine if there is thread ready for execution.  */
             if (saved_thread_ptr != TX_NULL)
@@ -136,20 +140,19 @@ UINT _tx_thread_resume(TX_THREAD *thread_ptr)
                 /* Yes, a thread is ready for execution when initialization completes.  */
 
                 /* Save the current preemption-threshold.  */
-                saved_threshold = saved_thread_ptr->tx_thread_preempt_threshold;
+                saved_threshold =  saved_thread_ptr -> tx_thread_preempt_threshold;
 
                 /* For initialization, temporarily set the preemption-threshold to the
-                 priority level to make sure the highest-priority thread runs once
-                 initialization is complete.  */
-                saved_thread_ptr->tx_thread_preempt_threshold =
-                        saved_thread_ptr->tx_thread_priority;
+                   priority level to make sure the highest-priority thread runs once
+                   initialization is complete.  */
+                saved_thread_ptr -> tx_thread_preempt_threshold =  saved_thread_ptr -> tx_thread_priority;
             }
         }
         else
         {
 
             /* Simply set the saved thread pointer to NULL.  */
-            saved_thread_ptr = TX_NULL;
+            saved_thread_ptr =  TX_NULL;
         }
 
 #ifndef TX_INLINE_THREAD_RESUME_SUSPEND
@@ -178,8 +181,8 @@ UINT _tx_thread_resume(TX_THREAD *thread_ptr)
         {
 
             /* Yes, restore the previous highest-priority thread's preemption-threshold. This
-             can only happen if this routine is called from initialization.  */
-            saved_thread_ptr->tx_thread_preempt_threshold = saved_threshold;
+               can only happen if this routine is called from initialization.  */
+            saved_thread_ptr -> tx_thread_preempt_threshold =  saved_threshold;
         }
 
 #ifdef TX_MISRA_ENABLE
@@ -192,8 +195,9 @@ UINT _tx_thread_resume(TX_THREAD *thread_ptr)
 #else
 
         /* Return successful completion.  */
-        return (TX_SUCCESS);
+        return(TX_SUCCESS);
 #endif
+
 
 #else
 
@@ -518,20 +522,20 @@ UINT _tx_thread_resume(TX_THREAD *thread_ptr)
         status =  TX_SUCCESS;
 #endif
     }
-    else if (thread_ptr->tx_thread_delayed_suspend == TX_TRUE)
+    else if (thread_ptr -> tx_thread_delayed_suspend == TX_TRUE)
     {
 
         /* Clear the delayed suspension.  */
-        thread_ptr->tx_thread_delayed_suspend = TX_FALSE;
+        thread_ptr -> tx_thread_delayed_suspend =  TX_FALSE;
 
         /* Setup delayed suspend lifted return status.  */
-        status = TX_SUSPEND_LIFTED;
+        status =  TX_SUSPEND_LIFTED;
     }
     else
     {
 
         /* Setup invalid resume return status.  */
-        status = TX_RESUME_ERROR;
+        status =  TX_RESUME_ERROR;
     }
 
     /* Restore interrupts.  */
@@ -574,6 +578,6 @@ UINT _tx_thread_resume(TX_THREAD *thread_ptr)
 #endif
 
     /* Return completion status. */
-    return (status);
+    return(status);
 }
 

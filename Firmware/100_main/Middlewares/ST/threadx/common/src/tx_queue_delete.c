@@ -9,6 +9,7 @@
 /*                                                                        */
 /**************************************************************************/
 
+
 /**************************************************************************/
 /**************************************************************************/
 /**                                                                       */
@@ -21,12 +22,14 @@
 
 #define TX_SOURCE_CODE
 
+
 /* Include necessary system files.  */
 
 #include "tx_api.h"
 #include "tx_trace.h"
 #include "tx_thread.h"
 #include "tx_queue.h"
+
 
 /**************************************************************************/
 /*                                                                        */
@@ -70,16 +73,17 @@
 /*                                            resulting in version 6.1    */
 /*                                                                        */
 /**************************************************************************/
-UINT _tx_queue_delete(TX_QUEUE *queue_ptr)
+UINT  _tx_queue_delete(TX_QUEUE *queue_ptr)
 {
 
-    TX_INTERRUPT_SAVE_AREA
+TX_INTERRUPT_SAVE_AREA
 
-    TX_THREAD *thread_ptr;
-    TX_THREAD *next_thread;
-    UINT suspended_count;
-    TX_QUEUE *next_queue;
-    TX_QUEUE *previous_queue;
+TX_THREAD       *thread_ptr;
+TX_THREAD       *next_thread;
+UINT            suspended_count;
+TX_QUEUE        *next_queue;
+TX_QUEUE        *previous_queue;
+
 
     /* Disable interrupts to remove the queue from the created list.  */
     TX_DISABLE
@@ -97,7 +101,7 @@ UINT _tx_queue_delete(TX_QUEUE *queue_ptr)
     TX_EL_QUEUE_DELETE_INSERT
 
     /* Clear the queue ID to make it invalid.  */
-    queue_ptr->tx_queue_id = TX_CLEAR_ID;
+    queue_ptr -> tx_queue_id =  TX_CLEAR_ID;
 
     /* Decrement the number of created queues.  */
     _tx_queue_created_count--;
@@ -107,23 +111,23 @@ UINT _tx_queue_delete(TX_QUEUE *queue_ptr)
     {
 
         /* Only created queue, just set the created list to NULL.  */
-        _tx_queue_created_ptr = TX_NULL;
+        _tx_queue_created_ptr =  TX_NULL;
     }
     else
     {
 
         /* Link-up the neighbors.  */
-        next_queue = queue_ptr->tx_queue_created_next;
-        previous_queue = queue_ptr->tx_queue_created_previous;
-        next_queue->tx_queue_created_previous = previous_queue;
-        previous_queue->tx_queue_created_next = next_queue;
+        next_queue =                               queue_ptr -> tx_queue_created_next;
+        previous_queue =                           queue_ptr -> tx_queue_created_previous;
+        next_queue -> tx_queue_created_previous =  previous_queue;
+        previous_queue -> tx_queue_created_next =  next_queue;
 
         /* See if we have to update the created list head pointer.  */
         if (_tx_queue_created_ptr == queue_ptr)
         {
 
             /* Yes, move the head pointer to the next link. */
-            _tx_queue_created_ptr = next_queue;
+            _tx_queue_created_ptr =  next_queue;
         }
     }
 
@@ -131,16 +135,16 @@ UINT _tx_queue_delete(TX_QUEUE *queue_ptr)
     _tx_thread_preempt_disable++;
 
     /* Pickup the suspension information.  */
-    thread_ptr = queue_ptr->tx_queue_suspension_list;
-    queue_ptr->tx_queue_suspension_list = TX_NULL;
-    suspended_count = queue_ptr->tx_queue_suspended_count;
-    queue_ptr->tx_queue_suspended_count = TX_NO_SUSPENSIONS;
+    thread_ptr =                             queue_ptr -> tx_queue_suspension_list;
+    queue_ptr -> tx_queue_suspension_list =  TX_NULL;
+    suspended_count =                        queue_ptr -> tx_queue_suspended_count;
+    queue_ptr -> tx_queue_suspended_count =  TX_NO_SUSPENSIONS;
 
     /* Restore interrupts.  */
     TX_RESTORE
 
     /* Walk through the queue list to resume any and all threads suspended
-     on this queue.  */
+       on this queue.  */
     while (suspended_count != TX_NO_SUSPENSIONS)
     {
 
@@ -151,14 +155,14 @@ UINT _tx_queue_delete(TX_QUEUE *queue_ptr)
         TX_DISABLE
 
         /* Clear the cleanup pointer, this prevents the timeout from doing
-         anything.  */
-        thread_ptr->tx_thread_suspend_cleanup = TX_NULL;
+           anything.  */
+        thread_ptr -> tx_thread_suspend_cleanup =  TX_NULL;
 
         /* Set the return status in the thread to TX_DELETED.  */
-        thread_ptr->tx_thread_suspend_status = TX_DELETED;
+        thread_ptr -> tx_thread_suspend_status =  TX_DELETED;
 
         /* Move the thread pointer ahead.  */
-        next_thread = thread_ptr->tx_thread_suspended_next;
+        next_thread =  thread_ptr -> tx_thread_suspended_next;
 
 #ifdef TX_NOT_INTERRUPTABLE
 
@@ -180,7 +184,7 @@ UINT _tx_queue_delete(TX_QUEUE *queue_ptr)
 #endif
 
         /* Move to next thread.  */
-        thread_ptr = next_thread;
+        thread_ptr =  next_thread;
     }
 
     /* Execute Port-Specific completion processing. If needed, it is typically defined in tx_port.h.  */
@@ -199,6 +203,6 @@ UINT _tx_queue_delete(TX_QUEUE *queue_ptr)
     _tx_thread_system_preempt_check();
 
     /* Return TX_SUCCESS.  */
-    return (TX_SUCCESS);
+    return(TX_SUCCESS);
 }
 
