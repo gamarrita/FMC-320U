@@ -1,6 +1,6 @@
 # CONTRIBUTING
 
-Este archivo documenta los cambios en el proyecto FMC-320U.
+Este archivo documenta los procedimiento para hacer commits en el proyecto FMC-320U.
 
 ## Identificacion del commit
 - Para commits que tengan que ver con el firmware usar el siguiente formato para el titulo "[FIRMWARE] Prefijo - Descripcion"
@@ -49,6 +49,10 @@ Utilizá los siguientes prefijos para indicar el propósito de cada rama:
 - Durante testeo y validaciones:
 - Usá `test:` para registrar lo que validaste
 - Usá `fix:` para errores encontrados durante pruebas
+
+- Situacion: liberar beta para produccion:
+- Hacer un commit con el nombre 'release: abc' antes de hacer el tag
+- Ejemplo: `release beta: v01.01.009 beta 0 para que teste producción`
 
 - Situacion: liberar una versión:
 - Hacer un commit con el nombre 'release: abc' antes de hacer el tag

@@ -53,7 +53,7 @@ char lcd_buffer[LCD_BUFFER_SIZE];
  */
 void FM_LCD_Init(uint8_t fill)
 {
-  FM_LCD_LL_Init(fill);
+    FM_LCD_LL_Init(fill);
 }
 
 /*
@@ -63,8 +63,8 @@ void FM_LCD_Init(uint8_t fill)
  */
 void FM_LCD_PutChar(char *ptr)
 {
-  FM_LCD_LL_PutChar_1(*ptr);
-  FM_LCD_LL_PutChar_2(*(ptr + 1));
+    FM_LCD_LL_PutChar_1(*ptr);
+    FM_LCD_LL_PutChar_2(*(ptr + 1));
 }
 
 /*
@@ -78,50 +78,50 @@ void FM_LCD_PutChar(char *ptr)
  */
 void FM_LCD_PutString(const char *my_str, uint32_t len, fm_lcd_ll_row_t row)
 {
-  uint8_t str_index = 0;
-  uint8_t lcd_index = 0;
+    uint8_t str_index = 0;
+    uint8_t lcd_index = 0;
 
-  int index_end;
+    int index_end;
 
-  if (row == FM_LCD_LL_ROW_1)
-  {
-    // Se ajustan los caracteres a imprimir a la cantidad máxima que se puede imprimir en esta linea.
-    index_end = FM_LCD_LL_ROW_1_COLS;
-  }
-  else
-  {
-    // Se ajustan los caracteres a imprimir a la cantidad máxima que se puede imprimir en esta linea.
-    index_end = FM_LCD_LL_ROW_2_COLS;
-  }
-
-  if (len < index_end)
-  {
-    // Se necesita imprimir menos columnas que la cantidad disponibles.
-    index_end = len;
-  }
-
-  /*
-   * Recorre la cadena de caracteres para armar el buffer del LCD de 8 segmentos, en la cadena los '.' son
-   * elementos de la cadena, en el LCD el '.' es parte de un caracter, al menos así esta implementado.
-   */
-  while ((lcd_index < index_end) && my_str[str_index])
-  {
-    FM_LCD_LL_PutChar(my_str[str_index], lcd_index, row);
-    str_index++;
-    lcd_index++;
-
-    // Si el proximo caracter a imprimir es el punto ".", en LCD de 8 segmentos es parte del caracter.
-    if ((my_str[str_index] == '.'))
+    if (row == FM_LCD_LL_ROW_1)
     {
-      // No existe el punto decimal luego del ultimo digito, el digito mas a la derecha.
-      if (lcd_index < index_end)
-      {
-        FM_LCD_LL_PutChar(my_str[str_index], lcd_index - 1, row);
-        // Avanzo en el string, ya se imprimió el punto decimal.
-      }
-      str_index++;
+        // Se ajustan los caracteres a imprimir a la cantidad máxima que se puede imprimir en esta linea.
+        index_end = FM_LCD_LL_ROW_1_COLS;
     }
-  }
+    else
+    {
+        // Se ajustan los caracteres a imprimir a la cantidad máxima que se puede imprimir en esta linea.
+        index_end = FM_LCD_LL_ROW_2_COLS;
+    }
+
+    if (len < index_end)
+    {
+        // Se necesita imprimir menos columnas que la cantidad disponibles.
+        index_end = len;
+    }
+
+    /*
+     * Recorre la cadena de caracteres para armar el buffer del LCD de 8 segmentos, en la cadena los '.' son
+     * elementos de la cadena, en el LCD el '.' es parte de un caracter, al menos así esta implementado.
+     */
+    while ((lcd_index < index_end) && my_str[str_index])
+    {
+        FM_LCD_LL_PutChar(my_str[str_index], lcd_index, row);
+        str_index++;
+        lcd_index++;
+
+        // Si el proximo caracter a imprimir es el punto ".", en LCD de 8 segmentos es parte del caracter.
+        if ((my_str[str_index] == '.'))
+        {
+            // No existe el punto decimal luego del ultimo digito, el digito mas a la derecha.
+            if (lcd_index < index_end)
+            {
+                FM_LCD_LL_PutChar(my_str[str_index], lcd_index - 1, row);
+                // Avanzo en el string, ya se imprimió el punto decimal.
+            }
+            str_index++;
+        }
+    }
 }
 
 /*
@@ -134,27 +134,27 @@ void FM_LCD_PutString(const char *my_str, uint32_t len, fm_lcd_ll_row_t row)
  */
 void FM_LCD_PutUnsignedInt32(uint32_t num, fm_lcd_ll_row_t row)
 {
-  uint8_t index_lcd; // apunta a la posicion del la fila del LCD que hay que escribir
-  int index_num; // apunta al digito del dato que hay que escribir
+    uint8_t index_lcd; // apunta a la posicion del la fila del LCD que hay que escribir
+    int index_num;  // apunta al digito del dato que hay que escribir
 
-  // Apunta al ultimo caracter del la fila selecciona del LCD
-  index_lcd = FM_LCD_LL_GetRowSize(row);
+    // Apunta al ultimo caracter del la fila selecciona del LCD
+    index_lcd = FM_LCD_LL_GetRowSize(row);
 
-  // Convierto el numero a texto, index_num es igual al numero de cifras.
-  index_num = snprintf(lcd_buffer, sizeof(lcd_buffer), "%lu", num);
+    // Convierto el numero a texto, index_num es igual al numero de cifras.
+    index_num = snprintf(lcd_buffer, sizeof(lcd_buffer), "%lu", num);
 
-  if (index_num > index_lcd)
-  {
-    index_num = index_lcd; // no se pueden imprimir mas cifras de la capacidad de la linea.
-  }
+    if (index_num > index_lcd)
+    {
+        index_num = index_lcd; // no se pueden imprimir mas cifras de la capacidad de la linea.
+    }
 
-  while (index_num)
-  {
-    // La primera columna es la 0 y la ultima el tamaño -1, resto 1 a las columnas.
-    index_lcd--;
-    index_num--;
-    FM_LCD_LL_PutChar(lcd_buffer[index_num], index_lcd, row);
-  }
+    while (index_num)
+    {
+        // La primera columna es la 0 y la ultima el tamaño -1, resto 1 a las columnas.
+        index_lcd--;
+        index_num--;
+        FM_LCD_LL_PutChar(lcd_buffer[index_num], index_lcd, row);
+    }
 }
 
 // Interrupts

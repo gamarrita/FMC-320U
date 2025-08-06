@@ -34,7 +34,7 @@
  */
 typedef enum
 {
-  OFF_SPEED, LOW_SPEED, MED_SPEED, HIGH_SPEED
+    OFF_SPEED, LOW_SPEED, MED_SPEED, HIGH_SPEED
 } blink_t;
 
 // Defines.
@@ -54,13 +54,20 @@ extern uint8_t pcf8553_ram_map[PCF8553_RAM_SIZE];
 
 // Public function prototypes.
 
-void FM_PCF8553_Blink(blink_t mode);
-void FM_PCF8553_ClearBuffer();
-void FM_PCF8553_Init();
-void FM_PCF8553_Refresh();
-void FM_PCF8553_Reset();
-void FM_PCF8553_WriteAll(uint8_t data);
-void FM_PCF8553_WriteByte(uint8_t add, uint8_t data);
+void
+FM_PCF8553_Blink(blink_t mode);
+void
+FM_PCF8553_ClearBuffer();
+void
+FM_PCF8553_Init();
+void
+FM_PCF8553_Refresh();
+void
+FM_PCF8553_Reset();
+void
+FM_PCF8553_WriteAll(uint8_t data);
+void
+FM_PCF8553_WriteByte(uint8_t add, uint8_t data);
 
 #endif /* FM_FM_PCF8553_H_ */
 

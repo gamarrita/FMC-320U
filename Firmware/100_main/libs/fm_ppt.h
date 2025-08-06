@@ -22,8 +22,10 @@
 // Defines.
 
 // Function prototypes
-void FM_PPT_PrintTicket();
-void FM_PPT_FormatTicket();
+void
+FM_PPT_PrintTicket();
+void
+FM_PPT_FormatTicket();
 
 #endif  // FM_PPT_H
 

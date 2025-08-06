@@ -1,12 +1,9 @@
 /*
- * brief
- *
- *
- * Version 1
- * Autor: Daniel H Sagarra
  * Fecha: 3/3/2025
- * - Comienzo control de version a esta fecha.
+ * Autor: Daniel H Sagarra
  * 
+ *
+ *
  */
 
 #ifndef FM_FLASH_H_
@@ -28,18 +25,23 @@
  */
 #define FM_FLASH_CHIP_INFO_SIZE (FM_FLASH_BLOCK_SIZE * 1)
 
+// Rango de memoria usado para data logger
+#define FM_FLASH_LOG_START 0x08104000
+#define FM_FLASH_LOG_END   0x081FFFFF
+#define FM_FLASH_LOG_SIZE ((FM_FLASH_LOG_END - FM_FLASH_LOG_START) + 1)
+
 // Typedef y enum.
 
 typedef union
 {
-  uint8_t data[FM_FLASH_CHIP_INFO_SIZE];
-  struct
-  {
-    uint16_t    reset_counter;
-    uint8_t     reset_factory;
-    uint32_t    reserved_3;
-    uint32_t    reserved_4;
-  };
+    uint8_t data[FM_FLASH_CHIP_INFO_SIZE];
+    struct
+    {
+        uint16_t reset_counter;
+        uint8_t reset_factory;
+        uint32_t reserved_3;
+        uint32_t reserved_4;
+    };
 } flash_chip_info_t;
 
 // Macros, defines, microcontroller pins (dhs).
@@ -48,11 +50,16 @@ typedef union
 
 // Function prototypes
 
-flash_chip_info_t FM_FLASH_ChipInfoRead();
-void FM_FLASH_ChipInfoWrite(flash_chip_info_t);
-uint16_t FM_FLASH_NewReset();
-uint32_t FM_FLASH_Read(uint32_t address, uint8_t *data, uint16_t data_length);
-uint32_t FM_FLASH_Write(uint32_t pos, uint8_t *data, uint16_t data_length);
+flash_chip_info_t
+FM_FLASH_ChipInfoRead();
+void
+FM_FLASH_ChipInfoWrite(flash_chip_info_t);
+uint16_t
+FM_FLASH_NewReset();
+uint32_t
+FM_FLASH_Read(uint32_t address, uint8_t *data, uint16_t data_length);
+uint32_t
+FM_FLASH_Write(uint32_t pos, uint8_t *data, uint16_t data_length);
 
 #endif /* FM_FLASH_H */
 

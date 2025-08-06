@@ -15,7 +15,7 @@
 
 typedef enum
 {
-  USER, CONFIGURATION
+    USER, CONFIGURATION
 } user_or_configuration_t;
 
 // Defines.

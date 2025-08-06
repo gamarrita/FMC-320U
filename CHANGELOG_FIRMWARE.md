@@ -1,5 +1,37 @@
 # Registro de cambios en el firmware del computador FM-320U
 
+## [01.01.010-B0+2] Beta
+(guardo cambios para poder hacer checkout de otras versiones, quiero probar impresion de versiones anteriores)
+
+### Docs
+ - Modifico Documentos de carpeta administracion.
+
+### Chore
+
+### Added
+- Agrego pantalla de bluetooth para descarga de datos, aun no es funcional.
+
+### Fixed
+- Se cambian el tipo de timer del ThreadX usado para evitar rebotes de pulsadores externos.
+
+### Refactory
+- Pasor UART3 de trabajar con ISR a DMA
+- Elimino el uso de multiples tiempos en sleep para mejorar el consumo. Luego se usara tecnica mas limpia.
+- Se crea el modulo fm_usart.c, mejora la claridad de codigo en fm_mxc.
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
+TESTEO 0x2FB396C8
+TESTEO 0x2FB39787
+TESTEO 0x2FB397FE
+TESTEO 0x2FB397FE
+TESTEO 0x2FB398FC
+
+---------------------------------------------------------------------------------------------------
+
 ## [01.01.009] 2025-06-07
 
 ### Notas
@@ -110,13 +142,13 @@ Consumo 43uA, condiciones:
 
 ## [UNVERSIONEDED]
 
-### Notas
+### Chore
 
 ### Added
 
 ### Fixed
 
-### Changed
+### Refoctory
 
 ### Removed
 
