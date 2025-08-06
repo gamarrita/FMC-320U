@@ -50,6 +50,10 @@ Utilizá los siguientes prefijos para indicar el propósito de cada rama:
 - Usá `test:` para registrar lo que validaste
 - Usá `fix:` para errores encontrados durante pruebas
 
+- Situacion: liberar beta para produccion:
+- Hacer un commit con el nombre 'release: abc' antes de hacer el tag
+- Ejemplo: `release beta: v01.01.009 beta 0 para que teste producción`
+
 - Situacion: liberar una versión:
 - Hacer un commit con el nombre 'release: abc' antes de hacer el tag
 - Ejemplo: `release: cierra v01.01.009 para producción`

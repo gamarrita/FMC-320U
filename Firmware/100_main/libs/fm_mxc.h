@@ -39,7 +39,6 @@ void FM_MXC_PowerOff();
 void FM_MXC_ATMode();
 void FM_MXC_Sleep();
 void FM_MXC_Wakeup();
-void FM_MXC_Print(char *str);
 
 #endif  // FM_MAIN_H
 

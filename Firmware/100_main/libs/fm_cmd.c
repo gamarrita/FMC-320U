@@ -118,7 +118,6 @@ void FM_CMD_RtosInit(VOID *memory_ptr)
         FM_DEBUG_LedError(1);
         while (1);
     }
-
     ret_status = tx_thread_create(&cmd_thread, "CMD_THREAD", FM_CMD_ThreadEntry, (ULONG )&cmd_queue,
             pointer, FMX_STACK_SIZE, FMX_THREAD_PRIORITY_10, FMX_THRESHOLD_10, FMX_SLICE_0, TX_AUTO_START);
 
@@ -130,7 +129,7 @@ void FM_CMD_RtosInit(VOID *memory_ptr)
     }
     // <<<< Fin
 
-    // >>>> ThreadX: Crear hilo.
+    // >>>> ThreadX: Crear cola.
     ret_status = tx_queue_create(&cmd_queue, "CMD_QUEUE", FM_CMD_ULONG_SIZE, cmd_queue_buffer,
             sizeof(cmd_queue_buffer));
     if (ret_status != TX_SUCCESS)

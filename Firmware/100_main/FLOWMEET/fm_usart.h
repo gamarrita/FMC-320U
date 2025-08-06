@@ -18,8 +18,8 @@
 
 
 // Defines
-#define FM_USART_RX3_BUF_SIZE 64 // Cantidad máxima de bytes en un ThreadX queue msg
-#define FM_USART_TX3_BUF_SIZE 64 // Cantidad máxima de bytes en un ThreadX queue msg
+#define FM_USART_RX3_BUF_SIZE 1024 // Cantidad máxima de bytes en un ThreadX queue msg
+#define FM_USART_TX3_BUF_SIZE 1024 // Cantidad máxima de bytes en un ThreadX queue msg
 
 // Typedef
 
@@ -30,12 +30,15 @@
 // Macros, defines, microcontroller pins (dhs).
 
 // Varibles extern
+extern char fm_usart_rx3_buf[FM_USART_RX3_BUF_SIZE];
+extern char fm_usart_tx3_buf[FM_USART_RX3_BUF_SIZE];
+
 
 // Defines.
 
 // Prototipos
 fmx_status_t FM_USART_Uart3PowerOn();
-fmx_status_t FM_USART_Uart3Send(const char *);
+fmx_status_t FM_USART_Uart3TransmitDma(const char *m, UINT wait_ms);
 void FM_USART_RtosInit(VOID *memory_ptr);
 
 

@@ -22,6 +22,7 @@
 #include "fm_log.h"
 #include "fm_mxc.h"
 #include "fm_cmd.h"
+#include "fm_usart.h"
 
 // Sección define sin dependencia.
 
@@ -30,7 +31,7 @@
 #define QUEUE_EVENT_SIZE (4 * 1) // Mantener múltiplo de 4, solo porque lo via asi, no se si es necesario.
 #define TIMER_BACKLIGHT_INIT   1000 // ms * 10 de backlight encendido al iniciar, el computador.
 #define TIMER_BACKLIGHT_GUI     500  // ms * 10 de backlight encendido al interactuar con el teclado.
-#define TIMER_EXTI_DEBUNCE      100   // ms * 10 interrupciones des-habilitada para evitar rebote.
+#define TIMER_EXTI_DEBUNCE      25   // ms * 10 interrupciones des-habilitada para evitar rebote.
 #define FMX_DEBUG_LOCAL // Y esto para que sirve???
 
 // Sección enum y typedef sin dependencia.
@@ -47,6 +48,8 @@
 ULONG global_menu_refresh = 0; // Alguna entidad solicita mantener refrescos cada 1000 mili segundo.
 
 // Variables static, primero las tipo const.
+
+uint8_t key_ext_debouce_flag = 0;
 
 /*
  * En necesario determinar el estado del caudal
@@ -128,41 +131,8 @@ void ThreadEntryMenuLog(ULONG timer_input);
 void PulseUpdate()
 {
     static uint8_t blink = 1;
-    static uint8_t pulse_in_active_mem = TRUE;
 
     blink ^= 1;
-
-    // Si ingresan pulsos se necesita refrescos cada 1 segundo.
-    if ((pulse_in_active == TRUE) || pulse_in_active_mem)
-    {
-        global_menu_refresh = 1000;
-    }
-
-    if (pulse_in_active)
-    {
-        if (pulse_in_active_mem)
-        {
-            rate_status = FMX_RATE_ON;
-        }
-        else
-        {
-            rate_status = FMX_RATE_TO_ON;
-        }
-    }
-    else
-    {
-        if (pulse_in_active_mem)
-        {
-            rate_status = FMX_RATE_TO_OFF;
-        }
-        else
-        {
-            rate_status = FMX_RATE_OFF;
-        }
-    }
-
-    pulse_in_active_mem = pulse_in_active;
-    pulse_in_active = FALSE;
 
     if (rate_pulse_delta)
     {
@@ -258,7 +228,7 @@ void ThreadEntryMain(ULONG thread_input)
     uint8_t menu = 0;
     uint8_t menu_change;
     UINT tx_status;
-    ULONG sleep_time = 100;
+    ULONG sleep_time = 1000; // Tiempo de refresco en mili-segundos.
 
     /*
      * Enciendo el backlight LCD.
@@ -279,6 +249,11 @@ void ThreadEntryMain(ULONG thread_input)
 
     for (;;)
     {
+        /*
+         * Ajusto tiempo de refresco a 1 segundos. Se cambiara a meenos tiempo si alguan situacion
+         * lo requiere.
+         */
+        sleep_time = 1000;
 
         PulseUpdate();
         /*
@@ -339,8 +314,6 @@ void ThreadEntryMain(ULONG thread_input)
         }
 
         // Tiempo a stop mode por defecto 5 segundos
-        sleep_time = 500;
-
         if (global_menu_refresh)
         {
             // Menu user o setup solicitaron un refresco en blocl_menu_refresh mili-segundos
@@ -350,16 +323,13 @@ void ThreadEntryMain(ULONG thread_input)
         // Refrescar lo que se ve en pantalla.
         FM_LCD_LL_Refresh();
         FM_LOG_Monitor(rate_status);
-        tx_status = tx_queue_receive(&event_queue, &received_event, sleep_time);
+        tx_status = tx_queue_receive(&event_queue, &received_event, sleep_time / 10);
 
-        // Verifico si expiro el tiempo sin que llegue un mensaje
+        // Verifico si llego mensaje.
         if (tx_status != TX_SUCCESS)
         {
-            // Si se programo un refresco y el tiempo expiro se debe refrescar el menu.
-            if (global_menu_refresh)
-            {
-                received_event = FMX_EVENT_MENU_REFRESH;
-            }
+            // Si no llego mensaje se usa evento de refresco normal.
+            received_event = FMX_EVENT_MENU_REFRESH;
         }
 
         // Evaluó si el evento producido tiene que prender el backlight, ejemplo tecla presionada.
@@ -426,16 +396,14 @@ void TimerEntryKeyThreeSeconds(ULONG timer_input)
 }
 
 /*
- * @brief   Activa EXTI de los pulsadores externos luego de un tiempo de debunce
+ * @brief   Timer one-shot. Activa EXTI de los pulsadores externos luego de un tiempo de debunce
  * @param   Ver documentación del ThreadX.
  * @retval  Ver documentación del ThreadX.
  */
 void TimerEntryDebunce(ULONG timer_input)
 {
-    HAL_NVIC_EnableIRQ(EXTI3_IRQn);
-    HAL_NVIC_EnableIRQ(EXTI4_IRQn);
-
-    // Es timer one-shot no se necesita ejecutar tx_timer_deactivate().
+    key_ext_debouce_flag = 0;
+    tx_timer_deactivate(&debunde_timer);
 }
 
 /*
@@ -449,7 +417,6 @@ void TimerEntryEventRefresh(ULONG timer_input)
     // Si la cora de eventos esta vaciá agrega un evento de refresco.
     FMX_RefreshEventTrue();
 
-    //
 }
 
 // Public function bodies.
@@ -482,7 +449,8 @@ UINT FMX_Init(VOID *memory_ptr)
         FM_DEBUG_LedError(1);
         while (1);
     }
-    // Creo hilo principal.
+
+    // >>>> ThreadX: Hilo principal.
     ret_status = tx_thread_create(&main_thread, "MAIN_THREAD", ThreadEntryMain, 0, pointer,
             FMX_STACK_SIZE, FMX_THREAD_PRIORITY_10, FMX_THRESHOLD_10, FMX_SLICE_0, TX_AUTO_START);
     if (ret_status != TX_SUCCESS)
@@ -491,8 +459,9 @@ UINT FMX_Init(VOID *memory_ptr)
         FM_DEBUG_LedError(1);
         while (1);
     }
+    // <<<< Fin
 
-    // >>>> ThreadX: Crea cola para eventos.
+    // >>>> ThreadX: Colad. Es la cola que recolecta eventos como teclado refresco, etc.
     ret_status = tx_queue_create(&event_queue, "EVENT_QUEUE", 1, queue_storage_event,
             sizeof(queue_storage_event));
     if (ret_status != TX_SUCCESS)
@@ -501,7 +470,7 @@ UINT FMX_Init(VOID *memory_ptr)
         while (1);
     }
 
-    // Crea timer para controlar segunda función de las teclas, cuando se mantienen presionadas.
+    // >>>> ThreadX: Crea timer para controlar segunda función de las teclas, cuando se mantienen presionadas.
     ret_status = tx_timer_create(&key_long_timer, "KEY_LONG_TIMER", TimerEntryKeyThreeSeconds,
             0x1234, 300, 100, TX_NO_ACTIVATE);
     if (ret_status != TX_SUCCESS)
@@ -511,7 +480,7 @@ UINT FMX_Init(VOID *memory_ptr)
         while (1);
     }
 
-    // Crea timer para el apagado automático del backlight del LCD.
+    // >>>> ThreadX: Timer. Luego de encender el backlight este timer se encarga de apagarlo.
     ret_status = tx_timer_create(&backlight_off_timer, "BACKLIGHT_TIMER", TimerEntryBackLightOff,
             0x1234, TIMER_BACKLIGHT_INIT, 0, TX_AUTO_ACTIVATE);
     if (ret_status != TX_SUCCESS)
@@ -523,7 +492,7 @@ UINT FMX_Init(VOID *memory_ptr)
 
     // Crea timer para quitar los rebores de los botones externos.
     ret_status = tx_timer_create(&debunde_timer, "DEBUNCE_TIMER", TimerEntryDebunce, 0x1234,
-            TIMER_EXTI_DEBUNCE, 0, TX_AUTO_ACTIVATE);
+            TIMER_EXTI_DEBUNCE, TIMER_EXTI_DEBUNCE, TX_NO_ACTIVATE);
     if (ret_status != TX_SUCCESS)
     {
         FM_DEBUG_LedError(1);
@@ -538,7 +507,6 @@ UINT FMX_Init(VOID *memory_ptr)
 
     FM_CMD_RtosInit(memory_ptr);
     FM_USART_RtosInit(memory_ptr);
-
 
     // Reserva memoria para un crear hilo.
     ret_status = tx_byte_allocate(byte_pool, (VOID**) &pointer, FMX_STACK_SIZE, TX_NO_WAIT);
@@ -663,8 +631,7 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
         else
         {
             event_new = FMX_EVENT_KEY_ESC;
-            if (tx_queue_send(&event_queue, &event_new,
-            TX_NO_WAIT) != TX_SUCCESS)
+            if (tx_queue_send(&event_queue, &event_new, TX_NO_WAIT) != TX_SUCCESS)
             {
                 FM_DEBUG_LedError(1);
             }
@@ -678,32 +645,31 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
         else
         {
             event_new = FMX_EVENT_KEY_UP;
-            if (tx_queue_send(&event_queue, &event_new,
-            TX_NO_WAIT) != TX_SUCCESS)
+            if (tx_queue_send(&event_queue, &event_new, TX_NO_WAIT) != TX_SUCCESS)
             {
                 FM_DEBUG_LedError(1);
             }
         }
         break;
     case KEY_EXT_1_Pin:
-        HAL_NVIC_DisableIRQ(EXTI3_IRQn);
+        if(key_ext_debouce_flag) break;
+        key_ext_debouce_flag = 1;
+        tx_timer_activate(&debunde_timer);
         event_new = FMX_EVENT_KEY_EXT_1;
         if (tx_queue_send(&event_queue, &event_new, TX_NO_WAIT) != TX_SUCCESS)
         {
             FM_DEBUG_LedError(1);
         }
-        tx_timer_change(&debunde_timer, TIMER_EXTI_DEBUNCE, 0);
-        tx_timer_activate(&debunde_timer);
         break;
     case KEY_EXT_2_Pin:
-        HAL_NVIC_DisableIRQ(EXTI4_IRQn);
+        if(key_ext_debouce_flag) break;
+        key_ext_debouce_flag = 1;
+        tx_timer_activate(&debunde_timer);
         event_new = FMX_EVENT_KEY_EXT_2;
         if (tx_queue_send(&event_queue, &event_new, TX_NO_WAIT) != TX_SUCCESS)
         {
             FM_DEBUG_LedError(1);
         }
-        tx_timer_change(&debunde_timer, TIMER_EXTI_DEBUNCE, 0);
-        tx_timer_activate(&debunde_timer);
         break;
     default:
         FM_DEBUG_LedError(1);
@@ -726,11 +692,12 @@ void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 
     /*
      * Antes de activar un timer para que tenga x mili-seg frescos se debe usar tx_timer_change.
-     * Para la doble función de la tecla primero se espera 3 segundos, pero esta funcion luego repite cada
-     * un segundo si se mantiene presionada la tecla.
+     * Para la doble función de la tecla primero se espera 3 segundos, pero esta funcion luego
+     * repite cada un segundo si se mantiene presionada la tecla.
      */
     tx_timer_change(&key_long_timer, 250, 150);
     tx_timer_activate(&key_long_timer);
+
 }
 
 /*

@@ -28,14 +28,8 @@
  */
 typedef enum
 {
-    MENU_USER_POWER_RESET = 0,
-    MENU_USER_VERSION,
-    MENU_USER_TTL_RATE,
-    MENU_USER_ACM_RATE,
-    MENU_USER_PRINT_ACM,
-    MENU_USER_BLUETOOTH,
-    MENU_USER_DATE_TIME,
-    MENU_USER_END,
+    MENU_USER_POWER_RESET = 0, MENU_USER_VERSION, MENU_USER_TTL_RATE, MENU_USER_ACM_RATE,
+    MENU_USER_PRINT_ACM, MENU_USER_BLUETOOTH, MENU_USER_DATE_TIME, MENU_USER_END,
 } menu_user_t;
 
 // Código de errores de impresión.
@@ -97,10 +91,10 @@ void TriggerBluetoothSlave(void);
 // Private function bodies.
 
 /*
- * @brief       primer pantalla presentada al iniciar el computador de caudales.
- * @note        se encienden todos los segmentos.
- * @param       ninguno.
- * @retval  ninguno.
+ * @brief   Primer pantalla presentada al iniciar el computador de caudales.
+ * @note    Se encienden todos los segmentos.
+ * @param   Ninguno.
+ * @retval  Ninguno.
  */
 void MenuUserPowerOnEntry()
 {
@@ -109,10 +103,9 @@ void MenuUserPowerOnEntry()
 }
 
 /*
- * @brief       muestra version de firmware.
- * @note
- * @param       ninguno.
- * @retval  ninguno.
+ * @brief   Muestra version de firmware.
+ * @param   Ninguno.
+ * @retval  Ninguno.
  */
 void MenuUserVersionEntry()
 {
@@ -129,10 +122,9 @@ void MenuUserVersionEntry()
 }
 
 /*
- * @brief
- * @note
- * @param
- * @retval
+ * @brief   Función de entrada para la pantalla de volumen TTL y caudal.
+ * @param   Ninguno.
+ * @retval  Ninguno.
  */
 void MenuUserTtlRateEntry()
 {
@@ -159,10 +151,9 @@ void MenuUserTtlRateEntry()
 }
 
 /*
- * @brief
- * @note
- * @param
- * @retval
+ * @brief   Pantalla que muestra y navega el volumen TTL y caudal.
+ * @param   Ninguno.
+ * @retval  Ninguno.
  */
 void MenuUserTtlRateRefresh()
 {
@@ -321,7 +312,6 @@ void MenuUserRateRefresh()
     }
 
     FM_LCD_PutString(user_line_2, FM_LCD_LL_ROW_2_COLS, FM_LCD_LL_ROW_2);
-    FM_DEBUG_UartMsg(user_line_2, strlen(user_line_2));
 }
 
 /*
@@ -424,7 +414,7 @@ void MenuUserBluetoothEntry()
  */
 void MenuUserBluetoothRefresh()
 {
-    if(count_down_connect)
+    if (count_down_connect)
     {
         snprintf(user_line_2, sizeof(user_line_2), "    %03u", count_down_connect);
     }
@@ -491,21 +481,37 @@ void TriggerBluetoothSlave(void)
 uint8_t FM_USER_MenuNav(fmx_events_t this_event)
 {
     static menu_user_t menu_index = 0;
-    static uint32_t entry_counter = 0;
-    fmx_status_t exit_status = FMX_STATUS_OK;
+    static uint8_t entry_counter = 0;
+    fmx_status_t fmx_status = FMX_STATUS_OK;
     uint8_t menu_setup = FALSE; // pasa a valer TRUE si hay que ingresar a menu setup.
 
     switch (menu_index)
     {
     case MENU_USER_POWER_RESET:
-        MenuUserPowerOnEntry();
-        global_menu_refresh = 300;
-        menu_index++;
+        if (!entry_counter)
+        {
+            MenuUserPowerOnEntry();
+        }
+        entry_counter++;
+        if ((entry_counter > 3) || (this_event == FMX_EVENT_KEY_ESC))
+        {
+            menu_index++;
+            entry_counter = 0;
+            FMX_RefreshEventTrue();
+        }
         break;
     case MENU_USER_VERSION:
-        MenuUserVersionEntry();
-        global_menu_refresh = 300;
-        menu_index++;
+        if (!entry_counter)
+        {
+            MenuUserVersionEntry();
+        }
+        entry_counter++;
+        if ((entry_counter > 3) || (this_event == FMX_EVENT_KEY_ESC))
+        {
+            menu_index++;
+            entry_counter = 0;
+            FMX_RefreshEventTrue();
+        }
         break;
     case MENU_USER_TTL_RATE:
         if (!entry_counter)
@@ -615,7 +621,7 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
         case FMX_EVENT_KEY_DOWN:
         case FMX_EVENT_KEY_EXT_1:
             entry_counter = 0;
-            menu_index++;
+            menu_index += 2; // Salteo pantalla Bluetooth has terminar implementacion
             FMX_RefreshEventTrue();
             break;
         case FMX_EVENT_KEY_UP:
@@ -625,11 +631,12 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
             break;
         case FMX_EVENT_KEY_ESC:
         case FMX_EVENT_KEY_EXT_2:
+            FM_DEBUG_LedError(0);
             FM_PPT_FormatTicket();
             MenuUserPrintAcmStatus(PRINT_CONNECTING);
-            exit_status = FM_MXC_ConnectMaster();
+            fmx_status = FM_MXC_ConnectMaster();
 
-            if (exit_status == FMX_STATUS_OK)
+            if (fmx_status == FMX_STATUS_OK)
             {
                 MenuUserPrintAcmStatus(PRINT_PRINTING);
                 FM_PPT_PrintTicket();
@@ -702,7 +709,6 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
         break;
     case MENU_USER_DATE_TIME:
         // Este menu solicita refrescos cada 1000 mili segundos.
-        global_menu_refresh = 1000;
         if (!entry_counter)
         {
             entry_counter++;
@@ -725,7 +731,7 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
             break;
         case FMX_EVENT_KEY_UP:
             entry_counter = 0;
-            menu_index--;
+            menu_index -= 2;
             FMX_RefreshEventTrue();
             break;
         case FMX_EVENT_KEY_ESC:
@@ -789,7 +795,7 @@ void FM_USER_ThreadEntryBluetoothSlave(ULONG input)
          */
         FM_MXC_ConnectSlave();
 
-        while(count_down_connect > 0)
+        while (count_down_connect > 0)
         {
             count_down_connect--;
             FMX_RefreshEventTrue();
@@ -798,7 +804,6 @@ void FM_USER_ThreadEntryBluetoothSlave(ULONG input)
         FM_MXC_PowerOff();
     }
 }
-
 
 // Interrupts
 

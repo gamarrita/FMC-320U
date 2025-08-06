@@ -310,7 +310,7 @@ ufp3_t FM_FMC_RateCalc()
     double rate;
 
     rate = totalizer.rate.delta_p;
-    rate /= totalizer.rate.delta_t;
+    rate /= (totalizer.rate.delta_t-1);
     rate *= totalizer.rate.factor_r;
 
     // Convierto a punto fijo 3 decimales

@@ -15,13 +15,22 @@
 #include "fm_cmd.h"
 #include "fm_debug.h"
 #include "fm_usart.h"
+#include "stdbool.h"
 
 // Sección define sin dependencia.
 #define FALSE 0
 #define TRUE  1
-#define SEND_AT_WAIT    3000 // Tiempo de espera por respuesta al enviar comando AT
-#define WAIT_FOR_5MS    5
-#define WAIT_FOR_1MS    1
+#define WAIT_3000       3000 // Tiempo de espera por respuesta al enviar comando AT
+#define WAIT_2000       2000
+#define WAIT_1000       1000
+#define WAIT_500        500
+#define WAIT_250        250
+#define WAIT_100        100
+#define WAIT_50         25
+#define WAIT_25         25
+#define WAIT_10         10
+#define WAIT_5           5
+#define WAIT_1           1
 #define MAX_FM_LINE_LEN 128
 #define FM_LINE_READY (((ULONG) 1) << 0)
 
@@ -42,7 +51,7 @@ typedef enum
     AT_BLE,             // Consulta el estado del bluetooth,
     AT_BLE_ON,          // Activa el modulo bluetooth.
     AT_BLE_OFF,         // Desactiva el modulo bluetooth.
-    AT_EVENT_ON,        // Los eventos notifican por el puerto UART. El mas relevante es el de AT+BINQ=1,....
+    AT_EVENT_ON, // Los eventos notifican por el puerto UART. El mas relevante es el de AT+BINQ=1,....
     AT_EVENT_OFF,       // No se notifican los evento.
     AT_BSENDRAW,        // Pasa la impresora a modo transparente.
     AT_REBOOT,          //
@@ -65,7 +74,7 @@ typedef enum
  */
 typedef struct
 {
-    const char command[FM_USART_RX3_BUF_SIZE]; // Nombre del comando AT propio del MXChip.
+    const char *command; // Nombre del comando AT propio del MXChip.
     const at_id_t id;       // ID del comando
     const char *ret;      // Cantidad de retornos de carro en el mensaje de respuesta.
 } at_commad_t;
@@ -109,8 +118,8 @@ static const at_commad_t at_list[] =
 { "AT+STANDBY\r\n", AT_STANDBY, "\r\nOK\r\n" },
 { "AT+BROLE=1\r\n", AT_BROLE_MASTER, "\r\nOK\r\n" },
 { "AT+BROLE=0\r\n", AT_BROLE_SLAVE, "\r\nOK\r\n" },
-{ "AT+BINQ=1,FM-BLE\r\n", AT_BINQ_NAME, "\r\nOK\r\n" },
-{ "AT+BCONN=0\r\n", AT_BCONN_0, "\r\nOK\r\n" },
+{ "AT+BINQ=1,FM-BLE\r\n", AT_BINQ_NAME, "\r\n+BEVENT" },
+{ "AT+BCONN=0\r\n", AT_BCONN_0, "\r\n+BEVENT" },
 { "AT+BLE?\r\n", AT_BLE, "\0" },
 { "AT+BLE=ON\r\n", AT_BLE_ON, "\r\nOK\r\n" },
 { "AT+BLE=OFF\r\n", AT_BLE_OFF, "\r\nOK\r\n" },
@@ -127,10 +136,24 @@ static const at_commad_t at_list[] =
 // Variables extern, las que no estan en .h.
 
 // Private function prototypes.
-fmx_status_t SendAt(at_id_t id, int retry);
+fmx_status_t SendAt(at_id_t id, int retry, UINT wait_ms);
 void FM_HandleLogDeferred(const char *args); // solo declarada, no se usa directamente
 
 // Private function bodies.
+
+int my_cmp(const char *str1, const char *str2)
+{
+    while (*str2)
+    {
+        if (*str1 != *str2)
+        {
+            return 1;
+        }
+        str1++;
+        str2++;
+    }
+    return 0;
+}
 
 // Public function bodies.
 
@@ -174,7 +197,7 @@ void FM_MXC_Mode(fm_mxc_mode_t mode)
     }
 
     // Luego de cambiar de modo le doy algo de tiempo al EMC3080 que estabilice.
-     tx_thread_sleep(100);
+    tx_thread_sleep(100);
 }
 
 /*
@@ -216,7 +239,7 @@ void FM_MXC_PowerOff()
  */
 void FM_MXC_Sleep()
 {
-    SendAt(AT_STANDBY, 1);
+    SendAt(AT_STANDBY, 1, WAIT_250);
 }
 
 /*
@@ -248,41 +271,28 @@ fmx_status_t FM_MXC_ConnectMaster()
     /*
      * Deberia intentar mas de una vez, enviar este comando si responde error.
      */
-    ret_status = SendAt(AT_BROLE_MASTER, 1);
+    ret_status = SendAt(AT_BROLE_MASTER, 1, WAIT_250);
     if (ret_status != FMX_STATUS_OK)
     {
-        FM_DEBUG_LedError(1);
         ret_status = FMX_STATUS_ERROR;
     }
 
     // Scan para descubrir impresora esclavo.
-    ret_status = SendAt(AT_BINQ_NAME, 1);
+    ret_status = SendAt(AT_BINQ_NAME, 1, WAIT_250);
     if (ret_status != FMX_STATUS_OK)
     {
-        FM_DEBUG_LedError(1);
         ret_status = FMX_STATUS_ERROR;
     }
 
-    /*
-     * El escaneo puede tardar algún tiempo, agrego un retardo. Al encontrar la impresora el modulo
-     * EMC-3080, si tiene habilitada la opción, envía por su TX, un mensaje comunicando este
-     * evento. Esperar este evento, en lugar de un retardo fijo como el que se implemento es una
-     */
-    tx_thread_sleep(300);
-
-    ret_status = SendAt(AT_BCONN_0, 1);
+    ret_status = SendAt(AT_BCONN_0, 1, WAIT_250);
     if (ret_status != FMX_STATUS_OK)
     {
-        FM_DEBUG_LedError(1);
         ret_status = FMX_STATUS_ERROR;
     }
 
-    tx_thread_sleep(300);
-
-    ret_status = SendAt(AT_BSENDRAW, 1);
+    ret_status = SendAt(AT_BSENDRAW, 1, WAIT_250);
     if (ret_status != FMX_STATUS_OK)
     {
-        FM_DEBUG_LedError(1);
         ret_status = FMX_STATUS_ERROR;
     }
 
@@ -300,13 +310,13 @@ fmx_status_t FM_MXC_ConnectSlave()
 
     FM_MXC_PowerOn();
 
-    ret_status = SendAt(AT_BROLE_SLAVE, 1);
+    ret_status = SendAt(AT_BROLE_SLAVE, 1, WAIT_250);
     if (ret_status != FMX_STATUS_OK)
     {
         return FMX_STATUS_ERROR;
     }
 
-    ret_status = SendAt(AT_BSENDRAW, 1);
+    ret_status = SendAt(AT_BSENDRAW, 1, WAIT_250);
     if (ret_status != FMX_STATUS_OK)
     {
         return FMX_STATUS_ERROR;
@@ -323,9 +333,10 @@ fmx_status_t FM_MXC_ConnectSlave()
  * @retval  MXC_OK si el MXC responde con OK dentro de los intentos.
  *          MXC_FAIL si no se recibe MCX_OK al agotar los intentos.
  */
-fmx_status_t SendAt(at_id_t id, int retry)
+fmx_status_t SendAt(at_id_t id, int retry, UINT wait_ms)
 {
-    fmx_status_t ret_status = FMX_STATUS_NULL;
+    fmx_status_t fmx_status = FMX_STATUS_NULL;
+    bool matched = FALSE;
 
     /*
      *  EMC-3080 necesita un retardo entre el envío de comandos. Aseguro un retado mínimo en este
@@ -334,40 +345,50 @@ fmx_status_t SendAt(at_id_t id, int retry)
      *  radicar en una debilidad del EMC-3080 en recibir comandos continuamente y procesarlos en una
      *  cola.
      */
-    tx_thread_sleep(10);
+    //tx_thread_sleep(WAIT_25);
 
-    ret_status = FM_USART_Uart3Send(at_list[id].command);
-
-    if (ret_status != TX_SUCCESS)
+    while ((retry > 0) && (!matched))
     {
-        FM_DEBUG_LedError(1);
+
+        FM_USART_Uart3TransmitDma(at_list[id].command, wait_ms);
+
+        if ((id == AT_BINQ_NAME) || (id == AT_BCONN_0))
+        {
+
+            HAL_Delay(WAIT_3000);
+        }
+        else
+        {
+            HAL_Delay(WAIT_250);
+        }
+
+        /*
+         * Comparo solo los primeros caracteres de la respuesta, del mismo largo que la esperada,
+         * porque el EMC-3080 puede enviar eventos adicionales, ejemplo en  AT+BINQ y AT+BCONN.
+         * Aunque se desactiven las notificaciones, el módulo sigue enviándolas. Para evitar falsos
+         * errores por respuestas más largas, solo verifico si el inicio coincide con lo esperado.
+         */
+        if (my_cmp(fm_usart_rx3_buf, at_list[id].ret) == 0)
+        {
+            matched = TRUE;
+        }
+        else
+        {
+            retry--;
+        }
     }
 
-    return ret_status;
-}
-
-/*
- * @brief
- * @param
- * @retval
- *
- */
-void FM_MXC_Print(char *str)
-{
-    static int written;
-    static char ticket[256];
-
-    written = sniprintf(ticket, sizeof(ticket), "%s", str);
-
-    if (written > 0)
+    if (retry)
     {
-        HAL_UART_Transmit_DMA(&huart3, (uint8_t*) ticket, written);
+        fmx_status = FMX_STATUS_OK;
     }
     else
     {
         FM_DEBUG_LedError(1);
+        fmx_status = FMX_STATUS_ERROR;
     }
-    HAL_Delay(1000);
+
+    return fmx_status;
 }
 
 // Interrupts

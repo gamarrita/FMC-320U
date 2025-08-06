@@ -16,6 +16,7 @@
 #include "stdio.h"
 #include "main.h"
 #include "fm_rtc.h"
+#include "fm_usart.h"
 
 // Defines.
 #define RIGHT_LEN 18 // Cantidad de columnas de la impresora
@@ -43,7 +44,7 @@ typedef struct
 
 // Global variables, statics.
 ticket_data_t ticket;
-char page_buffer[240];
+char page_buffer[FM_USART_TX3_BUF_SIZE];
 
 // Private function prototypes.
 
@@ -94,8 +95,8 @@ void FM_PPT_PrintTicket()
 
     snprintf(page_buffer + strlen(page_buffer), MAX_FIELD_LEN, "\n\n\n");
 
-    FM_MXC_Print(page_buffer);
-
+    FM_USART_Uart3TransmitDma(page_buffer, 0);
+    HAL_Delay(1000);
 }
 
 // Interrupts

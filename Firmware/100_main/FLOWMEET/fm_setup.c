@@ -561,11 +561,7 @@ ufp3_t MenuSetupFactorCalEdit(menu_mode_t mode)
 
     if (FM_LCD_LL_BlinkRefresh(0))
     {
-        global_menu_refresh = 15;
-    }
-    else
-    {
-        global_menu_refresh = 100;
+        global_menu_refresh = 150;
     }
 
     return factor_cal;
@@ -647,13 +643,8 @@ void MenuSetupVolUnitEdit(menu_mode_t mode)
 
     if (FM_LCD_LL_BlinkRefresh(0))
     {
-        global_menu_refresh = 15;
+        global_menu_refresh = 150;
     }
-    else
-    {
-        global_menu_refresh = 100;
-    }
-
 }
 
 /*
@@ -760,11 +751,7 @@ void MenuSetupTimeUnitEdit(menu_mode_t mode)
 
     if (FM_LCD_LL_BlinkRefresh(0))
     {
-        global_menu_refresh = 15;
-    }
-    else
-    {
-        global_menu_refresh = 100;
+        global_menu_refresh = 150;
     }
 
 }
@@ -871,11 +858,7 @@ void MenuSetupDateEdit(menu_mode_t sel)
 
     if (FM_LCD_LL_BlinkRefresh(0))
     {
-        global_menu_refresh = 15;
-    }
-    else
-    {
-        global_menu_refresh = 100;
+        global_menu_refresh = 150;
     }
 }
 
