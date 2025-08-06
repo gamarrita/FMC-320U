@@ -1,14 +1,45 @@
-# Changelog
+# Registro de cambios en el firmware del computador FM-320U
 
-Se registra los cmbios para el firmware, y cambios  que  no 
+## [01.01.010-B0+2] Beta
+(guardo cambios para poder hacer checkout de otras versiones, quiero probar impresion de versiones anteriores)
 
-## [UNVERSIONED]
+### Docs
+ - Modifico Documentos de carpeta administracion.
+
+### Chore
+
+### Added
+- Agrego pantalla de bluetooth para descarga de datos, aun no es funcional.
+
+### Fixed
+- Se cambian el tipo de timer del ThreadX usado para evitar rebotes de pulsadores externos.
+
+### Refactory
+- Pasor UART3 de trabajar con ISR a DMA
+- Elimino el uso de multiples tiempos en sleep para mejorar el consumo. Luego se usara tecnica mas limpia.
+- Se crea el modulo fm_usart.c, mejora la claridad de codigo en fm_mxc.
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
+TESTEO 0x2FB396C8
+TESTEO 0x2FB39787
+TESTEO 0x2FB397FE
+TESTEO 0x2FB397FE
+TESTEO 0x2FB398FC
+
+---------------------------------------------------------------------------------------------------
+
+## [01.01.009] 2025-06-07
 
 ### Notas
 
 ### Added
 
 ### Fixed
+- Punto decimal no se borraba.
 
 ### Changed
 
@@ -18,7 +49,51 @@ Se registra los cmbios para el firmware, y cambios  que  no
 
 ### Testeos completados
 
+---------------------------------------------------------------------------------------------------
 
+## [01.01.009-B3] 2025-05-27
+
+### Notas
+
+### Added
+
+### Fixed
+- No permitia ajustar el factor a su valor minimo.
+-
+
+### Changed
+
+### Removed
+
+### Datos de consumo
+
+### Testeos completados
+
+---------------------------------------------------------------------------------------------------
+
+## [01.01.009-B2] 2025-05-27
+
+### Notas
+
+### Added
+Carpeta con documentos de produccion
+
+### Fixed
+- Error de cambio de pantalla a ingresar al menu setup
+
+### Changed
+- Se programa un refresco a 200ms si un caracter programado a parpadear esta apagado.
+- Se cambia orden de lectura del RTC, HAL_RTC_GetTime luego date, parece solucionar el promela de edicion de la fecha y hora del computador.
+- Cambia la manera en que procesa el segmento '.' en los caracteres de 8 segmentos
+
+### Removed
+- Archivo de como usar CHANGELOG_RULES.md, informacion duplicada con esta.
+
+### Datos de consumo
+
+### Testeos completados
+
+---------------------------------------------------------------------------------------------------
 
 ## [01.01.009-B0] 2025-05-11
 
@@ -63,18 +138,17 @@ Consumo 43uA, condiciones:
 0x2FB398FC - OK
 0x2FB40A04 - OK
 
+---------------------------------------------------------------------------------------------------
 
-# Tempate
+## [UNVERSIONEDED]
 
-## [UNVERSIONED]
-
-### Notas
+### Chore
 
 ### Added
 
 ### Fixed
 
-### Changed
+### Refoctory
 
 ### Removed
 

@@ -163,7 +163,7 @@ void HAL_LPTIM_MspInit(LPTIM_HandleTypeDef* lptimHandle)
     __HAL_RCC_LPTIM1_CLK_ENABLE();
 
     /* LPTIM1 interrupt Init */
-    HAL_NVIC_SetPriority(LPTIM1_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(LPTIM1_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(LPTIM1_IRQn);
   /* USER CODE BEGIN LPTIM1_MspInit 1 */
 
@@ -199,7 +199,7 @@ void HAL_LPTIM_MspInit(LPTIM_HandleTypeDef* lptimHandle)
     HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
     /* LPTIM3 interrupt Init */
-    HAL_NVIC_SetPriority(LPTIM3_IRQn, 0, 0);
+    HAL_NVIC_SetPriority(LPTIM3_IRQn, 5, 0);
     HAL_NVIC_EnableIRQ(LPTIM3_IRQn);
   /* USER CODE BEGIN LPTIM3_MspInit 1 */
 

@@ -58,6 +58,8 @@ void EXTI10_IRQHandler(void);
 void EXTI11_IRQHandler(void);
 void EXTI12_IRQHandler(void);
 void EXTI13_IRQHandler(void);
+void GPDMA1_Channel0_IRQHandler(void);
+void GPDMA1_Channel1_IRQHandler(void);
 void TIM6_IRQHandler(void);
 void USART3_IRQHandler(void);
 void LPTIM1_IRQHandler(void);

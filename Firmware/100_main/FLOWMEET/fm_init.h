@@ -19,7 +19,8 @@
 // Defines.
 
 // Function prototypes
-void FM_INIT_Init();
+void
+FM_INIT_Init();
 
 #endif /* MODULE_H */
 

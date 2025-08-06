@@ -20,7 +20,8 @@
 // Defines.
 
 // Function prototypes
-uint8_t FM_SETUP_MenuNav(fmx_events_t new_event);
+uint8_t
+FM_SETUP_MenuNav(fmx_events_t new_event);
 
 #endif /* MODULE_H */
 

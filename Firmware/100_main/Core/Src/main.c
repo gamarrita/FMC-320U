@@ -20,9 +20,9 @@
 #include "app_threadx.h"
 #include "main.h"
 #include "flash.h"
+#include "gpdma.h"
 #include "icache.h"
 #include "lptim.h"
-#include "memorymap.h"
 #include "rtc.h"
 #include "spi.h"
 #include "usart.h"
@@ -103,6 +103,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_GPDMA1_Init();
   MX_SPI1_Init();
   MX_ICACHE_Init();
   MX_LPTIM1_Init();
@@ -110,10 +111,9 @@ int main(void)
   MX_RTC_Init();
   MX_USART1_UART_Init();
   MX_FLASH_Init();
-  MX_LPTIM3_Init();
   MX_USART3_UART_Init();
+  MX_LPTIM3_Init();
   /* USER CODE BEGIN 2 */
-  // Se resetea el PCF8553
   FM_INIT_Init();
 
   HAL_GPIO_WritePin(MXC_ENABLE_GPIO_Port, MXC_ENABLE_Pin, GPIO_PIN_SET);
@@ -216,7 +216,7 @@ static void SystemPower_Config(void)
 
  /* MPU Configuration */
 
-void MPU_Config(void)
+static void MPU_Config(void)
 {
   MPU_Region_InitTypeDef MPU_InitStruct = {0};
   MPU_Attributes_InitTypeDef MPU_AttributesInit = {0};
@@ -321,8 +321,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
