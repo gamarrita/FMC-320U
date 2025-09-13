@@ -11,19 +11,38 @@ Este archivo documenta los procedimiento para hacer commits en el proyecto FMC-3
 
 Utilizá los siguientes prefijos para indicar el propósito de cada rama:
 
-| Prefijo       | Propósito                                             | Ejemplo                        |
-|---------------|-------------------------------------------------------|--------------------------------|
-| `main`        | Código estable listo para producción                  | -                              |
-| `develop`     | Integración de funcionalidades antes de la liberación | -                              |
-| `feature/`    | Desarrollo de nuevas funcionalidades                  | `feature/eco-mode`             |
-| `bugfix/`     | Corrección de errores menores                         | `bugfix/led-flicker`           |
-| `hotfix/`     | Corrección urgente en producción                      | `hotfix/fix-reboot-issue`      |
-| `refactor/`   | Reestructuración del código sin cambiar funcionalidades | `refactor/init-logic`        |
-| `test/`       | Pruebas o experimentos                                | `test/lptim3-capture`          |
-| `release/`    | Preparación de una versión para liberación            | `release/1.1.9-beta`           |
+| Prefijo     | Propósito                                  | Ejemplo de nombre de rama     |
+| ----------- | ------------------------------------------ | ----------------------------- |
+| `feat/`     | Nueva funcionalidad                        | `feat/logger-flash`           |
+| `fix/`      | Corrección de bug no crítico               | `fix/uart3-idle-dma`          |
+| `hotfix/`   | Corrección urgente en producción           | `hotfix/boot-crash`           |
+| `refactor/` | Reestructuración sin cambiar funcionalidad | `refactor/boot-init-order`    |
+| `perf/`     | Optimización de performance / consumo      | `perf/stop2-batch-flush`      |
+| `test/`     | Código de pruebas / experimentos           | `test/logger-powerloss`       |
+| `docs/`     | Documentación, requerimientos, specs       | `docs/rfc-001-logging-policy` |
+| `release/`  | Preparación de una versión                 | `release/1.1.9`               |
+| `ci/`       | Cambios en CI/CD                           | `ci/werror-static-analysis`   |
+| `build/`    | Configuración de build / toolchain         | `build/linker-noinit`         |
+
 
 
 ## Convencion nombres de commits:
+
+[DOMINIO] type(scope): mensaje en imperativo
+
+DOMINIO (corchetes): 
+- [FIRMWARE]
+- [HARDWARE]
+- [DOCS]
+- [CI]
+- [BUILD]
+- [TEST]
+- [MECHANICAL]
+- [SECURITY]
+- [TOOLING]
+- [RELEASE]
+
+Type:
 - `feat`: Nueva funcionalidad
 - `fix`: Corrección de errores
 - `refactor`: Reestructuración del código
@@ -31,12 +50,26 @@ Utilizá los siguientes prefijos para indicar el propósito de cada rama:
 - `docs`: Cambios en la documentación
 - `chore`: Tareas menores o mantenimiento
 
+Scope (un módulo/subsistema concreto):
+- logger
+- uart3
+- boot
+- pcb
+- spec
+
 ## Etiquetas antes del commit:
-- Usar [FIRMWARE]       como etiqueta en titulo de commit para firmware
-- Usar [HARWARE]        como etiqueta en titulo de commit para harware
-- Usar [ADMINISTRACION] como etiqueta en titulo de commit para administracion
-- Usar [BIBLIOTECA]     ...
-- Usar [GLOBAL]         como etiqueta de commit de cambio en multiples carpetas
+
+| Ejemplo de commit                                                          | Cuándo usar                     |
+| -------------------------------------------------------------------------- | ------------------------------- |
+| `[FIRMWARE] feat(logger): add RAM buffer + block-flush policy`             | Nueva funcionalidad en firmware |
+| `[FIRMWARE] fix(uart3): handle IDLE + DMA circular to prevent stalls`      | Corrección de bug               |
+| `[FIRMWARE] perf(power): reduce STOP2 wakeups by batching flushes`         | Optimización de consumo         |
+| `[FIRMWARE] refactor(boot): split init into early/late to simplify MXC`    | Refactor sin cambio funcional   |
+| `[DOCS] docs(spec): RFC-001 logging policy (record layout + triggers)`     | Documentación o requerimientos  |
+| `[HARDWARE] fix(bom): change flash to 100k cycles part per endurance calc` | Cambios en BoM/hardware         |
+| `[CI] ci(build): enable -Werror and add static analysis`                   | Ajustes en CI/CD                |
+| `[RELEASE] chore(version): bump to v1.1.9-beta.1`                          | Cambio de versión / release     |
+
 
 
 ## Situaciones comunes donde se necesita un nuevo commit, procedimientos:
