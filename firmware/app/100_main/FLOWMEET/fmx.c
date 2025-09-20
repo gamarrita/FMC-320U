@@ -2,10 +2,10 @@
  * @file fmx.c
  * @brief FMX main runtime and event orchestration.
  *
- * Administra recursos de ThreadX, la cola de eventos y el estado de flujo
- * para la aplicacion FLOWMEET.
+ * Manages ThreadX resources, the event queue, and the flow state
+ * for the FLOWMEET application.
  * @details
- * Consolida la gestion de contingencias, la trazabilidad REQ-FMX-INIT-001 y la coordinacion con timers ThreadX.
+ * Consolidates contingency handling, REQ-FMX-INIT-001 traceability, and coordination with ThreadX timers.
  */
 
 // --- Includes ---
@@ -24,7 +24,7 @@
 #include "tx_api.h"
 
 // --- Defines ---
-// Temporizadores y limites filtran rebotes, cumplen REQ-FMX-TIMER-001 y se alinean con tasas ThreadX.
+// Timers and limits filter bounce, enforce REQ-FMX-TIMER-001, and align with ThreadX rates.
 #define TRUE                  (1u)
 #define FALSE                 (0u)
 #define QUEUE_EVENT_SIZE      (4u)
@@ -34,11 +34,11 @@
 #define FMX_DEBUG_LOCAL
 
 // --- Globals ---
-// Contador global mantiene vivo el refresco de UI aun si se pierden eventos.
+// Global counter keeps the UI refresh alive even when events are lost.
 ULONG global_menu_refresh = 0;
 
 // --- Static Data ---
-// Estado privado coordina ISR, timers ThreadX y aislamiento de rebotes.
+// Private state coordinates ISRs, ThreadX timers, and debounce isolation.
 static uint8_t key_ext_debouce_flag = 0;
 static fmx_rate_status_t rate_status = FMX_RATE_OFF;
 static uint8_t pulse_in_active;
@@ -54,9 +54,9 @@ static uint16_t vol_pulse_old = 0;
 static uint16_t vol_pulse_new = 0;
 static uint16_t vol_pulse_delta;
 static TX_QUEUE event_queue;
-// Buffer dimensionado en ULONG mantiene conversiones claras y latencia estable.
+// Buffer sized in ULONG keeps conversions straightforward and latency stable.
 static uint32_t queue_storage_event[QUEUE_EVENT_SIZE];
-// Semaphore gestiona el traspaso entre ISR y tarea BT sin espera activa.
+// Semaphore handles the hand-off between the ISR and the BT task without busy waiting.
 static TX_SEMAPHORE bluetooth_slave_semaphore;
 static TX_THREAD main_thread;
 static TX_TIMER key_long_timer;
@@ -69,25 +69,25 @@ uint8_t key_enter_skip_next = FALSE;
 uint8_t key_esc_skip_next = FALSE;
 
 // --- Static Prototypes ---
-// Normaliza contadores de flujo antes de actualizar la GUI.
+// Normalizes flow counters before updating the GUI.
 static void PulseUpdate(void);
-// Temporizador de backlight evita parpadeos perceptibles.
+// Backlight timer prevents noticeable flicker.
 static void TimerEntryBackLightOff(ULONG timer_key);
-// Temporizador de debounce cumple REQ-FMX-DEBOUNCE-003.
+// Debounce timer satisfies REQ-FMX-DEBOUNCE-003.
 static void TimerEntryDebunce(ULONG timer_key);
-// Temporizador de pulsacion larga evita bloquear otras tareas.
+// Long-press timer prevents blocking other tasks.
 static void TimerEntryKeyThreeSeconds(ULONG timer_key);
-// Hilo principal coordina estado de flujo y colas ThreadX.
+// Main thread coordinates flow state and ThreadX queues.
 static void ThreadEntryMain(ULONG thread_input);
 
 // --- Public API ---
 
 /**
  * @brief Initialize FMX core tasks and queues.
- * @param memory_ptr Byte pool provisto por ThreadX startup.
- * @return TX_SUCCESS o codigo de error retornado por ThreadX.
+ * @param memory_ptr Byte pool provided by the ThreadX startup.
+ * @return TX_SUCCESS or a ThreadX error code.
  * @details
- * Verifica cada asignacion, establece recursos deterministas y fuerza fail-safe ante errores.
+ * Verifies each allocation, establishes deterministic resources, and forces a fail-safe on errors.
  */
 UINT FMX_Init(VOID *memory_ptr)
 {
@@ -95,9 +95,9 @@ UINT FMX_Init(VOID *memory_ptr)
     CHAR *pointer;
     TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*) memory_ptr;
 
-    // Verifica memoria dinamica antes de crear hilos.
+    // Check dynamic memory before creating threads.
     ret_status = tx_byte_allocate(byte_pool, (VOID**)&pointer, FMX_STACK_SIZE, TX_NO_WAIT);
-    // Ante un error grave se fuerza fail-safe inmediato.
+    // On a critical error, force an immediate fail-safe.
     if (ret_status != TX_SUCCESS) {
         __disable_irq();
         FM_DEBUG_LedError(1);
@@ -167,9 +167,9 @@ UINT FMX_Init(VOID *memory_ptr)
 }
 
 /**
- * @brief Fuerza la retroiluminacion del LCD mientras hay interaccion.
+ * @brief Forces the LCD backlight on while there is interaction.
  * @details
- * Mantiene la retroiluminacion activa reprogramando el timer del backlight para evitar flicker.
+ * Keeps the backlight active by reprogramming the backlight timer to avoid flicker.
  */
 void FMX_LcdBackLightOn(void)
 {
@@ -180,8 +180,8 @@ void FMX_LcdBackLightOn(void)
 }
 
 /**
- * @brief Devuelve el estado actual de la maquina de flujo.
- * @return Valor de @ref fmx_rate_status_t para reportes y UI.
+ * @brief Returns the current state of the flow state machine.
+ * @return @ref fmx_rate_status_t value used for reporting and UI.
  * @details
  */
 fmx_rate_status_t FMX_GetRateStatus(void)
@@ -190,9 +190,9 @@ fmx_rate_status_t FMX_GetRateStatus(void)
 }
 
 /**
- * @brief Garantiza la presencia de un evento de refresco en la cola.
+ * @brief Ensures the presence of a refresh event in the queue.
  * @details
- * Mantiene al menos un evento de refresco para cumplir REQ-FMX-GUI-002 y evitar starvation.
+ * Maintains at least one refresh event to meet REQ-FMX-GUI-002 and avoid starvation.
  */
 void FMX_RefreshEventTrue(void)
 {
@@ -204,9 +204,9 @@ void FMX_RefreshEventTrue(void)
 }
 
 /**
- * @brief Despierta el hilo que maneja la conexion Bluetooth esclavo.
+ * @brief Wakes the thread that handles the Bluetooth slave connection.
  * @details
- * Utiliza un semaphore para despertar al hilo Bluetooth sin incurrir en polling.
+ * Uses a semaphore to wake the Bluetooth thread without polling.
  */
 void FMX_Trigger_BluetoothSlave(void)
 {
