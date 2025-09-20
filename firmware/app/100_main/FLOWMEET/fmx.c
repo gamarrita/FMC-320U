@@ -1,9 +1,11 @@
-/*
- * fmx.c
- * Main firmware module for RTOS and event management
- * Author: Daniel H Sagarra
+/**
+ * @file fmx.c
+ * @brief FMX main runtime and event orchestration.
  *
- * This module initializes and manages the main RTOS resources, event queue, and flow state.
+ * Administra recursos de ThreadX, la cola de eventos y el estado de flujo
+ * para la aplicacion FLOWMEET.
+ * @details
+ * Consolida la gestion de contingencias, la trazabilidad REQ-FMX-INIT-001 y la coordinacion con timers ThreadX.
  */
 
 // --- Includes ---
@@ -21,19 +23,22 @@
 #include "fm_usart.h"
 #include "tx_api.h"
 
-// --- Module Defines ---
-#define TRUE  1
-#define FALSE 0
-#define QUEUE_EVENT_SIZE (4 * 1)
-#define TIMER_BACKLIGHT_INIT   1000
-#define TIMER_BACKLIGHT_GUI     500
-#define TIMER_EXTI_DEBUNCE      25
+// --- Defines ---
+// Temporizadores y limites filtran rebotes, cumplen REQ-FMX-TIMER-001 y se alinean con tasas ThreadX.
+#define TRUE                  (1u)
+#define FALSE                 (0u)
+#define QUEUE_EVENT_SIZE      (4u)
+#define TIMER_BACKLIGHT_INIT  (1000u)
+#define TIMER_BACKLIGHT_GUI   (500u)
+#define TIMER_EXTI_DEBOUNCE   (25u)
 #define FMX_DEBUG_LOCAL
 
-// --- Global Variables (public, if any) ---
+// --- Globals ---
+// Contador global mantiene vivo el refresco de UI aun si se pierden eventos.
 ULONG global_menu_refresh = 0;
 
-// --- Static Variables (private state, RTOS objects) ---
+// --- Static Data ---
+// Estado privado coordina ISR, timers ThreadX y aislamiento de rebotes.
 static uint8_t key_ext_debouce_flag = 0;
 static fmx_rate_status_t rate_status = FMX_RATE_OFF;
 static uint8_t pulse_in_active;
@@ -49,7 +54,9 @@ static uint16_t vol_pulse_old = 0;
 static uint16_t vol_pulse_new = 0;
 static uint16_t vol_pulse_delta;
 static TX_QUEUE event_queue;
+// Buffer dimensionado en ULONG mantiene conversiones claras y latencia estable.
 static uint32_t queue_storage_event[QUEUE_EVENT_SIZE];
+// Semaphore gestiona el traspaso entre ISR y tarea BT sin espera activa.
 static TX_SEMAPHORE bluetooth_slave_semaphore;
 static TX_THREAD main_thread;
 static TX_TIMER key_long_timer;
@@ -61,17 +68,26 @@ uint8_t key_down_skip_next = FALSE;
 uint8_t key_enter_skip_next = FALSE;
 uint8_t key_esc_skip_next = FALSE;
 
-// --- Private Function Prototypes ---
+// --- Static Prototypes ---
+// Normaliza contadores de flujo antes de actualizar la GUI.
 static void PulseUpdate(void);
+// Temporizador de backlight evita parpadeos perceptibles.
 static void TimerEntryBackLightOff(ULONG timer_key);
+// Temporizador de debounce cumple REQ-FMX-DEBOUNCE-003.
 static void TimerEntryDebunce(ULONG timer_key);
+// Temporizador de pulsacion larga evita bloquear otras tareas.
 static void TimerEntryKeyThreeSeconds(ULONG timer_key);
+// Hilo principal coordina estado de flujo y colas ThreadX.
 static void ThreadEntryMain(ULONG thread_input);
 
-// --- Public API Implementations ---
+// --- Public API ---
 
 /**
- * @brief Initialize the FMX module and its RTOS resources.
+ * @brief Initialize FMX core tasks and queues.
+ * @param memory_ptr Byte pool provisto por ThreadX startup.
+ * @return TX_SUCCESS o codigo de error retornado por ThreadX.
+ * @details
+ * Verifica cada asignacion, establece recursos deterministas y fuerza fail-safe ante errores.
  */
 UINT FMX_Init(VOID *memory_ptr)
 {
@@ -79,7 +95,9 @@ UINT FMX_Init(VOID *memory_ptr)
     CHAR *pointer;
     TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*) memory_ptr;
 
+    // Verifica memoria dinamica antes de crear hilos.
     ret_status = tx_byte_allocate(byte_pool, (VOID**)&pointer, FMX_STACK_SIZE, TX_NO_WAIT);
+    // Ante un error grave se fuerza fail-safe inmediato.
     if (ret_status != TX_SUCCESS) {
         __disable_irq();
         FM_DEBUG_LedError(1);
@@ -118,7 +136,7 @@ UINT FMX_Init(VOID *memory_ptr)
     }
 
     ret_status = tx_timer_create(&debunde_timer, "DEBUNCE_TIMER", TimerEntryDebunce, 0x1234,
-                                 TIMER_EXTI_DEBUNCE, TIMER_EXTI_DEBUNCE, TX_NO_ACTIVATE);
+                                 TIMER_EXTI_DEBOUNCE, TIMER_EXTI_DEBOUNCE, TX_NO_ACTIVATE);
     if (ret_status != TX_SUCCESS) {
         FM_DEBUG_LedError(1);
         return TX_TIMER_ERROR;
@@ -149,7 +167,9 @@ UINT FMX_Init(VOID *memory_ptr)
 }
 
 /**
- * @brief Turn on the LCD backlight and reset its timer.
+ * @brief Fuerza la retroiluminacion del LCD mientras hay interaccion.
+ * @details
+ * Mantiene la retroiluminacion activa reprogramando el timer del backlight para evitar flicker.
  */
 void FMX_LcdBackLightOn(void)
 {
@@ -160,7 +180,9 @@ void FMX_LcdBackLightOn(void)
 }
 
 /**
- * @brief Get the current flow rate state.
+ * @brief Devuelve el estado actual de la maquina de flujo.
+ * @return Valor de @ref fmx_rate_status_t para reportes y UI.
+ * @details
  */
 fmx_rate_status_t FMX_GetRateStatus(void)
 {
@@ -168,7 +190,9 @@ fmx_rate_status_t FMX_GetRateStatus(void)
 }
 
 /**
- * @brief Ensure a menu refresh event is present in the event queue.
+ * @brief Garantiza la presencia de un evento de refresco en la cola.
+ * @details
+ * Mantiene al menos un evento de refresco para cumplir REQ-FMX-GUI-002 y evitar starvation.
  */
 void FMX_RefreshEventTrue(void)
 {
@@ -180,7 +204,9 @@ void FMX_RefreshEventTrue(void)
 }
 
 /**
- * @brief Trigger the Bluetooth slave connection process.
+ * @brief Despierta el hilo que maneja la conexion Bluetooth esclavo.
+ * @details
+ * Utiliza un semaphore para despertar al hilo Bluetooth sin incurrir en polling.
  */
 void FMX_Trigger_BluetoothSlave(void)
 {
@@ -356,7 +382,7 @@ static void ThreadEntryMain(ULONG thread_input)
     }
 }
 
-// --- Interrupt Service Routines (ISRs) ---
+// --- Interrupts ---
 
 /**
  * @brief EXTI falling edge callback for key/button events.
@@ -462,4 +488,12 @@ void HAL_LPTIM_IC_CaptureCallback(LPTIM_HandleTypeDef *hlptim)
     __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_CC1);
 }
 
-/*** end of file ***/
+/*** END OF FILE ***/
+
+
+
+
+
+
+
+

@@ -1,149 +1,106 @@
-/*
- * @brief Este modulo contiene:
- * 		- Valores de configuración para sensores primarios muy usados. Una funcion para recuperarlos.
- * 		- Version del firmware
- *
- * Version 1
- * Autor: Daniel H Sagarra
- * Fecha: 10/11/2024
- * Modificaciones: version inicial.
- *
+/**
+ * @file fm_factory.c
+ * @brief Factory presets and firmware identification helpers.
  */
 
-// Includes.
 #include "fm_factory.h"
-#include "fm_fmc.h"
 
-// Typedef.
+// --- Factory constants ---
 
-// Const data.
-const char msg_version_firmware[] = "01.01.010";  // Version.Revision.Release
-const char msg_release[] = "B0";  // Version.Revision.Release
+static const char k_firmware_version[] = "01.01.010"; // Major.Minor.Patch
+static const char k_release_tag[]      = "B0";
 
-/*
- *  Esta constante se usa en dos situaciones:
- *  - La primera vez que se ejecuta el código, luego de ser programada la flash.
- *  - Si desde la configuración se quieren recuperar los valores de fabrica.
- *
- *  Si el micro controlador perdiera su alimentación, el valor que es el que recupera,
- *  se usara otro valor en flash, donde se guardo la ultima configuración del equipo
+// Generic configuration for sensors without prior calibration.
+static const fm_fmc_totalizer_t k_sensor_0 = {
+    .pulse_acm        = 0,
+    .pulse_ttl        = 0,
+    .vol_pf_sel       = 0,
+    .factor_k         = 1.000,
+    .factor_cal       = 1000,
+    .vol_unit         = VOL_UNIT_LT,
+    .time_unit        = TIME_UNIT_SECOND,
+    .rate.factor_r    = 1000,
+    .rate.rate_pf_sel = 0,
+    .rate.limit_high  = 1500000, // 1500 Hz
+    .rate.limit_low   = 250,     // 0.1 Hz
+    .rate.delta_t     = 1000,
+    .rate.filter      = 1,
+    .ticket_number    = 0,
+};
+
+// Reference values for an axial AI DN25 sensor.
+static const fm_fmc_totalizer_t k_sensor_ai_25 = {
+    .pulse_acm        = 0,
+    .pulse_ttl        = 0,
+    .vol_pf_sel       = 3,
+    .factor_k         = 123.456f,
+    .factor_cal       = 123456,
+    .vol_unit         = VOL_UNIT_LT,
+    .time_unit        = TIME_UNIT_SECOND,
+    .rate.factor_r    = 1000,
+    .rate.rate_pf_sel = 3,
+    .rate.limit_high  = 1500000,
+    .rate.limit_low   = 250,
+    .rate.delta_t     = 1000,
+    .rate.filter      = 1,
+    .ticket_number    = 0,
+};
+
+// Reference values for an axial AI DN80 sensor.
+static const fm_fmc_totalizer_t k_sensor_ai_80 = {
+    .pulse_acm        = 0,
+    .pulse_ttl        = 0,
+    .vol_pf_sel       = 3,
+    .factor_k         = 23408.0f,
+    .factor_cal       = 1000,
+    .vol_unit         = VOL_UNIT_M3,
+    .time_unit        = TIME_UNIT_SECOND,
+    .rate.factor_r    = 1000,
+    .rate.rate_pf_sel = 3,
+    .rate.limit_high  = 1500000,
+    .rate.limit_low   = 250,
+    .rate.delta_t     = 1000,
+    .rate.filter      = 1,
+    .ticket_number    = 0,
+};
+
+// --- API ---
+
+/**
+ * Returns the firmware version string (major.minor.patch).
  */
-const fm_fmc_totalizer_t sensor_0 =
-{ .pulse_acm = 0, //
-        .pulse_ttl = 0, //
-        .vol_pf_sel = 0, //
-        .factor_k = 1.000, //
-        .factor_cal = 1000, //
-        .vol_unit = VOL_UNIT_LT, //
-        .time_unit = TIME_UNIT_SECOND, //
-        .rate.factor_r = 1000, //
-        .rate.rate_pf_sel = 0, .rate.limit_high = 1500000, // frecuencia máxima 1500Hz
-        .rate.limit_low = 250,  // frecuencia minima 0,1 Hz
-        .rate.delta_t = 1000,  // filtro un segundo
-        .rate.filter = 1,  // filtro un segundo
-        .ticket_number = 0, };
-
-// Valor típicos para un sensor Serie AI DN25, turbina axial diámetro interno 1" paso total.
-const fm_fmc_totalizer_t sensor_ai_25 =
-{ .pulse_acm = 0, //
-        .pulse_ttl = 0, //
-        .vol_pf_sel = 3, .factor_k = 123.456,    // factor 123.456
-        .factor_cal = 123456,   // Hay
-        .vol_unit = VOL_UNIT_LT,  //
-        .time_unit = TIME_UNIT_SECOND, //
-        .rate.factor_r = 1000, .rate.rate_pf_sel = 3, .rate.limit_high = 1500000, // frecuencia máxima 1500Hz
-        .rate.limit_low = 250,  // frecuencia minima 0,1 Hz
-        .rate.delta_t = 1000,  // filtro un segundo
-        .rate.filter = 1,  // filtro un segundo
-        .ticket_number = 0, };
-
-// Valor típicos para un sensor Serie AI DN80, turbina axial diámetro interno 3" paso total.
-const fm_fmc_totalizer_t sensor_ai_80 =
-{ .pulse_acm = 0, .pulse_ttl = 0, .vol_pf_sel = 3,
-        .factor_k = 23408, // factor 123.456
-        .factor_cal = 1000,  // Hay
-        .vol_unit = VOL_UNIT_M3, .time_unit = TIME_UNIT_SECOND, .rate.factor_r = 1000,
-        .rate.rate_pf_sel = 3, .rate.limit_high = 1500000, // frecuencia máxima 1500Hz
-        .rate.limit_low = 250,  // frecuencia minima 0,1 Hz
-        .rate.delta_t = 1000,  // filtro un segundo
-        .rate.filter = 1,  // filtro un segundo
-        .ticket_number = 0, };
-
-// Defines.
-
-//Debug.
-
-// Project variables, non-static, at least used in other file.
-
-// External variables.
-
-// Global variables, statics.
-
-// Private function prototypes.
-
-// Private function bodies.
-
-// Public function bodies.
-
-/*
- * @brief
- * @Note
- * @param
- * @ret
- */
-const char*
-FM_FACTORY_FirmwareVersionGet(void)
+const char *FM_FACTORY_FirmwareVersionGet(void)
 {
-    return msg_version_firmware;
+    return k_firmware_version;
 }
 
-/*
- * @brief
- * @Note
- * @param
- * @ret
+/**
+ * Returns the release tag used to identify official builds.
  */
-const char*
-FM_FACTORY_ReleaseGet(void)
+const char *FM_FACTORY_ReleaseGet(void)
 {
-    return msg_release;
+    return k_release_tag;
 }
 
-/*
- * brief    Devuelve los valores de fabrica para un sensor estándar.
- * note     En este mismo archivo se tienen valores típicos para varios sensores primarios, esto permite
- *          poder hacer pruebas con valores típicos que serian usados en la vida real del caudalímetro. sin
- *          Que luego de grabar la flash se tengan valores reales es util durante la etapa de desarrollo.
- * param    sel, modelo de sensor elegido como valores iniciales de configuración.
- * ret      Configuración inicial.
+/**
+ * Retrieves a factory configuration for the requested totalizer.
+ * @param sel Sensor identifier or data source to load.
+ * @return Copy of the requested base configuration.
  */
 fm_fmc_totalizer_t FM_FACTORY_TotalizerGet(sensors_list_t sel)
 {
-    fm_fmc_totalizer_t totalizer;
-
-    switch (sel)
-    {
+    switch (sel) {
     case FM_FACTORY_RAM_BACKUP:
-        totalizer = FM_FMC_GetEnviroment();
-        break;
     case FM_FACTORY_LAST_SETUP:
-        totalizer = FM_FMC_GetEnviroment();
-        break;
+        return FM_FMC_GetEnviroment();
     case FM_FACTORY_SENSOR_0:
-        totalizer = sensor_0;
-        break;
+        return k_sensor_0;
     case FM_FACTORY_AI_25:
-        totalizer = sensor_ai_25;
-        break;
+        return k_sensor_ai_25;
     case FM_FACTORY_AI_80:
-        totalizer = sensor_ai_80;
-        break;
+        return k_sensor_ai_80;
     default:
-        break;
+        return k_sensor_0;
     }
-    return totalizer;
 }
 
-// Interrupts
-
-/*** end of file ***/

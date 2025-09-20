@@ -1,168 +1,156 @@
-/*
- * Descripcion
+/**
+ * @file fm_cmd.c
+ * @brief FM+ command processor implementation.
  *
- * Autor:
- * Fecha: 
+ * A dedicated ThreadX task receives complete FM+ lines from UART3, matches
+ * them against the command table and executes the corresponding response.
  */
 
-// Includes.
 #include "fm_cmd.h"
 #include <string.h>
 #include <stdio.h>
 
-// Sección define sin dependencia.
-#define UART3_TX_BUFFER_SIZE 32
+// --- Internal constants ---
 
-// Sección enum y typedef sin dependencia.
+#define UART3_TX_BUFFER_SIZE   (32u)
+#define NUM_COMMANDS           (sizeof(fm_commands) / sizeof(fm_commands[0]))
 
-// Debug.
+// --- Internal state ---
 
-// Variables non-static, primero las tipo const.
+static int temperature = 25; ///< Simulated temperature reading.
 
-// Variables statics, primero las tipo const.
-static int temperature = 25; ///< Valor simulado
-static const fm_cmd_entry_t fm_commands[] =
-{
-{ "FM+VERSION?", FM_CMD_TYPE_LITERAL, .response.literal = "FMC-320U" },
-{ "FM+TEMP?", FM_CMD_TYPE_HANDLER, .response.handler = FM_CMD_HandleTemp },
-{ "FM+LOG_ALL?", FM_CMD_TYPE_DEFERRED, .response.handler = FM_CMD_HandleLogAll },
-{ "FM+COUNT?", FM_CMD_TYPE_HANDLER, .response.handler = FM_CMD_HandleCount }, };
+static const fm_cmd_entry_t fm_commands[] = {
+    { "FM+VERSION?",  FM_CMD_TYPE_LITERAL,  .response.literal = "FMC-320U" },
+    { "FM+TEMP?",     FM_CMD_TYPE_HANDLER,  .response.handler = FM_CMD_HandleTemp },
+    { "FM+LOG_ALL?",  FM_CMD_TYPE_DEFERRED, .response.handler = FM_CMD_HandleLogAll },
+    { "FM+COUNT?",    FM_CMD_TYPE_HANDLER,  .response.handler = FM_CMD_HandleCount },
+};
 
-static TX_THREAD cmd_thread; // Hilo dedicado al procesamiento de comandos
-static TX_QUEUE cmd_queue; // Cola para comandos FM+ entrante procesados desde UART.
-uint8_t cmd_queue_buffer[3 * FM_CMD_BYTE_SIZE];
+static TX_THREAD cmd_thread; ///< Thread in charge of processing FM+ commands.
+static TX_QUEUE  cmd_queue;  ///< Queue that stores incoming FM+ lines.
+static uint8_t   cmd_queue_buffer[3u * FM_CMD_BYTE_SIZE];
 
-// Sección define, enum y typedef con dependencia.
-#define NUM_COMMANDS (sizeof(fm_commands) / sizeof(fm_commands[0]))
+// --- Private prototypes ---
 
-// Variables extern, las que no están en un #include "xyz.h".
+static void process_line_(const char *line);
 
-// Prototipos funciones privadas.
-void ProcessLine(const char *line);
-
-// Cuerpo funciones privadas.
+// --- Private functions ---
 
 /**
- * @brief Procesa una línea de comando recibida y ejecuta la acción correspondiente.
- * @param line Línea completa del comando
- * @retval Ninguno
+ * Matches an incoming command against the table and triggers the configured response.
+ * @param line Raw line as received, including the FM+ verb and optional arguments.
  */
-void ProcessLine(const char *line)
+static void process_line_(const char *line)
 {
-    for (size_t i = 0; i < NUM_COMMANDS; ++i)
-    {
-        if (strncmp(line, fm_commands[i].command, strlen(fm_commands[i].command)) == 0)
-        {
-            if (fm_commands[i].type == FM_CMD_TYPE_LITERAL)
-            {
-                HAL_UART_Transmit_DMA(&huart3, (uint8_t*) fm_commands[i].response.literal,
-                        strlen(fm_commands[i].response.literal));
-            }
-            else if (fm_commands[i].type == FM_CMD_TYPE_HANDLER
-                    || fm_commands[i].type == FM_CMD_TYPE_DEFERRED)
-            {
-                fm_commands[i].response.handler(line);
-            }
-            break;
+    for (size_t i = 0; i < NUM_COMMANDS; ++i) {
+        const fm_cmd_entry_t *entry = &fm_commands[i];
+        size_t cmd_len = strlen(entry->command);
+        if (strncmp(line, entry->command, cmd_len) != 0) {
+            continue;
         }
+
+        if (entry->type == FM_CMD_TYPE_LITERAL) {
+            HAL_UART_Transmit_DMA(&huart3, (uint8_t *)entry->response.literal, strlen(entry->response.literal));
+        } else {
+            entry->response.handler(line);
+        }
+        break;
     }
 }
 
+// --- Public handlers ---
 
-// Cuerpo función privadas.
-
+/**
+ * Replies with a mock temperature reading.
+ * @param args Optional argument string (unused).
+ */
 void FM_CMD_HandleTemp(const char *args)
 {
+    (void)args;
     static char response[UART3_TX_BUFFER_SIZE];
     snprintf(response, sizeof(response), "TEMP:%d\r\n", temperature);
-    HAL_UART_Transmit_DMA(&huart3, (uint8_t*) response, strlen(response));
-}
-
-void FM_CMD_HandleLogAll(const char *args)
-{
-    const char *log[] =
-    { "LOG1\r\n", "LOG2\r\n", "LOG3\r\n" };
-
-    for (int i = 0; i < 3; ++i)
-    {
-        HAL_UART_Transmit_DMA(&huart3, (uint8_t*) log[i], strlen(log[i]));
-    }
-}
-
-void FM_CMD_HandleCount(const char *args)
-{
-    int count = 42; ///< Simula un conteo o contador
-    char buf[32];
-    snprintf(buf, sizeof(buf), "COUNT:%d\r\n", count);
-    HAL_UART_Transmit_IT(&huart3, (uint8_t*) buf, strlen(buf));
+    HAL_UART_Transmit_DMA(&huart3, (uint8_t *)response, strlen(response));
 }
 
 /**
- * @brief Inicializa el módulo de comandos.
- * @param queue Puntero a la cola usada por el hilo de comandos
- * @retval Ninguno
+ * Sends a short list of log identifiers via DMA.
+ * @param args Optional argument string (unused).
+ */
+void FM_CMD_HandleLogAll(const char *args)
+{
+    (void)args;
+    static const char *log_lines[] = { "LOG1\r\n", "LOG2\r\n", "LOG3\r\n" };
+
+    for (size_t i = 0; i < (sizeof(log_lines) / sizeof(log_lines[0])); ++i) {
+        HAL_UART_Transmit_DMA(&huart3, (uint8_t *)log_lines[i], strlen(log_lines[i]));
+    }
+}
+
+/**
+ * Reports a mock counter using interrupt-driven transmission.
+ * @param args Optional argument string (unused).
+ */
+void FM_CMD_HandleCount(const char *args)
+{
+    (void)args;
+    static const int count = 42;
+    char buf[32];
+    snprintf(buf, sizeof(buf), "COUNT:%d\r\n", count);
+    HAL_UART_Transmit_IT(&huart3, (uint8_t *)buf, strlen(buf));
+}
+
+// --- API ---
+
+/**
+ * Creates the command thread and queue using the provided ThreadX byte pool.
+ * @param memory_ptr Pointer to the byte pool used for dynamic allocations.
  */
 void FM_CMD_RtosInit(VOID *memory_ptr)
 {
-    // >>>> ThreadX: variables para reservar memoria.
-    UINT ret_status = TX_SUCCESS;
-    CHAR *pointer;
-    TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*) memory_ptr;
-    // <<<< Fin.
+    TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL *)memory_ptr;
+    CHAR *stack_ptr = NULL;
 
-    // >>>> ThreadX: Crear hilo.
-    ret_status = tx_byte_allocate(byte_pool, (VOID**) &pointer, FMX_STACK_SIZE, TX_NO_WAIT);
-    if (ret_status != TX_SUCCESS)
-    {
+    if (tx_byte_allocate(byte_pool, (VOID **)&stack_ptr, FMX_STACK_SIZE, TX_NO_WAIT) != TX_SUCCESS) {
         __disable_irq();
         FM_DEBUG_LedError(1);
-        while (1);
+        while (1) { }
     }
-    ret_status = tx_thread_create(&cmd_thread, "CMD_THREAD", FM_CMD_ThreadEntry, (ULONG )&cmd_queue,
-            pointer, FMX_STACK_SIZE, FMX_THREAD_PRIORITY_10, FMX_THRESHOLD_10, FMX_SLICE_0, TX_AUTO_START);
 
-    if (ret_status != TX_SUCCESS)
-    {
+    if (tx_thread_create(&cmd_thread,
+                         "CMD_THREAD",
+                         FM_CMD_ThreadEntry,
+                         (ULONG)&cmd_queue,
+                         stack_ptr,
+                         FMX_STACK_SIZE,
+                         FMX_THREAD_PRIORITY_10,
+                         FMX_THRESHOLD_10,
+                         FMX_SLICE_0,
+                         TX_AUTO_START) != TX_SUCCESS) {
         __disable_irq();
         FM_DEBUG_LedError(1);
-        while (1);
+        while (1) { }
     }
-    // <<<< Fin
 
-    // >>>> ThreadX: Crear cola.
-    ret_status = tx_queue_create(&cmd_queue, "CMD_QUEUE", FM_CMD_ULONG_SIZE, cmd_queue_buffer,
-            sizeof(cmd_queue_buffer));
-    if (ret_status != TX_SUCCESS)
-    {
+    if (tx_queue_create(&cmd_queue, "CMD_QUEUE", FM_CMD_ULONG_SIZE, cmd_queue_buffer, sizeof(cmd_queue_buffer)) != TX_SUCCESS) {
         __disable_irq();
         FM_DEBUG_LedError(1);
-        while (1);
+        while (1) { }
     }
-    // <<<< Fin
 }
 
-
 /**
- * @brief Función de entrada del hilo que procesa los comandos FM+XYZ recibidos por UART.
- *        Esta función corre como un hilo ThreadX independiente.
- * @param input Puntero al TX_QUEUE que contiene las líneas completas a procesar
- * @retval Ninguno
+ * Entry point for the ThreadX task that consumes the command queue.
+ * @param input Queue address passed at thread creation.
  */
 void FM_CMD_ThreadEntry(ULONG input)
 {
-    TX_QUEUE *queue = (TX_QUEUE*) input;
+    TX_QUEUE *queue = (TX_QUEUE *)input;
     fm_cmd_command_t cmd;
 
-    while (1)
-    {
-        if (tx_queue_receive(queue, &cmd, TX_WAIT_FOREVER) == TX_SUCCESS)
-        {
-            ProcessLine(cmd.line);
+    for (;;) {
+        if (tx_queue_receive(queue, &cmd, TX_WAIT_FOREVER) == TX_SUCCESS) {
+            process_line_(cmd.line);
         }
     }
 }
-
-// Interrupts
-
-/*** end of file ***/
 

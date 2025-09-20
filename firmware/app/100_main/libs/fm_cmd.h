@@ -1,67 +1,59 @@
-/*
+/**
+ * @file fm_cmd.h
+ * @brief FM+ command processor interface over UART.
  *
- * Instrucciones:
- * - #include "fm_main.h // copiar esta linea en main.c
- * - Nueva carpeta con el nombre FLOWMEET en el workspace
- * - Hacer que la carpeta FLOWWMEET ser "source floder"
- * - En las propiedades del proyecto la carpeta FLOWMEET de ser "include paths" en C/C++ Build->Settings MCU/MPU GVV Compiler
- * - Agregar la sentencia FM_MAIN_Main(); en el while infinico del main.c
+ * The module exposes helpers to bootstrap the ThreadX command thread and the
+ * handlers that implement every supported FM+ command.
  */
 
-#ifndef FM_MAIN_H_
-#define FM_MAIN_H_
+#ifndef FM_CMD_H_
+#define FM_CMD_H_
 
-// includes
 #include "tx_api.h"
 #include "main.h"
 #include "usart.h"
 #include "fmx.h"
 #include "fm_debug.h"
 
-// Sección define sin dependencia.
-#define FM_CMD_ULONG_SIZE 16 // Tamaño del mensaje en ULONGs, es el maximo que maneja una cola.
-#define FM_CMD_BYTE_SIZE  (sizeof(ULONG) * FM_CMD_ULONG_SIZE) // Tamaño del mensje en bytes
+// --- Constants ---
 
-// Sección enum y typedef sin dependencia.
+/** Maximum command payload expressed in ULONG words (ThreadX queue granularity). */
+#define FM_CMD_ULONG_SIZE   (16u)
 
-// Sección define, enum y typedef con dependencia.
+/** Command payload in bytes (ULONG * FM_CMD_ULONG_SIZE). */
+#define FM_CMD_BYTE_SIZE    (sizeof(ULONG) * FM_CMD_ULONG_SIZE)
 
-typedef struct
-{
+// --- Types ---
+
+/** Scratch buffer that stores one incoming FM+ line. */
+typedef struct {
     char line[FM_CMD_BYTE_SIZE];
 } fm_cmd_command_t;
 
-typedef enum
-{
-    FM_CMD_TYPE_LITERAL, //
-    FM_CMD_TYPE_HANDLER, //
-    FM_CMD_TYPE_DEFERRED //
+/** Response strategy for a command entry. */
+typedef enum {
+    FM_CMD_TYPE_LITERAL,   ///< The reply is a fixed literal string.
+    FM_CMD_TYPE_HANDLER,   ///< A handler runs immediately in the command thread.
+    FM_CMD_TYPE_DEFERRED   ///< A handler may defer the reply (DMA, other task, etc.).
 } fm_cmd_type_t;
 
-typedef struct
-{
-    const char *command;
-    fm_cmd_type_t type;
-    union
-    {
-        const char *literal;
-        void (*handler)(const char *args);
+/** Mapping between a textual command and the action to perform. */
+typedef struct {
+    const char      *command;
+    fm_cmd_type_t    type;
+    union {
+        const char *literal;              ///< Literal response terminated with CRLF.
+        void (*handler)(const char *args);///< Callback executed when the command arrives.
     } response;
 } fm_cmd_entry_t;
 
-// Varibles extern
+// --- API ---
 
-// Function prototypes
 void FM_CMD_RtosInit(VOID *memory_ptr);
 void FM_CMD_ThreadEntry(ULONG input);
 void FM_CMD_HandleTemp(const char *args);
 void FM_CMD_HandleLogAll(const char *args);
 void FM_CMD_HandleCount(const char *args);
 
+#endif // FM_CMD_H_
 
-
-
-
-#endif  // FM_MAIN_H
-
-/*** end of file ***/

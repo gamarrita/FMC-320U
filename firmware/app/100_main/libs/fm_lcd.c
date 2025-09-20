@@ -1,18 +1,9 @@
-/* @file fm_lcd.c
+/**
+ * @file fm_lcd.c
+ * @brief High-level rendering helpers for the FMC segment LCD.
  *
- * @brief Este es el modulo que posee la inteligencia para manejar las opciones
- * que brinda la pantalla LCD, utilizando las funciones implementadas de
- * impresión de caracteres individuales en lcd.h.
- * Las funciones de este modulo serán usadas por librerías de mas alto nivel que
- * impriman menús o controlen máquinas de estado de pantallas, tales como
- * fm_menu_user.h.
- *
- * Version 1
- * Autor: Daniel H Sagarra
- * Fecha 10/11/2024
- * Modificaciones: version inicial.
- *
- *
+ * Provides wrappers around the low-level driver to print strings, digits and
+ * individual characters on the two main rows of the display.
  */
 
 // Includes.
@@ -40,26 +31,18 @@ char lcd_buffer[LCD_BUFFER_SIZE];
 
 // Public function bodies.
 
-/*
- * @brief	Es la primera instrucción a llamar para usar el LCD.
- * @param 	Fill, en terminos practico solamente los valores 0x0 y 0xFF tienen sentido, para el
- * 			valor el LCD se inicia con todos los segmentos apagados, con el segundo con todos los
- * 			segmentos encendido. El driver PCF8553 tiene un mapa de memoria 20 bytes, son 160
- * 			segmentos. Esta función copia a cada byte del driver el valor de fill. La codificación
- * 			para tener caracteres en la pantalla tiene una distribución "compleja", los bits de
- * 			cada caracter están distribuidos por el mapa de memoria.
- * @retval	None
- *
+/**
+ * @brief Initializes the LCD driver and fills the frame buffer.
+ * @param fill Pattern written to each LCD RAM byte (typically 0x00 or 0xFF).
  */
 void FM_LCD_Init(uint8_t fill)
 {
     FM_LCD_LL_Init(fill);
 }
 
-/*
- * @brief   Escribe en la linea de 7 segmentos
- * @param
- * @retval
+/**
+ * @brief Writes two adjacent 7-segment characters to the LCD.
+ * @param ptr Pointer to the pair of characters to render.
  */
 void FM_LCD_PutChar(char *ptr)
 {
@@ -67,14 +50,11 @@ void FM_LCD_PutChar(char *ptr)
     FM_LCD_LL_PutChar_2(*(ptr + 1));
 }
 
-/*
- * @brief   Imprime un string en la filas 1 y 2 (8 y 7 caracteres) del LCD.
- * @note
- * @param	my_str, string a imprimir.
- * @param	len, longitud del string.
- * @param	row selecciona la fila superior, 8 caracteres, o la inferior 7 caracteres.
- * @retval 	ninguno.
- *
+/**
+ * @brief Prints a string on either LCD row (8 chars on row 1, 7 on row 2).
+ * @param my_str Text to render.
+ * @param len    Number of characters available in the string.
+ * @param row    Target row (FM_LCD_LL_ROW_1 or FM_LCD_LL_ROW_2).
  */
 void FM_LCD_PutString(const char *my_str, uint32_t len, fm_lcd_ll_row_t row)
 {
@@ -85,72 +65,66 @@ void FM_LCD_PutString(const char *my_str, uint32_t len, fm_lcd_ll_row_t row)
 
     if (row == FM_LCD_LL_ROW_1)
     {
-        // Se ajustan los caracteres a imprimir a la cantidad máxima que se puede imprimir en esta linea.
+        // Clamp text length to the maximum capacity of the selected row.
         index_end = FM_LCD_LL_ROW_1_COLS;
     }
     else
     {
-        // Se ajustan los caracteres a imprimir a la cantidad máxima que se puede imprimir en esta linea.
+        // Clamp text length to the maximum capacity of the selected row.
         index_end = FM_LCD_LL_ROW_2_COLS;
     }
 
     if (len < index_end)
     {
-        // Se necesita imprimir menos columnas que la cantidad disponibles.
+        // String is shorter than the row capacity.
         index_end = len;
     }
 
-    /*
-     * Recorre la cadena de caracteres para armar el buffer del LCD de 8 segmentos, en la cadena los '.' son
-     * elementos de la cadena, en el LCD el '.' es parte de un caracter, al menos así esta implementado.
-     */
+        // Walk the input string and map separators (e.g. decimal points) to the LCD buffer.
     while ((lcd_index < index_end) && my_str[str_index])
     {
         FM_LCD_LL_PutChar(my_str[str_index], lcd_index, row);
         str_index++;
         lcd_index++;
 
-        // Si el proximo caracter a imprimir es el punto ".", en LCD de 8 segmentos es parte del caracter.
+                // If the next character is a dot, merge it with the previous digit.
         if ((my_str[str_index] == '.'))
         {
-            // No existe el punto decimal luego del ultimo digito, el digito mas a la derecha.
+                        // Skip the decimal point when already at the last column.
             if (lcd_index < index_end)
             {
                 FM_LCD_LL_PutChar(my_str[str_index], lcd_index - 1, row);
-                // Avanzo en el string, ya se imprimió el punto decimal.
+                // Consume the decimal point in the source string.
             }
             str_index++;
         }
     }
 }
 
-/*
- * @brief	Función que formatea información pasada como parámetro para ser
- * 			colocada en una de las dos filas de la pantalla LCD.
- * @param	data, valor numero a imprimir.
- * @param	row, seleccion la fila superior, 8 caracteres, o la inferior 7 caracteres.
- * @retval 	Ninguno.
- *
+/**
+ * @brief Formats and displays an unsigned integer on the selected row.
+ * @param num Value to print.
+ * @param row Destination row.
  */
 void FM_LCD_PutUnsignedInt32(uint32_t num, fm_lcd_ll_row_t row)
 {
-    uint8_t index_lcd; // apunta a la posicion del la fila del LCD que hay que escribir
-    int index_num;  // apunta al digito del dato que hay que escribir
+    uint8_t index_lcd; // Column index within the selected row
+    int index_num;  // Pointer within the formatted string
 
-    // Apunta al ultimo caracter del la fila selecciona del LCD
+        // Start from the last available column on the selected row
     index_lcd = FM_LCD_LL_GetRowSize(row);
 
-    // Convierto el numero a texto, index_num es igual al numero de cifras.
+        // Convert the number to text; index_num becomes the number of digits.
     index_num = snprintf(lcd_buffer, sizeof(lcd_buffer), "%lu", num);
 
     if (index_num > index_lcd)
     {
-        index_num = index_lcd; // no se pueden imprimir mas cifras de la capacidad de la linea.
+        index_num = index_lcd; // Avoid exceeding the row capacity.
     }
 
     while (index_num)
     {
-        // La primera columna es la 0 y la ultima el tamaño -1, resto 1 a las columnas.
+        // Columns are 0-indexed; step backwards while printing.
         index_lcd--;
         index_num--;
         FM_LCD_LL_PutChar(lcd_buffer[index_num], index_lcd, row);
@@ -160,4 +134,11 @@ void FM_LCD_PutUnsignedInt32(uint32_t num, fm_lcd_ll_row_t row)
 // Interrupts
 
 /*** end of file ***/
+
+
+
+
+
+
+
 

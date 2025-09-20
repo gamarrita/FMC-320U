@@ -1,27 +1,17 @@
-/*
- * Autor: Daniel H Sagarra
- * 
- * Notas:
- * 
+/**
+ * @file fm_backup.h
+ * @brief Interface to configure the FMC backup SRAM domain.
  */
 
 #ifndef FM_BACKUP_H_
 #define FM_BACKUP_H_
 
-// includes
+// --- API ---
 
-// Typedef y enum.
+/**
+ * Enables read/write access to backup SRAM while keeping its contents during standby.
+ */
+void FM_BACKUP_Init(void);
 
-// Macros, defines, microcontroller pins (dhs).
+#endif // FM_BACKUP_H_
 
-// Varibles extern
-
-// Defines.
-
-// Function prototypes
-
-void FM_BACKUP_Init();
-
-#endif /* FM_NV_H */
-
-/*** end of file ***/

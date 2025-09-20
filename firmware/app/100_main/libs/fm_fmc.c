@@ -1,15 +1,10 @@
-/*
- * @brief   Libreria desarrollada por FLOWMEET para sus FLOW METER COMPUTERS.
- *          Contiene definiciones, tipos de datos y funciones usadas en la implementacion de
- *          en un computador de caudales.
+/**
+ * @file fm_fmc.c
+ * @brief Totalizer and rate bookkeeping for the FMC-320U flow computer.
  *
- *
- * Version 1
- * Autor : Daniel H Sagarra
- * Fecha 10/11/2024
- * Modificaciones: version inicial
- *
- *
+ * The module stores runtime counters in backup SRAM and provides helper
+ * routines to compute accumulated volume, trip totals, and instantaneous
+ * flow.
  */
 
 // Includes.
@@ -30,21 +25,21 @@
  */
 
 // Const data.
-// Cantidad de segundos en otras unidades de tiempo
+// Seconds per supported time unit
 const uint32_t seconds_in[] =
 { 1, 60, 3600, 86400, };
 
 /*
- * Esta lista de arreglos debe contener un elemento por cada elemento de la variable fm_fmc_vol_unit_t.
+ * Each entry must match a value in fm_fmc_vol_unit_t.
  */
 fm_fmc_vol_data_t vol_unit_list[] =
 {
 { .unit_convert = 1, .name = "00"
-// Unidad adimensional.
+// Dimensionless placeholder.
         },
-        { .unit_convert = 158.987304,  // Cantidad de litros en un barril.
+        { .unit_convert = 158.987304,  // Liters per barrel.
                 .name = "BL" },
-        { .unit_convert = 3.78541, // Cantidad de litro en un galón.
+        { .unit_convert = 3.78541, // Liters per US gallon.
                 .name = "GL", },
         { .unit_convert = 1, .name = "KG", },
         { .unit_convert = 1, .name = "LT", },
@@ -60,9 +55,8 @@ fm_fmc_vol_data_t vol_unit_list[] =
 // Global variables, statics.
 
 /*
- * La siguiente variable se guarda en la RAM de Backup, esta mantenida por la batería CR2032.
- * Al momento es la única variable de este tipo, de crear mas variables de este tipo se debera verificar
- * espacio disponible en RAM, se cuenta con solamente 2K disponibles en RAM_BACKUP_Section.
+ * Runtime environment persisted in backup SRAM (powered from VBAT).
+ * Ensure additional backup variables fit within the 2 KB .RAM_BACKUP_Section.
  */
 fm_fmc_totalizer_t totalizer __attribute__((section(".RAM_BACKUP_Section")));
 
@@ -72,14 +66,10 @@ fm_fmc_totalizer_t totalizer __attribute__((section(".RAM_BACKUP_Section")));
 
 // Public function bodies.
 
-/*
- * @brief   inicializa a la variable global totalizer.
- * @note    en la FLASH del MCU se guardan valores de configuración que sirven para hacer testing.
- *          FM_FACTORY_SENSOR_0 configura al computador como si fuera un frecuencímetro. Los otros
- *          conjuntos de valores representan valores típicos de sensores, en sun factores de
- *          de calibración, y unidades de medida mas usadas, dependiendo del tamaño.
- * @param
- * @retval  ninguno.
+/**
+ * @brief Initializes the global totalizer state.
+ * @param sensor Factory preset to load.
+ * @note  Also recomputes K and rate factors based on the loaded configuration.
  */
 void FM_FMC_Init(sensors_list_t sensor)
 {
@@ -88,11 +78,9 @@ void FM_FMC_Init(sensors_list_t sensor)
     totalizer.rate.factor_r = FM_FMC_FactorRateCalc(totalizer.factor_k, totalizer.time_unit);
 }
 
-/*
- * @brief   Calcula el valor actual del ACM y devuelve su valor.
- * @note
- * @param   Ninguno.
- * @retval  Volume actual en ACM
+/**
+ * @brief Computes the accumulated volume (ACM) from pulse counters.
+ * @return Fixed-point volume (x1000).
  */
 ufp3_t FM_FMC_AcmCalc()
 {
@@ -106,35 +94,24 @@ ufp3_t FM_FMC_AcmCalc()
     return totalizer.acm;
 }
 
-/*
- * @brief   Devuelve el ultimo valor calculado del ACM.
- * @note    No calcula el ACM actual, devuelve el calculado por FM_FMC_TtlCal();
- *          en su ultimo llamado.
- * @param   Ninguno.
- * @retval  Volume actual en ACM
+/**
+ * @brief Returns the cached ACM volume.
  */
 ufp3_t FM_FMC_AcmGet()
 {
     return (totalizer.acm);
 }
 
-/*
- * @brief   Devuelve el ultimo valor calculado del ACM.
- * @note    No calcula el ACM actual, devuelve el calculado por FM_FMC_TtlCal();
- *          en su ultimo llamado.
- * @param   Ninguno.
- * @retval  Volume actual en ACM
+/**
+ * @brief Returns the pulse accumulator backing ACM.
  */
 uint64_t FM_FMC_AcmGetPulse()
 {
     return (totalizer.pulse_acm);
 }
 
-/*
- * @brief   Puesta a cero del volumen ACM.
- * @note
- * @param   Ninguno.
- * @retval  Ninguno.
+/**
+ * @brief Clears the ACM accumulator and associated pulse counter.
  */
 void FM_FMC_AcmReset()
 {
@@ -142,11 +119,8 @@ void FM_FMC_AcmReset()
     totalizer.pulse_acm = 0;
 }
 
-/*
- * @brief   Agrega los últimos pulsos registrados.
- * @note
- * @param
- * @retval
+/**
+ * @brief Stores the latest pulse delta and time delta for rate calculations.
  */
 void FM_FMC_CaptureSet(uint16_t pulse, uint16_t time)
 {
@@ -154,20 +128,18 @@ void FM_FMC_CaptureSet(uint16_t pulse, uint16_t time)
     totalizer.rate.delta_t = time;
 }
 
-/*
- * @brief	retorna factor de calibración
+/**
+ * @brief Returns the calibration factor currently in use.
  */
 ufp3_t FM_FMC_FactorCalGet()
 {
     return totalizer.factor_cal;
 }
 
-/*
- * @brief	modifica el factor de calibración en la variable de entorno totalizer.
- * @note
- * @retval	retorna 0, si no pudo escribir el valor
- * 			retorna 1, si pudo escribir el valor en la variable totalizer de entorno.
- *
+/**
+ * @brief Updates the calibration factor when the value is within bounds.
+ * @param factor_cal New calibration factor (pulses per liter x1000).
+ * @return 1 if the factor was accepted, 0 otherwise.
  */
 uint32_t FM_FMC_FactorCalSet(ufp3_t factor_cal)
 {
@@ -184,11 +156,11 @@ uint32_t FM_FMC_FactorCalSet(ufp3_t factor_cal)
     return 1;
 }
 
-/*
- * @brief   Calcula factor K
- * @note    El fator K se calcula a partir del factor de calibración y las unidades seleccionadas.
- * @param   Ninguno.
- * @retval  Factor K.
+/**
+ * @brief Computes the K factor from the calibration factor and volume unit.
+ * @param factor_cal Calibration factor (pulses per liter x1000).
+ * @param unit       Active volume unit.
+ * @return K factor expressed in the selected unit.
  */
 double FM_FMC_FactorKCalc(ufp3_t factor_cal, fm_fmc_vol_unit_t unit)
 {
@@ -205,24 +177,18 @@ double FM_FMC_FactorKCalc(ufp3_t factor_cal, fm_fmc_vol_unit_t unit)
     return factor_k;
 }
 
-/*
- * @brief   Retorna factor K.
- * @note
- * @param   Ninguno.
- * @retval  Factor K.
- *
+/**
+ * @brief Returns the current K factor stored in the environment.
  */
 double FM_FMC_FactorKGet()
 {
     return totalizer.factor_k;
 }
 
-/*
- * @brief   Modifica el factor K en la variable de entorno totalizer.
- * @note
- * @retval  retorna 0, si no pudo escribir el valor
- *          retorna 1, si pudo escribir el valor en la variable totalizer de entorno.
- *
+/**
+ * @brief Updates the K factor when the provided value is within limits.
+ * @param factor_k New K factor expressed in fixed-point form.
+ * @return 1 if the value was accepted, 0 otherwise.
  */
 uint32_t FM_FMC_FactorKSet(ufp3_t factor_k)
 {
@@ -239,11 +205,11 @@ uint32_t FM_FMC_FactorKSet(ufp3_t factor_k)
     return 1;
 }
 
-/*
- * @brief	Calcula el factor de caudal.
- * @note	Se calcula el coeficiente que permite convertir de frecuencia de entrada a caudal.
- * @param   Ninguno.
- * @retval  Factor de conversión de frecuencia a caudal.
+/**
+ * @brief Converts a pulse frequency into volumetric rate units.
+ * @param factor_k   K factor expressed in the active unit.
+ * @param time_unit  Time base used for the rate.
+ * @return Conversion factor from pulses/s to volume/time.
  */
 double FM_FMC_FactorRateCalc(double factor_k, fm_fmc_time_unit_t time_unit)
 {
@@ -256,11 +222,10 @@ double FM_FMC_FactorRateCalc(double factor_k, fm_fmc_time_unit_t time_unit)
     return factor_r;
 }
 
-/*
- * @brief   Calcula el factor de caudal.
- * @note    Se calcula el coeficiente que permite convertir de frecuencia de entrada a caudal.
- * @param   Ninguno.
- * @retval  Factor de conversión de frecuencia a caudal.
+/**
+ * @brief Stores a precomputed rate conversion factor.
+ * @param factor_rate Conversion factor from pulses to volume/time.
+ * @return FMX_STATUS_OK if the value is positive, FMX_STATUS_ERROR otherwise.
  */
 fmx_status_t FM_FMC_FactorRateSet(double factor_rate)
 {
@@ -279,19 +244,16 @@ fmx_status_t FM_FMC_FactorRateSet(double factor_rate)
     return status;
 }
 
-/*
- * @brief	retorna los valores actualmente usados.
+/**
+ * @brief Returns a copy of the current totalizer environment.
  */
 fm_fmc_totalizer_t FM_FMC_GetEnviroment(void)
 {
     return totalizer;
 }
 
-/*
- * @brief   agrega los últimos pulsos registrados.
- * @note
- * @param
- * @retval
+/**
+ * @brief Adds a pulse delta to both ACM and TTL accumulators.
  */
 void FM_FMC_PulseAdd(uint32_t pulse_delta)
 {
@@ -299,11 +261,9 @@ void FM_FMC_PulseAdd(uint32_t pulse_delta)
     totalizer.pulse_ttl += pulse_delta;
 }
 
-/*
- * @brief   Calcula el valor actual del TTL y devuelve su valor.
- * @note
- * @param   Ninguno.
- * @retval  Volume actual en TTL
+/**
+ * @brief Computes the instantaneous rate using the latest capture.
+ * @return Fixed-point rate (x1000).
  */
 ufp3_t FM_FMC_RateCalc()
 {
@@ -320,20 +280,16 @@ ufp3_t FM_FMC_RateCalc()
     return (totalizer.rate.rate);
 }
 
-/*
- *	@brief	retorna la información de con cuantos decimales se esta mostrando el caudal.
- *	@retval	0, resolución en unidades.
- *			1, resolución en décimas.
- *			2, resolución en centécimas.
- *			3, resolución en milésimas.
+/**
+ * @brief Returns the decimal position used to render the rate.
  */
 uint8_t FM_FMC_RateFpSelGet()
 {
     return totalizer.rate.rate_pf_sel;
 }
 
-/*
- * @brief
+/**
+ * @brief Cycles through the available decimal positions for the rate display.
  */
 void FM_FMC_RateFpInc()
 {
@@ -347,27 +303,25 @@ void FM_FMC_RateFpInc()
     }
 }
 
-/*
- * @brief
+/**
+ * @brief Returns the cached instantaneous rate.
  */
 ufp3_t FM_FMC_RateGet()
 {
     return totalizer.rate.rate;
 }
 
-/*
- * @brief
+/**
+ * @brief Clears the instantaneous rate cache.
  */
 void FM_FMC_RateClear()
 {
     totalizer.rate.rate = 0;
 }
 
-/*
- * @brief   Calcula el valor actual del TTL y devuelve su valor.
- * @note
- * @param   Ninguno.
- * @retval  Volume actual en TTL
+/**
+ * @brief Computes the current trip total (TTL) from pulse counters.
+ * @return Fixed-point volume (x1000).
  */
 ufp3_t FM_FMC_TtlCalc()
 {
@@ -383,36 +337,34 @@ ufp3_t FM_FMC_TtlCalc()
     return (totalizer.ttl);
 }
 
-/*
- * @brief   Devuelve el ultimo valor calculado del TTL.
- * @note    No calcula el TTL actual, devuelve el calculado por FM_FMC_TtlCal();
- *          en su ultimo llamado.
- * @param   Ninguno.
- * @retval  Volume actual en TTL
+/**
+ * @brief Returns the cached trip total (TTL).
  */
 ufp3_t FM_FMC_TtlGet()
 {
     return (totalizer.ttl);
 }
 
-/*
- *
+/**
+ * @brief Returns the raw pulse accumulator used for TTL.
  */
 uint64_t FM_FMC_TtlPulseGet()
 {
     return totalizer.pulse_ttl;
 }
 
-/*
- *
+/**
+ * @brief Returns the current volume unit configured for the totalizer.
  */
 fm_fmc_vol_unit_t FM_FMC_TotalizerVolUnitGet()
 {
     return (totalizer.vol_unit);
 }
 
-/*
- *
+/**
+ * @brief Updates the volume unit if the requested value is valid.
+ * @param vol_unit Volume unit to apply.
+ * @return 1 if the unit was accepted, 0 otherwise.
  */
 uint32_t FM_FMC_TotalizerVolUnitSet(fm_fmc_vol_unit_t vol_unit)
 {
@@ -431,8 +383,8 @@ uint32_t FM_FMC_TotalizerVolUnitSet(fm_fmc_vol_unit_t vol_unit)
     return 1;
 }
 
-/*
- * @brief retorna la unidad de tiempo de la variable de entorno totalizer
+/**
+ * @brief Returns the current time unit used by the totalizer.
  */
 fm_fmc_time_unit_t FM_FMC_TotalizerTimeUnitGet()
 {
@@ -459,11 +411,8 @@ fmx_status_t FM_FMC_TotalizerTimeUnitSet(fm_fmc_time_unit_t time_unit)
     return FMX_STATUS_OK;
 }
 
-/*
- * @brief   Puesta a cero del volumen ACM.
- * @note
- * @param   Ninguno.
- * @retval  Ninguno.
+/**
+ * @brief Clears the trip total (TTL) accumulator and pulse counter.
  */
 void FM_FMC_TtlReset()
 {
@@ -471,21 +420,16 @@ void FM_FMC_TtlReset()
     totalizer.pulse_ttl = 0;
 }
 
-/*
- * @brief   Devuelve la posición del punto fijo para la medición de volumen.
- * @note    El usuario del computador de caudales puede elegir con cuantos puntos decimales se muestran los
- *          los valores del ACM y TTL. Esta funcion retorna esta informacion para que se puedan formatear
- *          correctamente los datos.
- * @param   Ninguno
- * @retval  0,1,2,3, son la cantidad decimales possibles.
+/**
+ * @brief Returns the decimal position used to display ACM/TTL.
  */
 uint8_t FM_FMC_TotalizerFpSelGet()
 {
     return totalizer.vol_pf_sel;
 }
 
-/*
- *
+/**
+ * @brief Cycles through the decimal positions for ACM/TTL display.
  */
 void FM_FMC_TotalizerFpInc()
 {
@@ -499,21 +443,19 @@ void FM_FMC_TotalizerFpInc()
     }
 }
 
-/*
- * @brief	devuelve un puntero al alias de la unidad como parámetro.
- * @note
- * @retval	como referencia, puntero a un alias en la lista de alias para la unidad de volumen.
+/**
+ * @brief Returns the short label for a given volume unit.
+ * @param string Output pointer where the label is stored.
+ * @param vol_unit Unit whose label is requested.
  */
 void FM_FMC_TotalizerStrUnitGet(char **string, fm_fmc_vol_unit_t vol_unit)
 {
     *string = vol_unit_list[vol_unit].name;
 }
 
-/*
- * @brief   Selecciona que unidad de tiempo se esta mostrando
- * @note    Esta función tiene capacidad de parpadeo si se la llama continuamente.
- * @param
- * @retval
+/**
+ * @brief Highlights the active time unit symbol on the LCD.
+ * @param sel Time unit to toggle.
  */
 void FM_FMC_TotalizerTimeUnitSel(fm_fmc_time_unit_t sel)
 {
@@ -558,3 +500,14 @@ uint16_t FM_FMC_TicketNumberGet()
 // Interrupts
 
 /*** end of file ***/
+
+
+
+
+
+
+
+
+
+
+

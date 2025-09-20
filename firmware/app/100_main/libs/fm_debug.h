@@ -1,34 +1,25 @@
-/*
- * Autor: Daniel H Sagarra
- * 
- * Notas:
- * 
+/**
+ * @file fm_debug.h
+ * @brief Debug utilities for the FMC-320U firmware.
  */
 
-#ifndef     FM_DEBUG_H_
-#define     FM_DEBUG_H_
+#ifndef FM_DEBUG_H_
+#define FM_DEBUG_H_
 
-// includes.
 #include "main.h"
-#include "string.h"
-#include "stdio.h"
+#include <string.h>
+#include <stdio.h>
 
-// Defines.
-
-// Macros, defines, pins del Micro pins.
-
-// Typedef.
-typedef enum
-{
-    FM_DEBUG_LED_OFF, //
-    FM_DEBUG_LED_ON,  //
-    FM_DEBUG_LED_TOGGLE
+/** Available actions for the diagnostic LEDs. */
+typedef enum {
+    FM_DEBUG_LED_OFF,
+    FM_DEBUG_LED_ON,
+    FM_DEBUG_LED_TOGGLE,
 } fm_debug_led_t;
 
-// Varibles extern usadas en otros módulos.
+// --- API ---
 
-// Function prototypes
-void FM_DEBUG_Init();
+void FM_DEBUG_Init(void);
 void FM_DEBUG_ItmMsg(const char *msg, uint8_t len);
 void FM_DEBUG_LedActive(int status);
 void FM_DEBUG_LedError(int status);
@@ -40,6 +31,5 @@ void FM_DEBUG_UartUint32(uint32_t num);
 void FM_DEBUG_UartInt32(int32_t num);
 void FM_DEBUG_UartFloat(float num);
 
-#endif /* FM_DEBUG_H */
+#endif // FM_DEBUG_H_
 
-/*** end of file ***/
