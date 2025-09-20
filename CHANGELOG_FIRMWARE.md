@@ -5,6 +5,7 @@
 
 ### Docs
  - Modifico Documentos de carpeta administracion.
+ - Reorganizo las guias de estilo en `STYLE_GUIDE_FIRMWARE_COMMENTS.md`, `STYLE_GUIDE_FIRMWARE_NAMING.md`, documento el flujo en `WORKFLOW_FIRMWARE_AI_STYLE.md`, preparo `PROMPT_FIRMWARE_STYLE_EXPERTS.md` y agrego ejemplos `fm_style_example.c/.h` para uso con IA y humanos.
 
 ### Chore
 
@@ -99,11 +100,11 @@ Carpeta con documentos de produccion
 
 ### Notas
 - Se crea un nuevo repositorio, aqui se empieza  desde la version 01.01.09
-- Se usó una convención de nombres para permitir múltiples archivos CHANGELOG_XYZ.md
+- Se us?? una convenci??n de nombres para permitir m??ltiples archivos CHANGELOG_XYZ.md
 - Se mejoro redaccion de archivos relacionados con git flow.
 
 ### Added
-- Inicialización del proyecto.
+- Inicializaci??n del proyecto.
 
 ### Fixed
 - Corrige problema de escritura en el RTC, por no inicializar a cero estas estructuras RTC_TimeTypeDef time = {0}; y  RTC_DateTypeDef date = {0};
@@ -115,7 +116,7 @@ Carpeta con documentos de produccion
 - Modifica archivo CONTRIBUTING.md
 
 ### Removed
- - Documentos no correspondientes eliminados de la carpeta de administración.
+ - Documentos no correspondientes eliminados de la carpeta de administraci??n.
 
 ### Datos de consumo
 Consumo 76uA, condiciones:
@@ -123,7 +124,7 @@ Consumo 76uA, condiciones:
 - ST-LINK 3.0v
 - Si conectar ST-LINK
 - Led azul de actividad deshabilitado
-- Conextado a generado de señales por medio de dos pickup acoplados en serie y frecuencia de 100Hz
+- Conextado a generado de se??ales por medio de dos pickup acoplados en serie y frecuencia de 100Hz
 Consumo 43uA, condiciones:
 - Promedio de en un minuto medido con el PPK2
 - ST-LINK 3.0v
@@ -155,3 +156,7 @@ Consumo 43uA, condiciones:
 ### Datos de consumo
 
 ### Testeos completados
+
+
+
+
