@@ -1,0 +1,9 @@
+Added Component: Designator=BH?(BS-08-B2AA016)
+Add component (AddParameter): Name = "Category"; Value = "Battery holder"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2012181809_MYOUNG-BS-08-B2AA016_C964792.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Myoung"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer part number"; Value = "BS-2032-8KC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "85"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-25"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=BH?-NEG
+Added Pin To Net: NetName=VBAT Pin=BH?-POS

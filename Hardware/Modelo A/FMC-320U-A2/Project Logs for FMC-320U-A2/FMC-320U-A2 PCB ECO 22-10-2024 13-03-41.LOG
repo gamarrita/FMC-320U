@@ -1,0 +1,48 @@
+Removed Pin From Net: NetName=GND Pin=BH1-NEG
+Change Component Comment : Designator=R5 Old Comment=1M New Comment=10M
+Change Component Comment : Designator=R6 Old Comment=1M New Comment=10M
+Change Component Comment : Designator=BH2 Old Comment=Battery Holder CR2032 New Comment=BS-2032-8KC
+Change Component Comment : Designator=Q1 Old Comment=DMG3401LSN-7 New Comment=DMG3401
+Change Component Comment : Designator=Q3 Old Comment=DMG3401LSN-7 New Comment=DMG3401
+Change Component Comment : Designator=Q2 Old Comment=DMG3402L-7 New Comment=DMG3402
+Change component parameters: Designator = "R5" ("R5"); Footprint = "RES_SM0805_YAGEORC_N"; UniqueID = "\FXYPNADM" ("\FXYPNADM")
+Change component parameters (AddParameter): Name = "Category"; Value = "Resistor"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer Website"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.yageo.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Yageo"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "RC0805FR-0710ML"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "0805"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Power (Watts)"; Value = "0.125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Resistance (Ohms)"; Value = "10000000"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Farnell"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 2"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "9238115"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 2"; Value = "311-10.0MCRCT-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Tolerance (%)"; Value = "1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "10M"; VariantName = "[No Variations]"
+Change component parameters: Designator = "R6" ("R6"); Footprint = "RES_SM0805_YAGEORC_N"; UniqueID = "\OMAFQUBY" ("\OMAFQUBY")
+Change component parameters (AddParameter): Name = "Category"; Value = "Resistor"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer Website"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.yageo.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Yageo"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "RC0805FR-0710ML"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "0805"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Power (Watts)"; Value = "0.125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Resistance (Ohms)"; Value = "10000000"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Farnell"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 2"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "9238115"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 2"; Value = "311-10.0MCRCT-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Tolerance (%)"; Value = "1"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "10M"; VariantName = "[No Variations]"
+Added Component: Designator=BH?(BATTERY_HOLDER_2XAA)
+Add component (AddParameter): Name = "Category"; Value = "Battery holder"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://www.keyelco.com/userAssets/file/M65p28.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Keystone"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "2462"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=BH?-NEG
+Added Pin To Net: NetName=NetBH?_POS Pin=BH?-POS
+Added Pin To Net: NetName=NetBH?_POS Pin=J3-1
+Added Net: Name=NetBH?_POS

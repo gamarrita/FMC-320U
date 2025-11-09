@@ -1,0 +1,3 @@
+Change Component Comment : Designator=LD3 Old Comment=GREEN New Comment=SGINAL
+Change Net Name : Old Net Name=USART3_RX New Net Name=USART3_TX
+Change Net Name : Old Net Name=USART3_TX New Net Name=USART3_RX

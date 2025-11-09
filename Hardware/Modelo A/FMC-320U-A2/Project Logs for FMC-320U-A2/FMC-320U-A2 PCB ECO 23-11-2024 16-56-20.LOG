@@ -1,0 +1,7 @@
+Added Component: Designator=P3(HEADER PLUG 3)
+Add component (AddParameter): Name = "Category"; Value = "Bornera enchufable"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/1912251632_Ningbo-Kangnex-Elec-WJ15EDGVC-3-81-3P_C8389.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Ningbo Kangnex Elec"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "WJ15EDGVC-3.81-3P"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "105"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-40"; VariantName = "[No Variations]"

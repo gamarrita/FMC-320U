@@ -1,138 +1,174 @@
-# Registro de cambios en el firmware del computador FM-320U
+# Firmware change log for the FM-320U computer
 
-## [01.01.010-B0+2] Beta
-(guardo cambios para poder hacer checkout de otras versiones, quiero probar impresion de versiones anteriores)
+## [01.01.011-B0]
+
 
 ### Docs
- - Modifico Documentos de carpeta administracion.
- - Reorganizo las guias de estilo en `STYLE_GUIDE_FIRMWARE_COMMENTS.md`, `STYLE_GUIDE_FIRMWARE_NAMING.md`, documento el flujo en `WORKFLOW_FIRMWARE_AI_STYLE.md`, preparo `PROMPT_FIRMWARE_STYLE_EXPERTS.md` y agrego ejemplos `fm_style_example.c/.h` para uso con IA y humanos.
+- Ajusto descripciones del arvhivo 100 - Casos de uso.docx
 
 ### Chore
 
 ### Added
-- Agrego pantalla de bluetooth para descarga de datos, aun no es funcional.
 
 ### Fixed
-- Se cambian el tipo de timer del ThreadX usado para evitar rebotes de pulsadores externos.
+- Rate no se calculaba correctamete, queda mas simple.
+- Intercambio las funciones de boton arriba y abajo en el menu TTL-RATE, tiene mas logica.
 
-### Refactory
-- Pasor UART3 de trabajar con ISR a DMA
-- Elimino el uso de multiples tiempos en sleep para mejorar el consumo. Luego se usara tecnica mas limpia.
-- Se crea el modulo fm_usart.c, mejora la claridad de codigo en fm_mxc.
+### Refactor
 
 ### Removed
 
-### Datos de consumo
+### Power Consumption
 
-### Testeos completados
+### Completed Tests
 TESTEO 0x2FB396C8
 TESTEO 0x2FB39787
 TESTEO 0x2FB397FE
-TESTEO 0x2FB397FE
 TESTEO 0x2FB398FC
+TESTEO 0x2FB40A04
+
+
+---------------------------------------------------------------------------------------------------
+
+## [01.01.010-B0+2] Beta
+(I keep these changes so I can check out other versions; I want to test printing previous versions.)
+
+### Docs
+- Updated the administration folder documents.
+- Reorganized the style guides in `STYLE_GUIDE_FIRMWARE_COMMENTS.md`, `STYLE_GUIDE_FIRMWARE_NAMING.md`, documented the flow in `WORKFLOW_FIRMWARE_AI_STYLE.md`, prepared `PROMPT_FIRMWARE_STYLE_EXPERTS.md`, and added examples `fm_style_example.c/.h` for use with AI and humans.
+
+### Chore
+
+### Added
+- Added a Bluetooth screen for data download; it is not functional yet.
+
+### Fixed
+- Changed the ThreadX timer type used to debounce external buttons.
+
+### Refactor
+- Moved UART3 from ISR-based handling to DMA.
+- Removed the use of multiple sleep times to improve power consumption; a cleaner technique will be used later.
+- Created the `fm_usart.c` module to improve code clarity in `fm_mxc`.
+
+### Removed
+
+### Power Consumption
+60 uA consumption, conditions:
+- Consumo medio de un minuto, alimentado por el PPK2, modo "source meter" a 3V
+- ST-LINK desconectado conectado
+- Activity blue LED disabled.
+- Pickups conectado
+    - Si inyecto 100hz + 10uA -> 70uA
+    - Si desconecto el pickup -2uA -> 58uA
+
+### Completed Tests
+TEST 0x2FB396C8
+TEST 0x2FB39787
+TEST 0x2FB397FE
+TEST 0x2FB397FE
+TEST 0x2FB398FC
 
 ---------------------------------------------------------------------------------------------------
 
 ## [01.01.009] 2025-06-07
 
-### Notas
+### Notes
 
 ### Added
 
 ### Fixed
-- Punto decimal no se borraba.
+- Decimal point was not being cleared.
 
 ### Changed
 
 ### Removed
 
-### Datos de consumo
+### Power Consumption
 
-### Testeos completados
+### Completed Tests
 
 ---------------------------------------------------------------------------------------------------
 
 ## [01.01.009-B3] 2025-05-27
 
-### Notas
+### Notes
 
 ### Added
 
 ### Fixed
-- No permitia ajustar el factor a su valor minimo.
--
+- Did not allow the factor to be set to its minimum value.
 
 ### Changed
 
 ### Removed
 
-### Datos de consumo
+### Power Consumption
 
-### Testeos completados
+### Completed Tests
 
 ---------------------------------------------------------------------------------------------------
 
 ## [01.01.009-B2] 2025-05-27
 
-### Notas
+### Notes
 
 ### Added
-Carpeta con documentos de produccion
+- Production documents folder.
 
 ### Fixed
-- Error de cambio de pantalla a ingresar al menu setup
+- Fixed a screen change error when entering the setup menu.
 
 ### Changed
-- Se programa un refresco a 200ms si un caracter programado a parpadear esta apagado.
-- Se cambia orden de lectura del RTC, HAL_RTC_GetTime luego date, parece solucionar el promela de edicion de la fecha y hora del computador.
-- Cambia la manera en que procesa el segmento '.' en los caracteres de 8 segmentos
+- Scheduled a 200 ms refresh if a character configured to blink is currently off.
+- Changed the RTC read order to call `HAL_RTC_GetTime` before the date; this appears to solve the problem when editing the computer date and time.
+- Changed how the '.' segment is processed on the 8-segment characters.
 
 ### Removed
-- Archivo de como usar CHANGELOG_RULES.md, informacion duplicada con esta.
+- Removed the "how to use CHANGELOG_RULES.md" file because the information was duplicated here.
 
-### Datos de consumo
+### Power Consumption
 
-### Testeos completados
+### Completed Tests
 
 ---------------------------------------------------------------------------------------------------
 
 ## [01.01.009-B0] 2025-05-11
 
-### Notas
-- Se crea un nuevo repositorio, aqui se empieza  desde la version 01.01.09
-- Se us?? una convenci??n de nombres para permitir m??ltiples archivos CHANGELOG_XYZ.md
-- Se mejoro redaccion de archivos relacionados con git flow.
+### Notes
+- Created a new repository; the project starts here from version 01.01.009.
+- A naming convention was used to allow multiple CHANGELOG_XYZ.md files.
+- Improved the wording of files related to Git Flow.
 
 ### Added
-- Inicializaci??n del proyecto.
+- Project initialization.
 
 ### Fixed
-- Corrige problema de escritura en el RTC, por no inicializar a cero estas estructuras RTC_TimeTypeDef time = {0}; y  RTC_DateTypeDef date = {0};
+- Fixed the RTC write issue caused by not zeroing these structures: `RTC_TimeTypeDef time = {0};` and `RTC_DateTypeDef date = {0};`.
 
 ### Changed
-- Cambio presentacion de version a 01.01.009-B0
-- Carpeta tag en administracion.
-- Integro en la forma en que se calcula en tiempo a estar en idel, se  controla desde void ThreadEntryMain(ULONG thread_input).
-- Modifica archivo CONTRIBUTING.md
+- Changed the version presentation to 01.01.009-B0.
+- Added the tag folder in administration.
+- Integrated how the idle time is computed; it is now controlled from `void ThreadEntryMain(ULONG thread_input)`.
+- Modified `CONTRIBUTING.md`.
 
 ### Removed
- - Documentos no correspondientes eliminados de la carpeta de administraci??n.
+- Removed unrelated documents from the administration folder.
 
-### Datos de consumo
-Consumo 76uA, condiciones:
-- Promedio de en un minuto medido con el PPK2
-- ST-LINK 3.0v
-- Si conectar ST-LINK
-- Led azul de actividad deshabilitado
-- Conextado a generado de se??ales por medio de dos pickup acoplados en serie y frecuencia de 100Hz
-Consumo 43uA, condiciones:
-- Promedio de en un minuto medido con el PPK2
-- ST-LINK 3.0v
-- Si conectar ST-LINK
-- Led azul de actividad deshabilitado
-- Sin conectar pickup
+### Power Consumption
+76 uA consumption, conditions:
+- One-minute average measured with the PPK2.
+- ST-LINK 3.0 V.
+- With ST-LINK connected.
+- Activity blue LED disabled.
+- Connected to a signal generator through two pickups in series at 100 Hz.
+43 uA consumption, conditions:
+- One-minute average measured with the PPK2.
+- ST-LINK 3.0 V.
+- With ST-LINK connected.
+- Activity blue LED disabled.
+- Without pickups connected.
 
-### Testeos completados
+### Completed Tests
 0x2FB396C8 - OK
 0x2FB39787 - OK
 0x2FB397FE - OK
@@ -144,19 +180,19 @@ Consumo 43uA, condiciones:
 ## [UNVERSIONEDED]
 
 ### Chore
+- Translated comments in `fmx.c` and `fmx.h` to English.
 
 ### Added
 
 ### Fixed
 
-### Refoctory
+### Refactor
 
 ### Removed
 
-### Datos de consumo
+### Power Consumption
 
-### Testeos completados
-
+### Completed Tests
 
 
 

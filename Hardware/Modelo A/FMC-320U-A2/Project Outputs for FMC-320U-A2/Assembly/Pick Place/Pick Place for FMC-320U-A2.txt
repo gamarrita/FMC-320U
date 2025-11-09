@@ -1,0 +1,86 @@
+Altium Designer Pick and Place Locations
+C:\Users\Gamarra\AppData\Local\TempReleases\Snapshot\1\Assembly\Pick Place\Pick Place for FMC-320U-A2.txt
+
+========================================================================================================================
+File Design Information:
+
+Date:       01/12/24
+Time:       09:34
+Revision:   Not in VersionControl
+Variant:    No variations
+Units used: mil
+
+Center-X(mil) Center-Y(mil) Comment            Description                                                                                    Designator Footprint             Layer       Rotation 
+272.638       2624.606      WJ15EDGVC-3.81-3P  "TERM BLOK FEMALE 1X3 3.81MM"                                                                  P3         HEADER_PLUG_3         TopLayer    90       
+203.740       1328.740      10K                "RES 10K SM0805 YAGEO RC_L"                                                                    R4         RES_SM0805_YAGEORC_N  TopLayer    90       
+107.284       1328.819      10K                "RES 10K SM0805 YAGEO RC_L"                                                                    R3         RES_SM0805_YAGEORC_N  TopLayer    90       
+152.480       1052.165      100nF              "CAP 100nF SM0805 X7R 25V YAGEO CC2"                                                           C9         CAP_SM0805_YAGEOCC2_N TopLayer    180      
+149.606       1160.433      STS40-BD1B-R3      "Board Mount Temperature Sensors Base Accuracy Version, I2C Address 0x45"                      B1         STS40BD1BR3           TopLayer    270      
+1239.173      3031.496      WJ15EDGVC-3.81-3P  "TERM BLOK FEMALE 1X3 3.81MM"                                                                  P4         HEADER_PLUG_3         TopLayer    0        
+2546.338      2526.850      1M                 "RES 1M SM0805 YAGEO RC_L"                                                                     R31        RES_SM0805_YAGEORC_N  TopLayer    0        
+1811.024      2362.205      DW200R-11-08-43    "1 x 8 - tru hole 2mm - altura 4.3mm"                                                          CN1        DW200R-11-08-43       TopLayer    180      
+1041.693      2283.780      BAV23S             "DIODE ARRAY GP 250V 200MA SOT23"                                                              D3         BAV23S                TopLayer    270      
+1276.693      2423.780      MCP6541            "IC COMP PP I/O SNGL 1.6V 8SOIC"                                                               U1         MCP6541-E/SN          TopLayer    270      
+1291.969      2198.976      1K                 "RES 1K SM0805 YAGEO RC_L"                                                                     R12        RES_SM0805_YAGEORC_N  TopLayer    0        
+2120.945      2612.402      1M                 "RES 1M SM0805 YAGEO RC_L"                                                                     R8         RES_SM0805_YAGEORC_N  TopLayer    0        
+2120.079      2706.693      1M                 "RES 1M SM0805 YAGEO RC_L"                                                                     R7         RES_SM0805_YAGEORC_N  TopLayer    0        
+1041.693      2468.780      BAV23S             "DIODE ARRAY GP 250V 200MA SOT23"                                                              D4         BAV23S                TopLayer    270      
+1963.583      2666.339      "Usar Equivalente" "1 x 2 - true hole  2.54mm - Pb free"                                                          J5         HEADER_PIN_1X2        TopLayer    90       
+2125.039      2505.866      1uF                "CAP 1uF SM0805 X7R 25V YAGEO CC2"                                                             C6         CAP_SM0805_YAGEOCC2_N TopLayer    0        
+1560.945      2503.937      33pF               "CAP 33pF SM0805 NPO 50V YAGEO CC2"                                                            C5         CAP_SM0805_YAGEOCC2_N TopLayer    0        
+671.063       269.685       "Usar Equivalente" "1 x 2 - true hole  2.54mm - Pb free"                                                          J6         HEADER_PIN_1X2        TopLayer    180      
+683.071       384.842       4.7uF              "CAP 4.7uF SM0805 X5R 10V YAGEO CC2"                                                           C13        CAP_SM0805_YAGEOCC2_N TopLayer    180      
+597.441       2067.913      4.7uF              "CAP 4.7uF SM0805 X5R 10V YAGEO CC2"                                                           C18        CAP_SM0805_YAGEOCC2_N TopLayer    90       
+1811.024      1417.323      DW200R-11-08-43    "1 x 8 - tru hole 2mm - altura 4.3mm"                                                          CN2        DW200R-11-08-43       TopLayer    180      
+236.220       236.220       PTH-3MM-M          "Agujero de montaje metalizado roscas M3. Drill de tamaño medio."                              PTH4       PTH_M3_M              TopLayer    0        
+236.220       3070.866      PTH-3MM-M          "Agujero de montaje metalizado roscas M3. Drill de tamaño medio."                              PTH3       PTH_M3_M              TopLayer    0        
+3937.008      3110.236      PTH-3MM-M          "Agujero de montaje metalizado roscas M3. Drill de tamaño medio."                              PTH2       PTH_M3_M              TopLayer    0        
+3937.008      236.220       PTH-3MM-M          "Agujero de montaje metalizado roscas M3. Drill de tamaño medio."                              PTH1       PTH_M3_M              TopLayer    0        
+1552.758      679.697       "ENERGIZER L91"    "2 x AA through hole economic type"                                                            BH1        BATTERY_HOLDER_2XAA   TopLayer    180      
+2754.016      1430.118      4.7uF              "CAP 4.7uF SM0805 X5R 10V YAGEO CC2"                                                           C21        CAP_SM0805_YAGEOCC2_N TopLayer    0        
+324.803       1047.244      4.7uF              "CAP 4.7uF SM0805 X5R 10V YAGEO CC2"                                                           C20        CAP_SM0805_YAGEOCC2_N TopLayer    180      
+2593.307      3031.496      WJ15EDGVC-3.81-2P  "TERM BLOK FEMALE 1X2 3.81MM"                                                                  P2         HEADER_PLUG_2         TopLayer    0        
+2962.598      3031.496      WJ15EDGVC-3.81-2P  "TERM BLOK FEMALE 1X2 3.81MM"                                                                  P1         HEADER_PLUG_2         TopLayer    0        
+677.087       1046.260      4.7uF              "CAP 4.7uF SM0805 X5R 10V YAGEO CC2"                                                           C17        CAP_SM0805_YAGEOCC2_N TopLayer    180      
+2578.346      2668.189      100nF              "CAP 100nF SM0805 X7R 25V YAGEO CC2"                                                           C16        CAP_SM0805_YAGEOCC2_N TopLayer    90       
+2754.016      1526.575      100nF              "CAP 100nF SM0805 X7R 25V YAGEO CC2"                                                           C15        CAP_SM0805_YAGEOCC2_N TopLayer    0        
+433.071       1653.543      DZ254R-22-20-63    "2 x 10 - true hole 2.54mm"                                                                    CN6        HEADER_PIN_2X10       BottomLayer 90       
+2480.512      1613.681      "Uar Equivalente"  "2 x 5 - true hole 2.54mm"                                                                     CN8        HEADER_PIN_2X5_MIRROR BottomLayer 270      
+325.788       862.205       100nF              "CAP 100nF SM0805 X7R 25V YAGEO CC2"                                                           C14        CAP_SM0805_YAGEOCC2_N TopLayer    180      
+1531.850      2640.000      1M                 "RES 1M SM0805 YAGEO RC_L"                                                                     R13        RES_SM0805_YAGEORC_N  TopLayer    90       
+487.205       1049.213      10R                "RES 10R SM0805 YAGEO RC_L"                                                                    R1         RES_SM0805_YAGEORC_N  TopLayer    0        
+749.016       3089.567      ""                 "1 x 3 - Cuttable - true hole  2.54mm - Pb free"                                               J1         HEADER_PIN_1X3        TopLayer    90       
+3658.439      100.660       "Usar Equivalente" "1 x 2 - true hole  2.54mm - Pb free"                                                          J4         HEADER_PIN_1X2        TopLayer    180      
+2778.346      2668.622      1M                 "RES 1M SM0805 YAGEO RC_L"                                                                     R28        RES_SM0805_YAGEORC_N  TopLayer    270      
+3449.921      3148.622      47R                "RES 47R SM0805 YAGEO RC_L"                                                                    R26        RES_SM0805_YAGEORC_N  TopLayer    180      
+2683.346      2668.189      100K               "RES 100K SM0805 YAGEO RC_L"                                                                   R29        RES_SM0805_YAGEORC_N  TopLayer    270      
+2878.346      2668.189      10K                "RES 10K SM0805 YAGEO RC_L"                                                                    R27        RES_SM0805_YAGEORC_N  TopLayer    90       
+2546.338      2439.252      1K                 "RES 1K SM0805 YAGEO RC_L"                                                                     R30        RES_SM0805_YAGEORC_N  TopLayer    180      
+2731.457      2512.087      DMG3401            "P-CHANNEL ENHANCEMENT MODE MOSFET
+RDS(ON) = 85m? @ VGS = -2.5V -> ID -2.7A
+V(BR)DDS 30V"    Q3         DMG3401LSN-7          TopLayer    0        
+3015.748      2662.402      DMG3402            "N-CHANNEL ENHANCEMENT MODE FIELD EFFECT TRANSISTOR
+85m? @ VGS = 2.5V -> ID 2A
+V(BR)DDS 30V" Q2         DMG3402L-7            TopLayer    90       
+3274.921      3148.622      0ZCJ0005FF2E       "PTC RESET FUSE 60V 50MA 1206"                                                                 F1         0ZCJ0005FF2E          TopLayer    0        
+3329.921      2998.622      SMBJ28CA-13-F      ""                                                                                             D7         SMBJ28CA-13-F         TopLayer    0        
+3177.323      2656.772      BAV23S             "DIODE ARRAY GP 250V 200MA SOT23"                                                              D6         BAV23S                TopLayer    90       
+2453.346      2664.189      BAV23S             "DIODE ARRAY GP 250V 200MA SOT23"                                                              D5         BAV23S                TopLayer    0        
+1731.850      2640.000      1M                 "RES 1M SM0805 YAGEO RC_L"                                                                     R15        RES_SM0805_YAGEORC_N  TopLayer    270      
+1631.850      2640.000      10K                "RES 10K SM0805 YAGEO RC_L"                                                                    R14        RES_SM0805_YAGEORC_N  TopLayer    270      
+1345.394      2665.433      220K               "RES 220K SM0805 YAGEO RC_L"                                                                   R11        RES_SM0805_YAGEORC_N  TopLayer    90       
+1145.394      2664.528      10K                "RES 10K SM0805 YAGEO RC_L"                                                                    R10        RES_SM0805_YAGEORC_N  TopLayer    270      
+1055.394      2665.000      100K               "RES 100K SM0805 YAGEO RC_L"                                                                   R9         RES_SM0805_YAGEORC_N  TopLayer    270      
+675.118       1133.858      10M                "RES 10M SM0805 YAGEO RC_L"                                                                    R6         RES_SM0805_YAGEORC_N  TopLayer    0        
+675.118       1229.331      10M                "RES 10M SM0805 YAGEO RC_L"                                                                    R5         RES_SM0805_YAGEORC_N  TopLayer    180      
+891.638       2986.968      BAV23S             "DIODE ARRAY GP 250V 200MA SOT23"                                                              D2         BAV23S                TopLayer    270      
+891.732       3170.126      BAV23S             "DIODE ARRAY GP 250V 200MA SOT23"                                                              D1         BAV23S                TopLayer    90       
+1756.850      3078.740      "Usar equivalente" "2 x 4  - true hole  2.54mm"                                                                   J2         HEADER_PIN_2X4        TopLayer    270      
+670.472       140.748       "Usar Equivalente" "1 x 2 - true hole  2.54mm - Pb free"                                                          J3         HEADER_PIN_1X2        TopLayer    180      
+677.086       1320.866      100nF              "CAP 100nF SM0805 X7R 25V YAGEO CC2"                                                           C12        CAP_SM0805_YAGEOCC2_N TopLayer    0        
+1826.850      2640.000      47nF               "CAP 47nF SM0805 X7R 25V YAGEO CC2"                                                            C8         CAP_SM0805_YAGEOCC2_N TopLayer    90       
+1255.394      2666.929      47nF               "CAP 47nF SM0805 X7R 25V YAGEO CC2"                                                            C7         CAP_SM0805_YAGEOCC2_N TopLayer    90       
+488.189       956.693       100nF              "CAP 100nF SM0805 X7R 25V YAGEO CC2"                                                           C4         CAP_SM0805_YAGEOCC2_N TopLayer    0        
+324.803       769.449       4.7uF              "CAP 4.7uF SM0805 X5R 10V YAGEO CC2"                                                           C3         CAP_SM0805_YAGEOCC2_N TopLayer    180      
+724.409       914.370       100nF              "CAP 100nF SM0805 X7R 25V YAGEO CC2"                                                           C2         CAP_SM0805_YAGEOCC2_N TopLayer    270      
+630.905       913.465       4.7uF              "CAP 4.7uF SM0805 X5R 10V YAGEO CC2"                                                           C1         CAP_SM0805_YAGEOCC2_N TopLayer    270      

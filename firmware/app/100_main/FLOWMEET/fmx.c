@@ -1,11 +1,11 @@
 /**
  * @file fmx.c
- * @brief FMX main runtime and event orchestration.
+ * @brief Runtime principal y orquestacion de eventos de FMX.
  *
- * Administra recursos de ThreadX, la cola de eventos y el estado de flujo
+ * Administra recursos de ThreadX, la cola de eventos y el estado de caudal
  * para la aplicacion FLOWMEET.
- * @details
- * Consolida la gestion de contingencias, la trazabilidad REQ-FMX-INIT-001 y la coordinacion con timers ThreadX.
+ * @details Gestiona contingencias y traza REQ-FMX-INIT-001.
+ * Actua como runtime equivalente a main.c y coordina temporizadores ThreadX.
  */
 
 // --- Includes ---
@@ -24,70 +24,72 @@
 #include "tx_api.h"
 
 // --- Defines ---
-// Temporizadores y limites filtran rebotes, cumplen REQ-FMX-TIMER-001 y se alinean con tasas ThreadX.
+// Temporizadores y limites se alinean con REQ-FMX-TIMER-001.
+// Cada valor respeta la granularidad de ThreadX.
 #define TRUE                  (1u)
 #define FALSE                 (0u)
+// Mantener multiplo de 4 para alinear la cola con palabras ULONG.
 #define QUEUE_EVENT_SIZE      (4u)
 #define TIMER_BACKLIGHT_INIT  (1000u)
 #define TIMER_BACKLIGHT_GUI   (500u)
 #define TIMER_EXTI_DEBOUNCE   (25u)
 #define FMX_DEBUG_LOCAL
+#define TICKS_PER_SECOND   TX_TIMER_TICKS_PER_SECOND
 
 // --- Globals ---
-// Contador global mantiene vivo el refresco de UI aun si se pierden eventos.
+// Contador global mantiene vivo el refresco de la UI.
+// Los modulos piden refrescos en ms (1000 ms equivale a 1 Hz).
 ULONG global_menu_refresh = 0;
 
 // --- Static Data ---
-// Estado privado coordina ISR, timers ThreadX y aislamiento de rebotes.
-static uint8_t key_ext_debouce_flag = 0;
-static fmx_rate_status_t rate_status = FMX_RATE_OFF;
-static uint8_t pulse_in_active;
-static uint16_t lptim3_capture;
-static uint16_t lptim4_counter;
-static uint16_t rate_tick_old = 0;
-static uint16_t rate_tick_new = 0;
-static uint16_t rate_tick_delta;
-static uint16_t rate_pulse_old = 0;
-static uint16_t rate_pulse_new = 0;
-static uint16_t rate_pulse_delta = 0;
-static uint16_t vol_pulse_old = 0;
-static uint16_t vol_pulse_new = 0;
-static uint16_t vol_pulse_delta;
+// Estado privado coordina ISR y temporizadores ThreadX.
+
+// Mantiene el aislamiento de rebotes.
+static uint8_t key_ext_debounce_flag = 0;
+static uint16_t lptim3_last_capture;
+static uint16_t lptim4_last_capture;
 static TX_QUEUE event_queue;
-// Buffer dimensionado en ULONG mantiene conversiones claras y latencia estable.
+// Buffer dimensionado en ULONG simplifica conversiones y mantiene la latencia.
 static uint32_t queue_storage_event[QUEUE_EVENT_SIZE];
-// Semaphore gestiona el traspaso entre ISR y tarea BT sin espera activa.
+// Semaforo gestiona el traspaso entre la ISR y la tarea BT sin espera activa.
 static TX_SEMAPHORE bluetooth_slave_semaphore;
 static TX_THREAD main_thread;
 static TX_TIMER key_long_timer;
 static TX_TIMER backlight_off_timer;
-static TX_TIMER debunde_timer;
+static TX_TIMER debounce_timer;
 static TX_THREAD bluetooth_slave_thread;
+// El keypad dispara la accion primaria al liberar la tecla.
+// Las variantes long press ejecutan una accion secundaria tras 3 s.
+// Las flags evitan repetir la accion primaria cuando ya hubo long press.
 uint8_t key_up_skip_next = FALSE;
 uint8_t key_down_skip_next = FALSE;
 uint8_t key_enter_skip_next = FALSE;
 uint8_t key_esc_skip_next = FALSE;
+fm_fmc_rate_state_t	rate_state = FM_FMC_RATE_OFF;
+
+static uint16_t rate_tick_new;
+
 
 // --- Static Prototypes ---
-// Normaliza contadores de flujo antes de actualizar la GUI.
+// Normaliza contadores de caudal antes de refrescar la GUI.
 static void PulseUpdate(void);
-// Temporizador de backlight evita parpadeos perceptibles.
+// Temporizador de backlight evita parpadeos notables.
 static void TimerEntryBackLightOff(ULONG timer_key);
-// Temporizador de debounce cumple REQ-FMX-DEBOUNCE-003.
-static void TimerEntryDebunce(ULONG timer_key);
-// Temporizador de pulsacion larga evita bloquear otras tareas.
+// Temporizador de rebote cumple REQ-FMX-DEBOUNCE-003.
+static void TimerEntryDebounce(ULONG timer_key);
+// Temporizador de long press evita bloquear otras tareas.
 static void TimerEntryKeyThreeSeconds(ULONG timer_key);
-// Hilo principal coordina estado de flujo y colas ThreadX.
+// Hilo principal coordina el estado de caudal y las colas ThreadX.
 static void ThreadEntryMain(ULONG thread_input);
 
 // --- Public API ---
 
 /**
- * @brief Initialize FMX core tasks and queues.
- * @param memory_ptr Byte pool provisto por ThreadX startup.
- * @return TX_SUCCESS o codigo de error retornado por ThreadX.
- * @details
- * Verifica cada asignacion, establece recursos deterministas y fuerza fail-safe ante errores.
+ * @brief Inicializa las tareas nucleo de FMX y sus colas.
+ * @param memory_ptr Pool de bytes provisto por el arranque de ThreadX.
+ * @return TX_SUCCESS o un codigo de error ThreadX.
+ * @details Verifica cada asignacion, establece recursos deterministas y aplica
+ * un fail-safe ante cualquier error.
  */
 UINT FMX_Init(VOID *memory_ptr)
 {
@@ -95,68 +97,109 @@ UINT FMX_Init(VOID *memory_ptr)
     CHAR *pointer;
     TX_BYTE_POOL *byte_pool = (TX_BYTE_POOL*) memory_ptr;
 
-    // Verifica memoria dinamica antes de crear hilos.
-    ret_status = tx_byte_allocate(byte_pool, (VOID**)&pointer, FMX_STACK_SIZE, TX_NO_WAIT);
-    // Ante un error grave se fuerza fail-safe inmediato.
+    // Verifica la memoria dinamica antes de crear los hilos.
+    ret_status = tx_byte_allocate(byte_pool,
+                                (VOID**)&pointer,
+                                FMX_STACK_SIZE,
+                                TX_NO_WAIT);
+    // Ante un error critico se aplica un fail-safe inmediato.
     if (ret_status != TX_SUCCESS) {
         __disable_irq();
         FM_DEBUG_LedError(1);
         while (1);
     }
 
-    ret_status = tx_thread_create(&main_thread, "MAIN_THREAD", ThreadEntryMain, 0, pointer,
-                                  FMX_STACK_SIZE, FMX_THREAD_PRIORITY_10, FMX_THRESHOLD_10, FMX_SLICE_0, TX_AUTO_START);
+    ret_status = tx_thread_create(&main_thread,
+                                  "MAIN_THREAD",
+                                  ThreadEntryMain,
+                                  0,
+                                  pointer,
+                                  FMX_STACK_SIZE,
+                                  FMX_THREAD_PRIORITY_10,
+                                  FMX_THRESHOLD_10,
+                                  FMX_SLICE_0,
+                                  TX_AUTO_START);
     if (ret_status != TX_SUCCESS) {
         __disable_irq();
         FM_DEBUG_LedError(1);
         while (1);
     }
 
-    ret_status = tx_queue_create(&event_queue, "EVENT_QUEUE", 1, queue_storage_event,
+    ret_status = tx_queue_create(&event_queue,
+                                 "EVENT_QUEUE",
+                                 1,
+                                 queue_storage_event,
                                  sizeof(queue_storage_event));
     if (ret_status != TX_SUCCESS) {
         FM_DEBUG_LedError(1);
         while (1);
     }
 
-    ret_status = tx_timer_create(&key_long_timer, "KEY_LONG_TIMER", TimerEntryKeyThreeSeconds,
-                                 0x1234, 300, 100, TX_NO_ACTIVATE);
+    ret_status = tx_timer_create(&key_long_timer,
+                                 "KEY_LONG_TIMER",
+                                 TimerEntryKeyThreeSeconds,
+                                 0x1234,
+                                 300,
+                                 100,
+                                 TX_NO_ACTIVATE);
     if (ret_status != TX_SUCCESS) {
         FM_DEBUG_LedError(1);
         return TX_TIMER_ERROR;
         while (1);
     }
 
-    ret_status = tx_timer_create(&backlight_off_timer, "BACKLIGHT_TIMER", TimerEntryBackLightOff,
-                                 0x1234, TIMER_BACKLIGHT_INIT, 0, TX_AUTO_ACTIVATE);
+    ret_status = tx_timer_create(&backlight_off_timer,
+                                 "BACKLIGHT_TIMER",
+                                 TimerEntryBackLightOff,
+                                 0x1234,
+                                 TIMER_BACKLIGHT_INIT,
+                                 0,
+                                 TX_AUTO_ACTIVATE);
     if (ret_status != TX_SUCCESS) {
         FM_DEBUG_LedError(1);
         return TX_TIMER_ERROR;
         while (1);
     }
 
-    ret_status = tx_timer_create(&debunde_timer, "DEBUNCE_TIMER", TimerEntryDebunce, 0x1234,
-                                 TIMER_EXTI_DEBOUNCE, TIMER_EXTI_DEBOUNCE, TX_NO_ACTIVATE);
+    ret_status = tx_timer_create(&debounce_timer,
+                                 "DEBUNCE_TIMER",
+                                 TimerEntryDebounce,
+                                 0x1234,
+                                 TIMER_EXTI_DEBOUNCE,
+                                 TIMER_EXTI_DEBOUNCE,
+                                 TX_NO_ACTIVATE);
     if (ret_status != TX_SUCCESS) {
         FM_DEBUG_LedError(1);
         return TX_TIMER_ERROR;
         while (1);
     }
 
-    ret_status = tx_semaphore_create(&bluetooth_slave_semaphore, "BT_SLAVE_SEMAPHORE", 0);
+    ret_status = tx_semaphore_create(&bluetooth_slave_semaphore,
+                                     "BT_SLAVE_SEMAPHORE",
+                                     0);
     FM_CMD_RtosInit(memory_ptr);
     FM_USART_RtosInit(memory_ptr);
 
-    ret_status = tx_byte_allocate(byte_pool, (VOID**)&pointer, FMX_STACK_SIZE, TX_NO_WAIT);
+    ret_status = tx_byte_allocate(byte_pool,
+                                (VOID**)&pointer,
+                                FMX_STACK_SIZE,
+                                TX_NO_WAIT);
     if (ret_status != TX_SUCCESS) {
         __disable_irq();
         FM_DEBUG_LedError(1);
         while (1);
     }
 
-    ret_status = tx_thread_create(&bluetooth_slave_thread, "BT_SLAVE",
-                                  FM_USER_ThreadEntryBluetoothSlave, (ULONG)&bluetooth_slave_semaphore, pointer,
-                                  FMX_STACK_SIZE, FMX_THREAD_PRIORITY_10, FMX_THRESHOLD_10, FMX_SLICE_0, TX_AUTO_START);
+    ret_status = tx_thread_create(&bluetooth_slave_thread,
+                                  "BT_SLAVE",
+                                  FM_USER_ThreadEntryBluetoothSlave,
+                                  (ULONG)&bluetooth_slave_semaphore,
+                                  pointer,
+                                  FMX_STACK_SIZE,
+                                  FMX_THREAD_PRIORITY_10,
+                                  FMX_THRESHOLD_10,
+                                  FMX_SLICE_0,
+                                  TX_AUTO_START);
     if (ret_status != TX_SUCCESS) {
         __disable_irq();
         FM_DEBUG_LedError(1);
@@ -167,32 +210,26 @@ UINT FMX_Init(VOID *memory_ptr)
 }
 
 /**
- * @brief Fuerza la retroiluminacion del LCD mientras hay interaccion.
- * @details
- * Mantiene la retroiluminacion activa reprogramando el timer del backlight para evitar flicker.
+ * @brief Obliga a encender el backlight del LCD mientras hay interaccion.
+ * @details Mantiene el backlight activo reprogramando el temporizador.
+ * Evita parpadeos durante la interaccion del usuario.
  */
 void FMX_LcdBackLightOn(void)
 {
-    HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port, LED_BACKLIGHT_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port,
+                          LED_BACKLIGHT_Pin,
+                          GPIO_PIN_RESET);
     tx_timer_deactivate(&backlight_off_timer);
-    tx_timer_change(&backlight_off_timer, TIMER_BACKLIGHT_GUI, TIMER_BACKLIGHT_GUI);
+    tx_timer_change(&backlight_off_timer,
+                    TIMER_BACKLIGHT_GUI,
+                    TIMER_BACKLIGHT_GUI);
     tx_timer_activate(&backlight_off_timer);
 }
 
 /**
- * @brief Devuelve el estado actual de la maquina de flujo.
- * @return Valor de @ref fmx_rate_status_t para reportes y UI.
- * @details
- */
-fmx_rate_status_t FMX_GetRateStatus(void)
-{
-    return rate_status;
-}
-
-/**
  * @brief Garantiza la presencia de un evento de refresco en la cola.
- * @details
- * Mantiene al menos un evento de refresco para cumplir REQ-FMX-GUI-002 y evitar starvation.
+ * @details Mantiene al menos un refresco para cumplir REQ-FMX-GUI-002.
+ * Evita inanicion de la interfaz.
  */
 void FMX_RefreshEventTrue(void)
 {
@@ -204,54 +241,121 @@ void FMX_RefreshEventTrue(void)
 }
 
 /**
- * @brief Despierta el hilo que maneja la conexion Bluetooth esclavo.
- * @details
- * Utiliza un semaphore para despertar al hilo Bluetooth sin incurrir en polling.
+ * @brief Despierta el hilo que gestiona la conexion Bluetooth esclava.
+ * @details Usa un semaforo para reactivar el hilo sin hacer polling.
  */
 void FMX_Trigger_BluetoothSlave(void)
 {
     tx_semaphore_put(&bluetooth_slave_semaphore);
 }
 
-// --- Private Function Implementations ---
+// --- Static Functions ---
 
 /**
- * @brief Update pulse and flow measurement state, and trigger calculations.
+ * @brief Actualiza pulsos y caudal antes de ejecutar los calculos.
  */
 static void PulseUpdate(void)
 {
     static uint8_t blink = 1;
-    blink ^= 1;
+    // Variables para calcular de pulsos del sensor primario acumulados en ultimo intervalo.
+    static uint16_t vol_pulse_old;
+    static uint16_t vol_pulse_new;
+    static uint16_t vol_pulse_delta;
+    // Variables para calcular los pulsos del LSE acumulados en ultimo intervalo.
+    static uint16_t rate_tick_old;
+    static uint16_t rate_tick_delta;
+    //
+    static ULONG time_last;
+    static ULONG time_now;
 
-    if (rate_pulse_delta) {
-        rate_tick_old = rate_tick_new;
-        rate_tick_new = lptim3_capture;
-        rate_tick_delta = (rate_tick_new - rate_tick_old);
+  	// Si no paso un segundo no se calcula nuevo caudal o volumen.
+	time_now = tx_time_get();
+  	if ((time_now - time_last) < TICKS_PER_SECOND)
+    {
+    	return;
+    }
+
+    // Pulsos del sensor primario para calcular el rate.
+  	vol_pulse_old = vol_pulse_new;
+  	vol_pulse_new = lptim4_last_capture;
+  	vol_pulse_delta = (vol_pulse_new - vol_pulse_old);
+
+
+	// Pulsos de clock LSE para calcular el rate. Medidos en la ventana de tiempo vol_pulse_delta.
+	rate_tick_old = rate_tick_new;
+	rate_tick_new = lptim3_last_capture;
+	rate_tick_delta = (rate_tick_new - rate_tick_old);
+
+    switch(rate_state)
+    {
+    case FM_FMC_RATE_OFF:
+    	if(vol_pulse_delta != 0)
+    	{
+    		rate_state = FM_FMC_RATE_STARTED;
+    	}
+    	break;
+    case FM_FMC_RATE_ON:
+    	if(vol_pulse_delta == 0)
+		{
+    		rate_state = FM_FMC_RATE_STOPPED;
+		}
+    	break;
+    case FM_FMC_RATE_STARTED:
+    	if(vol_pulse_delta !=0)
+    	{
+    		rate_state = FM_FMC_RATE_ON;
+    	}
+    	else
+    	{
+    		rate_state = FM_FMC_RATE_STOPPED;
+    	}
+    	break;
+    case FM_FMC_RATE_STOPPED:
+    	if(vol_pulse_delta == 0)
+		{
+			rate_state = FM_FMC_RATE_OFF;
+		}
+		else
+		{
+			rate_state = FM_FMC_RATE_STARTED;
+		}
+		break;
+    default:
+    	// Aqui deberia capturar el error. Por ahora cambi a uno de los estados posibles.
+    	rate_state = FM_FMC_RATE_OFF;
+    	break;
+    }
+
+    if (vol_pulse_delta) {
         FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_POINT, blink);
+        blink ^= 1;
     } else {
-        rate_tick_delta = 32768;
         FM_LCD_LL_SymbolWrite(FM_LCD_LL_SYM_POINT, 0);
     }
 
-    rate_pulse_old = rate_pulse_new;
-    rate_pulse_new = lptim4_counter;
-    rate_pulse_delta = (rate_pulse_new - rate_pulse_old);
 
-    vol_pulse_old = vol_pulse_new;
-    vol_pulse_new = LPTIM4->CNT;
-    vol_pulse_delta = (vol_pulse_new - vol_pulse_old);
-
+    // Estrategia de medicion en bajo consumo:
+    // - LPTIM3 captura flancos con clock LSE de 32.768 kHz en modo continuo.
+    // - LPTIM4 acumula los pulsos que llegan mientras el MCU esta en stop.
+    // Se detecto un bug del STM32U575: LPTIM3 omite la ultima captura tras un
+    // numero par de flancos si el MCU esta en stop.
+    // Mitigacion: habilitar la interrupcion CC1 durante la ventana activa,
+    // copiar LPTIM3/LPTIM4 en el callback y luego deshabilitarla.
+    // Impacto: puede anticipar un wake-up y la lectura de caudal refleja el
+    // ciclo anterior cuando el flujo se detiene.
     __HAL_LPTIM_ENABLE_IT(&hlptim3, LPTIM_IT_CC1);
     FM_FMC_PulseAdd(vol_pulse_delta);
-    FM_FMC_CaptureSet(rate_pulse_delta, rate_tick_delta);
+    FM_FMC_CaptureSet(vol_pulse_delta, rate_tick_delta);
     FM_FMC_TtlCalc();
     FM_FMC_AcmCalc();
     FM_FMC_RateCalc();
+
+	time_last = time_now;
 }
 
 /**
- * @brief Timer callback to turn off the LCD backlight after inactivity.
- * @param timer_input Unused timer parameter.
+ * @brief Callback del timer que apaga el backlight tras inactividad.
+ * @param timer_input Parametro del timer sin uso.
  */
 static void TimerEntryBackLightOff(ULONG timer_input)
 {
@@ -260,8 +364,8 @@ static void TimerEntryBackLightOff(ULONG timer_input)
 }
 
 /**
- * @brief Timer callback for 3-second key press detection (long press).
- * @param timer_input Unused timer parameter.
+ * @brief Callback del timer que detecta pulsaciones de 3 s (long press).
+ * @param timer_input Parametro del timer sin uso.
  */
 static void TimerEntryKeyThreeSeconds(ULONG timer_input)
 {
@@ -301,28 +405,30 @@ static void TimerEntryKeyThreeSeconds(ULONG timer_input)
 }
 
 /**
- * @brief Timer callback to clear debounce flag for external keys.
- * @param timer_input Unused timer parameter.
+ * @brief Limpia la bandera de rebote para teclas externas.
+ * @param timer_input Parametro del timer sin uso.
  */
-static void TimerEntryDebunce(ULONG timer_input)
+static void TimerEntryDebounce(ULONG timer_input)
 {
-    key_ext_debouce_flag = 0;
-    tx_timer_deactivate(&debunde_timer);
+    key_ext_debounce_flag = 0;
+    tx_timer_deactivate(&debounce_timer);
 }
 
 /**
- * @brief Main thread entry for menu and event processing.
- * @param thread_input Unused thread parameter.
+ * @brief Punto de entrada del hilo principal para menus y eventos.
+ * @param thread_input Parametro del hilo sin uso.
  */
 static void ThreadEntryMain(ULONG thread_input)
 {
-    uint32_t received_event;
-    uint8_t menu = 0;
-    uint8_t menu_change;
-    UINT tx_status;
-    ULONG sleep_time = 1000;
+    uint32_t	received_event;
+    uint8_t 	menu = 0;
+    uint8_t 	menu_change;
+    UINT 		tx_status;
+    ULONG 		sleep_time = 1000;
 
-    HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port, LED_BACKLIGHT_Pin, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(LED_BACKLIGHT_GPIO_Port,
+                          LED_BACKLIGHT_Pin,
+                          GPIO_PIN_RESET);
     tx_timer_activate(&backlight_off_timer);
 
     do {
@@ -335,7 +441,8 @@ static void ThreadEntryMain(ULONG thread_input)
         sleep_time = 1000;
         PulseUpdate();
 
-        if ((received_event >= FMX_EVENT_MENU_REFRESH) && (received_event < FMX_EVENT_TIME_OUT)) {
+        if ((received_event >= FMX_EVENT_MENU_REFRESH) &&
+            (received_event < FMX_EVENT_TIME_OUT)) {
             switch (menu) {
             case 0:
                 menu_change = FM_USER_MenuNav(received_event);
@@ -367,14 +474,17 @@ static void ThreadEntryMain(ULONG thread_input)
         }
 
         FM_LCD_LL_Refresh();
-        FM_LOG_Monitor(rate_status);
-        tx_status = tx_queue_receive(&event_queue, &received_event, sleep_time / 10);
+
+        tx_status = tx_queue_receive(&event_queue,
+                                     &received_event,
+                                     sleep_time / 10);
 
         if (tx_status != TX_SUCCESS) {
             received_event = FMX_EVENT_MENU_REFRESH;
         }
 
-        if ((received_event >= FMX_EVENT_KEY_DOWN) && (received_event <= FMX_EVENT_KEY_EXT_2)) {
+        if ((received_event >= FMX_EVENT_KEY_DOWN) &&
+            (received_event <= FMX_EVENT_KEY_EXT_2)) {
             FMX_LcdBackLightOn();
         }
 
@@ -385,8 +495,8 @@ static void ThreadEntryMain(ULONG thread_input)
 // --- Interrupts ---
 
 /**
- * @brief EXTI falling edge callback for key/button events.
- * @param GPIO_Pin Pin number that triggered the interrupt.
+ * @brief Callback EXTI de flanco descendente para teclas y botones.
+ * @param GPIO_Pin Pin que disparo la interrupcion.
  */
 void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 {
@@ -400,7 +510,9 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
             key_enter_skip_next = FALSE;
         } else {
             event_new = FMX_EVENT_KEY_ENTER;
-            if (tx_queue_send(&event_queue, &event_new, TX_NO_WAIT) != TX_SUCCESS) {
+            if (tx_queue_send(&event_queue,
+                                 &event_new,
+                                 TX_NO_WAIT) != TX_SUCCESS) {
                 FM_DEBUG_LedError(1);
             }
         }
@@ -410,7 +522,9 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
             key_down_skip_next = FALSE;
         } else {
             event_new = FMX_EVENT_KEY_DOWN;
-            if (tx_queue_send(&event_queue, &event_new, TX_NO_WAIT) != TX_SUCCESS) {
+            if (tx_queue_send(&event_queue,
+                                 &event_new,
+                                 TX_NO_WAIT) != TX_SUCCESS) {
                 FM_DEBUG_LedError(1);
             }
         }
@@ -420,7 +534,9 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
             key_esc_skip_next = FALSE;
         } else {
             event_new = FMX_EVENT_KEY_ESC;
-            if (tx_queue_send(&event_queue, &event_new, TX_NO_WAIT) != TX_SUCCESS) {
+            if (tx_queue_send(&event_queue,
+                                 &event_new,
+                                 TX_NO_WAIT) != TX_SUCCESS) {
                 FM_DEBUG_LedError(1);
             }
         }
@@ -430,24 +546,26 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
             key_up_skip_next = FALSE;
         } else {
             event_new = FMX_EVENT_KEY_UP;
-            if (tx_queue_send(&event_queue, &event_new, TX_NO_WAIT) != TX_SUCCESS) {
+            if (tx_queue_send(&event_queue,
+                                 &event_new,
+                                 TX_NO_WAIT) != TX_SUCCESS) {
                 FM_DEBUG_LedError(1);
             }
         }
         break;
     case KEY_EXT_1_Pin:
-        if (key_ext_debouce_flag) break;
-        key_ext_debouce_flag = 1;
-        tx_timer_activate(&debunde_timer);
+        if (key_ext_debounce_flag) break;
+        key_ext_debounce_flag = 1;
+        tx_timer_activate(&debounce_timer);
         event_new = FMX_EVENT_KEY_EXT_1;
         if (tx_queue_send(&event_queue, &event_new, TX_NO_WAIT) != TX_SUCCESS) {
             FM_DEBUG_LedError(1);
         }
         break;
     case KEY_EXT_2_Pin:
-        if (key_ext_debouce_flag) break;
-        key_ext_debouce_flag = 1;
-        tx_timer_activate(&debunde_timer);
+        if (key_ext_debounce_flag) break;
+        key_ext_debounce_flag = 1;
+        tx_timer_activate(&debounce_timer);
         event_new = FMX_EVENT_KEY_EXT_2;
         if (tx_queue_send(&event_queue, &event_new, TX_NO_WAIT) != TX_SUCCESS) {
             FM_DEBUG_LedError(1);
@@ -460,37 +578,37 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 }
 
 /**
- * @brief EXTI rising edge callback for key/button events (start long press timer).
- * @param GPIO_Pin Pin number that triggered the interrupt.
+ * @brief Callback EXTI de flanco ascendente para teclas (inicia long press).
+ * @param GPIO_Pin Pin que disparo la interrupcion.
  */
 void HAL_GPIO_EXTI_Rising_Callback(uint16_t GPIO_Pin)
 {
     UNUSED(GPIO_Pin);
+    // La tecla ejecuta la accion primaria al soltar; aqui armamos la variante long press.
+    // tx_timer_change garantiza que el primer periodo sea de 3 s y luego repita cada 150 ms.
     tx_timer_change(&key_long_timer, 250, 150);
     tx_timer_activate(&key_long_timer);
 }
 
 /**
- * @brief LPTIM input capture callback for flow measurement.
- * @param hlptim Pointer to the LPTIM handle.
+ * @brief Callback de captura de LPTIM para medir caudal.
+ * @param hlptim Puntero al handle de LPTIM.
+ * @details
+ * El front-end del pickup conecta al canal 1 de LPTIM3 en modo captura.
+ * El modulo se habilita ~cada segundo para esperar el siguiente flanco.
+ * Cada captura entrega:
+ * - los ticks del LPTIM3 (32.768 kHz) transcurridos durante la ventana.
+ * - los pulsos acumulados en LPTIM4 para caudal y volumen.
+ * Esta combinacion mantiene la precision (<0.01%) sin sacrificar bajo consumo.
  */
 void HAL_LPTIM_IC_CaptureCallback(LPTIM_HandleTypeDef *hlptim)
 {
-    lptim3_capture = LPTIM3->CCR1;
-    lptim4_counter = LPTIM4->CNT;
-
-    if (rate_pulse_delta == 0) {
-        FMX_RefreshEventTrue();
-        rate_tick_new = lptim3_capture;
-    }
-
-    pulse_in_active = TRUE;
-    __HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_CC1);
+	__HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_CC1);
+    lptim3_last_capture = LPTIM3->CCR1;
+    lptim4_last_capture = LPTIM4->CNT;
 }
 
 /*** END OF FILE ***/
-
-
 
 
 

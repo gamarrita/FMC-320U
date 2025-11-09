@@ -1,39 +1,43 @@
 # Prompt IA - Comentarios y Estilo Firmware FM-320U
 
-Usa este prompt cada vez que necesites que la IA revise y mejore comentarios, encabezados y nombres en archivos del firmware, siguiendo las guias internas y entregando una narrativa clara para humanos.
-
 ## Entradas necesarias
-- ARCHIVOS_OBJETIVO: uno o varios archivos C/H completos (por ejemplo `firmware/app/100_main/FLOWMEET/fmx.c`).
-- DOCUMENTOS_REFERENCIA: `STYLE_GUIDE_FIRMWARE_COMMENTS.md`, `STYLE_GUIDE_FIRMWARE_NAMING.md`, `fm_style_example.c`, `fm_style_example.h`.
-- CONTEXTO_ADICIONAL (opcional): requisitos (`REQ-*`), notas de hardware o fragmentos relacionados que ayuden a entender el flujo.
+- `FLOWMEET_Embedded_C_Style_Charter.md` (jerarquía y núcleo).
+- `STYLE_GUIDE_FIRMWARE_NAMING.md`.
+- `STYLE_GUIDE_FIRMWARE_COMMENTS.md`.
+- Archivos de ejemplo `fm_style_example.c`, `fm_style_example.h`.
+- ARCHIVOS_OBJETIVO a revisar.
 
-## Preparacion que debe realizar la IA
-1. **Sintesis de reglas**: resumir la jerarquia y las normas aplicables (encabezado Doxygen, secciones `// ---`, cierre `/*** END OF FILE ***/`, prefijos de nombres, limite de 80 columnas, ASCII).
-2. **Comprension del archivo**: identificar proposito del modulo, dependencias HAL/ThreadX y puntos criticos (colas, timers, ISR, estados globales).
+## Preparación IA
+1. **Síntesis de reglas**: aplicar charter primero, luego naming/comments.
+2. **Comprensión**: identificar propósito, dependencias HAL/ThreadX.
+3. **Comparar con ejemplos**.
 
-## Analisis de comentarios y nombres
-- **Riesgos y fallas**: describir supuestos de hardware, rebotes, condiciones de fallo y acciones de resguardo.
-- **Trazabilidad**: enlazar con requisitos, unidades y motivaciones del valor (por ejemplo REQ-FMX-*).
-- **Concurrencia/RTOS**: aclarar por que se usan mutex, colas, semaforos, prioridades o timers.
-- **API publica**: asegurar que Doxygen explique `@brief`, `@param`, `@return` con claridad.
-- **Nomenclatura**: validar prefijos `FM_`, `FMX_`, tipos `_t`, macros en mayusculas y evitar mezclas HAL/ThreadX.
+## Análisis
+- Riesgos y fallas.
+- Concurrencia/RTOS.
+- Trazabilidad con requisitos.
+- API pública documentada.
 
-## Reescritura y edicion
-- Mantener el codigo funcional intacto; editar solo comentarios, secciones y espaciado asociado.
-- Conservar el orden de includes y bloques existentes.
-- Redactar comentarios unificados: sintetizar la mejor explicacion en una sola linea o parrafo, sin listar referentes individuales.
-- Prefiere voz activa en presente, espanol neutro sin tildes para `//` y ingles neutro para Doxygen.
-- Mantener longitud < 80 caracteres salvo excepciones justificadas (URLs, defines).
-- Documentar timers, callbacks, colas y banderas explicando su proposito practico y el impacto en el sistema.
+## Reescritura
+- Mantener funcionalidad.
+- Respetar orden includes/bloques.
+- Unificar estilo de comentarios.
+- Longitud <80 cols.
 
-## Formato de salida requerido
-1. `Analisis:` lista numerada de hallazgos, cada uno con la regla interna aplicada y la necesidad cubierta.
-2. `Cambios propuestos:` resumen por categoria (p. ej. riesgos, trazabilidad, RTOS, nomenclatura).
-3. `Archivos actualizados:` bloques completos etiquetados con ```c``` para cada archivo modificado.
-4. `Notas pendientes:` (opcional) preguntas, supuestos o recomendaciones adicionales.
+## Checklist
+- Encabezado Doxygen.
+- Secciones `// ---`.
+- Cierre `/*** END OF FILE ***/`.
+- Prefijos correctos.
+- Explicación de ISR/colas/mutex.
 
-## Post-proceso sugerido
-1. Revisar el diff para confirmar que solo cambian comentarios/estructura y que se respetan las guias.
-2. Ejecutar compilacion rapida o pruebas si se sospecha impacto indirecto.
-3. Registrar en `CHANGELOG_FIRMWARE.md` bajo **Docs** las mejoras de documentacion aplicadas.
+## Salida requerida
+1. Análisis.
+2. Cambios propuestos.
+3. Archivos actualizados.
+4. Notas pendientes.
 
+## Post-proceso
+- Revisar diff.
+- Compilar rápido.
+- Registrar en `CHANGELOG_FIRMWARE.md`.

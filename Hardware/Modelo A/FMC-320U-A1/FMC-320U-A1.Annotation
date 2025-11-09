@@ -1,0 +1,25 @@
+[DesignatorManager]
+
+[SheetNumberManager]
+SheetNumberOrder=Display Order
+SheetNumberMethod=Increasing
+DocumentName0=CON1.SchDoc
+UniqueIDPath0=
+SheetNumber0=1
+DocumentName1=KEY.SchDoc
+UniqueIDPath1=
+SheetNumber1=2
+DocumentName2=LCD.SchDoc
+UniqueIDPath2=
+SheetNumber2=3
+DocumentName3=MCU_DBG.SchDoc
+UniqueIDPath3=
+SheetNumber3=4
+DocumentName4=MCU_IO.SchDoc
+UniqueIDPath4=
+SheetNumber4=5
+DocumentName5=MCU_PWR.SchDoc
+UniqueIDPath5=
+SheetNumber5=6
+
+

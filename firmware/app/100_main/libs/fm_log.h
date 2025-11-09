@@ -21,16 +21,15 @@ typedef enum {
 typedef struct {
     uint64_t       ttl_pulses;
     uint64_t       acm_pulses;
-    uint32_t       factor_cal;
-    uint32_t       seconds;
-    uint16_t       temp_rtd;
+    uint32_t       factor_cal;	// Factor de calbracion calculado manualmente en fabrica, tipicamente en litros.
+    uint32_t       time_unix;
+    uint16_t       temp_ext;
     uint16_t       temp_int;
     fm_log_event_t event;
     uint8_t        reserved_1;
     uint16_t       reserved_2;
 } fm_log_data_t;
 
-void FM_LOG_Monitor(fmx_rate_status_t mode);
 fmx_status_t FM_LOG_ReadLog(uint32_t data_index, uint8_t *data_ptr);
 
 #endif // FM_LOG_H_

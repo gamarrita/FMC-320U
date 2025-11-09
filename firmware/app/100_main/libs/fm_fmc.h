@@ -1,6 +1,6 @@
 /**
  * @file fm_fmc.h
- * @brief Flow-meter computation helpers: totalizer bookkeeping and rate math.
+ * @brief Utilidades de calculo de caudal: totalizador y matematicas de caudal.
  */
 
 #ifndef FM_FMC_H_
@@ -10,10 +10,10 @@
 #include "fmx.h"
 #include <stdint.h>
 
-/** Fixed-point format used across the module (value x 1000). */
+/** Topo de dato punto fijo, sin signo, tres decimales. */
 typedef uint32_t ufp3_t;
 
-/** Data source used when loading factory defaults. */
+/** Fuente usada al cargar valores de fabrica. */
 typedef enum {
     FM_FACTORY_RAM_BACKUP,
     FM_FACTORY_LAST_SETUP,
@@ -22,7 +22,17 @@ typedef enum {
     FM_FACTORY_AI_80,
 } sensors_list_t;
 
-/** Decimal point selection for rate/volume rendering. */
+/** Estado del caudal medido. */
+typedef enum {
+    FM_FMC_RATE_OFF = 0, /**< Caudal detenido. */
+    FM_FMC_RATE_ON,      /**< Caudal estable en marcha. */
+    FM_FMC_RATE_STOPPED, /**< Transición de ON → OFF (detención). */
+    FM_FMC_RATE_STARTED  /**< Transición de OFF → ON (arranque). */
+} fm_fmc_rate_state_t;
+
+
+
+/** Seleccion de punto decimal para mostrar caudal y volumen. */
 typedef enum {
     FM_FMC_FP_SEL_0 = 0,
     FM_FMC_FP_SEL_1,
@@ -30,25 +40,25 @@ typedef enum {
     FM_FMC_FP_SEL_3,
 } fm_fmc_fp_sel;
 
-/** Volume units accepted by the totalizer. */
+/** Unidades de volumen aceptadas por el totalizador. */
 typedef enum {
-    VOL_UNIT_BLANK = 0, ///< Dimensionless placeholder (must remain first).
-    VOL_UNIT_BR,        ///< US oil barrel.
-    VOL_UNIT_GL,        ///< US gallon.
-    VOL_UNIT_KG,        ///< Kilogram.
-    VOL_UNIT_LT,        ///< Liter (primary calibration unit).
-    VOL_UNIT_M3,        ///< Cubic meter.
-    VOL_UNIT_ME,        ///< Equivalent cubic meter (e.g. gas equivalent).
+    VOL_UNIT_BLANK = 0, ///< Marcador sin dimension (debe quedar primero).
+    VOL_UNIT_BR,        ///< Barril petrolero estadounidense.
+    VOL_UNIT_GL,        ///< Galon estadounidense.
+    VOL_UNIT_KG,        ///< Kilogramo.
+    VOL_UNIT_LT,        ///< Litro (unidad primaria de calibracion).
+    VOL_UNIT_M3,        ///< Metro cubico.
+    VOL_UNIT_ME,        ///< Metro cubico equivalente (ej. gas equivalente).
     VOL_UNIT_END,
 } fm_fmc_vol_unit_t;
 
-/** Metadata for each supported volume unit. */
+/** Metadatos para cada unidad de volumen soportada. */
 typedef struct {
-    float unit_convert; ///< Conversion factor relative to liters.
-    char  name[3];      ///< Short label displayed on the LCD.
+    float unit_convert; ///< Factor de conversion relativo a litros.
+    char  name[3];      ///< Etiqueta corta mostrada en el LCD.
 } fm_fmc_vol_data_t;
 
-/** Time bases used by rate/totalizer calculations. */
+/** Bases de tiempo usadas por los calculos de caudal y totalizador. */
 typedef enum {
     TIME_UNIT_SECOND = 0,
     TIME_UNIT_MINUTE,
@@ -57,31 +67,33 @@ typedef enum {
     TIME_UNIT_END,
 } fm_fmc_time_unit_t;
 
-/** Runtime data associated with instantaneous flow rate. */
+/** Datos en runtime asociados al caudal instantaneo. */
 typedef struct {
-    double  factor_r;     ///< Rate factor (includes K factor and time unit).
-    ufp3_t  delta_t;      ///< Elapsed time in milliseconds (x1000).
-    ufp3_t  delta_p;      ///< Pulses accumulated during delta_t.
-    ufp3_t  rate;         ///< Cached rate using fixed-point notation.
-    uint8_t rate_pf_sel;  ///< Decimal point for rendered rate.
-    ufp3_t  limit_high;   ///< Nominal upper rate limit.
-    ufp3_t  limit_low;    ///< Nominal lower rate limit.
-    uint32_t filter;      ///< Additional filter configuration.
+    double  factor_r;     ///< Factor de caudal (factor K + base de tiempo).
+    ufp3_t		delta_t;      ///< Ultima medicion, en segundos resolucion 1 milisegundo, para calculo del rate.
+    ufp3_t  	delta_p;      ///< Conteo de pulsos para el calulo del rate, durante delta_t.
+    ufp3_t  	rate;         ///< Caudal almacenado en punto fijo.
+    uint8_t 	rate_pf_sel;  ///< Posicion del punto decimal mostrado en el LCD.
+    ufp3_t 		limit_high;   ///< Limite nominal superior del caudal.
+    ufp3_t  	limit_low;    ///< Limite nominal inferior del caudal.
+    uint32_t 	filter;      ///< Configuracion adicional del filtro.
+    fm_fmc_rate_state_t 	state;  /**< Estado actual del caudal. */
+    
 } fm_fmc_rate_t;
 
-/** Aggregated counters and configuration for the totalizer. */
+/** Contadores y configuraciones agregados para el totalizador. */
 typedef struct {
-    ufp3_t            acm;          ///< Accumulated volume (x1000).
-    ufp3_t            ttl;          ///< Trip volume (x1000).
-    uint8_t           vol_pf_sel;   ///< Decimal point for ACM/TTL display.
-    uint64_t          pulse_acm;    ///< Pulse accumulator for ACM.
-    uint64_t          pulse_ttl;    ///< Pulse accumulator for TTL.
-    ufp3_t            factor_cal;   ///< Calibration factor (pulses per liter).
-    double            factor_k;     ///< K factor derived from calibration and units.
-    fm_fmc_vol_unit_t vol_unit;     ///< Active volume unit.
-    fm_fmc_time_unit_t time_unit;   ///< Active time base.
-    fm_fmc_rate_t     rate;         ///< Instantaneous rate tracking.
-    uint16_t          ticket_number;///< Sequential ticket number for reports.
+    ufp3_t            acm;          ///< Volumen acumulado (x1000).
+    ufp3_t            ttl;          ///< Volumen de viaje (x1000).
+    uint8_t           vol_pf_sel;   ///< Punto decimal para mostrar ACM/TTL.
+    uint64_t          pulse_acm;    ///< Acumulador de pulsos para ACM.
+    uint64_t          pulse_ttl;    ///< Acumulador de pulsos para TTL.
+    ufp3_t            factor_cal;   ///< Factor de calibracion (pulsos/litro).
+    double            factor_k;     ///< Factor K derivado de calibracion.
+    fm_fmc_vol_unit_t vol_unit;     ///< Unidad de volumen activa.
+    fm_fmc_time_unit_t time_unit;   ///< Base de tiempo activa.
+    fm_fmc_rate_t     rate;         ///< Seguimiento del caudal instantaneo.
+    uint16_t          ticket_number;///< Ticket secuencial para reportes.   
 } fm_fmc_totalizer_t;
 
 #define FM_FMC_FACTOR_CAL_MAX 99999999u
@@ -114,7 +126,8 @@ void     FM_FMC_RateFpInc(void);
 
 uint8_t          FM_FMC_TotalizerFpSelGet(void);
 void             FM_FMC_TotalizerFpInc(void);
-void             FM_FMC_TotalizerStrUnitGet(char **string, fm_fmc_vol_unit_t unit);
+void             FM_FMC_TotalizerStrUnitGet(char **string,
+                                            fm_fmc_vol_unit_t unit);
 void             FM_FMC_TotalizerTimeUnitSel(fm_fmc_time_unit_t sel);
 fm_fmc_time_unit_t FM_FMC_TotalizerTimeUnitGet(void);
 fmx_status_t      FM_FMC_TotalizerTimeUnitSet(fm_fmc_time_unit_t time_unit);

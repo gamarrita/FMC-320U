@@ -1,0 +1,3 @@
+Added Parameter Temperature Max=85 to Part U2
+Added Parameter Temperature Min=-40 to Part U2
+Replace Symbol from U2 STM32U575VI_1 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_IO.SchDoc with STM32U575VI_1 from Microcontroladores.SchLib

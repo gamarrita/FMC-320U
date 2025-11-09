@@ -109,8 +109,8 @@ void FM_MAIN_Main()
     if(refresh_label)
     {
       FM_DEBUG_UartUint32(freq);
-      //FM_DEBUG_UartUint32(lptim4_counter_delta);
-      //FM_DEBUG_UartUint32(lptim3_capture_delta);
+      FM_DEBUG_UartUint32(lptim4_counter_delta);
+      FM_DEBUG_UartUint32(lptim3_capture_delta);
 
     }
     refresh_label = 0;

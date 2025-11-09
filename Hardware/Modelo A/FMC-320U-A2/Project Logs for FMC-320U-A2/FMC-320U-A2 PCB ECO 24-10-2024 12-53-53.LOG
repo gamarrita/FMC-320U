@@ -1,0 +1,7 @@
+Change Component Designator: OldDesignator=C? NewDesignator=C19
+Change Component Designator: OldDesignator=C? NewDesignator=C22
+Change Component Designator: OldDesignator=J? NewDesignator=J8
+Added Pin To Net: NetName=VDD Pin=C19-1
+Added Pin To Net: NetName=GND Pin=C19-2
+Added Pin To Net: NetName=VDD Pin=C22-1
+Added Pin To Net: NetName=GND Pin=C22-2

@@ -1,0 +1,5 @@
+Removed Parameter Manufacturer:Sensirion from Part B1
+Removed Parameter Manufacturer Part Number:STS40-BD1B-R3 from Part B1
+Added Parameter Manufacturer_Name=Sensirion to Part B1
+Added Parameter Manufacturer_Part_Number=STS40-BD1B-R3 to Part B1
+Replace Symbol from B1 STS40-BD1B-R3 in D:\FLOWMEET Dropbox\flowmeet\ID\Electronica\Equipos\FMC-320U\hardware\altium\model_a\trunk\fmc-320u-a2\SENSOR.SchDoc with STS40-BD1B-R3 from STS40-BD1B-R3.SchLib

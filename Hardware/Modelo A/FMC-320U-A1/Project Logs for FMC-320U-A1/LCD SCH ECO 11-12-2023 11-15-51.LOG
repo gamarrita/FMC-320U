@@ -1,0 +1,32 @@
+Removed Parameter ComponentLink1Description:Datasheet from Part D1
+Removed Parameter ComponentLink1Description:Datasheet from Part LCD1
+Removed Parameter ComponentLink1Description:datasheet from Part U1
+Removed Parameter ComponentLink1URL:* from Part D1
+Removed Parameter ComponentLink1URL:* from Part LCD1
+Removed Parameter ComponentLink1URL:https://datasheet.lcsc.com/lcsc/2107141507_NXP-Semicon-PCF8553DTT-AJ_C2653705.pdf from Part U1
+Change Component Parameter Comment in C5 Old= New==Value
+Change Value of Parameter Datasheet in Part Q1 Old=https://www.digikey.com/es/products/detail/diodes-incorporated/DMG3401LSN-7/3720138?s=N4IgTCBcDaICIFkDiBmALABgIwBkDKAcgLQDsIAugL5A New=https://www.diodes.com/assets/Datasheets/DMG3401LSN.pdf
+Change Component Parameter Comment in R9 Old= New==Value
+Change Component Parameter Comment in R10 Old= New==Value
+Change Value of Parameter Category in Part U1 Old= New=Driver
+Added Parameter Datasheet=- to Part D1
+Added Parameter Datasheet=- to Part LCD1
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C5
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2107141507_NXP-Semicon-PCF8553DTT-AJ_C2653705.pdf to Part U1
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R10
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf to Part R9
+Added Parameter Temperature Max=85 to Part U1
+Added Parameter Temperature Max=150 to Part Q1
+Added Parameter Temperature Max=- to Part D1
+Added Parameter Temperature Max=- to Part LCD1
+Added Parameter Temperature Min=-40 to Part U1
+Added Parameter Temperature Min=-55 to Part Q1
+Added Parameter Temperature Min=- to Part D1
+Added Parameter Temperature Min=- to Part LCD1
+Replace Symbol from C5 CC0805KRX7R8BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\LCD.SchDoc with CC0805KRX7R8BB104 from Yageo.SchLib
+Replace Symbol from D1 FM-160-BACKLIGHT in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\LCD.SchDoc with FM-160-BACKLIGHT from FM-160LCD.SchLib
+Replace Symbol from LCD1 FM-160LCD-V2R2R1 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\LCD.SchDoc with FM-160LCD-V2R2R1 from FM-160LCD.SchLib
+Replace Symbol from Q1 DMG3401LSN-7 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\LCD.SchDoc with DMG3401LSN-7 from mosfet.SchLib
+Replace Symbol from R9 RC0805FR-071ML in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\LCD.SchDoc with RC0805FR-071ML from Yageo.SchLib
+Replace Symbol from R10 RC0805FR-0747RL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\LCD.SchDoc with RC0805FR-0747RL from Yageo.SchLib
+Replace Symbol from U1 PCF8553DTT/AY in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\LCD.SchDoc with PCF8553DTT/AY from LCD_drivers.SchLib

@@ -1,0 +1,44 @@
+Change Component Parameter Comment in C6 Old= New==Value
+Change Component Parameter Comment in C9 Old= New==Value
+Change Component Parameter Comment in C10 Old= New==Value
+Change Component Parameter Comment in C11 Old= New==Value
+Change Component Parameter Comment in C12 Old= New==Value
+Change Component Parameter Comment in C13 Old= New==Value
+Change Component Parameter Comment in C14 Old= New==Value
+Change Component Parameter Comment in C15 Old= New==Value
+Change Component Parameter Comment in C16 Old= New==Value
+Change Component Parameter Comment in C17 Old= New==Value
+Change Component Parameter Comment in C18 Old= New==Value
+Change Component Parameter Comment in C19 Old= New==Value
+Change Component Parameter Comment in C20 Old= New==Value
+Change Component Parameter Comment in C21 Old= New==Value
+Change Component Parameter Comment in C24 Old= New==Value
+Change Component Parameter Comment in L1 Old= New==Value
+Change Component Parameter Comment in LSE1 Old= New==Value
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2304140030_YAGEO-CC0805KKX5R8BB106_C89831.pdf to Part C19
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2304140030_YAGEO-CC0805KKX5R8BB106_C89831.pdf to Part C24
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2304140030_YAGEO-CC0805KKX7R8BB105_C91186.pdf to Part C16
+Added Parameter Temperature Max=85 to Part L1
+Added Parameter Temperature Max=85 to Part LSE1
+Added Parameter Temperature Max=85 to Part U2
+Added Parameter Temperature Min=-40 to Part L1
+Added Parameter Temperature Min=-40 to Part LSE1
+Added Parameter Temperature Min=-40 to Part U2
+Replace Symbol from C6 CC0805KRX7R9BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KRX7R9BB104 from Yageo.SchLib
+Replace Symbol from C9 CC0805KRX7R9BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KRX7R9BB104 from Yageo.SchLib
+Replace Symbol from C10 CC0805KRX7R9BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KRX7R9BB104 from Yageo.SchLib
+Replace Symbol from C11 CC0805KRX7R9BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KRX7R9BB104 from Yageo.SchLib
+Replace Symbol from C12 CC0805KRX7R9BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KRX7R9BB104 from Yageo.SchLib
+Replace Symbol from C13 CC0805KRX7R9BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KRX7R9BB104 from Yageo.SchLib
+Replace Symbol from C14 CC0805KKX7R8BB225 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KKX7R8BB225 from Yageo.SchLib
+Replace Symbol from C15 CC0805KRX7R9BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KRX7R9BB104 from Yageo.SchLib
+Replace Symbol from C16 CC0805KKX7R8BB105 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KKX7R8BB105 from Yageo.SchLib
+Replace Symbol from C17 CC0805KKX7R8BB225 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KKX7R8BB225 from Yageo.SchLib
+Replace Symbol from C18 CC0805KKX7R8BB225 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KKX7R8BB225 from Yageo.SchLib
+Replace Symbol from C19 CC0805KKX5R8BB106 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KKX5R8BB106 from Yageo.SchLib
+Replace Symbol from C20 CC0805JRNPO9BN120 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805JRNPO9BN120 from Yageo.SchLib
+Replace Symbol from C21 CC0805JRNPO9BN120 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805JRNPO9BN120 from Yageo.SchLib
+Replace Symbol from C24 CC0805KKX5R8BB106 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with CC0805KKX5R8BB106 from Yageo.SchLib
+Replace Symbol from L1 LQM21PN2R2MGHL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with LQM21PN2R2MGHL from Inductores.SchLib
+Replace Symbol from LSE1 SC32S-12.5PF20PPM in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with SC32S-12.5PF20PPM from Osciladores.SchLib
+Replace Symbol from U2 STM32U575VI_1 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_PWR.SchDoc with STM32U575VI_1 from Microcontroladores.SchLib

@@ -1,0 +1,2 @@
+Change Net Name : Old Net Name=LED_3 New Net Name=LED_SIGNAL
+Change Net Name : Old Net Name=LED_MCU_RUN New Net Name=LED_RUN

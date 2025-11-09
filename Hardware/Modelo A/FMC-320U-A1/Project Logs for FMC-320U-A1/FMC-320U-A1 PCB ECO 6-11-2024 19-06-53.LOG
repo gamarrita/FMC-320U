@@ -1,0 +1,21 @@
+Change component parameters: Designator = "SW1" ("SW1"); Footprint = "TC-1102-B-A-B"; UniqueID = "\DSSACHSH" ("\DSSACHSH")
+Change component parameters (AddParameter): Name = "Category"; Value = "Mechanical Switch"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2110111230_XKB-Connectivity-TC-1102-B-A-B_C480281.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Main supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "XKB Connectivity"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "TC-1102-B-A-B"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "85"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-30"; VariantName = "[No Variations]"
+Added Component: Designator=CN1(HEADER PIN 1X6 90)
+Add component (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "XUNPU"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "PH2.54-07-06PWD"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=DVDD Pin=CN1-1
+Added Pin To Net: NetName=PAD_ESC Pin=CN1-2
+Added Pin To Net: NetName=PAD_ENTER Pin=CN1-3
+Added Pin To Net: NetName=PAD_UP Pin=CN1-4
+Added Pin To Net: NetName=PAD_DOWN Pin=CN1-5
+Added Pin To Net: NetName=GND Pin=CN1-6

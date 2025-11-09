@@ -1,0 +1,46 @@
+Change Component Description : Designator=J3 Old Description=2 x 4 - true hole  2.54mm New Description=2 x 4 - true hole  2.54mm 90° - Hay que cambiar el modelo 3d en la biblioteca y sincronizar nuevamete.
+Change component parameters: Designator = "BH1" ("BH1"); Footprint = "BS-08-B2AA016"; UniqueID = "\NDGWUJWY" ("\NDGWUJWY")
+Change component parameters (AddParameter): Name = "Category"; Value = "Battery holder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2012181809_MYOUNG-BS-08-B2AA016_C964792.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Myoung"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer part number"; Value = "BS-08-B2AA016"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "85"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-25"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CN2" ("CN2"); Footprint = "DW254R-22-10-85"; UniqueID = "\QFECVEXW" ("\QFECVEXW")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header female"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Main supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Dealon"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DW254R-22-20-85"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CN3" ("CN3"); Footprint = "2X5 100 MILS SMD"; UniqueID = "\BJIWNGVM" ("\BJIWNGVM")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header female"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Main supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Dealon"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DW254S-22-10-85"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J3" ("J3"); Footprint = "HEADER PIN 2X4"; UniqueID = "\YTIGYBOK" ("\YTIGYBOK")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2304140030_Ckmtw-Shenzhen-Cankemeng-B-2100S08P-B110_C124386.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Main supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "XUNPU"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "PH2.54-07-04PWS"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "105"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature MiN"; Value = "-40"; VariantName = "[No Variations]"
+Change component parameters: Designator = "LD1" ("LD1"); Footprint = "LED 0805"; UniqueID = "\RROBXZYU" ("\RROBXZYU")
+Change component parameters (AddParameter): Name = "Category"; Value = "LED"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Main supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Everlight Elec"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "17-21SURC/S530-A2/TR8"; VariantName = "[No Variations]"
+Change component parameters: Designator = "LD2" ("LD2"); Footprint = "LED 0805"; UniqueID = "\TQXAASGW" ("\TQXAASGW")
+Change component parameters (AddParameter): Name = "Category"; Value = "LED"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/1809192317_Everlight-Elec-17-21-BHC-XL2M2TY-3T_C72035.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Main supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Everlight Elec"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "17-21/BHC-XL2M2TY"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "85"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-40"; VariantName = "[No Variations]"
+Change component parameters: Designator = "LD3" ("LD3"); Footprint = "LED 0805"; UniqueID = "\CPVFNQYQ" ("\CPVFNQYQ")
+Change component parameters (AddParameter): Name = "Category"; Value = "LED"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/559/17-21SYGC,S530-E2,TR8.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Everlight Elec"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "17-21SYGC/S530-E2/TR8"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "85"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-40"; VariantName = "[No Variations]"

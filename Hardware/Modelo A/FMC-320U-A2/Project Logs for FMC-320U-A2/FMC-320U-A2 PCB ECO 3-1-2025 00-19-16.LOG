@@ -1,0 +1,55 @@
+Change Component DesignItemId : Designator=J3 Old DesignItemId=54101-T0602LF New DesignItemId=54101-T0600LF-CUT-2
+Change Component DesignItemId : Designator=J4 Old DesignItemId=54101-T0602LF New DesignItemId=54101-T0600LF-CUT-2
+Change Component DesignItemId : Designator=J5 Old DesignItemId=54101-T0602LF New DesignItemId=54101-T0600LF-CUT-2
+Change Component DesignItemId : Designator=J6 Old DesignItemId=54101-T0602LF New DesignItemId=54101-T0600LF-CUT-2
+Change Component DesignItemId : Designator=J2 Old DesignItemId=54102-T0604LF-JUMPER New DesignItemId=PZ254V-12-8P-JUMPER
+Change component parameters: Designator = "D7" ("D7"); Footprint = "SMBJ28CA-13-F"; UniqueID = "\YLBPBHXE" ("\YLBPBHXE")
+Change component parameters (AddParameter): Name = "Category"; Value = "Diodo"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2304140030_Diodes-Incorporated-SMBJ28CA-13-F_C135064.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "BORN"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "SMBJ24CA"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "150"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-55"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "24V - 26.7V - 38.9V"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J3" ("J3"); Footprint = "HEADER PIN 1X2"; UniqueID = "\DMEOPAWI" ("\DMEOPAWI")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0600LF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J4" ("J4"); Footprint = "HEADER PIN 1X2"; UniqueID = "\RQAGXNIE" ("\RQAGXNIE")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0600LF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J5" ("J5"); Footprint = "HEADER PIN 1X2"; UniqueID = "\KGTXMKEQ" ("\KGTXMKEQ")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0600LF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J6" ("J6"); Footprint = "HEADER PIN 1X2"; UniqueID = "\TEDDCZNH" ("\TEDDCZNH")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0600LF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J2" ("J2"); Footprint = "HEADER PIN 2X4"; UniqueID = "\YVGUVDFM" ("\YVGUVDFM")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://cdn.amphenol-cs.com/media/wysiwyg/files/drawing/54102.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "PZ254V-12-8P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "XFCN"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer PartNumber"; Value = "PZ254V-12-8P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change Net Name : Old Net Name=PC8 New Net Name=MXC_ON
+Change Net Name : Old Net Name=PC9 New Net Name=MXC_CONNECT

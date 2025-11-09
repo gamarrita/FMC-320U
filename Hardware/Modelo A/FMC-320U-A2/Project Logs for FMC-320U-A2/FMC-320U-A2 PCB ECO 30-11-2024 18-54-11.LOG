@@ -1,0 +1,7 @@
+Added Pin To Net: NetName=PC8 Pin=CN1-1
+Added Pin To Net: NetName=PC9 Pin=CN1-2
+Added Pin To Net: NetName=PA0 Pin=CN1-3
+Added Pin To Net: NetName=SPI3_SCK Pin=CN1-5
+Added Pin To Net: NetName=SPI3_MISO Pin=CN1-6
+Added Pin To Net: NetName=SPI3_MOSI Pin=CN1-7
+Added Pin To Net: NetName=PD7 Pin=CN1-8

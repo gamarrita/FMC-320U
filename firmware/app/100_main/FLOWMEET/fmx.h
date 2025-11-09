@@ -4,7 +4,7 @@
  *
  * Exposes shared types, event identifiers, and ThreadX related hooks used by
  * the FLOWMEET application layer.
- * @details Resume riesgos operativos, trazabilidad REQ-FMX y acuerdos con ThreadX/HAL para el modulo.
+ * @details Summarizes operational risks, REQ-FMX traceability, and ThreadX/HAL agreements for the module.
  */
 #ifndef FMX_H_
 #define FMX_H_
@@ -20,12 +20,11 @@ extern "C" {
 #include "tx_api.h"
 
 // --- Public Constants ---
-// Codigos de eventos evitan perder pulsos aun con fallas.
-// Codificacion en ULONG sigue REQ-FMX-QUEUE-001 y la granularidad de ThreadX.
-// Alineados con la granularidad de cola ThreadX para tiempos deterministas.
+// Cada evento usa un bit de fmx_events_t; admite hasta 32 eventos.
+// Se mantiene el cast a ULONG para cumplir con REQ-FMX-QUEUE-001 y ThreadX.
 /**
  * Event bitfield type for the FMX event queue.
- * Alineado con el ancho de ULONG requerido por ThreadX.
+ * Aligned with the ULONG width required by ThreadX.
  */
 typedef ULONG fmx_events_t;
 
@@ -41,22 +40,23 @@ typedef ULONG fmx_events_t;
 #define FMX_EVENT_KEY_ENTER_LONG    ((fmx_events_t)9u)
 #define FMX_EVENT_KEY_EXT_1         ((fmx_events_t)10u)
 #define FMX_EVENT_KEY_EXT_2         ((fmx_events_t)11u)
+// Fuerza un wake-up cuando ThreadX alcanza el timeout maximo en stop.
 #define FMX_EVENT_TIME_OUT          ((fmx_events_t)12u)
 #define FMX_EVENT_END               ((fmx_events_t)13u)
 
-// Stack dimensionado para cubrir GUI y tareas de monitoreo.
+// Stack sized to cover GUI and monitoring tasks.
 #define FMX_STACK_SIZE              (1024u * 16u)
-// Prioridad definida por REQ-FMX-THREAD-010.
+// Priority defined by REQ-FMX-THREAD-010.
 #define FMX_THREAD_PRIORITY_10      (10u)
-// Threshold mantiene preemption deterministica.
+// Threshold preserves deterministic preemption.
 #define FMX_THRESHOLD_10            (10u)
-// Sin time-slice para evitar jitter en menu.
+// No time slice to avoid menu jitter.
 #define FMX_SLICE_0                 (0u)
 
 // --- Public Types ---
 /**
  * Low power control states.
- * Indica cuando la UI puede apagar perifericos para ahorrar energia.
+ * Indicates when the UI can power down peripherals to save energy.
  */
 typedef enum {
     FMX_LOW_POWER_DISABLE = 0u,
@@ -65,7 +65,7 @@ typedef enum {
 
 /**
  * General status codes for FMX modules.
- * El prefijo consistente facilita la trazabilidad de fallas.
+ * The consistent prefix simplifies failure traceability.
  */
 typedef enum {
     FMX_STATUS_NULL = 0u,
@@ -77,54 +77,36 @@ typedef enum {
     FMX_STATUS_OUT_OF_RANGE
 } fmx_status_t;
 
-/**
- * Flow rate state machine for caudal detection.
- * Describe transiciones utilizadas por hilos y callbacks.
- */
-typedef enum {
-    FMX_RATE_OFF = 0u,
-    FMX_RATE_TO_ON,
-    FMX_RATE_ON,
-    FMX_RATE_TO_OFF
-} fmx_rate_status_t;
-
 // --- Extern Variables ---
-// Flag cableado via PCB habilita el canal debug.
+// PCB-wired flag enables the debug channel.
 extern const uint32_t FMX_DEBUG_UART_1_ENABLE;
-// Cola acepta comandos diferidos provenientes de ISR.
+// Queue accepts deferred commands coming from ISRs.
 extern TX_QUEUE fmx_deferred_cmd_queue;
 
 // --- Public API ---
 /**
- * Recupera el estado actual del flujo.
- * @return Valor de @ref fmx_rate_status_t para UI y logging.
- * @details Permite validar coherencia de sensores en runtime.
- */
-fmx_rate_status_t FMX_GetRateStatus(void);
-
-/**
- * Inicializa el modulo FMX y sus recursos de ThreadX.
- * @param memory_ptr Pool de memoria provisto por el RTOS.
- * @return Codigo de estado devuelto por ThreadX.
- * @details Verifica cada llamado segun REQ-FMX-INIT-001.
+ * Initializes the FMX module and its ThreadX resources.
+ * @param memory_ptr Memory pool provided by the RTOS.
+ * @return Status code returned by ThreadX.
+ * @details Verifies each call according to REQ-FMX-INIT-001.
  */
 UINT FMX_Init(VOID *memory_ptr);
 
 /**
- * Enciende la luz de fondo del LCD y reinicia su temporizador.
- * @details Usa timers ThreadX para controlar consumo.
+ * Turns on the LCD backlight and restarts its timer.
+ * @details Uses ThreadX timers to control consumption.
  */
 void FMX_LcdBackLightOn(void);
 
 /**
- * Garantiza que exista un evento de refresco de menu en la cola.
- * @details Mantiene compliance con REQ-FMX-GUI-002.
+ * Ensures a menu refresh event exists in the queue.
+ * @details Maintains compliance with REQ-FMX-GUI-002.
  */
 void FMX_RefreshEventTrue(void);
 
 /**
- * Dispara la secuencia de conexion del esclavo Bluetooth.
- * @details Despierta el hilo BT via semaphore sin recurrir a polling.
+ * Triggers the Bluetooth slave connection sequence.
+ * @details Wakes the BT thread via semaphore without resorting to polling.
  */
 void FMX_Trigger_BluetoothSlave(void);
 
@@ -134,12 +116,3 @@ void FMX_Trigger_BluetoothSlave(void);
 
 #endif // FMX_H_
 /*** END OF FILE ***/
-
-
-
-
-
-
-
-
-

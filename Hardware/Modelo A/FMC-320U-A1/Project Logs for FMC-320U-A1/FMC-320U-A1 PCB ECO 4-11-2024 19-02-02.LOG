@@ -1,0 +1,10 @@
+Removed Pin From Net: NetName=VREF+ Pin=C7-1
+Removed Pin From Net: NetName=GND Pin=C7-2
+Change component parameters: Designator = "CN3" ("CN3"); Footprint = "2X5 100 MILS SMD"; UniqueID = "\BJIWNGVM" ("\BJIWNGVM")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header female"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2209141730_DEALON-DW254S-22-10-85_C5160820.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Dealon"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DW254S-22-10-85"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Parameter 1"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"

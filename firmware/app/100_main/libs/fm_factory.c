@@ -7,8 +7,8 @@
 
 // --- Factory constants ---
 
-static const char k_firmware_version[] = "01.01.010"; // Major.Minor.Patch
-static const char k_release_tag[]      = "B0";
+static const char k_firmware_version[] = "01.01.011"; // Major.Minor.Patch
+static const char k_release_tag[]      = "b0";
 
 // Generic configuration for sensors without prior calibration.
 static const fm_fmc_totalizer_t k_sensor_0 = {

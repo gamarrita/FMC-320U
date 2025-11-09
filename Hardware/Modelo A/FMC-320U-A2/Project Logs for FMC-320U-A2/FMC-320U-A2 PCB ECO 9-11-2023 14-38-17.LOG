@@ -1,0 +1,153 @@
+Change Component Comment : Designator=P3 Old Comment=23 New Comment=WJ15EDGVC-3.81-3P
+Change Component Comment : Designator=J4 Old Comment=54101-T0602LF New Comment=Usar Equivalene
+Change Component Comment : Designator=CN1 Old Comment=54101-T0602LF New Comment=Usar Equivalente
+Change Component Comment : Designator=J3 Old Comment=54101-T0602LF New Comment=Usar Equivalente
+Change Component Comment : Designator=J6 Old Comment=54101-T0602LF New Comment=Usar Equivalente
+Change Component Comment : Designator=J7 Old Comment=54101-T0602LF New Comment=Usar Equivalente
+Change Component Comment : Designator=J2 Old Comment=54102-T0604LF-JUMPER New Comment=Usar equivalente
+Change Component Comment : Designator=CN8 Old Comment=DZ254R-22-10-63 New Comment=Uar Equivalente
+Change Component Comment : Designator=J5 Old Comment=Use cutable part number 54101-t06-03 New Comment=Usar Equivalente
+Change Managed Component Library Link : Designator=D1 Old VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 New VaultGUID= Old ItemGUID=6F6EAC96-CFDB-47CA-8E15-A1E051A8E5DE New ItemGUID= Old RevisionGUID=F2A6BEE1-6AAB-4D39-A3E0-906C1E11E2DA New RevisionGUID=
+Change Managed Component Library Link : Designator=D2 Old VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 New VaultGUID= Old ItemGUID=6F6EAC96-CFDB-47CA-8E15-A1E051A8E5DE New ItemGUID= Old RevisionGUID=F2A6BEE1-6AAB-4D39-A3E0-906C1E11E2DA New RevisionGUID=
+Change Managed Component Library Link : Designator=D3 Old VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 New VaultGUID= Old ItemGUID=6F6EAC96-CFDB-47CA-8E15-A1E051A8E5DE New ItemGUID= Old RevisionGUID=F2A6BEE1-6AAB-4D39-A3E0-906C1E11E2DA New RevisionGUID=
+Change Managed Component Library Link : Designator=D4 Old VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 New VaultGUID= Old ItemGUID=6F6EAC96-CFDB-47CA-8E15-A1E051A8E5DE New ItemGUID= Old RevisionGUID=F2A6BEE1-6AAB-4D39-A3E0-906C1E11E2DA New RevisionGUID=
+Change Managed Component Library Link : Designator=D5 Old VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 New VaultGUID= Old ItemGUID=6F6EAC96-CFDB-47CA-8E15-A1E051A8E5DE New ItemGUID= Old RevisionGUID=F2A6BEE1-6AAB-4D39-A3E0-906C1E11E2DA New RevisionGUID=
+Change Managed Component Library Link : Designator=D6 Old VaultGUID=B7D15EC3-160A-466F-A46C-7801FE6295A7 New VaultGUID= Old ItemGUID=6F6EAC96-CFDB-47CA-8E15-A1E051A8E5DE New ItemGUID= Old RevisionGUID=F2A6BEE1-6AAB-4D39-A3E0-906C1E11E2DA New RevisionGUID=
+Change component parameters: Designator = "CN1" ("CN1"); Footprint = "HEADER PIN 1X2"; UniqueID = "\ZIHDZEMQ" ("\ZIHDZEMQ")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0602LF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CN8" ("CN8"); Footprint = "HEADER PIN 2X5 MIRROR"; UniqueID = "\XWMORWNP" ("\XWMORWNP")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DZ254R-22-10-63_C2935920.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "PZ254V-12-10P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "DEALON"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DZ254R-22-10-63"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J3" ("J3"); Footprint = "HEADER PIN 1X2"; UniqueID = "\DMEOPAWI" ("\DMEOPAWI")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0602LF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J4" ("J4"); Footprint = "HEADER PIN 1X2"; UniqueID = "\RQAGXNIE" ("\RQAGXNIE")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0602LF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J6" ("J6"); Footprint = "HEADER PIN 1X2"; UniqueID = "\LVXKVIFO" ("\LVXKVIFO")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0602LF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J7" ("J7"); Footprint = "HEADER PIN 1X2"; UniqueID = "\VETLRJFD" ("\VETLRJFD")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0602LF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "P1" ("P1"); Footprint = "HEADER PLUG 2"; UniqueID = "\EYDPWFUC" ("\EYDPWFUC")
+Change component parameters (AddParameter): Name = "Category"; Value = "Bornera enchufable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/1912251633_Ningbo-Kangnex-Elec-WJ15EDGVC-3-81-2P_C8396.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Ningbo Kangnex Elec"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "WJ15EDGVC-3.81-2P"; VariantName = "[No Variations]"
+Change component parameters: Designator = "P2" ("P2"); Footprint = "HEADER PLUG 2"; UniqueID = "\GOZLNXXJ" ("\GOZLNXXJ")
+Change component parameters (AddParameter): Name = "Category"; Value = "Bornera enchufable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/1912251633_Ningbo-Kangnex-Elec-WJ15EDGVC-3-81-2P_C8396.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Ningbo Kangnex Elec"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "WJ15EDGVC-3.81-2P"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C1" ("C1"); Footprint = "CAP_SM0805_YAGEOCC2_N"; UniqueID = "\URGEOAKR" ("\URGEOAKR")
+Change component parameters (AddParameter): Name = "Category"; Value = "Capacitor"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer Website"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.yageo.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2304140030_YAGEO-CC0805KRX5R6BB475_C605218.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Yageo"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "CC0805KRX5R6BB475"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "0805"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Farnell"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 2"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "718671"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 2"; Value = "311-1374-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Tolerance (%)"; Value = "10"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Voltage Rating (Volts)"; Value = "10"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C3" ("C3"); Footprint = "CAP_SM0805_YAGEOCC2_N"; UniqueID = "\VFBSFNWK" ("\VFBSFNWK")
+Change component parameters (AddParameter): Name = "Category"; Value = "Capacitor"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer Website"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.yageo.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2304140030_YAGEO-CC0805KRX5R6BB475_C605218.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Yageo"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "CC0805KRX5R6BB475"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "0805"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Farnell"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 2"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "718671"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 2"; Value = "311-1374-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Tolerance (%)"; Value = "10"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Voltage Rating (Volts)"; Value = "10"; VariantName = "[No Variations]"
+Change component parameters: Designator = "C17" ("C17"); Footprint = "CAP_SM0805_YAGEOCC2_N"; UniqueID = "\ZVQAQUIN" ("\ZVQAQUIN")
+Change component parameters (AddParameter): Name = "Category"; Value = "Capacitor"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer Website"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.yageo.com"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2304140030_YAGEO-CC0805KRX5R6BB475_C605218.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Yageo"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "CC0805KRX5R6BB475"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Package"; Value = "0805"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 1"; Value = "Farnell"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier 2"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 1"; Value = "718671"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier Part Number 2"; Value = "311-1374-1-ND"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Tolerance (%)"; Value = "10"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Value"; Value = "4.7uF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Voltage Rating (Volts)"; Value = "10"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J2" ("J2"); Footprint = "HEADER PIN 2X4"; UniqueID = "\YVGUVDFM" ("\YVGUVDFM")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "New link"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "PZ254V-12-8P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer PartNumber"; Value = "54102-T0604LF"; VariantName = "[No Variations]"
+Change component parameters: Designator = "BH2" ("BH2"); Footprint = "BS-08-B2AA016"; UniqueID = "\MVXLRRRP" ("\MVXLRRRP")
+Change component parameters (AddParameter): Name = "Category"; Value = "Battery holder"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2012181809_MYOUNG-BS-08-B2AA016_C964792.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Myoung"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer part number"; Value = "BS-08-B2AA016"; VariantName = "[No Variations]"
+Change component parameters: Designator = "P5" ("P5"); Footprint = "HEADER PLUG 3"; UniqueID = "\FMFDSHOP" ("\FMFDSHOP")
+Change component parameters (AddParameter): Name = "Category"; Value = "Bornera enchufable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/1912251632_Ningbo-Kangnex-Elec-WJ15EDGVC-3-81-3P_C8389.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Ningbo Kangnex Elec"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "WJ15EDGVC-3.81-3P"; VariantName = "[No Variations]"
+Change component parameters: Designator = "Q1" ("Q1"); Footprint = "DMG3401LSN-7"; UniqueID = "\DPRAFIBC" ("\DPRAFIBC")
+Change component parameters (AddParameter): Name = "Category"; Value = "Transistor mosfet"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://www.digikey.com/es/products/detail/diodes-incorporated/DMG3401LSN-7/3720138?s=N4IgTCBcDaICIFkDiBmALABgIwBkDKAcgLQDsIAugL5A"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Diodes Incorporated"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DMG3401LSN-7"; VariantName = "[No Variations]"
+Change component parameters: Designator = "Q2" ("Q2"); Footprint = "DMG3402L-7"; UniqueID = "\DIQVVWXD" ("\DIQVVWXD")
+Change component parameters (AddParameter): Name = "Category"; Value = "Transistor mosfet"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://www.diodes.com/assets/Datasheets/DMG3402L.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Diodes Incorporated"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DMG3402L-7"; VariantName = "[No Variations]"
+Change component parameters: Designator = "Q3" ("Q3"); Footprint = "DMG3401LSN-7"; UniqueID = "\RLPQJFQP" ("\RLPQJFQP")
+Change component parameters (AddParameter): Name = "Category"; Value = "Transistor mosfet"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://www.digikey.com/es/products/detail/diodes-incorporated/DMG3401LSN-7/3720138?s=N4IgTCBcDaICIFkDiBmALABgIwBkDKAcgLQDsIAugL5A"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Diodes Incorporated"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DMG3401LSN-7"; VariantName = "[No Variations]"
+Change component parameters: Designator = "P3" ("P3"); Footprint = "HEADER PLUG 3"; UniqueID = "\IZXTNLIM" ("\IZXTNLIM")
+Change component parameters (AddParameter): Name = "Category"; Value = "Bornera enchufable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/1912251632_Ningbo-Kangnex-Elec-WJ15EDGVC-3-81-3P_C8389.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Ningbo Kangnex Elec"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "WJ15EDGVC-3.81-3P"; VariantName = "[No Variations]"
+Change component parameters: Designator = "P4" ("P4"); Footprint = "HEADER PLUG 3"; UniqueID = "\ESSOSATA" ("\ESSOSATA")
+Change component parameters (AddParameter): Name = "Category"; Value = "Bornera enchufable"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/1912251632_Ningbo-Kangnex-Elec-WJ15EDGVC-3-81-3P_C8389.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Ningbo Kangnex Elec"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "WJ15EDGVC-3.81-3P"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J5" ("J5"); Footprint = "HEADER PIN 1X2"; UniqueID = "\KGTXMKEQ" ("\KGTXMKEQ")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0602LF"; VariantName = "[No Variations]"

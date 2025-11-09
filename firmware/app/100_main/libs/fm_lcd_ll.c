@@ -948,7 +948,6 @@ void FM_LCD_LL_PutChar_1(char ascii_char)
         pcf8553_ram_map[REG_15] |= (1 << BIT_4);  // AZUL S4
         pcf8553_ram_map[REG_15] |= (1 << BIT_5);  // AZUL S5
     case '0':
-
         pcf8553_ram_map[REG_0] |= (1 << BIT_3);  // AMARILLO S3
         pcf8553_ram_map[REG_0] |= (1 << BIT_5);  // AMARILLO S5
         pcf8553_ram_map[REG_5] |= (1 << BIT_5);  // VERDE S5
@@ -1045,7 +1044,6 @@ void FM_LCD_LL_PutChar_1(char ascii_char)
         pcf8553_ram_map[REG_5] |= (1 << BIT_5);
         pcf8553_ram_map[REG_10] |= (1 << BIT_3);
         pcf8553_ram_map[REG_15] |= (1 << BIT_5);
-
         break;
     case 'D':
         pcf8553_ram_map[REG_0] |= (1 << BIT_3);
@@ -1076,7 +1074,6 @@ void FM_LCD_LL_PutChar_1(char ascii_char)
         pcf8553_ram_map[REG_10] |= (1 << BIT_3);
         pcf8553_ram_map[REG_15] |= (1 << BIT_5);
         pcf8553_ram_map[REG_15] |= (1 << BIT_2);
-
         break;
     case 'H':
         pcf8553_ram_map[REG_0] |= (1 << BIT_3);
@@ -1085,7 +1082,6 @@ void FM_LCD_LL_PutChar_1(char ascii_char)
         pcf8553_ram_map[REG_15] |= (1 << BIT_2);
         pcf8553_ram_map[REG_15] |= (1 << BIT_3);
         pcf8553_ram_map[REG_15] |= (1 << BIT_5);
-
         break;
     case 'I':
         pcf8553_ram_map[REG_5] |= (1 << BIT_2);
@@ -1214,8 +1210,211 @@ void FM_LCD_LL_PutChar_1(char ascii_char)
         pcf8553_ram_map[REG_15] |= (1 << BIT_2);
         pcf8553_ram_map[REG_15] |= (1 << BIT_4);
         break;
-    case 176:  // Grados centidrados
-        break;
+    case 'a':
+        //pcf8553_ram_map[REG_0] |= (1 << BIT_2);  // AMARILLO S2
+        pcf8553_ram_map[REG_0] |= (1 << BIT_3);  // AMARILLO S3
+        pcf8553_ram_map[REG_0] |= (1 << BIT_4);  // AMARILLO S4
+        pcf8553_ram_map[REG_0] |= (1 << BIT_5);  // AMARILLO S5
+        //pcf8553_ram_map[REG_5] |= (1 << BIT_2);  // VERDE S2
+        //pcf8553_ram_map[REG_5] |= (1 << BIT_4);  // VERDE S4
+        pcf8553_ram_map[REG_5] |= (1 << BIT_5);  // VERDE S5
+        //pcf8553_ram_map[REG_10] |= (1 << BIT_2);  // ROJO S2
+        //pcf8553_ram_map[REG_10] |= (1 << BIT_3);  // ROJO S3
+        //pcf8553_ram_map[REG_10] |= (1 << BIT_4);  // ROJO S4
+        pcf8553_ram_map[REG_15] |= (1 << BIT_2);  // AZUL S2
+        //pcf8553_ram_map[REG_15] |= (1 << BIT_3);  // AZUL S3
+        //pcf8553_ram_map[REG_15] |= (1 << BIT_4);  // AZUL S4
+        pcf8553_ram_map[REG_15] |= (1 << BIT_5);  // AZUL S5
+           break;
+	case 'b':
+        //pcf8553_ram_map[REG_0] |= (1 << BIT_2);  // AMARILLO S2
+        pcf8553_ram_map[REG_0] |= (1 << BIT_3);  // AMARILLO S3
+        pcf8553_ram_map[REG_0] |= (1 << BIT_4);  // AMARILLO S4
+        pcf8553_ram_map[REG_0] |= (1 << BIT_5);  // AMARILLO S5
+        //pcf8553_ram_map[REG_5] |= (1 << BIT_2);  // VERDE S2
+        //pcf8553_ram_map[REG_5] |= (1 << BIT_4);  // VERDE S4
+        pcf8553_ram_map[REG_5] |= (1 << BIT_5);  // VERDE S5
+        //pcf8553_ram_map[REG_10] |= (1 << BIT_2);  // ROJO S2
+        //pcf8553_ram_map[REG_10] |= (1 << BIT_3);  // ROJO S3
+        //pcf8553_ram_map[REG_10] |= (1 << BIT_4);  // ROJO S4
+        pcf8553_ram_map[REG_15] |= (1 << BIT_2);  // AZUL S2
+        //pcf8553_ram_map[REG_15] |= (1 << BIT_3);  // AZUL S3
+        //pcf8553_ram_map[REG_15] |= (1 << BIT_4);  // AZUL S4
+        pcf8553_ram_map[REG_15] |= (1 << BIT_5);  // AZUL S5
+	   break;
+	case 'c':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'd':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   break;
+	case 'e':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_2);
+	   break;
+	case 'f':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'g':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_2);
+	   break;
+	case 'h':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'i':
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_4);
+	   break;
+	case 'j':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   break;
+	case 'k':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'l':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'm':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'n':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'o':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'p':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'q':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'r':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 's':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 't':
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_4);
+	   break;
+	case 'u':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'v':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'w':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_5);
+	   break;
+	case 'x':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_4);
+	   break;
+	case 'y':
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_4);
+	   break;
+	case 'z':
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_0] |= (1 << BIT_4);
+	   pcf8553_ram_map[REG_5] |= (1 << BIT_5);
+	   pcf8553_ram_map[REG_10] |= (1 << BIT_3);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_2);
+	   pcf8553_ram_map[REG_15] |= (1 << BIT_4);
+	   break;
+   case 176:  // Grados centidrados
+       break;
     default:
         break;
     }
@@ -1351,7 +1550,6 @@ void FM_LCD_LL_PutChar_2(char ascii_char)
         pcf8553_ram_map[REG_19] |= (1 << BIT_7);  // AZUL S39
         break;
     case 'C':
-
         pcf8553_ram_map[REG_0] |= (1 << BIT_1);
         pcf8553_ram_map[REG_5] |= (1 << BIT_1);
         pcf8553_ram_map[REG_14] |= (1 << BIT_7);
@@ -1526,7 +1724,6 @@ void FM_LCD_LL_PutChar_2(char ascii_char)
         pcf8553_ram_map[REG_15] |= (1 << BIT_0);  // AZUL S0
         pcf8553_ram_map[REG_19] |= (1 << BIT_6);  // AZUL S38
         break;
-
     case 176:  // Grados centidrados
         //pcf8553_ram_map[REG_0] |= (1 << BIT_0); // AMARILLO S0
         //pcf8553_ram_map[REG_0] |= (1 << BIT_1); // AMARILLO S1
