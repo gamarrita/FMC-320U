@@ -1,0 +1,6 @@
+Change Component Comment : Designator=LD1 Old Comment=ERROR New Comment=RED
+Change Component Comment : Designator=LD2 Old Comment=RUN New Comment=BLUE
+Change Component Comment : Designator=LD3 Old Comment=SGINAL New Comment=GREEN
+Change Component Description : Designator=LD2 Old Description=BLUE New Description=RUN
+Change Component Description : Designator=LD3 Old Description=GREEN New Description=SGINAL
+Change Component Description : Designator=LD1 Old Description=RED New Description=ERROR

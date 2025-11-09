@@ -1,0 +1,4 @@
+Change Component Kind : Designator=P3 Old Kind=Jumper New Kind=Standard
+Added Pin To Net: NetName=GND Pin=P3-1
+Added Pin To Net: NetName=USART2_RX Pin=P3-2
+Added Pin To Net: NetName=USART2_TX Pin=P3-3

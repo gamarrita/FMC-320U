@@ -1,0 +1,10 @@
+Change Component Footprint: Designator=CN1 Old Footprint=HEADER PIN 1X5 New Footprint=HEADER PIN 1X6
+Change Component Comment : Designator=CN1 Old Comment=54101-T0605LF New Comment=54101-T0606LF
+Change component parameters: Designator = "CN1" ("CN1"); Footprint = "HEADER PIN 1X5"; UniqueID = "\ZVJYCLJL" ("\ZVJYCLJL")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0606LF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=CN1-6

@@ -1,0 +1,4 @@
+Change Component DesignItemId : Designator=PTH3 Old DesignItemId=PTH-3MM-M New DesignItemId=PTH-3MM-S
+Change Component Footprint: Designator=PTH3 Old Footprint=PTH_M3_M New Footprint=PTH_M3_S
+Change Component Comment : Designator=PTH3 Old Comment=PTH-3MM-M New Comment=Mounting Hole 3mm small drill.
+Change Component Description : Designator=PTH3 Old Description=Agujero de montaje metalizado roscas M3. Drill de tamaño medio. New Description=Mounting Hole 3mm. Drill 3 mm. Out diameter 6mm

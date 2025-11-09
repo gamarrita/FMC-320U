@@ -1,0 +1,14 @@
+28/06/2023 - DHS
+
+En la carpeta otros se dejaron otros cristales que se evaluaron
+En la carpeta raiz solamente figra el cristal elegido
+Si hay mas de una alternativa se deberian usar anotaciones como:
+
+01A-modelo
+01B-modelo
+
+Si se cambia el modelo entre fabricaciones deberian figurar algo asi como:
+
+02A-modelo
+
+

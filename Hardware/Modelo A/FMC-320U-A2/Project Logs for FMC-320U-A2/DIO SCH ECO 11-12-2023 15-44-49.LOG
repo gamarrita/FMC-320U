@@ -1,0 +1,39 @@
+Removed Parameter ComponentLink1Description:datasheet from Part D7
+Removed Parameter ComponentLink1Description:datasheet from Part F1
+Removed Parameter ComponentLink1URL:https://datasheet.lcsc.com/lcsc/2304140030_Diodes-Incorporated-SMBJ28CA-13-F_C135064.pdf from Part D7
+Removed Parameter ComponentLink1URL:https://www.belfuse.com/resources/datasheets/circuitprotection/ds-cp-0zcj-series.pdf from Part F1
+Change Component Parameter Comment in C16 Old= New==Value
+Change Value of Parameter Datasheet in Part Q3 Old=https://www.digikey.com/es/products/detail/diodes-incorporated/DMG3401LSN-7/3720138?s=N4IgTCBcDaICIFkDiBmALABgIwBkDKAcgLQDsIAugL5A New=https://www.diodes.com/assets/Datasheets/DMG3401LSN.pdf
+Change Component Parameter Comment in R26 Old= New==Value
+Change Component Parameter Comment in R27 Old= New==Value
+Change Component Parameter Comment in R28 Old= New==Value
+Change Component Parameter Comment in R29 Old= New==Value
+Change Component Parameter Comment in R30 Old= New==Value
+Change Component Parameter Comment in R31 Old= New==Value
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C16
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2304140030_Diodes-Incorporated-SMBJ28CA-13-F_C135064.pdf to Part D7
+Added Parameter Datasheet=https://www.belfuse.com/resources/datasheets/circuitprotection/ds-cp-0zcj-series.pdf to Part F1
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R26
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R27
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R29
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R30
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf to Part R28
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf to Part R31
+Added Parameter Temperature Max=85 to Part F1
+Added Parameter Temperature Max=105 to Part P1
+Added Parameter Temperature Max=105 to Part P2
+Added Parameter Temperature Max=105 to Part P3
+Added Parameter Temperature Max=150 to Part D5
+Added Parameter Temperature Max=150 to Part D6
+Added Parameter Temperature Max=150 to Part D7
+Added Parameter Temperature Max=150 to Part Q2
+Added Parameter Temperature Max=150 to Part Q3
+Added Parameter Temperature Min=-40 to Part F1
+Added Parameter Temperature Min=-40 to Part P1
+Added Parameter Temperature Min=-40 to Part P2
+Added Parameter Temperature Min=-40 to Part P3
+Added Parameter Temperature Min=-55 to Part D5
+Added Parameter Temperature Min=-55 to Part D6
+Added Parameter Temperature Min=-55 to Part D7
+Added Parameter Temperature Min=-55 to Part Q2
+Added Parameter Temperature Min=-55 to Part Q3

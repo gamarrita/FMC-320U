@@ -1,0 +1,6 @@
+Removed Pin From Net: NetName=DVDD Pin=R2-2
+Change Component Comment : Designator=BH1 Old Comment=2462 New Comment=ENERGIZER L91
+Added Pin To Net: NetName=DVDD Pin=C3-1
+Added Pin To Net: NetName=DVDD Pin=J3-2
+Change Net Name : Old Net Name=EVDD New Net Name=VDD
+Change Net Name : Old Net Name=NetJ4_1 New Net Name=Blindaje

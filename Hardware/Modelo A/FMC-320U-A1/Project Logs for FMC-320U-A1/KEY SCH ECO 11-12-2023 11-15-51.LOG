@@ -1,0 +1,56 @@
+Removed Parameter ComponentLink1Description:Datasheet from Part ESD1
+Removed Parameter ComponentLink1URL:* from Part ESD1
+Change Component Parameter Comment in C1 Old= New==Value
+Change Component Parameter Comment in C2 Old= New==Value
+Change Component Parameter Comment in C3 Old= New==Value
+Change Component Parameter Comment in C4 Old= New==Value
+Change Component Parameter Comment in R1 Old= New==Value
+Change Component Parameter Comment in R2 Old= New==Value
+Change Component Parameter Comment in R3 Old= New==Value
+Change Component Parameter Comment in R4 Old= New==Value
+Change Component Parameter Comment in R5 Old= New==Value
+Change Component Parameter Comment in R6 Old= New==Value
+Change Component Parameter Comment in R7 Old= New==Value
+Change Component Parameter Comment in R8 Old= New==Value
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C1
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C2
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C3
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C4
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R1
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R2
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R3
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R4
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R5
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R6
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R7
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R8
+Added Parameter Temperature Max=85 to Part SW1
+Added Parameter Temperature Max=85 to Part SW2
+Added Parameter Temperature Max=85 to Part SW3
+Added Parameter Temperature Max=85 to Part SW4
+Added Parameter Temperature Max=125 to Part CN1
+Added Parameter Temperature Max=150 to Part ESD1
+Added Parameter Temperature Min=-30 to Part SW1
+Added Parameter Temperature Min=-30 to Part SW2
+Added Parameter Temperature Min=-30 to Part SW3
+Added Parameter Temperature Min=-30 to Part SW4
+Added Parameter Temperature Min=-40 to Part ESD1
+Added Parameter Temperature Min=-65 to Part CN1
+Replace Symbol from C1 CC0805KRX7R8BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with CC0805KRX7R8BB104 from Yageo.SchLib
+Replace Symbol from C2 CC0805KRX7R8BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with CC0805KRX7R8BB104 from Yageo.SchLib
+Replace Symbol from C3 CC0805KRX7R8BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with CC0805KRX7R8BB104 from Yageo.SchLib
+Replace Symbol from C4 CC0805KRX7R8BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with CC0805KRX7R8BB104 from Yageo.SchLib
+Replace Symbol from CN1 54101-T0605LF in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with 54101-T0605LF from header_pin.SchLib
+Replace Symbol from ESD1 ESDALC6V1W5 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with ESDALC6V1W5 from diode.SchLib
+Replace Symbol from R1 RC0805FR-07100KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with RC0805FR-07100KL from Yageo.SchLib
+Replace Symbol from R2 RC0805FR-07100KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with RC0805FR-07100KL from Yageo.SchLib
+Replace Symbol from R3 RC0805FR-07100KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with RC0805FR-07100KL from Yageo.SchLib
+Replace Symbol from R4 RC0805FR-07100KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with RC0805FR-07100KL from Yageo.SchLib
+Replace Symbol from R5 RC0805FR-07100KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with RC0805FR-07100KL from Yageo.SchLib
+Replace Symbol from R6 RC0805FR-07100KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with RC0805FR-07100KL from Yageo.SchLib
+Replace Symbol from R7 RC0805FR-07100KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with RC0805FR-07100KL from Yageo.SchLib
+Replace Symbol from R8 RC0805FR-07100KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with RC0805FR-07100KL from Yageo.SchLib
+Replace Symbol from SW1 TC-1102-B-A-B in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with TC-1102-B-A-B from Switches.SchLib
+Replace Symbol from SW2 TC-1102-B-A-B in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with TC-1102-B-A-B from Switches.SchLib
+Replace Symbol from SW3 TC-1102-B-A-B in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with TC-1102-B-A-B from Switches.SchLib
+Replace Symbol from SW4 TC-1102-B-A-B in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\KEY.SchDoc with TC-1102-B-A-B from Switches.SchLib

@@ -1,0 +1,11 @@
+Change Component Parameter Comment in C13 Old= New==Value
+Change Component Parameter Comment in C18 Old= New==Value
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C13
+Added Parameter Temperature Max=85 to Part EMC3080-P
+Added Parameter Temperature Max=125 to Part CN1
+Added Parameter Temperature Max=125 to Part J6
+Added Parameter Temperature Max=125 to Part J7
+Added Parameter Temperature Min=-25 to Part EMC3080-P
+Added Parameter Temperature Min=-65 to Part CN1
+Added Parameter Temperature Min=-65 to Part J6
+Added Parameter Temperature Min=-65 to Part J7

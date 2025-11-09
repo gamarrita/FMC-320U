@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=VDD Pin=C19-1
+Removed Pin From Net: NetName=VDD Pin=C22-1
+Removed Pin From Net: NetName=VDD Pin=J8-2
+Added Pin To Net: NetName=STLINK-VDD Pin=BH1-POS
+Added Pin To Net: NetName=STLINK-VDD Pin=C19-1
+Added Pin To Net: NetName=STLINK-VDD Pin=C22-1
+Added Pin To Net: NetName=STLINK-VDD Pin=J3-1
+Added Pin To Net: NetName=STLINK-VDD Pin=J8-2
+Added Net: Name=STLINK-VDD

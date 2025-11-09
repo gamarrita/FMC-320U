@@ -1,0 +1,57 @@
+Change Component DesignItemId : Designator=J1 Old DesignItemId=54101-T0600LF-03 New DesignItemId=54101-T0600LF-CUT-3
+Change Component DesignItemId : Designator=CN3 Old DesignItemId=B-2100S02P-A110 New DesignItemId=54101-T0600LF-CUT-2
+Change Component DesignItemId : Designator=CN4 Old DesignItemId=B-2100S02P-A110 New DesignItemId=54101-T0600LF-CUT-2
+Change Component DesignItemId : Designator=CN5 Old DesignItemId=B-2100S02P-A110 New DesignItemId=54101-T0600LF-CUT-2
+Change Component Comment : Designator=J1 Old Comment= New Comment=Completar BOM con modelo 54101-T0600LF (o equivalente), es de 36 posiciones, este componente necesita cortar 3 por componente
+Change Component Comment : Designator=CN3 Old Comment=B-2100S02P-A110 New Comment=Completar BOM con modelo 54101-T0600LF (o equivalente), es de 36 posiciones, este componente necesita cortar 2 por componente
+Change Component Comment : Designator=CN4 Old Comment=B-2100S02P-A110 New Comment=Completar BOM con modelo 54101-T0600LF (o equivalente), es de 36 posiciones, este componente necesita cortar 2 por componente
+Change Component Comment : Designator=CN5 Old Comment=B-2100S02P-A110 New Comment=Completar BOM con modelo 54101-T0600LF (o equivalente), es de 36 posiciones, este componente necesita cortar 2 por componente
+Change Component Description : Designator=CN3 Old Description=1 x 2 - true hole  2.54mm New Description=1 x 2 - true hole  2.54mm - Pb free
+Change Component Description : Designator=CN4 Old Description=1 x 2 - true hole  2.54mm New Description=1 x 2 - true hole  2.54mm - Pb free
+Change Component Description : Designator=CN5 Old Description=1 x 2 - true hole  2.54mm New Description=1 x 2 - true hole  2.54mm - Pb free
+Change Component Description : Designator=J1 Old Description=1 x 3 - Cuttable - true hole  2.54mm - Pb free New Description=1 x 3 - true hole  2.54mm - Pb free
+Change component parameters: Designator = "CN1" ("CN1"); Footprint = "HEADER PIN 1X8 2mm"; UniqueID = "\KOBPQCIN" ("\KOBPQCIN")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DZ200R-11-08-39"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CN2" ("CN2"); Footprint = "HEADER PIN 1X8 2mm"; UniqueID = "\TBTPHMZC" ("\TBTPHMZC")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DZ200R-11-08-39"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CN3" ("CN3"); Footprint = "HEADER PIN 1X2"; UniqueID = "\TQGUSDTW" ("\TQGUSDTW")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CN4" ("CN4"); Footprint = "HEADER PIN 1X2"; UniqueID = "\UERPAHGM" ("\UERPAHGM")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CN5" ("CN5"); Footprint = "HEADER PIN 1X2"; UniqueID = "\WIGJZNDZ" ("\WIGJZNDZ")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change component parameters: Designator = "J1" ("J1"); Footprint = "HEADER PIN 1X3"; UniqueID = "\SFDUNOKV" ("\SFDUNOKV")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0600LF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"

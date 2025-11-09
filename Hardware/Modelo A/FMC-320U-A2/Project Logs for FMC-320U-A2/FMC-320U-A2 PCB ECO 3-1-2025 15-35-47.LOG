@@ -1,0 +1,22 @@
+Change component parameters: Designator = "CN1" ("CN1"); Footprint = "DW200R-11-08-43"; UniqueID = "\UFHRTAJX" ("\UFHRTAJX")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header hembra"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DW200R-11-08-43_C2935972.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Dealon"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DW200R-11-08-43"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "System"; Value = "Connector"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CN2" ("CN2"); Footprint = "DW200R-11-08-43"; UniqueID = "\SLLFYGRF" ("\SLLFYGRF")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header hembra"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DW200R-11-08-43_C2935972.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Dealon"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DW200R-11-08-43"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "System"; Value = "Connector"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=MXC_ENABLE Pin=CN6-16
+Added Net: Name=MXC_ENABLE
+Added Pin To Net: NetName=MXCHIP_ENABLE Pin=CN2-6
+Added Net: Name=MXCHIP_ENABLE

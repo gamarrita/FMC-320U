@@ -1,0 +1,31 @@
+Altium Designer Pick and Place Locations
+D:\FLOWMEET Dropbox\flowmeet\ID\Electronica\Equipos\FMC-320U\Hardware\Altium\Modelo A\trunk\EMC-3080-A\Project Outputs for EMC3080-A\Pick Place for MXCHIP.txt
+
+========================================================================================================================
+File Design Information:
+
+Date:       05/01/25
+Time:       12:42
+Revision:   Not in VersionControl
+Variant:    No variations
+Units used: mil
+
+Designator Comment                  Layer       Footprint             Center-X(mil) Center-Y(mil) Rotation Description                                                                                 
+R3         2K2                      BottomLayer RES_SM0805_YAGEORC_N  661.339       594.488       0        "RES 2K2 SM0805 YAGEO RC_L"                                                                 
+R4         2K2                      BottomLayer RES_SM0805_YAGEORC_N  661.339       782.480       0        "RES 2K2 SM0805 YAGEO RC_L"                                                                 
+R2         1M                       BottomLayer RES_SM0805_YAGEORC_N  822.835       689.961       0        "RES 1M SM0805 YAGEO RC_L"                                                                  
+R1         1K                       BottomLayer RES_SM0805_YAGEORC_N  661.496       689.961       180      "RES 1K SM0805 YAGEO RC_L"                                                                  
+Q1         DMG3401LSN-7             BottomLayer DMG3401LSN-7          824.803       529.528       270      "P-CHANNEL ENHANCEMENT MODE MOSFET
+RDS(ON) = 85m? @ VGS = -2.5V -> ID -2.7A
+V(BR)DDS 30V" 
+LD2        RUN                      TopLayer    LED_0805              1492.126      880.906       270      ""                                                                                          
+LD1        ERROR                    TopLayer    LED_0805              1497.047      262.795       270      ""                                                                                          
+J1         ""                       TopLayer    HEADER_PIN_1X3        296.339       1023.701      180      "1 x 3 - Cuttable - true hole  2.54mm - Pb free"                                            
+U1         EMC3080-P                TopLayer    EMC3080-P             589.646       570.945       270      "Solamente es el zocalo donde va montado el chip, por eso no tiene modelo 3D"               
+CN5        B-2100S02P-A110          TopLayer    HEADER_PIN_1X2        1263.976      116.142       0        "1 x 2 - true hole  2.54mm"                                                                 
+CN4        B-2100S02P-A110          TopLayer    HEADER_PIN_1X2        1260.630      1029.528      180      "1 x 2 - true hole  2.54mm"                                                                 
+CN3        B-2100S02P-A110          TopLayer    HEADER_PIN_1X2        375.197       110.236       180      "1 x 2 - true hole  2.54mm"                                                                 
+CN2        "DEALON DZ200R-11-08-39" BottomLayer HEADER_PIN_1X8_2mm    815.945       97.441        180      "1 x 8 - true hole  2mm - Pb free"                                                          
+CN1        "DEALON DZ200R-11-08-39" BottomLayer HEADER_PIN_1X8_2mm    815.945       1042.323      180      "1 x 8 - true hole  2mm - Pb free"                                                          
+C3         4.7uF                    BottomLayer CAP_SM0805_YAGEOCC2_N 443.898       411.417       270      "CAP 4.7uF SM0805 X5R 10V YAGEO CC2"                                                        
+C2         100nF                    BottomLayer CAP_SM0805_YAGEOCC2_N 325.788       411.417       270      "CAP 100nF SM0805 X7R 25V YAGEO CC2"                                                        

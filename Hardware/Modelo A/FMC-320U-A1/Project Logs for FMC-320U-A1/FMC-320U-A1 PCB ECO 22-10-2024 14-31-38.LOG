@@ -1,0 +1,23 @@
+Removed Pin From Net: NetName=DVDD Pin=CN4-3
+Change Component Comment : Designator=LD2 Old Comment=ACTIVE New Comment=BLUE
+Change Component Comment : Designator=R22 Old Comment=ERROR New Comment=1K
+Change Component Comment : Designator=LD1 Old Comment=ERROR New Comment=RED
+Change Component Comment : Designator=LD3 Old Comment=SGNL1 New Comment=GREEN
+Change Component Comment : Designator=U2 Old Comment=STM32U575VI_1 New Comment=STM32U575VIT6Q
+Added Component: Designator=R?(RES_SM0805_YAGEORC_N)
+Add component (AddParameter): Name = "Category"; Value = "Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer Website"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.yageo.com"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Yageo"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "RC0805JR-070RL"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power (Watts)"; Value = "0.1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance (Ohms)"; Value = "0"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance (%)"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "0"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=DVDD Pin=R?-1
+Added Pin To Net: NetName=NetCN4_3 Pin=CN4-3
+Added Pin To Net: NetName=NetCN4_3 Pin=R?-2
+Added Net: Name=NetCN4_3

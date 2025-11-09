@@ -1,0 +1,42 @@
+Removed Pin From Net: NetName=MXC_PA14 Pin=CN6-12
+Removed Pin From Net: NetName=MXC_PA13 Pin=CN6-14
+Removed Pin From Net: NetName=DVDD Pin=EMC3080-P-16
+Removed Pin From Net: NetName=GND Pin=Q1-G
+Removed Pin From Net: NetName=VDD Pin=Q1-S
+Added Component: Designator=CN?(HEADER PIN 1X2)
+Add component (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Equivalente"; Value = "B-2100S02P-A110"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0602LF"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Added Component: Designator=R?(RES_SM0805_YAGEORC_N)
+Add component (AddParameter): Name = "Category"; Value = "Resistor"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1Description"; Value = "Manufacturer Website"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "ComponentLink1URL"; Value = "http://www.yageo.com"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Yageo"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "RC0805FR-071ML"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Package"; Value = "0805"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Power (Watts)"; Value = "0.125"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Resistance (Ohms)"; Value = "1000000"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 1"; Value = "Farnell"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier 2"; Value = "Digi-Key"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 1"; Value = "9237992"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Supplier Part Number 2"; Value = "311-1.00MCRCT-ND"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Tolerance (%)"; Value = "1"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Value"; Value = "1M"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=MXC_PA13 Pin=CN6-12
+Added Pin To Net: NetName=MXC_PA14 Pin=CN6-14
+Added Pin To Net: NetName=DVDD Pin=CN?-1
+Added Pin To Net: NetName=VDD Pin=J3-2
+Added Pin To Net: NetName=MXC_ENABLE Pin=Q1-G
+Added Pin To Net: NetName=GND Pin=R?-1
+Added Pin To Net: NetName=MXC_ENABLE Pin=R?-2
+Added Pin To Net: NetName=NetCN?_2 Pin=CN?-2
+Added Pin To Net: NetName=NetCN?_2 Pin=Q1-S
+Added Net: Name=NetCN?_2
+Added Pin To Net: NetName=NetEMC3080-P_16 Pin=EMC3080-P-16
+Added Pin To Net: NetName=NetEMC3080-P_16 Pin=Q1-D
+Added Net: Name=NetEMC3080-P_16

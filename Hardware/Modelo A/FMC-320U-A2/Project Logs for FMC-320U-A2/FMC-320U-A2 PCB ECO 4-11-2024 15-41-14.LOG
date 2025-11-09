@@ -1,0 +1,10 @@
+Change Component Designator: OldDesignator=C? NewDesignator=C13
+Change Component Designator: OldDesignator=C? NewDesignator=C18
+Change Component Designator: OldDesignator=CN? NewDesignator=CN1
+Change Component Designator: OldDesignator=CN? NewDesignator=CN2
+Change Component Designator: OldDesignator=J? NewDesignator=J6
+Added Pin To Net: NetName=MXC_PA14 Pin=CN2-4
+Added Pin To Net: NetName=MXC_PA13 Pin=CN2-5
+Added Pin To Net: NetName=MXC_ENABLE Pin=CN2-6
+Added Pin To Net: NetName=DVDD Pin=CN2-7
+Added Pin To Net: NetName=GND Pin=CN2-8
