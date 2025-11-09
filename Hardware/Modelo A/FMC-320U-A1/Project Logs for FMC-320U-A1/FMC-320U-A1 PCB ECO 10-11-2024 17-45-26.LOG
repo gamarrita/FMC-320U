@@ -1,0 +1,19 @@
+Change Component Footprint: Designator=J3 Old Footprint=HEADER PIN 2X4 New Footprint=HEADER PIN 2X4 A 90 GRADOS
+Change Component Comment : Designator=J3 Old Comment=B-2100S08P-B110-JUMPER New Comment=PH2.54-07-04PWS-JUMPER
+Change component parameters: Designator = "J3" ("J3"); Footprint = "HEADER PIN 2X4"; UniqueID = "\ULHRCIDI" ("\ULHRCIDI")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = ""; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "XUNPU"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "PH2.54-07-04PWS"; VariantName = "[No Variations]"
+Added Component: Designator=ESD?(ESDALC6V1W5)
+Add component (AddParameter): Name = "Category"; Value = "Diodo"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://www.st.com/content/ccc/resource/technical/document/datasheet/32/30/02/e6/ac/0f/46/c2/CD00002946.pdf/files/CD00002946.pdf/jcr:content/translations/en.CD00002946.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "ST"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "ESDALC6V1W5"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "150"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-40"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=PD1 Pin=ESD?-1
+Added Pin To Net: NetName=GND Pin=ESD?-2
+Added Pin To Net: NetName=PD2 Pin=ESD?-3
+Added Pin To Net: NetName=PD3 Pin=ESD?-4
+Added Pin To Net: NetName=PD4 Pin=ESD?-5

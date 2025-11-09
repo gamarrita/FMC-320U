@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "../FLOWMEET/fmx.h"
+#include "../libs/fm_fmc.h"
 
 // --- Macros por defecto ---
 #define FM_LOG_POLICY_MAX_CREDITS      (10u)
@@ -14,9 +15,9 @@
 
 // Estructura con los datos de entrada para la política de logging de caudal.
 typedef struct {
-    uint32_t          now_unix;     // timestamp actual (s)
-    fmx_rate_status_t rate_state;   // OFF, TO_ON, ON, TO_OFF
-    uint32_t          rate_milli;   // caudal * 1000 (opcional para variación)
+    uint32_t now_unix;     // timestamp actual (s)
+    uint32_t rate_milli;   // caudal * 1000 (opcional para variación)
+    fm_fmc_rate_state_t rate_state;   // OFF, TO_ON, ON, TO_OFF
 } fm_log_policy_inputs_t;
 
 

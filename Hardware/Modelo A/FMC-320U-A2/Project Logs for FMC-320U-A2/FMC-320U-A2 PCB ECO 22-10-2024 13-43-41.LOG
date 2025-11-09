@@ -1,0 +1,19 @@
+Added Component: Designator=PTH1(PTH_M3_M)
+Add component (AddParameter): Name = "Category"; Value = "Mounting Hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Added Component: Designator=PTH2(PTH_M3_M)
+Add component (AddParameter): Name = "Category"; Value = "Mounting Hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Added Component: Designator=PTH3(PTH_M3_M)
+Add component (AddParameter): Name = "Category"; Value = "Mounting Hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Added Component: Designator=PTH4(PTH_M3_M)
+Add component (AddParameter): Name = "Category"; Value = "Mounting Hole"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=NetJ4_1 Pin=J4-1
+Added Pin To Net: NetName=NetJ4_1 Pin=PTH4-1
+Added Net: Name=NetJ4_1

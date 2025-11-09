@@ -1,0 +1,9 @@
+Added Component: Designator=J8(DW254R-11-02-85)
+Add component (AddParameter): Name = "Category"; Value = "Header hembra"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DW200R-11-08-43_C2935972.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Dealon"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "DW200R-11-08-43"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Added Pin To Net: NetName=GND Pin=J8-1
+Added Pin To Net: NetName=STLINK-VDD Pin=J8-2

@@ -1,0 +1,10 @@
+Record=DiagramHierarchy|SourceDocument=MultiBoardSchematic1.MbsDoc|Kind=Multi-board Schematic Module|Designator=FMC-320U-A1|Source=..\..\FMC-320U-A1\FMC-320U-A1.PrjPcb
+Record=SubProject|SourceDocument=MultiBoardSchematic1.MbsDoc|ProjectPath=..\..\FMC-320U-A1\FMC-320U-A1.PrjPcb
+Record=DiagramHierarchy|SourceDocument=MultiBoardSchematic1.MbsDoc|Kind=Multi-board Schematic Module|Designator=FMC-320U-A2|Source=..\..\FMC-320U-A2\FMC-320U-A2.PrjPcb
+Record=SubProject|SourceDocument=MultiBoardSchematic1.MbsDoc|ProjectPath=..\..\FMC-320U-A2\FMC-320U-A2.PrjPcb
+Record=DiagramHierarchy|SourceDocument=FMC-320U.MbsDoc|Kind=Multi-board Schematic Module|Designator=3|Source=..\..\EMC-3080-A\EMC3080-A.PrjPcb
+Record=SubProject|SourceDocument=FMC-320U.MbsDoc|ProjectPath=..\..\EMC-3080-A\EMC3080-A.PrjPcb
+Record=DiagramHierarchy|SourceDocument=FMC-320U.MbsDoc|Kind=Multi-board Schematic Module|Designator=1|Source=..\..\FMC-320U-A1\FMC-320U-A1.PrjPcb
+Record=SubProject|SourceDocument=FMC-320U.MbsDoc|ProjectPath=..\..\FMC-320U-A1\FMC-320U-A1.PrjPcb
+Record=DiagramHierarchy|SourceDocument=FMC-320U.MbsDoc|Kind=Multi-board Schematic Module|Designator=2|Source=..\..\FMC-320U-A2\FMC-320U-A2.PrjPcb
+Record=SubProject|SourceDocument=FMC-320U.MbsDoc|ProjectPath=..\..\FMC-320U-A2\FMC-320U-A2.PrjPcb

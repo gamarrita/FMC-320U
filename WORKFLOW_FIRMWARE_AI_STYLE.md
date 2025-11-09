@@ -1,28 +1,27 @@
 # WORKFLOW_FIRMWARE_AI_STYLE
 
-Guia operativa para preparar interacciones con IA enfocadas en la normalizacion de estilo del firmware FM-320U.
+Guía operativa para usar IA en normalización de estilo FM-320U.
 
-## Archivos que debes proporcionar a la IA
-- `PROMPT_FIRMWARE_STYLE_EXPERTS.md`: prompt consolidado con las instrucciones paso a paso.
-- `STYLE_GUIDE_FIRMWARE_COMMENTS.md`: reglas de comentarios, encabezados y cierre de archivos.
-- `STYLE_GUIDE_FIRMWARE_NAMING.md`: convenciones de nombres para funciones, tipos y variables.
-- Archivo(s) objetivo(s) a revisar o modificar.
-- Archivos de ejemplo `fm_style_example.c` y `fm_style_example.h` cuando la IA necesite contexto adicional.
+## Archivos a entregar
+- `PROMPT_FIRMWARE_STYLE_EXPERTS.md`.
+- `FLOWMEET_Embedded_C_Style_Charter.md`.
+- `STYLE_GUIDE_FIRMWARE_NAMING.md`.
+- `STYLE_GUIDE_FIRMWARE_COMMENTS.md`.
+- Archivos objetivo.
+- Ejemplos: `fm_style_example.c`, `fm_style_example.h`.
 
-## Procedimiento recomendado
-1. **Revisar cambios recientes**: confirma en `CHANGELOG_FIRMWARE.md` si hubo ajustes de estilo que la IA deba conocer.
-2. **Preparar el paquete**: recopila los archivos anteriores y comprueba que esten actualizados en la rama de trabajo.
-3. **Ejecutar el prompt**: entrega a la IA el contenido de `PROMPT_FIRMWARE_STYLE_EXPERTS.md` seguido de los documentos de estilo y el archivo objetivo.
-4. **Validar la respuesta**: revisa el apartado `Analisis` y los diffs propuestos. Verifica que no se hayan introducido cambios funcionales.
-5. **Registrar resultados**: si los cambios se aplican, actualiza `CHANGELOG_FIRMWARE.md` en la seccion **Docs** con un resumen.
+## Procedimiento
+1. Revisar `CHANGELOG_FIRMWARE.md` por cambios de estilo.
+2. Preparar paquete con los docs arriba.
+3. Ejecutar prompt.
+4. Validar análisis/diffs (sin cambios funcionales).
+5. Registrar en changelog.
 
-## Buenas practicas
-- Cuando el archivo objetivo usa convenciones heredadas (HAL, ThreadX, STM32Cube), anotalo en el mensaje a la IA para evitar renombrados innecesarios.
-- Si hay multiples archivos relacionados, procesa uno por uno para mantener el contexto claro.
-- Antes de ejecutar el prompt, asegurate de que las guias de estilo reflejen la decision mas reciente del equipo y respeta la jerarquia indicada en `STYLE_GUIDE_FIRMWARE_NAMING.md`.
-- Usa comentarios adicionales en el mensaje inicial cuando el archivo tenga restricciones especiales (memoria compartida, nombres expuestos al linker, etc.).
+## Buenas prácticas
+- Si el archivo depende de HAL/ThreadX, indicarlo en el mensaje.
+- Procesar archivos uno por uno.
+- Usar las guías más recientes.
 
 ## Seguimiento
-- Las mejoras o excepciones detectadas durante el uso de la IA deben anotarse en una nueva revision de las guias o registrarse mediante issues en el repositorio.
-- Mantener este workflow sincronizado con las herramientas CI/CD si en el futuro se automatiza la verificacion de estilo.
-
+- Registrar excepciones en issues o guías.
+- Mantener CI/CD sincronizado para chequeos automáticos.

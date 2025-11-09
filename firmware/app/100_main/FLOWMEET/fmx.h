@@ -20,9 +20,8 @@ extern "C" {
 #include "tx_api.h"
 
 // --- Public Constants ---
-// Event codes avoid losing pulses even under faults.
-// ULONG encoding complies with REQ-FMX-QUEUE-001 and ThreadX granularity.
-// Aligned with ThreadX queue granularity for deterministic timing.
+// Cada evento usa un bit de fmx_events_t; admite hasta 32 eventos.
+// Se mantiene el cast a ULONG para cumplir con REQ-FMX-QUEUE-001 y ThreadX.
 /**
  * Event bitfield type for the FMX event queue.
  * Aligned with the ULONG width required by ThreadX.
@@ -41,6 +40,7 @@ typedef ULONG fmx_events_t;
 #define FMX_EVENT_KEY_ENTER_LONG    ((fmx_events_t)9u)
 #define FMX_EVENT_KEY_EXT_1         ((fmx_events_t)10u)
 #define FMX_EVENT_KEY_EXT_2         ((fmx_events_t)11u)
+// Fuerza un wake-up cuando ThreadX alcanza el timeout maximo en stop.
 #define FMX_EVENT_TIME_OUT          ((fmx_events_t)12u)
 #define FMX_EVENT_END               ((fmx_events_t)13u)
 
@@ -77,17 +77,6 @@ typedef enum {
     FMX_STATUS_OUT_OF_RANGE
 } fmx_status_t;
 
-/**
- * Flow rate state machine for caudal detection.
- * Describes transitions used by threads and callbacks.
- */
-typedef enum {
-    FMX_RATE_OFF = 0u,
-    FMX_RATE_TO_ON,
-    FMX_RATE_ON,
-    FMX_RATE_TO_OFF
-} fmx_rate_status_t;
-
 // --- Extern Variables ---
 // PCB-wired flag enables the debug channel.
 extern const uint32_t FMX_DEBUG_UART_1_ENABLE;
@@ -95,13 +84,6 @@ extern const uint32_t FMX_DEBUG_UART_1_ENABLE;
 extern TX_QUEUE fmx_deferred_cmd_queue;
 
 // --- Public API ---
-/**
- * Retrieves the current flow state.
- * @return @ref fmx_rate_status_t value for the UI and logging.
- * @details Allows runtime validation of sensor coherence.
- */
-fmx_rate_status_t FMX_GetRateStatus(void);
-
 /**
  * Initializes the FMX module and its ThreadX resources.
  * @param memory_ptr Memory pool provided by the RTOS.
@@ -134,12 +116,3 @@ void FMX_Trigger_BluetoothSlave(void);
 
 #endif // FMX_H_
 /*** END OF FILE ***/
-
-
-
-
-
-
-
-
-

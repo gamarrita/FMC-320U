@@ -1,0 +1,21 @@
+Change component parameters: Designator = "CN6" ("CN6"); Footprint = "HEADER PIN 2X10"; UniqueID = "\FSVJGFEP" ("\FSVJGFEP")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DZ254R-22-20-63_C2935926.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "DEALON"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DZ254R-22-20-63"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "System"; Value = "Connector"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CN8" ("CN8"); Footprint = "HEADER PIN 2X5 MIRROR"; UniqueID = "\XWMORWNP" ("\XWMORWNP")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DZ254R-22-10-63_C2935920.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Equivalente"; Value = "PZ254V-12-10P"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "DEALON"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DZ254R-22-10-63"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "System"; Value = "Connector"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Change Net Name : Old Net Name=MXC_PA13 New Net Name=USART3_TX
+Change Net Name : Old Net Name=MXC_PA14 New Net Name=USART3_RX

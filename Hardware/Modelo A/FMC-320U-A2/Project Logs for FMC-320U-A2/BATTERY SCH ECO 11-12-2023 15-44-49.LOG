@@ -1,0 +1,28 @@
+Removed Parameter ComponentLink1Description:datasheet from Part BH1
+Removed Parameter ComponentLink1URL:https://www.keyelco.com/userAssets/file/M65p28.pdf from Part BH1
+Change Value of Parameter Manufacturer in Part BH1 Old=Keystone Electronics New=Keystone
+Change Value of Parameter Manufacturer part number in Part BH2 Old=BS-08-B2AA016 New=BS-2032-8KC
+Change Component Parameter Comment in C1 Old= New==Value
+Change Component Parameter Comment in C2 Old= New==Value
+Change Component Parameter Comment in C3 Old= New==Value
+Change Component Parameter Comment in C4 Old= New==Value
+Change Component Parameter Comment in C17 Old= New==Value
+Change Value of Parameter Datasheet in Part Q1 Old=https://www.digikey.com/es/products/detail/diodes-incorporated/DMG3401LSN-7/3720138?s=N4IgTCBcDaICIFkDiBmALABgIwBkDKAcgLQDsIAugL5A New=https://www.diodes.com/assets/Datasheets/DMG3401LSN.pdf
+Change Component Parameter Comment in R1 Old= New==Value
+Change Component Parameter Comment in R2 Old= New==Value
+Change Component Parameter Comment in R5 Old= New==Value
+Change Component Parameter Comment in R6 Old= New==Value
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C2
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C4
+Added Parameter Datasheet=https://www.keyelco.com/userAssets/file/M65p28.pdf to Part BH1
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R1
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf to Part R5
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf to Part R6
+Added Parameter Temperature Max=85 to Part BH2
+Added Parameter Temperature Max=125 to Part J3
+Added Parameter Temperature Max=150 to Part Q1
+Added Parameter Temperature Max=- to Part BH1
+Added Parameter Temperature Min=-25 to Part BH2
+Added Parameter Temperature Min=-55 to Part Q1
+Added Parameter Temperature Min=-65 to Part J3
+Added Parameter Temperature Min=- to Part BH1

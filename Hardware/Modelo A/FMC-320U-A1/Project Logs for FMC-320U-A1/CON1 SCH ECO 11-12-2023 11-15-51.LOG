@@ -1,0 +1,65 @@
+Removed Parameter ComponentLink1Description:Datasheet from Part LD1
+Removed Parameter ComponentLink1Description:Datasheet from Part LD2
+Removed Parameter ComponentLink1URL: from Part LD2
+Removed Parameter ComponentLink1URL:https://datasheet.lcsc.com/lcsc/1808272351_Everlight-Elec-17-21SURC-S530-A2-TR8_C131244.pdf from Part LD1
+Change Component Parameter Comment in C7 Old= New==Value
+Change Component Parameter Comment in C8 Old= New==Value
+Change Component Parameter Comment in C23 Old= New==Value
+Change Component Parameter Comment in LD1 Old= New=GREEN
+Change Component Parameter Description in LD1 Old=RED New=GREEN
+Change Value of Parameter Manufacturer Part Number in Part LD1 Old=17-21SYGC/S530-E2/TR8 New=21SYGC/S530-E2/TR8
+Change Component Parameter Comment in LD2 Old= New=RED
+Change Value of Parameter Datasheet in Part LD2 Old=https://datasheet.lcsc.com/lcsc/1811011222_Everlight-Elec-17-21SYGC-S530-E2-TR8_C73548.pdf New=https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/2236/17-21SURC-S530-A2-TR8-V5~.pdf
+Change Component Parameter Description in LD2 Old=GREEN New=RED
+Change Value of Parameter Manufacturer Part Number in Part LD2 Old=17-21SYGC/S530-E2/TR8 New=17-21SURC/S530-A2/TR8
+Change Component Parameter Comment in R22 Old= New==Value
+Change Component Parameter Comment in R23 Old= New==Value
+Change Component Parameter Comment in R24 Old= New==Value
+Added Parameter Category=Mounting Hole to Part PTH1
+Added Parameter Category=Mounting Hole to Part PTH2
+Added Parameter Category=Mounting Hole to Part PTH3
+Added Parameter Category=Mounting Hole to Part PTH4
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DW254R-22-20-85_C2935991.pdf to Part CN2
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2304140030_YAGEO-CC0805KKX5R8BB106_C89831.pdf to Part C8
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2304140030_YAGEO-CC0805KKX5R8BB106_C89831.pdf to Part C23
+Added Parameter Datasheet=https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/559/17-21SYGC,S530-E2,TR8.pdf to Part LD1
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R22
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R23
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R24
+Added Parameter Temperature Max=85 to Part LD1
+Added Parameter Temperature Max=85 to Part LD2
+Added Parameter Temperature Max=85 to Part LD3
+Added Parameter Temperature Max=105 to Part J?
+Added Parameter Temperature Max=105 to Part J?
+Added Parameter Temperature Max=105 to Part J?
+Added Parameter Temperature Max=105 to Part J?
+Added Parameter Temperature Max=- to Part CN2
+Added Parameter Temperature Max=- to Part CN3
+Added Parameter Temperature MiN=-40 to Part J?
+Added Parameter Temperature MiN=-40 to Part J?
+Added Parameter Temperature MiN=-40 to Part J?
+Added Parameter Temperature MiN=-40 to Part J?
+Added Parameter Temperature Min=-40 to Part LD1
+Added Parameter Temperature Min=-40 to Part LD2
+Added Parameter Temperature Min=-40 to Part LD3
+Added Parameter Temperature Min=- to Part CN2
+Added Parameter Temperature Min=- to Part CN3
+Replace Symbol from C7 CC0805KRX7R9BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with CC0805KRX7R9BB104 from Yageo.SchLib
+Replace Symbol from C8 CC0805KKX5R8BB106 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with CC0805KKX5R8BB106 from Yageo.SchLib
+Replace Symbol from C23 CC0805KKX5R8BB106 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with CC0805KKX5R8BB106 from Yageo.SchLib
+Replace Symbol from CN2 DW254R-22-20-85 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with DW254R-22-20-85 from header_female.SchLib
+Replace Symbol from CN3 DW254S-22-10-85 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with DW254S-22-10-85 from header_female.SchLib
+Replace Symbol from J? B-2100S08P-B110-JUMPER in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with B-2100S08P-B110-JUMPER from header_pin.SchLib
+Replace Symbol from J? B-2100S08P-B110-JUMPER in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with B-2100S08P-B110-JUMPER from header_pin.SchLib
+Replace Symbol from J? B-2100S08P-B110-JUMPER in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with B-2100S08P-B110-JUMPER from header_pin.SchLib
+Replace Symbol from J? B-2100S08P-B110-JUMPER in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with B-2100S08P-B110-JUMPER from header_pin.SchLib
+Replace Symbol from LD1 17-21SYGC/S530-E2/TR8 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with 17-21SYGC/S530-E2/TR8 from LED.SchLib
+Replace Symbol from LD2 17-21SURC/S530-A2/TR8 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with 17-21SURC/S530-A2/TR8 from LED.SchLib
+Replace Symbol from LD3 17-21/BHC-XL2M2TY/3T in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with 17-21/BHC-XL2M2TY/3T from LED.SchLib
+Replace Symbol from PTH1 PTH-3MM-M in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with PTH-3MM-M from montaje.SchLib
+Replace Symbol from PTH2 PTH-3MM-M in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with PTH-3MM-M from montaje.SchLib
+Replace Symbol from PTH3 PTH-3MM-M in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with PTH-3MM-M from montaje.SchLib
+Replace Symbol from PTH4 PTH-3MM-M in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with PTH-3MM-M from montaje.SchLib
+Replace Symbol from R22 RC0805FR-071KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with RC0805FR-071KL from Yageo.SchLib
+Replace Symbol from R23 RC0805FR-071KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with RC0805FR-071KL from Yageo.SchLib
+Replace Symbol from R24 RC0805FR-071KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\CON1.SchDoc with RC0805FR-071KL from Yageo.SchLib

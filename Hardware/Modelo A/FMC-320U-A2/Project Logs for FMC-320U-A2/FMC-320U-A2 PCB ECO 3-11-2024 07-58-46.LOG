@@ -1,0 +1,33 @@
+Removed Pin From Net: NetName=DVDD Pin=C13-1
+Removed Pin From Net: NetName=GND Pin=C13-2
+Removed Pin From Net: NetName=DVDD Pin=C18-1
+Removed Pin From Net: NetName=GND Pin=C18-2
+Removed Pin From Net: NetName=DVDD Pin=CN?-1
+Removed Pin From Net: NetName=MXC_PA14 Pin=EMC3080-P-9
+Removed Pin From Net: NetName=MXC_PA13 Pin=EMC3080-P-10
+Removed Pin From Net: NetName=MXC_ENABLE Pin=EMC3080-P-11
+Removed Pin From Net: NetName=GND Pin=EMC3080-P-17
+Removed Pin From Net: NetName=DBG_TX Pin=EMC3080-P-21
+Removed Pin From Net: NetName=DBG_RX Pin=EMC3080-P-22
+Removed Pin From Net: NetName=DVDD Pin=J6-1
+Removed Pin From Net: NetName=MXC_PA13 Pin=J6-2
+Removed Pin From Net: NetName=DVDD Pin=J7-2
+Removed Pin From Net: NetName=MXC_ENABLE Pin=Q1-G
+Removed Pin From Net: NetName=GND Pin=R?-1
+Removed Pin From Net: NetName=MXC_ENABLE Pin=R?-2
+Change Component Footprint: Designator=CN? Old Footprint=HEADER PIN 1X2 New Footprint=DW200R-11-08-43
+Change Component Comment : Designator=CN? Old Comment=Usar Equivalente New Comment=DW200R-11-08-43
+Change component parameters: Designator = "CN?" ("CN?"); Footprint = "HEADER PIN 1X2"; UniqueID = "\UFHRTAJX" ("\UFHRTAJX")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header hembra"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DW200R-11-08-43_C2935972.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Dealon"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "DW200R-11-08-43"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"
+Added Component: Designator=CN?(DW200R-11-08-43)
+Add component (AddParameter): Name = "Category"; Value = "Header hembra"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DW200R-11-08-43_C2935972.pdf"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer"; Value = "Dealon"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Manufacturer Part Number"; Value = "DW200R-11-08-43"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Max"; Value = "-"; VariantName = "[No Variations]"
+Add component (AddParameter): Name = "Temperature Min"; Value = "-"; VariantName = "[No Variations]"

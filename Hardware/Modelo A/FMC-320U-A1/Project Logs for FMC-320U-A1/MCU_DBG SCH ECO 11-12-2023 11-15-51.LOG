@@ -1,0 +1,45 @@
+Removed Parameter ComponentLink1Description:Datasheet from Part ESD2
+Removed Parameter ComponentLink1Description:Datasheet from Part ESD3
+Removed Parameter ComponentLink1URL:* from Part ESD2
+Removed Parameter ComponentLink1URL:* from Part ESD3
+Change Component Parameter Comment in C22 Old= New==Value
+Change Component Parameter Comment in R11 Old= New==Value
+Change Component Parameter Comment in R12 Old= New==Value
+Change Component Parameter Comment in R13 Old= New==Value
+Change Component Parameter Comment in R14 Old= New==Value
+Change Component Parameter Comment in R15 Old= New==Value
+Change Component Parameter Comment in R16 Old= New==Value
+Change Component Parameter Comment in R17 Old= New==Value
+Change Component Parameter Comment in R18 Old= New==Value
+Change Component Parameter Comment in R19 Old= New==Value
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R12
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R13
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R14
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R15
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R16
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R17
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R18
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/app/datasheet/rchip/pyu-rc_group_51_rohs_l.pdf to Part R19
+Added Parameter Datasheet=https://www.yageo.com/upload/media/product/productsearch/datasheet/rchip/PYu-RC_Group_51_RoHS_L_12.pdf to Part R11
+Added Parameter Temperature Max=85 to Part U2
+Added Parameter Temperature Max=150 to Part ESD2
+Added Parameter Temperature Max=150 to Part ESD3
+Added Parameter Temperature Max=-40 to Part CN4
+Added Parameter Temperature Min=85 to Part CN4
+Added Parameter Temperature Min=-40 to Part ESD2
+Added Parameter Temperature Min=-40 to Part ESD3
+Added Parameter Temperature Min=-40 to Part U2
+Replace Symbol from C22 CC0805KRX7R9BB104 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with CC0805KRX7R9BB104 from Yageo.SchLib
+Replace Symbol from CN4 20021511-00014T4LF in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with 20021511-00014T4LF from header_shrouded.SchLib
+Replace Symbol from ESD2 ESDALC6V1W5 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with ESDALC6V1W5 from diode.SchLib
+Replace Symbol from ESD3 ESDALC6V1W5 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with ESDALC6V1W5 from diode.SchLib
+Replace Symbol from R11 RC0805FR-07100RL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with RC0805FR-07100RL from Yageo.SchLib
+Replace Symbol from R12 RC0805FR-0710KL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with RC0805FR-0710KL from Yageo.SchLib
+Replace Symbol from R13 RC0805FR-0747RL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with RC0805FR-0747RL from Yageo.SchLib
+Replace Symbol from R14 RC0805FR-0747RL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with RC0805FR-0747RL from Yageo.SchLib
+Replace Symbol from R15 RC0805FR-0747RL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with RC0805FR-0747RL from Yageo.SchLib
+Replace Symbol from R16 RC0805FR-0747RL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with RC0805FR-0747RL from Yageo.SchLib
+Replace Symbol from R17 RC0805FR-0747RL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with RC0805FR-0747RL from Yageo.SchLib
+Replace Symbol from R18 RC0805FR-0747RL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with RC0805FR-0747RL from Yageo.SchLib
+Replace Symbol from R19 RC0805FR-0747RL in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with RC0805FR-0747RL from Yageo.SchLib
+Replace Symbol from U2 STM32U575VI_1 in D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A1\MCU_DBG.SchDoc with STM32U575VI_1 from Microcontroladores.SchLib

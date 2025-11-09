@@ -1,0 +1,10 @@
+Change Component DesignItemId : Designator=CN1 Old DesignItemId=54101-T0606LF New DesignItemId=PH2.54-07-06PWD
+Change Component Comment : Designator=CN1 Old Comment=54101-T0606LF New Comment=
+Change component parameters: Designator = "CN1" ("CN1"); Footprint = "HEADER PIN 1X6"; UniqueID = "\ZVJYCLJL" ("\ZVJYCLJL")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Main supplier"; Value = "LCSC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "XUNPU"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "PH2.54-07-06PWD"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"

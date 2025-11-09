@@ -46,7 +46,7 @@ void FM_LOG_POLICY_Init(uint32_t boot_unix, uint16_t reset_count, const fm_log_p
 
 static void policy_update_credits_(const fm_log_policy_inputs_t *in) {
     // Recarga en ON
-    if (in->rate_state == FMX_RATE_ON) {
+    if (in->rate_state == FM_FMC_RATE_ON) {
         uint32_t mins = (in->now_unix - s_policy.last_flow_unix) / 60;
         if (mins > 0) {
             uint8_t add = (uint8_t)mins;
@@ -58,7 +58,7 @@ static void policy_update_credits_(const fm_log_policy_inputs_t *in) {
         }
     }
     // Herencia en OFF
-    else if (in->rate_state == FMX_RATE_OFF) {
+    else if (in->rate_state == FM_FMC_RATE_OFF) {
         uint32_t mins = (in->now_unix - s_policy.last_pause_unix) / 60;
         if (mins > 0) {
             uint8_t add = (uint8_t)mins;
@@ -127,7 +127,7 @@ fm_log_action_t FM_LOG_POLICY_Step(const fm_log_policy_inputs_t *in) {
     bool heartbeat_due = (in->now_unix - s_policy.last_heartbeat_unix) >= s_cfg.heartbeat_sec;
 
     // --- Prioridad: TO_ON (doble evento) ---
-    if (in->rate_state == FMX_RATE_TO_ON) {
+    if (in->rate_state == FM_FMC_RATE_STARTED) {
         if (s_policy.to_on_step == 0) {
             s_policy.to_on_step = 1;
             s_policy.flow_active = true;
@@ -147,7 +147,7 @@ fm_log_action_t FM_LOG_POLICY_Step(const fm_log_policy_inputs_t *in) {
     }
 
     // --- ON: variación significativa ---
-    if (in->rate_state == FMX_RATE_ON && s_policy.flow_active) {
+    if (in->rate_state == FM_FMC_RATE_ON && s_policy.flow_active) {
         if (policy_should_record_variation_(s_policy.last_rate_milli, in->rate_milli, s_cfg.variation_ppm)) {
             if (s_policy.credits > 0) {
                 s_policy.credits--;
@@ -158,7 +158,7 @@ fm_log_action_t FM_LOG_POLICY_Step(const fm_log_policy_inputs_t *in) {
     }
 
     // --- TO_OFF: STOP ---
-    if (in->rate_state == FMX_RATE_TO_OFF && s_policy.flow_active) {
+    if (in->rate_state == FM_FMC_RATE_STOPPED && s_policy.flow_active) {
         s_policy.flow_active = false;
         s_policy.last_pause_unix = in->now_unix;
         return FM_LOG_ACT_PUSH_STOP;

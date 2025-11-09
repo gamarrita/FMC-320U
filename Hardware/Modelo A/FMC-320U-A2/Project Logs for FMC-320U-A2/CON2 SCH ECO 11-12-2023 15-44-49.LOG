@@ -1,0 +1,30 @@
+Removed Parameter ComponentLink1Description:Datasheet from Part CN6
+Removed Parameter ComponentLink1URL:https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DZ254R-22-20-63_C2935926.pdf from Part CN6
+Change Component Parameter Comment in C12 Old= New==Value
+Change Component Parameter Comment in C14 Old= New==Value
+Change Component Parameter Comment in C15 Old= New==Value
+Change Component Parameter Comment in C20 Old= New==Value
+Change Component Parameter Comment in C21 Old= New==Value
+Change Component Parameter Comment in J4 Old= New=Usar Equivalente
+Added Parameter Category=Mounting Hole to Part PTH1
+Added Parameter Category=Mounting Hole to Part PTH2
+Added Parameter Category=Mounting Hole to Part PTH3
+Added Parameter Category=Mounting Hole to Part PTH4
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C12
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C14
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2006111832_YAGEO-CC0805KRX7R8BB104_C519981.pdf to Part C15
+Added Parameter Datasheet=https://datasheet.lcsc.com/lcsc/2201121730_DEALON-DZ254R-22-20-63_C2935926.pdf to Part CN6
+Added Parameter Temperature Max=125 to Part J4
+Added Parameter Temperature Max=- to Part CN6
+Added Parameter Temperature Max=- to Part CN8
+Added Parameter Temperature Max=- to Part PTH1
+Added Parameter Temperature Max=- to Part PTH2
+Added Parameter Temperature Max=- to Part PTH3
+Added Parameter Temperature Max=- to Part PTH4
+Added Parameter Temperature Min=-65 to Part J4
+Added Parameter Temperature Min=- to Part CN6
+Added Parameter Temperature Min=- to Part CN8
+Added Parameter Temperature Min=- to Part PTH1
+Added Parameter Temperature Min=- to Part PTH2
+Added Parameter Temperature Min=- to Part PTH3
+Added Parameter Temperature Min=- to Part PTH4

@@ -1,0 +1,9 @@
+Removed Pin From Net: NetName=DVDD Pin=C25-1
+Removed Pin From Net: NetName=DVDD Pin=C26-1
+Removed Pin From Net: NetName=DVDD Pin=J1-1
+Removed Pin From Net: NetName=DVDD Pin=R20-1
+Added Pin To Net: NetName=STLINK-VDD Pin=C25-1
+Added Pin To Net: NetName=STLINK-VDD Pin=C26-1
+Added Pin To Net: NetName=STLINK-VDD Pin=CN4-3
+Added Pin To Net: NetName=STLINK-VDD Pin=J1-1
+Added Net: Name=STLINK-VDD

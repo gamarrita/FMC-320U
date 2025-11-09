@@ -1,0 +1,24 @@
+Change Component DesignItemId : Designator=CN1 Old DesignItemId=DW200R-11-08-43 New DesignItemId=DEALON DZ200R-11-08-39
+Change Component DesignItemId : Designator=CN2 Old DesignItemId=DW200R-11-08-43 New DesignItemId=DEALON DZ200R-11-08-39
+Change Component Footprint: Designator=CN1 Old Footprint=DW200R-11-08-43 New Footprint=HEADER PIN 1X8 2mm
+Change Component Footprint: Designator=CN2 Old Footprint=DW200R-11-08-43 New Footprint=HEADER PIN 1X8 2mm
+Change Component Comment : Designator=CN1 Old Comment=DW200R-11-08-43 New Comment=DEALON DZ200R-11-08-39
+Change Component Comment : Designator=CN2 Old Comment=DW200R-11-08-43 New Comment=DEALON DZ200R-11-08-39
+Change Component Description : Designator=CN1 Old Description=1 x 8 - tru hole 2mm - altura 4.3mm New Description=1 x 8 - true hole  2mm - Pb free
+Change Component Description : Designator=CN2 Old Description=1 x 8 - tru hole 2mm - altura 4.3mm New Description=1 x 8 - true hole  2mm - Pb free
+Change Component Library : Designator=CN1 Old Library=header_female.SchLib New Library=header_pin.SchLib
+Change Component Library : Designator=CN2 Old Library=header_female.SchLib New Library=header_pin.SchLib
+Change component parameters: Designator = "CN1" ("CN1"); Footprint = "DW200R-11-08-43"; UniqueID = "\KOBPQCIN" ("\KOBPQCIN")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0600LF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"
+Change component parameters: Designator = "CN2" ("CN2"); Footprint = "DW200R-11-08-43"; UniqueID = "\TBTPHMZC" ("\TBTPHMZC")
+Change component parameters (AddParameter): Name = "Category"; Value = "Header pin"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Datasheet"; Value = "https://datasheet.lcsc.com/lcsc/2202082130_Amphenol-ICC-54101-T06-00_C213463.pdf"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer"; Value = "Amphenol ICC"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Manufacturer Part Number"; Value = "54101-T0600LF"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Max"; Value = "125"; VariantName = "[No Variations]"
+Change component parameters (AddParameter): Name = "Temperature Min"; Value = "-65"; VariantName = "[No Variations]"

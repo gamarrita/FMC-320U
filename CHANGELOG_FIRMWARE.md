@@ -1,6 +1,6 @@
 # Firmware change log for the FM-320U computer
 
-## [01.01.011-b0] beta_in_development (not released)
+## [UNVERSIONED]
 - (bX) (lowercase): no tag is created; it remains in development; it is version X and has not been released to production.
 - (BX) (uppercase): a tag is created against develop (not main); it is version X released to production/testing.
 - (  ) / (empty): version released to the customer; production tested it and it is correct.
