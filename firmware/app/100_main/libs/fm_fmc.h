@@ -10,7 +10,7 @@
 #include "fmx.h"
 #include <stdint.h>
 
-/** Formato de punto fijo usado en todo el modulo (valor x 1000). */
+/** Topo de dato punto fijo, sin signo, tres decimales. */
 typedef uint32_t ufp3_t;
 
 /** Fuente usada al cargar valores de fabrica. */
