@@ -537,14 +537,14 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
         case FMX_EVENT_KEY_ENTER:
             break;
         case FMX_EVENT_KEY_DOWN_LONG:
-            FM_FMC_TotalizerFpInc();
+            FM_FMC_RateFpInc();
             MenuUserTtlRateEntry();
             MenuUserTtlRateRefresh();
             break;
         case FMX_EVENT_KEY_UP_LONG:
-            FM_FMC_RateFpInc();
-            MenuUserTtlRateEntry();
-            MenuUserTtlRateRefresh();
+        	FM_FMC_TotalizerFpInc();
+			MenuUserTtlRateEntry();
+			MenuUserTtlRateRefresh();
             break;
         case FMX_EVENT_KEY_ESC_LONG:
             entry_counter = 0;
@@ -631,6 +631,12 @@ uint8_t FM_USER_MenuNav(fmx_events_t this_event)
             break;
         case FMX_EVENT_KEY_ESC:
         case FMX_EVENT_KEY_EXT_2:
+/*
+ *  TODO (DHS): se necesita re-escribir esta parte del sofware.
+ *  El Cudalimetro queda bloqueado en esta pantalla hasta que se termina de
+ *  imprimir el ticket. Esto no esta mal, pero deberia ser manejadro por el
+ *  RTOS, ademas hay que evitar la posibilidad de multiples impresiones.
+ */
             FM_DEBUG_LedError(0);
             FM_PPT_FormatTicket();
             MenuUserPrintAcmStatus(PRINT_CONNECTING);

@@ -48,8 +48,6 @@ ULONG global_menu_refresh = 0;
 static uint8_t key_ext_debounce_flag = 0;
 static uint16_t lptim3_last_capture;
 static uint16_t lptim4_last_capture;
-// Pulsos del sensor primario contados por LPTIM4 en el ultimo intervalo.
-static uint16_t rate_pulse_delta = 0;
 static TX_QUEUE event_queue;
 // Buffer dimensionado en ULONG simplifica conversiones y mantiene la latencia.
 static uint32_t queue_storage_event[QUEUE_EVENT_SIZE];
@@ -270,9 +268,6 @@ static void PulseUpdate(void)
     static ULONG time_last;
     static ULONG time_now;
 
-
-    rate_tick_new = lptim3_last_capture;
-
   	// Si no paso un segundo no se calcula nuevo caudal o volumen.
 	time_now = tx_time_get();
   	if ((time_now - time_last) < TICKS_PER_SECOND)
@@ -294,11 +289,15 @@ static void PulseUpdate(void)
     switch(rate_state)
     {
     case FM_FMC_RATE_OFF:
+    	if(vol_pulse_delta != 0)
+    	{
+    		rate_state = FM_FMC_RATE_STARTED;
+    	}
     	break;
     case FM_FMC_RATE_ON:
     	if(vol_pulse_delta == 0)
 		{
-			rate_state = FM_FMC_RATE_STOPPED;
+    		rate_state = FM_FMC_RATE_STOPPED;
 		}
     	break;
     case FM_FMC_RATE_STARTED:
@@ -346,15 +345,12 @@ static void PulseUpdate(void)
     // ciclo anterior cuando el flujo se detiene.
     __HAL_LPTIM_ENABLE_IT(&hlptim3, LPTIM_IT_CC1);
     FM_FMC_PulseAdd(vol_pulse_delta);
-    FM_FMC_CaptureSet(rate_pulse_delta, rate_tick_delta);
+    FM_FMC_CaptureSet(vol_pulse_delta, rate_tick_delta);
     FM_FMC_TtlCalc();
     FM_FMC_AcmCalc();
     FM_FMC_RateCalc();
 
-
-
 	time_last = time_now;
-
 }
 
 /**

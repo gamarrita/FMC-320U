@@ -1,19 +1,18 @@
 # Firmware change log for the FM-320U computer
 
-## [UNVERSIONED]
-- (bX) (lowercase): no tag is created; it remains in development; it is version X and has not been released to production.
-- (BX) (uppercase): a tag is created against develop (not main); it is version X released to production/testing.
-- (  ) / (empty): version released to the customer; production tested it and it is correct.
+## [01.01.011-B0]
+
 
 ### Docs
-- Updated the administration folder documents.
-- Reorganized the style guides in `STYLE_GUIDE_FIRMWARE_COMMENTS.md`, `STYLE_GUIDE_FIRMWARE_NAMING.md`, documented the flow in `WORKFLOW_FIRMWARE_AI_STYLE.md`, prepared `PROMPT_FIRMWARE_STYLE_EXPERTS.md`, and added examples `fm_style_example.c/.h` for use with AI and humans.
+- Ajusto descripciones del arvhivo 100 - Casos de uso.docx
 
 ### Chore
 
 ### Added
 
 ### Fixed
+- Rate no se calculaba correctamete, queda mas simple.
+- Intercambio las funciones de boton arriba y abajo en el menu TTL-RATE, tiene mas logica.
 
 ### Refactor
 
@@ -22,7 +21,14 @@
 ### Power Consumption
 
 ### Completed Tests
+TESTEO 0x2FB396C8
+TESTEO 0x2FB39787
+TESTEO 0x2FB397FE
+TESTEO 0x2FB398FC
+TESTEO 0x2FB40A04
 
+
+---------------------------------------------------------------------------------------------------
 
 ## [01.01.010-B0+2] Beta
 (I keep these changes so I can check out other versions; I want to test printing previous versions.)
@@ -47,6 +53,13 @@
 ### Removed
 
 ### Power Consumption
+60 uA consumption, conditions:
+- Consumo medio de un minuto, alimentado por el PPK2, modo "source meter" a 3V
+- ST-LINK desconectado conectado
+- Activity blue LED disabled.
+- Pickups conectado
+    - Si inyecto 100hz + 10uA -> 70uA
+    - Si desconecto el pickup -2uA -> 58uA
 
 ### Completed Tests
 TEST 0x2FB396C8
