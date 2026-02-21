@@ -1,0 +1,38 @@
+﻿Altium Designer Pick and Place Locations
+D:\FLOWMEET Dropbox\flowmeet\ID\Electronica\Equipos\FMC-320U\Ingenieria\hardware\Modelo B\FMC-320-B0\Project Outputs for FMC-320U-B0\Pick Place\Pick Place for FMC-320U-B0.txt
+
+========================================================================================================================
+File Design Information:
+
+Date:       18/02/26
+Time:       22:28
+Revision:   Not in VersionControl
+Variant:    No variations
+Units used: mil
+
+﻿Designator Comment          Layer       Footprint             Center-X(mil) Center-Y(mil) Rotation Description                                                                                  
+CPAD_ESC   ESC              BottomLayer CAPACITIVE_PAD_12MM   472.441       944.882       180      ""                                                                                           
+R3         2K2              TopLayer    RES_SM0603_YAGEORC_N  170.000       1350.000      0        "RES 2K2 SM0603 YAGEO RC_L"                                                                  
+LED3       VLRK31R1S2-GS08  TopLayer    VLRK31R1S2GS08        137.795       1102.362      90       "Red 630nm LED Indication - Discrete 2.1V 2-SMD, Z-Bend"                                     
+CPAD_ENTER ENTER            BottomLayer CAPACITIVE_PAD_12MM   -472.441      944.882       90       ""                                                                                           
+CPAD_UP    UP               BottomLayer CAPACITIVE_PAD_12MM   -472.441      -944.882      180      ""                                                                                           
+CPAD_DOWN  DOWN             BottomLayer CAPACITIVE_PAD_12MM   472.441       -944.882      180      ""                                                                                           
+ST2        SMTSOM230BTR     TopLayer    SMTSOM266BTR          1142.000      984.000       0        "Standoffs & Spacers SURFACE MOUNT STANDOFF"                                                 
+ST3        SMTSOM230BTR     TopLayer    SMTSOM266BTR          1142.000      -984.000      0        "Standoffs & Spacers SURFACE MOUNT STANDOFF"                                                 
+ST4        SMTSOM230BTR     TopLayer    SMTSOM266BTR          -1142.000     -984.000      0        "Standoffs & Spacers SURFACE MOUNT STANDOFF"                                                 
+ST1        SMTSOM230BTR     TopLayer    SMTSOM266BTR          -1142.000     984.000       0        "Standoffs & Spacers SURFACE MOUNT STANDOFF"                                                 
+R4         2K2              TopLayer    RES_SM0603_YAGEORC_N  -103.559      1347.000      0        "RES 2K2 SM0603 YAGEO RC_L"                                                                  
+R2         2K2              TopLayer    RES_SM0603_YAGEORC_N  40.000        -940.000      270      "RES 2K2 SM0603 YAGEO RC_L"                                                                  
+R1         2K2              TopLayer    RES_SM0603_YAGEORC_N  -30.000       -942.559      270      "RES 2K2 SM0603 YAGEO RC_L"                                                                  
+CN1        A10FC-S08FCA-H25 TopLayer    849528                4.488         -1384.882     0        "FFC/FPC Connector 8 Position 1mm Pitch Bottom Contact Surface Mount, Right Angle -40℃~+85℃" 
+LD4        VLRK31R1S2-GS08  TopLayer    VLRK31R1S2GS08        -137.795      1102.362      90       "Red 630nm LED Indication - Discrete 2.1V 2-SMD, Z-Bend"                                     
+C9         27pF             TopLayer    CAP_SM0603_YAGEOCC2_N 375.000       1286.000      0        "CAP 27pF SM0603 NPO 50V YAGEO CC2"                                                          
+R26        0                TopLayer    RES_SM0603_YAGEORC_N  812.441       -905.000      180      "RES 0 OHMS SM0603 YAGEO RC_L"                                                               
+R25        0                TopLayer    RES_SM0603_YAGEORC_N  815.000       -835.000      180      "RES 0 OHMS SM0603 YAGEO RC_L"                                                               
+C7         100nF            TopLayer    CAP_SM0603_YAGEOCC2_N 816.378       -975.000      180      "CAP 100nF SM0603 X7R 50V YAGEO CC2"                                                         
+C4         27pF             TopLayer    CAP_SM0603_YAGEOCC2_N 816.378       -755.000      180      "CAP 27pF SM0603 NPO 50V YAGEO CC2"                                                          
+C3         27pF             TopLayer    CAP_SM0603_YAGEOCC2_N -380.000      1260.000      180      "CAP 27pF SM0603 NPO 50V YAGEO CC2"                                                          
+C2         27pF             TopLayer    CAP_SM0603_YAGEOCC2_N -770.000      -971.378      90       "CAP 27pF SM0603 NPO 50V YAGEO CC2"                                                          
+LED2       VLRK31R1S2-GS08  TopLayer    VLRK31R1S2GS08        137.795       -1102.362     90       "Red 630nm LED Indication - Discrete 2.1V 2-SMD, Z-Bend"                                     
+LED1       VLRK31R1S2-GS08  TopLayer    VLRK31R1S2GS08        -137.795      -1102.362     90       "Red 630nm LED Indication - Discrete 2.1V 2-SMD, Z-Bend"                                     
+U2         TTP224C-BSBN     TopLayer    SSOP-16               836.283       -1221.500     180      "SSOP-16 Touch Screen Controllers ROHS"                                                      

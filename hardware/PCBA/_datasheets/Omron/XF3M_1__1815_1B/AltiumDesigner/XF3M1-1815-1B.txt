@@ -1,0 +1,127 @@
+# Created by Ultra Librarian 8.3.381 Copyright © 1999-2024
+# Frank Frank, Accelerated Designs
+
+StartFootprints
+
+Footprint (Name "CONN_XF3M1-1815-1B_OMR")
+Pad (Name "1") (Location -669.29139092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "2") (Location -629.92129092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "3") (Location -590.55119092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "4") (Location -551.18119092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "5") (Location -511.81109092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "6") (Location -472.44099092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "7") (Location -433.07089092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "8") (Location -393.70079092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "9") (Location -354.33079092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "10") (Location -314.96069092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "11") (Location -275.59059092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "12") (Location -236.22049092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "13") (Location -196.85039092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "14") (Location -157.48039092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "15") (Location -118.11029092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "16") (Location -78.74019092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "17") (Location -39.37009092, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "18") (Location 0, 0) (Surface True) (Rotation 0) (ExpandMask 0) (ExpandPaste 0)
+PadShape (Size 23.62204933, 51.18109894) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "19") (Location -763.77954102, -127.95279694) (Surface True) (Rotation 0) (ExpandMask -43.5) (ExpandPaste -43.30708313)
+PadShape (Size 70.86614227, 86.61416626) (Shape Rectangular) (Layer Top)
+EndPad
+Pad (Name "20") (Location 94.48815918, -127.95279694) (Surface True) (Rotation 0) (ExpandMask -43.5) (ExpandPaste -43.30708313)
+PadShape (Size 70.86614227, 86.61416626) (Shape Rectangular) (Layer Top)
+EndPad
+Line (Width 6) (Start -809.21258545, 35.59054947) (End -809.21258545, -214.72439575) (Layer Mechanical15) 
+Line (Width 6) (Start -809.21258545, -214.72439575) (End 139.92120361, -214.72439575) (Layer Mechanical15) 
+Line (Width 6) (Start 139.92120361, -214.72439575) (End 139.92120361, 35.59054947) (Layer Mechanical15) 
+Line (Width 6) (Start 139.92120361, 35.59054947) (End -809.21258545, 35.59054947) (Layer Mechanical15) 
+Polygon (PointCount 4) (Layer Mechanical15) 
+Point (-809.21258545, 35.59054947)
+Point (-809.21258545, -214.72439575)
+Point (139.92120361, -214.72439575)
+Point (139.92120361, 35.59054947)
+EndPolygon
+Line (Width 6) (Start -764.84249878, -209.72439575) (End 95.55111694, -209.72439575) (Layer TopOverlay) 
+Line (Width 6) (Start 95.55111694, -209.72439575) (End 95.55111694, -184.35988045) (Layer TopOverlay) 
+Line (Width 6) (Start 95.55111694, 5) (End 24.91103413, 5) (Layer TopOverlay) 
+Line (Width 6) (Start -764.84249878, 5) (End -764.84249878, -71.54571342) (Layer TopOverlay) 
+Line (Width 6) (Start -694.20241597, 5) (End -764.84249878, 5) (Layer TopOverlay) 
+Line (Width 6) (Start -764.84249878, -184.35988045) (End -764.84249878, -209.72439575) (Layer TopOverlay) 
+Line (Width 6) (Start 95.55111694, -71.54571342) (End 95.55111694, 5) (Layer TopOverlay) 
+Arc (Width 20) (Radius 15) (Location -789.8425293, 0) (StartAngle 0) (EndAngle 360) (Layer TopOverlay) 
+Text (Location -472.14569092, -25) (Height 50) (Width 3) (Rotation 0) (Layer Mechanical13) (Value ".Designator")
+Text (Location -472.14569092, -25) (Height 50) (Width 3) (Rotation 0) (Layer TopOverlay) (Value ".Designator")
+Line (Width 1) (Start -759.84249878, -204.72439575) (End 90.55111694, -204.72439575) (Layer Mechanical13) 
+Line (Width 1) (Start 90.55111694, -204.72439575) (End 90.55111694, 0) (Layer Mechanical13) 
+Line (Width 1) (Start 90.55111694, 0) (End -759.84249878, 0) (Layer Mechanical13) 
+Line (Width 1) (Start -759.84249878, 0) (End -759.84249878, -204.72439575) (Layer Mechanical13) 
+Arc (Width 20) (Radius 15) (Location -669.29138184, -75) (StartAngle 0) (EndAngle 360) (Layer Mechanical13) 
+Arc (Width 20) (Radius 15) (Location -789.8425293, 0) (StartAngle 0) (EndAngle 360) (Layer BottomOverlay) 
+EndFootprint
+EndFootprints
+
+StartComponents
+
+Component (Name "XF3M1-1815-1B") (PartCount 1) (DesPrefix "J?")
+Pin (Location 200, 0) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "1") (Name Hidden "1") (PinSwap 0) (PartSwap 0) (PinSeq 1) (Part 1)
+Pin (Location 200, -100) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "2") (Name Hidden "2") (PinSwap 0) (PartSwap 0) (PinSeq 2) (Part 1)
+Pin (Location 200, -200) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "3") (Name Hidden "3") (PinSwap 0) (PartSwap 0) (PinSeq 3) (Part 1)
+Pin (Location 200, -300) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "4") (Name Hidden "4") (PinSwap 0) (PartSwap 0) (PinSeq 4) (Part 1)
+Pin (Location 200, -400) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "5") (Name Hidden "5") (PinSwap 0) (PartSwap 0) (PinSeq 5) (Part 1)
+Pin (Location 200, -500) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "6") (Name Hidden "6") (PinSwap 0) (PartSwap 0) (PinSeq 6) (Part 1)
+Pin (Location 200, -600) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "7") (Name Hidden "7") (PinSwap 0) (PartSwap 0) (PinSeq 7) (Part 1)
+Pin (Location 200, -700) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "8") (Name Hidden "8") (PinSwap 0) (PartSwap 0) (PinSeq 8) (Part 1)
+Pin (Location 200, -800) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "9") (Name Hidden "9") (PinSwap 0) (PartSwap 0) (PinSeq 9) (Part 1)
+Pin (Location 200, -900) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "10") (Name Hidden "10") (PinSwap 0) (PartSwap 0) (PinSeq 10) (Part 1)
+Pin (Location 200, -1000) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "11") (Name Hidden "11") (PinSwap 0) (PartSwap 0) (PinSeq 11) (Part 1)
+Pin (Location 200, -1100) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "12") (Name Hidden "12") (PinSwap 0) (PartSwap 0) (PinSeq 12) (Part 1)
+Pin (Location 200, -1200) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "13") (Name Hidden "13") (PinSwap 0) (PartSwap 0) (PinSeq 13) (Part 1)
+Pin (Location 200, -1300) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "14") (Name Hidden "14") (PinSwap 0) (PartSwap 0) (PinSeq 14) (Part 1)
+Pin (Location 200, -1400) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "15") (Name Hidden "15") (PinSwap 0) (PartSwap 0) (PinSeq 15) (Part 1)
+Pin (Location 200, -1500) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "16") (Name Hidden "16") (PinSwap 0) (PartSwap 0) (PinSeq 16) (Part 1)
+Pin (Location 200, -1600) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "17") (Name Hidden "17") (PinSwap 0) (PartSwap 0) (PinSeq 17) (Part 1)
+Pin (Location 200, -1700) (Rotation 180) (PinType Passive) (Length 200) (Width 0) (Designator Visible "18") (Name Hidden "18") (PinSwap 0) (PartSwap 0) (PinSeq 18) (Part 1)
+Rectangle (Width 5) (Start 200, -1800) (End 500, 100) (Part 1)
+Parameter (Name "Copyright") (Location 0, 0) (Height 50) (Rotation 0) (Justification Center) (Value "Copyright (C) 2025 Ultra Librarian. All rights reserved.") (Part 1)
+Parameter (Name "Manufacturer_Name") (Location 0, 0) (Height 50) (Rotation 0) (Justification Center) (Value "Omron") (Part 1)
+Parameter (Name "Manufacturer_Part_Number") (Location 0, 0) (Height 50) (Rotation 0) (Justification Center) (Value "XF3M(1)-1815-1B") (Part 1)
+Parameter (Name "RefDes") (Location 350, 250) (Height 82) (Rotation 0) (Justification Center) (Value "RefDes") (Part 1)
+Parameter (Name "Type") (Location 400, -800) (Height 82) (Rotation 0) (Justification Center) (Value "Type") (Part 1)
+Description (Value "No Description Available") (Part 1)
+Comment (Value "XF3M(1)-1815-1B") (Part 1)
+Footprint (Name "CONN_XF3M1-1815-1B_OMR")
+EndComponent
+EndComponents

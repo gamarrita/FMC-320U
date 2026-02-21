@@ -1,0 +1,72 @@
+Altium Designer Pick and Place Locations
+D:\FLOWMEET Dropbox\flowmeet\ID\Electronica\Equipos\FMC-320U\Ingenieria\hardware\Modelo B\trunk\FMC-320U-B3\Project Outputs for FMC-320U-B3\Pick Place\Pick Place for FMC-320U-B3.txt
+
+========================================================================================================================
+File Design Information:
+
+Date:       19/02/26
+Time:       12:59
+Revision:   Not in VersionControl
+Variant:    No variations
+Units used: mil
+
+Designator Comment             Layer       Footprint             Center-X(mil) Center-Y(mil) Rotation Description                                                                                   
+R27        100K                BottomLayer RES_SM0603_YAGEORC_N  -131.000      934.559       90       "RES 100K SM0603 YAGEO RC_L"                                                                  
+U2         GS8044              BottomLayer GS8044-SR             -489.362      705.000       180      "IC OPAMP GP 4 CIRCUIT 14SOIC"                                                                
+R26        0                   BottomLayer RES_SM0603_YAGEORC_N  321.000       433.000       90       "RES 0 OHMS SM0603 YAGEO RC_L"                                                                
+R25        10K                 BottomLayer RES_SM0603_YAGEORC_N  -829.000      830.000       270      "RES 10K SM0603 YAGEO RC_L"                                                                   
+R24        82K                 BottomLayer RES_SM0603_YAGEORC_N  -753.000      830.000       90       "RES 82K SM0603 YAGEO RC_L"                                                                   
+R23        100K                BottomLayer RES_SM0603_YAGEORC_N  -537.000      420.000       90       "RES 100K SM0603 YAGEO RC_L"                                                                  
+R22        1K                  BottomLayer RES_SM0603_YAGEORC_N  -756.000      588.000       90       "RES 1K SM0603 YAGEO RC_L"                                                                    
+R21        100K                BottomLayer RES_SM0603_YAGEORC_N  -460.000      420.000       90       "RES 100K SM0603 YAGEO RC_L"                                                                  
+R20        100K                BottomLayer RES_SM0603_YAGEORC_N  -131.000      790.000       90       "RES 100K SM0603 YAGEO RC_L"                                                                  
+R19        100K                BottomLayer RES_SM0603_YAGEORC_N  -130.000      660.000       90       "RES 100K SM0603 YAGEO RC_L"                                                                  
+R18        2.49K               BottomLayer RES_SM0603_YAGEORC_N  -202.000      660.000       90       "RES 2K49 SM0603 YAGEO RC_L"                                                                  
+R17        100K                BottomLayer RES_SM0603_YAGEORC_N  -202.000      790.000       270      "RES 100K SM0603 YAGEO RC_L"                                                                  
+R16        200k                BottomLayer RES_SM0603_YAGEORC_N  83.000        792.000       90       "RES 200K SM0603 YAGEO RC_L"                                                                  
+C12        10nF                BottomLayer CAP_SM0603_YAGEOCC2_N -838.000      588.000       270      "CAP 10nF SM0603 X7R 50V YAGEO CC2"                                                           
+C11        100nF               BottomLayer CAP_SM0603_YAGEOCC2_N -59.000       790.000       270      "CAP 100nF SM0603 X7R 50V YAGEO CC2"                                                          
+C10        100nF               BottomLayer CAP_SM0603_YAGEOCC2_N -275.000      660.000       270      "CAP 100nF SM0603 X7R 50V YAGEO CC2"                                                          
+R6         220K                BottomLayer RES_SM0603_YAGEORC_N  811.559       -1265.000     0        "RES 220K SM0603 YAGEO RC_L"                                                                  
+R15        100K                BottomLayer RES_SM0603_YAGEORC_N  600.000       50.000        180      "RES 100K SM0603 YAGEO RC_L"                                                                  
+J2         DSHP04TSGER_1       TopLayer    DSHP04TSGER           -53.685       -1446.000     90       "DIP Switches / SIP Switches 4pos 0.025A 24VDC 1/2 Pitch"                                     
+U1         MCP6541             BottomLayer MCP6541-E/SN          750.000       -1011.923     90       "IC COMP PP I/O SNGL 1.6V 8SOIC"                                                              
+R14        1M                  BottomLayer RES_SM0603_YAGEORC_N  724.000       -124.559      90       "RES 1M SM0603 YAGEO RC_L"                                                                    
+R13        1K                  BottomLayer RES_SM0603_YAGEORC_N  795.000       -124.000      270      "RES 1K SM0603 YAGEO RC_L"                                                                    
+R12        100K                BottomLayer RES_SM0603_YAGEORC_N  726.000       18.559        270      "RES 100K SM0603 YAGEO RC_L"                                                                  
+R11        1K                  BottomLayer RES_SM0603_YAGEORC_N  607.000       -87.000       0        "RES 1K SM0603 YAGEO RC_L"                                                                    
+J5         54101-T0600LF-CUT-2 TopLayer    HEADER_PIN_1X2        495.000       -789.000      0        "Pin header pitch 2.54 TH - cuttable 2 od 36 positions."                                      
+J1         54101-T0600LF-CUT-3 TopLayer    HEADER_PIN_1X3        -433.592      -1538.118     345      "Pin header pitch 2.54 TH - cuttable 3 od 36 positions."                                      
+D4         BAV23S              BottomLayer BAV23S                1016.000      -1159.000     90       "DIODE ARRAY GP 250V 200MA SOT23"                                                             
+D3         BAV23S              BottomLayer BAV23S                501.386       -971.402      0        "DIODE ARRAY GP 250V 200MA SOT23"                                                             
+CN1        F1003-V-14-25T-R    BottomLayer F1003-V-14-25T-R      90.000        0.000         90       "14 Position FFC, FPC Connector Contacts, Vertical - 1 Sided 0.039" (1.00mm) Surface Mount"   
+C9         100nF               BottomLayer CAP_SM0603_YAGEOCC2_N 804.000       16.000        90       "CAP 100nF SM0603 X7R 50V YAGEO CC2"                                                          
+R9         10K                 BottomLayer RES_SM0603_YAGEORC_N  -130.441      -178.000      180      "RES 10K SM0603 YAGEO RC_L"                                                                   
+R2         1M                  BottomLayer RES_SM0603_YAGEORC_N  937.559       -819.000      180      "RES 1M SM0603 YAGEO RC_L"                                                                    
+R4         100K                BottomLayer RES_SM0603_YAGEORC_N  -135.000      -239.000      180      "RES 100K SM0603 YAGEO RC_L"                                                                  
+R7         1K                  BottomLayer RES_SM0603_YAGEORC_N  685.441       -818.000      180      "RES 1K SM0603 YAGEO RC_L"                                                                    
+R3         1M                  BottomLayer RES_SM0603_YAGEORC_N  939.441       -754.000      180      "RES 1M SM0603 YAGEO RC_L"                                                                    
+R8         1M                  BottomLayer RES_SM0603_YAGEORC_N  813.000       -1197.000     0        "RES 1M SM0603 YAGEO RC_L"                                                                    
+R5         10K                 BottomLayer RES_SM0603_YAGEORC_N  691.441       -1265.000     0        "RES 10K SM0603 YAGEO RC_L"                                                                   
+R10        1M                  BottomLayer RES_SM0603_YAGEORC_N  815.559       -1398.000     180      "RES 1M SM0603 YAGEO RC_L"                                                                    
+C7         47nF                BottomLayer CAP_SM0603_YAGEOCC2_N 695.378       -1196.000     180      "CAP 47nF SM0603 X7R 16V YAGEO"                                                               
+C8         47nF                BottomLayer CAP_SM0603_YAGEOCC2_N 813.000       -1334.000     0        "CAP 47nF SM0603 X7R 16V YAGEO"                                                               
+C5         33pF                BottomLayer CAP_SM0603_YAGEOCC2_N 939.000       -691.000      180      "CAP 33pF SM0603 NPO 50V YAGEO CC2"                                                           
+C6         1uF                 BottomLayer CAP_SM0603_YAGEOCC2_N 810.622       -819.000      0        "CAP 1uF SM0603 X7R 10V YAGEO CC2"                                                            
+CN3        KF250NH-3.5-10P     TopLayer    KF250NH-3.5-10P       460.000       120.079       90       "PCB Terminal Block 1752188"                                                                  
+D5         BAV23S              BottomLayer BAV23S                914.386       16.000        180      "DIODE ARRAY GP 250V 200MA SOT23"                                                             
+Q1         DMG3401LSN-7        BottomLayer DMG3401LSN-7          922.095       -128.000      0        "P-CHANNEL ENHANCEMENT MODE MOSFET
+RDS(ON) = 85mΩ @ VGS = -2.5V -> ID -2.7A
+V(BR)DDS 30V" 
+PTH2       PTH-3MM-L           TopLayer    PTH_M3_L              1535.433      0.000         0        "Montaje M3. algo de holgura y buena corona."                                                 
+PTH1       PTH-3MM-L           TopLayer    PTH_M3_L              -1535.433     0.000         0        "Montaje M3. algo de holgura y buena corona."                                                 
+D2         BAV23S              BottomLayer BAV23S                951.386       -1007.000     180      "DIODE ARRAY GP 250V 200MA SOT23"                                                             
+D1         BAV23S              BottomLayer BAV23S                357.000       -971.000      180      "DIODE ARRAY GP 250V 200MA SOT23"                                                             
+R1         10R                 BottomLayer RES_SM0603_YAGEORC_N  -1178.000     -638.559      270      "RES 10R SM0603 YAGEO RC_L"                                                                   
+J4         54101-T0600LF-CUT-2 TopLayer    HEADER_PIN_1X2        -1449.000     282.000       0        "Pin header pitch 2.54 TH - cuttable 2 od 36 positions."                                      
+J3         54101-T0600LF-CUT-2 TopLayer    HEADER_PIN_1X2        -1361.000     -655.000      90       "Pin header pitch 2.54 TH - cuttable 2 od 36 positions."                                      
+C4         100nF               BottomLayer CAP_SM0603_YAGEOCC2_N -1245.000     -642.000      270      "CAP 100nF SM0603 X7R 50V YAGEO CC2"                                                          
+C3         1uF                 BottomLayer CAP_SM0603_YAGEOCC2_N -1477.000     -633.000      270      "CAP 1uF SM0603 X7R 10V YAGEO CC2"                                                            
+C2         100nF               BottomLayer CAP_SM0603_YAGEOCC2_N -1216.000     -745.000      180      "CAP 100nF SM0603 X7R 50V YAGEO CC2"                                                          
+C1         1uF                 BottomLayer CAP_SM0603_YAGEOCC2_N -1216.000     -818.000      180      "CAP 1uF SM0603 X7R 10V YAGEO CC2"                                                            
+BH1        2462                TopLayer    BATTERY_HOLDER_2XAA   -550.563      -533.856      270      "Battery holder 2XAA TH"                                                                      

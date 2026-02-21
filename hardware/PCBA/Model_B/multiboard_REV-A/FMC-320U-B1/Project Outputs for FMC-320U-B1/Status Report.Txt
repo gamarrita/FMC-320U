@@ -1,0 +1,10 @@
+Output: Bill of Materials
+Type  : BOM
+From  : Variant [[No Variations]] of BOM Document [FMC-320U-B1.BomDoc]
+   Generated File[Bill of Materials-FMC-320U-B1.xlsx]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 12:55:45 On 19/2/2026

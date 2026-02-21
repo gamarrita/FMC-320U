@@ -1,0 +1,29 @@
+------------------------------------------------------------------------------------------
+Gerber File Extension Report For: FMC-320U-B1.GBR   19/2/2026  13:15:57
+------------------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------------------
+Layer Extension     Layer Description                      
+------------------------------------------------------------------------------------------
+.GTO                Top Overlay                             
+.GTP                Top Paste                               
+.GTS                Top Solder                              
+.GTL                Top Layer                               
+.GBL                Bottom Layer                            
+.GBS                Bottom Solder                           
+.GBP                Bottom Paste                            
+.GBO                Bottom Overlay                          
+.GM1                Mechanical 1                            
+.GM2                Top Courtyard                           
+.GM3                Bottom Courtyard                        
+.GM4                Dimensions                              
+.GM5                Top Assembly                            
+.GM6                Bottom Assembly                         
+.GM13               Mechanical 13                           
+.GM15               Mechanical 15                           
+.GM20               Mechanical 20                           
+.GKO                Keep-Out Layer                          
+.GPT                Top Pad Master                          
+.GPB                Bottom Pad Master                       
+------------------------------------------------------------------------------------------

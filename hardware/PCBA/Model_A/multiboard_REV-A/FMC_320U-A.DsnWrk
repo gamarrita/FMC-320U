@@ -1,0 +1,10 @@
+[ProjectGroup]
+Version=1.0
+[Project1]
+ProjectPath=FMC-320U-ASM\MultiBoard_Project\MultiBoard_Project.PrjMbd
+[Project2]
+ProjectPath=FMC-320U-A1\FMC-320U-A1.PrjPcb
+[Project3]
+ProjectPath=FMC-320U-A2\FMC-320U-A2.PrjPcb
+[Project4]
+ProjectPath=EMC-3080-A\EMC3080-A.PrjPcb

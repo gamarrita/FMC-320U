@@ -1,0 +1,16 @@
+[ProjectGroup]
+Version=1.0
+[Project1]
+ProjectPath=FMC-320U-ASM\MultiBoard_Project\MultiBoard_Project.PrjMbd
+[Project2]
+ProjectPath=FMC-320U-B3\FMC-320U-B3.PrjPcb
+[Project3]
+ProjectPath=FMC-320-B0\FMC-320U-B0.PrjPcb
+[Project4]
+ProjectPath=FMC-320U-B1\FMC-320U-B1.PrjPcb
+[Project5]
+ProjectPath=FMC-320U-B2\FMC-320U-B2.PrjPcb
+[Project6]
+ProjectPath=..\..\..\..\..\..\Altium\Library\flowmeet\flowmeet.LibPkg
+[Project7]
+ProjectPath=..\..\..\..\..\..\Altium\Library\yageo\yageo.LibPkg

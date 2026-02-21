@@ -1,0 +1,10 @@
+Output: Generates pick and place files
+Type  : Pick Place
+From  : Variant [[No Variations]] of Project [FMC-320U-A2.PrjPcb]
+   Generated File[Pick Place for FMC-320U-A2.txt]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 11:35:21 On 1/12/2024

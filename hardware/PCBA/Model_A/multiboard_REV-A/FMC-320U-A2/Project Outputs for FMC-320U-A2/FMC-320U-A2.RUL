@@ -1,0 +1,5 @@
+DRC Rules Export File for PCB: D:\FLOWMEET Dropbox\flowmeet\id\equipos\fmc-320u\hardware\altium\model_a\trunk\FMC-320U-A2\FMC-320U-A2.PcbDoc
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=7.87
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=7.87
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0

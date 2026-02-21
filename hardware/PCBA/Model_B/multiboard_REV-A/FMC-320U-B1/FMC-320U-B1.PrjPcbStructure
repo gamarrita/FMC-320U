@@ -1,0 +1,7 @@
+Record=TopLevelDocument|FileName=_CubeMX.SchDoc|SheetNumber=1
+Record=NoMainPathDocument|SourceDocument=_CubeMX.SchDoc|FileName=Display_Indicators.SchDoc|SheetNumber=2
+Record=NoMainPathDocument|SourceDocument=_CubeMX.SchDoc|FileName=Interboard.SchDoc|SheetNumber=3
+Record=NoMainPathDocument|SourceDocument=_CubeMX.SchDoc|FileName=Keypad_Temp_BatLevel.SchDoc|SheetNumber=4
+Record=NoMainPathDocument|SourceDocument=_CubeMX.SchDoc|FileName=MCU_Debug.SchDoc|SheetNumber=5
+Record=NoMainPathDocument|SourceDocument=_CubeMX.SchDoc|FileName=MCU_GPIO.SchDoc|SheetNumber=6
+Record=NoMainPathDocument|SourceDocument=_CubeMX.SchDoc|FileName=MCU_Power_Clock.SchDoc|SheetNumber=7

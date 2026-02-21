@@ -1,0 +1,7 @@
+Record=TopLevelDocument|FileName=CON1.SchDoc|SheetNumber=1
+Record=NoMainPathDocument|SourceDocument=CON1.SchDoc|FileName=KEY.SchDoc|SheetNumber=1
+Record=NoMainPathDocument|SourceDocument=CON1.SchDoc|FileName=LCD.SchDoc|SheetNumber=2
+Record=NoMainPathDocument|SourceDocument=CON1.SchDoc|FileName=MCU_DBG.SchDoc|SheetNumber=5
+Record=NoMainPathDocument|SourceDocument=CON1.SchDoc|FileName=MCU_IO.SchDoc|SheetNumber=4
+Record=NoMainPathDocument|SourceDocument=CON1.SchDoc|FileName=MCU_PWR.SchDoc|SheetNumber=3
+Record=NoMainPathDocument|SourceDocument=CON1.SchDoc|FileName=READ_1.SchDoc|SheetNumber=1

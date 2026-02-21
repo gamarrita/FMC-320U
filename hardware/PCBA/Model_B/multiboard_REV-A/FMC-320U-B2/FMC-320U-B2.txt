@@ -1,0 +1,5 @@
+Board Information Report
+Filename     : D:\githubs\FMC-320U\hardware\Modelo B\FMC-320U-B2\FMC-320U-B2.PcbDoc
+Date         : 15/1/2026
+Time         : 19:48:47
+Time Elapsed : 00:00:00

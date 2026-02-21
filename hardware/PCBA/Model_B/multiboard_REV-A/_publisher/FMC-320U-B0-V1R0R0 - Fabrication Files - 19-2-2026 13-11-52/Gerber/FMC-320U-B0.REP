@@ -1,0 +1,292 @@
+*************************************************************
+FileName = FMC-320U-B0.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top Pad Master
+      File : FMC-320U-B0.GPT
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D40
+    D41
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : FMC-320U-B0.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+    D14
+    D15
+    D16
+*************************************************************
+
+*************************************************************
+Generating : Top Paste
+      File : FMC-320U-B0.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : FMC-320U-B0.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D25
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : FMC-320U-B0.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D33
+    D34
+*************************************************************
+
+*************************************************************
+Generating : Bottom Paste
+      File : FMC-320U-B0.GBP
+
+    Adding Layer      : Bottom Paste
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D43
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : FMC-320U-B0.GBO
+
+    Adding Layer      : Bottom Overlay
+
+
+Used DCodes :
+    D10
+    D12
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : FMC-320U-B0.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Top Courtyard
+      File : FMC-320U-B0.GM1
+
+    Adding Layer      : Top Courtyard
+
+
+Used DCodes :
+    D14
+    D15
+    D44
+*************************************************************
+
+*************************************************************
+Generating : Bottom Pad Master
+      File : FMC-320U-B0.GPB
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D40
+    D41
+    D43
+*************************************************************
+
+*************************************************************
+Generating : Bottom Courtyard
+      File : FMC-320U-B0.GM2
+
+    Adding Layer      : Bottom Courtyard
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Dimensions
+      File : FMC-320U-B0.GM4
+
+    Adding Layer      : Dimensions
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 6
+      File : FMC-320U-B0.GM6
+
+    Adding Layer      : Mechanical 6
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Bottom Assembly
+      File : FMC-320U-B0.GM16
+
+    Adding Layer      : Bottom Assembly
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 20
+      File : FMC-320U-B0.GM20
+
+    Adding Layer      : Mechanical 20
+
+
+Used DCodes :
+    D14
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : FMC-320U-B0.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D35
+    D36
+    D39
+    D40
+    D41
+    D42
+    D43
+*************************************************************
+
+*************************************************************
+Generating : Top Layer
+      File : FMC-320U-B0.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D35
+    D36
+    D37
+    D38
+    D39
+    D40
+    D41
+    D42
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 13
+      File : FMC-320U-B0.GM13
+
+    Adding Layer      : Mechanical 13
+
+
+Used DCodes :
+    D14
+    D16
+*************************************************************
+
+*************************************************************
+Generating : Top Assembly
+      File : FMC-320U-B0.GM15
+
+    Adding Layer      : Top Assembly
+
+
+Used DCodes :
+    D13
+    D14
+    D15
+*************************************************************
+

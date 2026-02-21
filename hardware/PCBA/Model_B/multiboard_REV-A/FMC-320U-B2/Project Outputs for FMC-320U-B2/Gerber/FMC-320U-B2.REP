@@ -1,0 +1,308 @@
+*************************************************************
+FileName = FMC-320U-B2.GBR
+AutoAperture = True
+*************************************************************
+Generating : Top Paste
+      File : FMC-320U-B2.GTP
+
+    Adding Layer      : Top Paste
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D14
+    D15
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 20
+      File : FMC-320U-B2.GM20
+
+    Adding Layer      : Mechanical 20
+
+
+Used DCodes :
+    D10
+    D12
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 15
+      File : FMC-320U-B2.GM15
+
+    Adding Layer      : Mechanical 15
+
+
+Used DCodes :
+    D10
+    D11
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 13
+      File : FMC-320U-B2.GM13
+
+    Adding Layer      : Mechanical 13
+
+
+Used DCodes :
+    D13
+*************************************************************
+
+*************************************************************
+Generating : Mechanical 1
+      File : FMC-320U-B2.GM1
+
+    Adding Layer      : Mechanical 1
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Bottom Assembly
+      File : FMC-320U-B2.GM6
+
+    Adding Layer      : Bottom Assembly
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Top Layer
+      File : FMC-320U-B2.GTL
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D13
+    D14
+    D15
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+*************************************************************
+
+*************************************************************
+Generating : Dimensions
+      File : FMC-320U-B2.GM4
+
+    Adding Layer      : Dimensions
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Top Solder
+      File : FMC-320U-B2.GTS
+
+    Adding Layer      : Top Solder
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D16
+    D17
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+*************************************************************
+
+*************************************************************
+Generating : Top Overlay
+      File : FMC-320U-B2.GTO
+
+    Adding Layer      : Top Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D13
+*************************************************************
+
+*************************************************************
+Generating : Keep-Out Layer
+      File : FMC-320U-B2.GKO
+
+    Adding Layer      : Keep-Out Layer
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Bottom Overlay
+      File : FMC-320U-B2.GBO
+
+    Adding Layer      : Bottom Overlay
+
+
+Used DCodes :
+    D10
+    D11
+    D13
+*************************************************************
+
+*************************************************************
+Generating : Bottom Paste
+      File : FMC-320U-B2.GBP
+
+    Adding Layer      : Bottom Paste
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D37
+*************************************************************
+
+*************************************************************
+Generating : Bottom Layer
+      File : FMC-320U-B2.GBL
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D13
+    D26
+    D27
+    D28
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D35
+    D36
+    D37
+    D38
+*************************************************************
+
+*************************************************************
+Generating : Bottom Courtyard
+      File : FMC-320U-B2.GM3
+
+    Adding Layer      : Bottom Courtyard
+
+
+Used DCodes :
+*************************************************************
+
+*************************************************************
+Generating : Bottom Solder
+      File : FMC-320U-B2.GBS
+
+    Adding Layer      : Bottom Solder
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D18
+    D19
+    D20
+    D21
+    D22
+    D23
+    D24
+    D25
+    D39
+*************************************************************
+
+*************************************************************
+Generating : Bottom Pad Master
+      File : FMC-320U-B2.GPB
+
+    Adding Layer      : Bottom Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+    D37
+*************************************************************
+
+*************************************************************
+Generating : Top Courtyard
+      File : FMC-320U-B2.GM2
+
+    Adding Layer      : Top Courtyard
+
+
+Used DCodes :
+    D10
+    D11
+    D12
+    D40
+*************************************************************
+
+*************************************************************
+Generating : Top Pad Master
+      File : FMC-320U-B2.GPT
+
+    Adding Layer      : Top Layer
+
+    Adding Layer      : Multi-Layer
+
+
+Used DCodes :
+    D14
+    D15
+    D29
+    D30
+    D31
+    D32
+    D33
+    D34
+*************************************************************
+
+*************************************************************
+Generating : Top Assembly
+      File : FMC-320U-B2.GM5
+
+    Adding Layer      : Top Assembly
+
+
+Used DCodes :
+*************************************************************
+
