@@ -1,1 +1,0 @@
-La proforma final tal cual se puede descargar de pcbway, con la que se hizo el pago

@@ -26,14 +26,14 @@
 /*
  * Pantallas del menu de usuario, se pueden agregar en cualquier orden, pero la primer pantallas siempre = 0
  */
-typedef enum
+typedef enum menu_user_e
 {
     MENU_USER_POWER_RESET = 0, MENU_USER_VERSION, MENU_USER_TTL_RATE, MENU_USER_ACM_RATE,
     MENU_USER_PRINT_ACM, MENU_USER_BLUETOOTH, MENU_USER_DATE_TIME, MENU_USER_END,
 } menu_user_t;
 
 // Código de errores de impresión.
-typedef enum
+typedef enum print_status_e
 {
     PRINT_OK = 0, // No se detecta error en la ultima impresión, listo para imprimir.
     PRINT_POWER_ON, // Se encendiendo la zona de alimentacion para el modulo blueooth

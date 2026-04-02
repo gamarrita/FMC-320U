@@ -46,8 +46,9 @@ ULONG global_menu_refresh = 0;
 
 // Mantiene el aislamiento de rebotes.
 static uint8_t key_ext_debounce_flag = 0;
-static uint16_t lptim3_last_capture;
-static uint16_t lptim4_last_capture;
+static volatile uint16_t lptim3_last_capture;
+static volatile uint16_t lptim4_last_capture;
+static volatile uint8_t rate_capture_valid = FALSE;
 static TX_QUEUE event_queue;
 // Buffer dimensionado en ULONG simplifica conversiones y mantiene la latencia.
 static uint32_t queue_storage_event[QUEUE_EVENT_SIZE];
@@ -67,8 +68,6 @@ uint8_t key_enter_skip_next = FALSE;
 uint8_t key_esc_skip_next = FALSE;
 
 fmx_ack_t fmx_rate_status = FMX_ACK_RATE_OFF;
-
-static uint16_t rate_tick_new;
 
 
 // --- Static Prototypes ---
@@ -258,13 +257,20 @@ void FMX_Trigger_BluetoothSlave(void)
 static void PulseUpdate(void)
 {
     static uint8_t blink = 1;
-    // Variables para calcular de pulsos del sensor primario acumulados en ultimo intervalo.
+    // Variables para totalizacion: siempre usan el contador vivo del sensor.
     static uint16_t vol_pulse_old;
     static uint16_t vol_pulse_new;
     static uint16_t vol_pulse_delta;
-    // Variables para calcular los pulsos del LSE acumulados en ultimo intervalo.
+    // Variables para rate: solo avanzan con una captura consistente ISR/LPTIM3.
+    static uint16_t rate_pulse_old;
+    static uint16_t rate_pulse_new;
+    static uint16_t rate_pulse_delta;
     static uint16_t rate_tick_old;
+    static uint16_t rate_tick_new;
     static uint16_t rate_tick_delta;
+    uint16_t rate_pulse_capture;
+    uint16_t rate_tick_capture;
+    uint8_t rate_capture_ready = FALSE;
     //
     static ULONG time_last;
     static ULONG time_now;
@@ -277,17 +283,31 @@ static void PulseUpdate(void)
     }
 	time_last = time_now;
 
-
-    // Pulsos del sensor primario para calcular el rate.
+    // Pulsos del sensor primario para totalizacion y deteccion de flujo.
   	vol_pulse_old = vol_pulse_new;
-  	vol_pulse_new = lptim4_last_capture;
+  	vol_pulse_new = LPTIM4->CNT;
   	vol_pulse_delta = (vol_pulse_new - vol_pulse_old);
 
+    // La ISR publica una ventana consistente: snapshot de tiempo (LPTIM3)
+    // y de pulsos (LPTIM4) tomado sobre el mismo flanco.
+    __disable_irq();
+    if (rate_capture_valid) {
+        rate_tick_capture = lptim3_last_capture;
+        rate_pulse_capture = lptim4_last_capture;
+        rate_capture_valid = FALSE;
+        rate_capture_ready = TRUE;
+    }
+    __enable_irq();
 
-	// Pulsos de clock LSE para calcular el rate. Medidos en la ventana de tiempo vol_pulse_delta.
-	rate_tick_old = rate_tick_new;
-	rate_tick_new = lptim3_last_capture;
-	rate_tick_delta = (rate_tick_new - rate_tick_old);
+    if (rate_capture_ready) {
+        rate_pulse_new = rate_pulse_capture;
+        rate_pulse_delta = (rate_pulse_new - rate_pulse_old);
+        rate_pulse_old = rate_pulse_new;
+
+        rate_tick_new = rate_tick_capture;
+        rate_tick_delta = (rate_tick_new - rate_tick_old);
+        rate_tick_old = rate_tick_new;
+    }
 
     switch(fmx_rate_status)
     {
@@ -339,24 +359,26 @@ static void PulseUpdate(void)
     }
 
     // Estrategia de medicion en bajo consumo:
-    // - LPTIM3 captura flancos con clock LSE de 32.768 kHz en modo continuo.
-    // - LPTIM4 acumula los pulsos que llegan mientras el MCU esta en stop.
-    // Se detecto un bug del STM32U575: LPTIM3 omite la ultima captura tras un
-    // numero par de flancos si el MCU esta en stop.
-    // Mitigacion: habilitar la interrupcion CC1 durante la ventana activa,
-    // copiar LPTIM3/LPTIM4 en el callback y luego deshabilitarla.
-    // Impacto: puede anticipar un wake-up y la lectura de caudal refleja el
-    // ciclo anterior cuando el flujo se detiene.
+    // - LPTIM4 se lee en vivo para totalizacion y nunca dejar pulsos pendientes.
+    // - LPTIM3 sigue marcando la base temporal del rate con snapshots en ISR.
+    // - Cada ventana de rate queda asociada a un par consistente tiempo/pulsos.
+    // Si no llego una nueva captura desde el ultimo ciclo, no se recalcula rate.
     __HAL_LPTIM_ENABLE_IT(&hlptim3, LPTIM_IT_CC1);
 
 
     FM_LOG_NewEvent(fmx_rate_status);
 
     FM_FMC_PulseAdd(vol_pulse_delta);
-    FM_FMC_CaptureSet(vol_pulse_delta, rate_tick_delta);
     FM_FMC_TtlCalc();
     FM_FMC_AcmCalc();
-    FM_FMC_RateCalc();
+
+    if (rate_capture_ready && (rate_tick_delta > 1u)) {
+        FM_FMC_CaptureSet(rate_pulse_delta, rate_tick_delta);
+        FM_FMC_RateCalc();
+    } else {
+        FM_FMC_CaptureSet(0, 0);
+        FM_FMC_RateClear();
+    }
 
 }
 
@@ -613,6 +635,7 @@ void HAL_LPTIM_IC_CaptureCallback(LPTIM_HandleTypeDef *hlptim)
 	__HAL_LPTIM_DISABLE_IT(hlptim, LPTIM_IT_CC1);
     lptim3_last_capture = LPTIM3->CCR1;
     lptim4_last_capture = LPTIM4->CNT;
+    rate_capture_valid = TRUE;
 }
 
 /*** END OF FILE ***/

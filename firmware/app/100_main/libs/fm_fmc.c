@@ -302,6 +302,11 @@ ufp3_t FM_FMC_RateCalc()
 {
     double rate;
 
+    if ((totalizer.rate.delta_t <= 1u) || (totalizer.rate.factor_r <= 0)) {
+        totalizer.rate.rate = 0;
+        return totalizer.rate.rate;
+    }
+
     rate = totalizer.rate.delta_p;
     rate /= (totalizer.rate.delta_t-1);
     rate *= totalizer.rate.factor_r;
