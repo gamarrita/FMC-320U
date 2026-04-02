@@ -13,6 +13,7 @@
 #include "fm_lcd.h"
 #include "fm_debug.h"
 #include "fmx.h"
+#include <stdio.h>
 // --- Tipos ---
 
 /*
@@ -487,6 +488,57 @@ void FM_FMC_TtlReset()
 uint8_t FM_FMC_TotalizerFpSelGet()
 {
     return totalizer.vol_pf_sel;
+}
+
+void FM_FMC_Ufp3ToString(char *buffer,
+                         size_t buffer_size,
+                         ufp3_t value,
+                         uint8_t sel)
+{
+    uint32_t p_integer;
+    uint32_t p_frac;
+
+    if ((buffer == NULL) || (buffer_size == 0u))
+    {
+        return;
+    }
+
+    p_integer = value / 1000u;
+    p_frac = value % 1000u;
+
+    switch (sel)
+    {
+    case FM_FMC_FP_SEL_0:
+        snprintf(buffer, buffer_size, "%lu", (unsigned long) p_integer);
+        break;
+    case FM_FMC_FP_SEL_1:
+        p_frac /= 100u;
+        snprintf(buffer,
+                 buffer_size,
+                 "%lu.%01lu",
+                 (unsigned long) p_integer,
+                 (unsigned long) p_frac);
+        break;
+    case FM_FMC_FP_SEL_2:
+        p_frac /= 10u;
+        snprintf(buffer,
+                 buffer_size,
+                 "%lu.%02lu",
+                 (unsigned long) p_integer,
+                 (unsigned long) p_frac);
+        break;
+    case FM_FMC_FP_SEL_3:
+        snprintf(buffer,
+                 buffer_size,
+                 "%lu.%03lu",
+                 (unsigned long) p_integer,
+                 (unsigned long) p_frac);
+        break;
+    default:
+        FM_DEBUG_LedError(1);
+        snprintf(buffer, buffer_size, "%lu", (unsigned long) p_integer);
+        break;
+    }
 }
 
 /**

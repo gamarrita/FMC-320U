@@ -54,11 +54,14 @@ char page_buffer[FM_USART_TX3_BUF_SIZE];
 
 void FM_PPT_FormatTicket()
 {
+    uint8_t sel;
 
-    snprintf(ticket.number, MAX_FIELD_LEN, "%u", FM_FMC_TicketNumberGet());
-    snprintf(ticket.ttl, MAX_FIELD_LEN, "%lu", FM_FMC_TtlGet());
+    sel = FM_FMC_TotalizerFpSelGet();
+
+    snprintf(ticket.number, sizeof(ticket.number), "%u", FM_FMC_TicketNumberGet());
+    FM_FMC_Ufp3ToString(ticket.ttl, sizeof(ticket.ttl), FM_FMC_TtlGet(), sel);
     FM_RTC_GetPpt(ticket.time, ticket.date);
-    snprintf(ticket.acm, MAX_FIELD_LEN, "%lu", FM_FMC_AcmGet());
+    FM_FMC_Ufp3ToString(ticket.acm, sizeof(ticket.acm), FM_FMC_AcmGet(), sel);
 }
 
 void FM_PPT_PrintTicket()

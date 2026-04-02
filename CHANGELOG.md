@@ -2,7 +2,7 @@
 
 ### Firmware change log for the FM-320U computer
 
-## [feature log]
+## [01.01.011-B1]
 
 ### Docs
 
@@ -11,9 +11,8 @@
 ### Added
 
 ### Fixed
--   Se completan las funciones basicas para que el equipo guarde en flash los datos de logeos.
-    Se decidio no continuar con el MXChip, lo que sigue es un re-factor a un nuevo modulo bluetooth
-
+- Bug no imprime punto decimal en tickts
+- Bug usa copia latcheada de ACM y TTL, la pantalla que con valor inferior al detenrce la entrada de pulsos
 
 ### Refactor
 

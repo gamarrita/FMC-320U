@@ -87,8 +87,25 @@ void MenuUserBluetoothRefresh();
 void MenuUserClockEntry();
 void MenuUserClockRefresh();
 void TriggerBluetoothSlave(void);
+static void MenuUserFormatTotalizerRow1(char *buffer,
+                                        size_t buffer_size,
+                                        ufp3_t value,
+                                        uint8_t sel);
 
 // Private function bodies.
+
+static void MenuUserFormatTotalizerRow1(char *buffer,
+                                        size_t buffer_size,
+                                        ufp3_t value,
+                                        uint8_t sel)
+{
+    char formatted_value[16];
+    int width;
+
+    FM_FMC_Ufp3ToString(formatted_value, sizeof(formatted_value), value, sel);
+    width = FM_LCD_LL_ROW_1_COLS + ((sel == FM_FMC_FP_SEL_0) ? 0 : 1);
+    snprintf(buffer, buffer_size, "%*s", width, formatted_value);
+}
 
 /*
  * @brief   Primer pantalla presentada al iniciar el computador de caudales.
@@ -157,38 +174,13 @@ void MenuUserTtlRateEntry()
  */
 void MenuUserTtlRateRefresh()
 {
-    uint32_t p_integer;
-    uint32_t p_frac;
     int sel;
 
-    p_integer = FM_FMC_TtlGet();
-    p_integer /= 1000;
-
-    p_frac = FM_FMC_TtlGet();
-    p_frac %= 1000;
-
     sel = FM_FMC_TotalizerFpSelGet();
-
-    switch (sel)
-    {
-    case FM_FMC_FP_SEL_0:
-        snprintf(user_line_1, sizeof(user_line_1), "%8lu", p_integer);
-        break;
-    case FM_FMC_FP_SEL_1:
-        p_frac /= 100;
-        snprintf(user_line_1, sizeof(user_line_1), "%7lu.%1lu", p_integer, p_frac);
-        break;
-    case FM_FMC_FP_SEL_2:
-        p_frac /= 10;
-        snprintf(user_line_1, sizeof(user_line_1), "%6lu.%02lu", p_integer, p_frac);
-        break;
-    case FM_FMC_FP_SEL_3:
-        snprintf(user_line_1, sizeof(user_line_1), "%5lu.%03lu", p_integer, p_frac);
-        break;
-    default:
-        FM_DEBUG_LedError(1);
-        break;
-    }
+    MenuUserFormatTotalizerRow1(user_line_1,
+                                sizeof(user_line_1),
+                                FM_FMC_TtlGet(),
+                                sel);
     FM_LCD_PutString(user_line_1, FM_LCD_LL_ROW_1_COLS, FM_LCD_LL_ROW_1);
     MenuUserRateRefresh();
 }
@@ -231,37 +223,12 @@ void MenuUserAcmRateEntry()
 void MenuUserAcmRateRefresh()
 {
     ufp3_t acm;
-    uint32_t p_integer;  // parte entera
-    uint32_t p_frac;  // parte fracional
     int sel;
 
     //
     acm = FM_FMC_AcmGet();
     sel = FM_FMC_TotalizerFpSelGet();
-
-    p_integer = acm / 1000;
-    p_frac = acm % 1000;
-
-    switch (sel)
-    {
-    case FM_FMC_FP_SEL_0:
-        snprintf(user_line_1, sizeof(user_line_1), "%8lu", p_integer);
-        break;
-    case FM_FMC_FP_SEL_1:
-        p_frac /= 100;
-        snprintf(user_line_1, sizeof(user_line_1), "%7lu.%1lu", p_integer, p_frac);
-        break;
-    case FM_FMC_FP_SEL_2:
-        p_frac /= 10;
-        snprintf(user_line_1, sizeof(user_line_1), "%6lu.%02lu", p_integer, p_frac);
-        break;
-    case FM_FMC_FP_SEL_3:
-        snprintf(user_line_1, sizeof(user_line_1), "%5lu.%03lu", p_integer, p_frac);
-        break;
-    default:
-        FM_DEBUG_LedError(1);
-        break;
-    }
+    MenuUserFormatTotalizerRow1(user_line_1, sizeof(user_line_1), acm, sel);
 
     FM_LCD_PutString(user_line_1, FM_LCD_LL_ROW_1_COLS, FM_LCD_LL_ROW_1);
 
@@ -356,37 +323,12 @@ void MenuUserPrintAcmStatus(print_status_t sel)
 void MenuUserPrintAcmRefresh()
 {
     ufp3_t acm;
-    uint32_t p_integer;  // parte entera
-    uint32_t p_frac;  // parte fracional
     int sel;
 
     //
     acm = FM_FMC_AcmGet();
     sel = FM_FMC_TotalizerFpSelGet();
-
-    p_integer = acm / 1000;
-    p_frac = acm % 1000;
-
-    switch (sel)
-    {
-    case FM_FMC_FP_SEL_0:
-        snprintf(user_line_1, sizeof(user_line_1), "%8lu", p_integer);
-        break;
-    case FM_FMC_FP_SEL_1:
-        p_frac /= 100;
-        snprintf(user_line_1, sizeof(user_line_1), "%7lu.%1lu", p_integer, p_frac);
-        break;
-    case FM_FMC_FP_SEL_2:
-        p_frac /= 10;
-        snprintf(user_line_1, sizeof(user_line_1), "%6lu.%02lu", p_integer, p_frac);
-        break;
-    case FM_FMC_FP_SEL_3:
-        snprintf(user_line_1, sizeof(user_line_1), "%5lu.%03lu", p_integer, p_frac);
-        break;
-    default:
-        FM_DEBUG_LedError(1);
-        break;
-    }
+    MenuUserFormatTotalizerRow1(user_line_1, sizeof(user_line_1), acm, sel);
     FM_LCD_PutString(user_line_1, FM_LCD_LL_ROW_1_COLS, FM_LCD_LL_ROW_1);
 }
 

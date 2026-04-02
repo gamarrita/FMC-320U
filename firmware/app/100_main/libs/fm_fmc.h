@@ -8,6 +8,7 @@
 
 #include "fm_lcd_ll.h"
 #include "fmx.h"
+#include <stddef.h>
 #include <stdint.h>
 
 /** Topo de dato punto fijo, sin signo, tres decimales. */
@@ -116,6 +117,10 @@ void     FM_FMC_RateFpInc(void);
 
 uint8_t          FM_FMC_TotalizerFpSelGet(void);
 void             FM_FMC_TotalizerFpInc(void);
+void             FM_FMC_Ufp3ToString(char *buffer,
+                                     size_t buffer_size,
+                                     ufp3_t value,
+                                     uint8_t sel);
 void             FM_FMC_TotalizerStrUnitGet(char **string,
                                             fm_fmc_vol_unit_t unit);
 void             FM_FMC_TotalizerTimeUnitSel(fm_fmc_time_unit_t sel);
