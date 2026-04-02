@@ -11,8 +11,15 @@
 ### Added
 
 ### Fixed
-- Bug no imprime punto decimal en tickts
-- Bug usa copia latcheada de ACM y TTL, la pantalla que con valor inferior al detenrce la entrada de pulsos
+- Fix ticket printing of ACM/TTL values (was printing raw x1000 values)
+- Reuse common ufp3_t formatting logic based on FM_FMC_TotalizerFpSelGet()
+- Align ticket output with LCD representation (no rounding, truncation preserved)
+- Remove duplicated formatting logic across user menu and ticket paths
+- Preserve existing LCD alignment/format behavior
+
+Also:
+- Replace unsafe snprintf size usage with sizeof(destination) where applicable
+
 
 ### Refactor
 
